@@ -1,0 +1,11 @@
+[core]
+	excludesfile = /Users/jarrodldavis/.gitignore_global
+[user]
+	email = dev@jarrodldavis.com
+	name = Jarrod Davis
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[push]
+	default = simple
