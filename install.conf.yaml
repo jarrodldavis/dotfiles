@@ -4,4 +4,5 @@
     ~/.bash_profile: bash_profile
     ~/.gitconfig: gitconfig
 
-
+- shell:
+    - [git submodule update --init --recursive, Installing submodules]
