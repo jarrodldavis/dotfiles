@@ -9,3 +9,19 @@
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
+    -
+      command: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+      description: Installing Homebrew
+      stdout: true
+      stderr: true
+      stdin: true
+    -
+      command: brew tap Homebrew/bundle
+      description: Tapping Homebrew Bundle
+      stdout: true
+      stderr: true
+    -
+      command: brew bundle
+      description: Installing Homebrew packages
+      stdout: true
+      stderr: true
