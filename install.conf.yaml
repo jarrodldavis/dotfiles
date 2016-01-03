@@ -3,6 +3,9 @@
 - link:
     ~/.bash_profile: bash_profile
     ~/.gitconfig: gitconfig
+    ~/.config/thefuck:
+      create: true
+      path: thefuck
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
