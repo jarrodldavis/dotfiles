@@ -3,9 +3,12 @@
 [user]
 	email = dev@jarrodldavis.com
 	name = Jarrod Davis
+	signingkey = D2B382A257972810
 [filter "lfs"]
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
 	required = true
 [push]
 	default = simple
+[commit]
+	gpgsign = true
