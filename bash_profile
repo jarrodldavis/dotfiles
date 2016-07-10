@@ -1,4 +1,4 @@
-alias git=hub
+eval "$(hub alias -s)"
 
 eval "$(thefuck --alias)"
 
