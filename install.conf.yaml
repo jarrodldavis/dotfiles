@@ -4,6 +4,7 @@
     ~/.bash_profile: bash_profile
     ~/.gitconfig: gitconfig
     ~/.gitignore_global: gitignore_global
+    ~/.vimrc: vimrc
     ~/.config/thefuck:
       create: true
       path: thefuck
