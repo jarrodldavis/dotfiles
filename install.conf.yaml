@@ -1,3 +1,8 @@
+- defaults:
+    shell:
+      stdout: true
+      stderr: true
+      stdin: true
 - clean: ['~']
 
 - link:
@@ -17,28 +22,9 @@
 
         EOF # Use heredoc to input "RETURN" for automated install
       description: Installing Homebrew
-      stdout: true
-      stderr: true
-      stdin: true
-    -
-      command: brew tap Homebrew/bundle
-      description: Tapping Homebrew Bundle
-      stdout: true
-      stderr: true
-    -
-      command: brew bundle
-      description: Installing Homebrew packages
-      stdout: true
-      stderr: true
+    - [brew tap Homebrew/bundle, Tapping Homebrew Bundle]
+    - [brew bundle, Installing Homebrew packages]
     -
       command: '[ -d ~/.vim/bundle/Vundle.vim/ ] || git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
       description: Installing Vundle
-      stdout: true
-      stderr: true
-      stdin: true
-    -
-      command: 'vim +PluginInstall +qall'
-      description: Installing vim plugins
-      stdout: true
-      stderr: true
-      stdin: true
+    - [vim +PluginInstall +qall, Installing vim plugins]
