@@ -2,6 +2,7 @@ set ignorecase
 set smartcase
 set relativenumber
 set nocompatible
+set backspace=indent,eol,start
 
 nmap <C-a> ggVG$
 
