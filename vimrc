@@ -6,6 +6,11 @@ set backspace=indent,eol,start
 
 nmap <C-a> ggVG$
 
+nmap <A-o> o<Esc>
+nmap <A-O> O<Esc>
+nmap ø o<Esc>
+nmap Ø O<Esc>
+
 syntax on
 
 " Vundle
