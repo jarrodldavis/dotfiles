@@ -12,7 +12,10 @@
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
     -
-      command: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+      command: |
+        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"<<EOF
+
+        EOF # Use heredoc to input "RETURN" for automated install
       description: Installing Homebrew
       stdout: true
       stderr: true
