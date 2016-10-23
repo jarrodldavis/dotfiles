@@ -15,5 +15,7 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 
+Plugin 'leafgarland/typescript-vim'
+
 call vundle#end()
 filetype indent plugin on
