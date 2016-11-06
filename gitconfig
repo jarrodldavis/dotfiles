@@ -16,6 +16,7 @@
 	program = /usr/local/bin/gpg
 [merge]
 	tool = webstorm
+	conflictStyle = diff3
 [diff]
 	tool = webstorm
 [difftool "webstorm"]
