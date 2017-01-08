@@ -6,21 +6,20 @@
 - clean: ['~']
 
 - link:
-    ~/.bash_profile: bash_profile
-    ~/.gitconfig: gitconfig
-    ~/.gitignore_global: gitignore_global
-    ~/.vimrc: vimrc
+    ~/.bash_profile:
+    ~/.gitconfig:
+    ~/.gitignore_global:
+    ~/.vimrc:
     ~/.config/thefuck:
       create: true
-      path: thefuck
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
     -
       command: |
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"<<EOF
-
-        EOF # Use heredoc to input "RETURN" for automated install
+        # Use heredoc to input "RETURN" for automated install
+        EOF
       description: Installing Homebrew
     - [brew tap Homebrew/bundle, Tapping Homebrew Bundle]
     - [brew bundle, Installing Homebrew packages]
