@@ -1,5 +1,6 @@
 set ignorecase
 set smartcase
+set number
 set relativenumber
 set nocompatible
 set backspace=indent,eol,start
