@@ -12,3 +12,5 @@ export GPG_TTY=$(tty)
 
 export GOPATH=$HOME/dev/golang
 export PATH=$PATH:$GOPATH/bin
+
+eval $(/usr/libexec/path_helper -s)
