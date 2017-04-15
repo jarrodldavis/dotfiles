@@ -5,6 +5,10 @@ set relativenumber
 set nocompatible
 set backspace=indent,eol,start
 
+set expandtab
+set tabstop=4
+set shiftwidth=4
+
 nmap <C-a> ggVG$
 
 nmap <A-o> o<Esc>
