@@ -10,7 +10,7 @@
 	smudge = git-lfs smudge %f
 	required = true
 [push]
-	default = simple
+	default = current
 [commit]
 	gpgsign = true
 [gpg]
