@@ -1,6 +1,6 @@
 [core]
 	excludesfile = /Users/jarrodldavis/.gitignore_global
-	pager = diff-so-fancy | less --tabs=4 -RFX
+	pager = diff-so-fancy | less --tabs=4
 [user]
 	email = dev@jarrodldavis.com
 	name = Jarrod Davis
