@@ -2,7 +2,7 @@
 	excludesfile = /Users/jarrodldavis/.gitignore_global
 	pager = diff-so-fancy | less --tabs=4
 [user]
-	email = dev@jarrodldavis.com
+	email = developer@jarrodldavis.com
 	name = Jarrod Davis
 	signingkey = D2B382A257972810
 [filter "lfs"]
