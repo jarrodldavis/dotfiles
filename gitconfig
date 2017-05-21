@@ -20,3 +20,7 @@
 	conflictStyle = diff3
 [diff]
 	tool = vimdiff
+[fetch]
+	prune = true
+[alias]
+    prune-merged = !git branch --merged | egrep -v '(^\\*|master|develop)' | xargs git branch -d
