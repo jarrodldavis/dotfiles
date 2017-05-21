@@ -1,0 +1,13 @@
+{
+  "editor.renderWhitespace": "all",
+  "editor.formatOnType": true,
+  "editor.formatOnPaste": true,
+  "editor.renderIndentGuides": true,
+  "workbench.editor.swipeToNavigate": true,
+  "workbench.iconTheme": "vscode-icon-theme",
+  "window.reopenFolders": "none",
+  "window.restoreFullscreen": true,
+  "files.insertFinalNewline": true,
+  "csharpfixformat.sort.usings.splitGroups": true,
+  "csharpfixformat.style.braces.onSameLine": false
+}
