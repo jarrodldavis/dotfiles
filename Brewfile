@@ -52,6 +52,7 @@ brew "libsodium"
 brew "libusb-compat"
 brew "libyaml"
 brew "makedepend"
+brew "mas"
 brew "mix-completion"
 brew "mongodb"
 brew "mono"
@@ -94,3 +95,19 @@ cask "postman"
 cask "suspicious-package"
 cask "tunnelbear"
 cask "visual-studio-code"
+mas "1Blocker", id: 1107421413
+mas "BitdefenderVirusScanner", id: 500154009
+mas "Deliveries", id: 924726344
+mas "Drop", id: 1173932628
+mas "Jumpshare", id: 889922906
+mas "Microsoft Remote Desktop", id: 715768417
+mas "Monster", id: 942252191
+mas "Noizio", id: 928871589
+mas "Numbers", id: 409203825
+mas "OneDrive", id: 823766827
+mas "Pages", id: 409201541
+mas "Shazam", id: 897118787
+mas "Soulver", id: 413965349
+mas "Tumblr", id: 929285034
+mas "Web2App", id: 1075797471
+mas "Xcode", id: 497799835
