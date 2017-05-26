@@ -12,6 +12,7 @@
 [push]
 	default = current
 	gpgsign = if-asked
+	followTags = true
 [commit]
 	gpgsign = true
 [gpg]
