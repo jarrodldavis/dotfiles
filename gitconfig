@@ -11,6 +11,7 @@
 	required = true
 [push]
 	default = current
+	gpgsign = if-asked
 [commit]
 	gpgsign = true
 [gpg]
@@ -24,3 +25,11 @@
 	prune = true
 [alias]
     prune-merged = !git branch --merged | egrep -v '(^\\*|master|develop)' | xargs git branch -d
+[tag]
+	forceSignAnnotated = true
+[gitflow "release.finish"]
+	sign = true
+[gitflow "hotfix.finish"]
+	sign = true
+[gitflow "release.branch"]
+	sign = true
