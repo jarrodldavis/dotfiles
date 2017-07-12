@@ -98,9 +98,7 @@ cask "suspicious-package"
 cask "tunnelbear"
 cask "visual-studio-code"
 mas "1Blocker", id: 1107421413
-mas "BitdefenderVirusScanner", id: 500154009
 mas "Deliveries", id: 924726344
-mas "Drop", id: 1173932628
 mas "Jumpshare", id: 889922906
 mas "Microsoft Remote Desktop", id: 715768417
 mas "Monster", id: 942252191
