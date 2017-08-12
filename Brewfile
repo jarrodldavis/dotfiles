@@ -105,9 +105,7 @@ mas "Monster", id: 942252191
 mas "Noizio", id: 928871589
 mas "Numbers", id: 409203825
 mas "OneDrive", id: 823766827
-mas "Pages", id: 409201541
 mas "Shazam", id: 897118787
 mas "Soulver", id: 413965349
 mas "Tumblr", id: 929285034
 mas "Web2App", id: 1075797471
-mas "Xcode", id: 497799835
