@@ -110,6 +110,7 @@ mas "Noizio", id: 928871589
 mas "Numbers", id: 409203825
 mas "OneDrive", id: 823766827
 mas "Shazam", id: 897118787
+mas "Slack", id: 803453959
 mas "Soulver", id: 413965349
 mas "Tumblr", id: 929285034
 mas "Tweetbot", id: 557168941
