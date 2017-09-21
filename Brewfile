@@ -1,3 +1,4 @@
+tap "buo/cask-upgrade"
 tap "caskroom/cask"
 tap "caskroom/drivers"
 tap "caskroom/fonts"
