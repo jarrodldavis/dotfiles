@@ -50,6 +50,7 @@ brew "graphviz"
 brew "grunt-completion"
 brew "node"
 brew "heroku"
+brew "http-server"
 brew "hub"
 brew "leiningen"
 brew "libsodium"
@@ -102,6 +103,7 @@ cask "tunnelbear"
 cask "visual-studio-code"
 cask "caskroom/versions/docker-edge"
 mas "1Blocker", id: 1107421413
+mas "Affinity Designer", id: 824171161
 mas "Apple Configurator 2", id: 1037126344
 mas "Deliveries", id: 924726344
 mas "Jumpshare", id: 889922906
