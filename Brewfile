@@ -101,6 +101,7 @@ cask "shortcat"
 cask "suspicious-package"
 cask "tunnelbear"
 cask "visual-studio-code"
+cask "caskroom/versions/atom-beta"
 cask "caskroom/versions/docker-edge"
 mas "1Blocker", id: 1107421413
 mas "Affinity Designer", id: 824171161
