@@ -50,7 +50,11 @@ brew "heroku"
 brew "node"
 brew "http-server"
 brew "hub"
+brew "libimobiledevice", args: ["HEAD"]
+brew "ideviceinstaller"
 brew "imagemagick"
+brew "ios-deploy"
+brew "ios-webkit-debug-proxy"
 brew "leiningen"
 brew "libsodium"
 brew "libusb-compat"
@@ -80,6 +84,7 @@ brew "xonsh"
 brew "yarn"
 brew "go-delve/delve/delve"
 cask "aerial"
+cask "android-studio"
 cask "appcleaner"
 cask "backblaze"
 cask "chromium"
@@ -113,3 +118,4 @@ mas "Soulver", id: 413965349
 mas "Tumblr", id: 929285034
 mas "Tweetbot", id: 557168941
 mas "Web2App", id: 1075797471
+mas "Xcode", id: 497799835

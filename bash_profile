@@ -12,5 +12,6 @@ export GPG_TTY=$(tty)
 
 export GOPATH=$HOME/dev/golang
 export PATH=$PATH:$GOPATH/bin
+export PATH=$HOME/dev/flutter/bin:$PATH
 
 eval $(/usr/libexec/path_helper -s)

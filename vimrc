@@ -27,5 +27,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'leafgarland/typescript-vim'
 
+Plugin 'dart-lang/dart-vim-plugin'
+
 call vundle#end()
 filetype indent plugin on
