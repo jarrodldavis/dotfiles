@@ -4,6 +4,8 @@ eval "$(hub alias -s)"
 
 eval "$(thefuck --alias)"
 
+eval "$(nodenv init -)"
+
 if brew command command-not-found-init > /dev/null; then eval "$(brew command-not-found-init)"; fi
 
 if [ -f ~/.homebrew_github_api_token ]; then . ~/.homebrew_github_api_token; fi
