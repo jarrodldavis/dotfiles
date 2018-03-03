@@ -17,16 +17,11 @@
       create: true
       force: true
 
+- brewfile:
+    - Brewfile
+
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
-    -
-      command: |
-        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"<<EOF
-        # Use heredoc to input "RETURN" for automated install
-        EOF
-      description: Installing Homebrew
-    - [brew tap Homebrew/bundle, Tapping Homebrew Bundle]
-    - [brew bundle, Installing Homebrew packages]
     -
       command: '[ -d ~/.vim/bundle/Vundle.vim/ ] || git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
       description: Installing Vundle

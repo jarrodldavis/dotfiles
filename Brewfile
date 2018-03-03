@@ -1,5 +1,4 @@
 tap "homebrew/livecheck"
-tap "homebrew/completions"
 tap "homebrew/command-not-found"
 tap "homebrew/core"
 tap "homebrew/bundle"
