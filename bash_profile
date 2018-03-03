@@ -1,4 +1,11 @@
-eval $(/usr/libexec/path_helper -s)
+if [ $PROFILE_LOADED ]
+then
+    export PATH=$LOADED_PATH
+    echo "Profile has already been loaded."
+    return 0
+fi
+
+echo "Loading profile..."
 
 eval "$(hub alias -s)"
 
@@ -15,5 +22,9 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then . $(brew --prefix)/etc/bash
 export GPG_TTY=$(tty)
 
 export GOPATH=$HOME/dev/golang
-export PATH=$PATH:$GOPATH/bin
+export PATH=$GOPATH/bin:$PATH
+
 export PATH=$HOME/dev/flutter/bin:$PATH
+
+export PROFILE_LOADED=true
+export LOADED_PATH=$PATH
