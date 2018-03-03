@@ -10,7 +10,7 @@
   "editor.minimap.enabled": false,
   "editor.lineNumbers": "relative",
   "search.useIgnoreFiles": true,
-  "vim.disableExtension": true,
+  "vim.disableExtension": false,
   "gitlens.advanced.messages": {
     "suppressCommitHasNoPreviousCommitWarning": false,
     "suppressCommitNotFoundWarning": false,
