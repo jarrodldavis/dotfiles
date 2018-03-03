@@ -3,6 +3,14 @@
       stdout: true
       stderr: true
       stdin: true
+
+- shell:
+    - [git submodule update --init --recursive, Installing submodules]
+    -
+      command: '[ -d ~/.vim/bundle/Vundle.vim/ ] || git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
+      description: Installing Vundle
+    - [vim +PluginInstall +qall, Installing vim plugins]
+
 - clean: ['~']
 
 - link:
@@ -19,10 +27,3 @@
 
 - brewfile:
     - Brewfile
-
-- shell:
-    - [git submodule update --init --recursive, Installing submodules]
-    -
-      command: '[ -d ~/.vim/bundle/Vundle.vim/ ] || git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
-      description: Installing Vundle
-    - [vim +PluginInstall +qall, Installing vim plugins]
