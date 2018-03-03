@@ -1,13 +1,30 @@
+// Place your settings in this file to overwrite the default settings
 {
   "editor.renderWhitespace": "all",
-  "editor.formatOnType": true,
-  "editor.formatOnPaste": true,
   "editor.renderIndentGuides": true,
-  "workbench.editor.swipeToNavigate": true,
-  "workbench.iconTheme": "vscode-icon-theme",
-  "window.reopenFolders": "none",
   "window.restoreFullscreen": true,
-  "files.insertFinalNewline": true,
-  "csharpfixformat.sort.usings.splitGroups": true,
-  "csharpfixformat.style.braces.onSameLine": false
+  "editor.quickSuggestionsDelay": 1,
+  "editor.quickSuggestions": {
+    "other": true
+  },
+  "editor.minimap.enabled": false,
+  "editor.lineNumbers": "relative",
+  "search.useIgnoreFiles": true,
+  "vim.disableExtension": true,
+  "gitlens.advanced.messages": {
+    "suppressCommitHasNoPreviousCommitWarning": false,
+    "suppressCommitNotFoundWarning": false,
+    "suppressFileNotUnderSourceControlWarning": false,
+    "suppressGitVersionWarning": false,
+    "suppressLineUncommittedWarning": false,
+    "suppressNoRepositoryWarning": false,
+    "suppressResultsExplorerNotice": true,
+    "suppressUpdateNotice": true,
+    "suppressWelcomeNotice": true
+  },
+  "gitlens.showWhatsNewAfterUpgrades": false,
+  "eslint.packageManager": "yarn",
+  "gitlens.gitExplorer.files.layout": "auto",
+  "git.autofetch": true,
+  "vim.hlsearch": true
 }

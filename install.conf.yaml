@@ -12,6 +12,10 @@
     ~/.vimrc:
     ~/.config/thefuck:
       create: true
+    ~/Library/Application Support/Code/User/settings.json:
+      path: vscode.json
+      create: true
+      force: true
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
