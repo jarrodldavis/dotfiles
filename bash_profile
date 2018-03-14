@@ -1,3 +1,8 @@
+# Aliases are not inherited in subsheels
+
+eval "$(hub alias -s)"
+eval "$(thefuck --alias)"
+
 if [ $PROFILE_LOADED ]
 then
     export PATH=$LOADED_PATH
@@ -6,10 +11,6 @@ then
 fi
 
 echo "Loading profile..."
-
-eval "$(hub alias -s)"
-
-eval "$(thefuck --alias)"
 
 eval "$(nodenv init -)"
 
