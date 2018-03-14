@@ -26,5 +26,18 @@
   "eslint.packageManager": "yarn",
   "gitlens.gitExplorer.files.layout": "auto",
   "git.autofetch": true,
-  "vim.hlsearch": true
+  "vim.hlsearch": true,
+  "editor.snippetSuggestions": "none",
+  "vim.otherModesKeyBindings": [
+    {
+      "before": ["u"],
+      "after": [],
+      "commands": [{ "command": "undo" }]
+    },
+    {
+      "before": ["<C-r>"],
+      "after": [],
+      "commands": [{ "command": "redo" }]
+    }
+  ]
 }
