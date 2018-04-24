@@ -61,6 +61,7 @@ brew "mix-completion"
 brew "ncdu"
 brew "nmap"
 brew "pkg-config"
+brew "node-build", args: ["HEAD"]
 brew "nodenv"
 brew "open-completion"
 brew "perl"
