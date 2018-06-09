@@ -21,10 +21,6 @@ brew "brew-cask-completion"
 brew "bundler-completion"
 brew "cocoapods"
 brew "diff-so-fancy"
-brew "libgpg-error"
-brew "libksba"
-brew "pth"
-brew "dirmngr"
 brew "docker-completion"
 brew "docker-compose-completion"
 brew "dos2unix"
@@ -36,8 +32,11 @@ brew "gem-completion"
 brew "gibo"
 brew "git"
 brew "git-when-merged"
+brew "libgpg-error"
+brew "libksba"
 brew "libusb"
 brew "gnupg"
+brew "pth"
 brew "gpg-agent"
 brew "libtool"
 brew "graphviz"
@@ -46,18 +45,10 @@ brew "node"
 brew "heroku"
 brew "http-server"
 brew "hub"
-brew "libimobiledevice", args: ["HEAD"]
-brew "ideviceinstaller"
 brew "imagemagick"
-brew "ios-deploy"
-brew "ios-webkit-debug-proxy"
 brew "leiningen"
-brew "libsodium"
-brew "libusb-compat"
 brew "libyaml"
-brew "makedepend"
 brew "mas"
-brew "mix-completion"
 brew "ncdu"
 brew "nmap"
 brew "pkg-config"
@@ -79,43 +70,26 @@ brew "tree"
 brew "vim"
 brew "watch"
 brew "wget"
-brew "xonsh"
 brew "yarn"
 brew "go-delve/delve/delve"
 brew "nodenv/nodenv/nodenv-package-json-engine"
 brew "tavianator/tap/bfs"
 cask "aerial"
-cask "android-studio"
 cask "appcleaner"
 cask "backblaze"
 cask "chromium"
 cask "dotnet-sdk"
-cask "duet"
 cask "emojipedia"
-cask "firefox"
-cask "jetbrains-toolbox"
-cask "mono-mdk"
 cask "postman"
-cask "shortcat"
 cask "suspicious-package"
 cask "tunnelbear"
 cask "visual-studio-code"
-cask "homebrew/cask-versions/atom-beta"
 cask "homebrew/cask-versions/docker-edge"
 mas "1Blocker", id: 1107421413
-mas "Affinity Designer", id: 824171161
-mas "Apple Configurator 2", id: 1037126344
 mas "Deliveries", id: 924726344
 mas "Jumpshare", id: 889922906
-mas "Microsoft Remote Desktop", id: 715768417
 mas "Monster", id: 942252191
-mas "Noizio", id: 928871589
 mas "Numbers", id: 409203825
 mas "OneDrive", id: 823766827
-mas "Shazam", id: 897118787
-mas "Slack", id: 803453959
 mas "Soulver", id: 413965349
-mas "Tumblr", id: 929285034
-mas "Tweetbot", id: 557168941
-mas "Web2App", id: 1075797471
 mas "Xcode", id: 497799835
