@@ -1,28 +1,37 @@
 // Place your settings in this file to overwrite the default settings
 {
-  "editor.renderWhitespace": "all",
-  "editor.renderIndentGuides": true,
-  "window.restoreFullscreen": true,
+  // built in
+  "editor.lineNumbers": "relative",
+  "editor.minimap.enabled": false,
   "editor.quickSuggestionsDelay": 1,
   "editor.quickSuggestions": {
     "other": true
   },
-  "editor.minimap.enabled": false,
-  "editor.lineNumbers": "relative",
+  "editor.renderWhitespace": "all",
+  "editor.renderIndentGuides": true,
+  "editor.snippetSuggestions": "none",
+
+  "git.autofetch": true,
+
   "search.useIgnoreFiles": true,
-  "vim.disableExtension": false,
+
+  "window.restoreFullscreen": true,
+
+  // extensions
+  "eslint.packageManager": "yarn",
+
   "gitlens.advanced.messages": {
     "suppressResultsExplorerNotice": true,
     "suppressShowKeyBindingsNotice": true,
     "suppressUpdateNotice": true,
     "suppressWelcomeNotice": true
   },
-  "gitlens.showWhatsNewAfterUpgrades": false,
-  "eslint.packageManager": "yarn",
   "gitlens.gitExplorer.files.layout": "auto",
-  "git.autofetch": true,
+  "gitlens.historyExplorer.enabled": true,
+  "gitlens.showWhatsNewAfterUpgrades": false,
+
+  "vim.disableExtension": false,
   "vim.hlsearch": true,
-  "editor.snippetSuggestions": "none",
   "vim.otherModesKeyBindings": [
     {
       "before": ["u"],
