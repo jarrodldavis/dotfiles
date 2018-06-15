@@ -92,4 +92,3 @@ mas "Monster", id: 942252191
 mas "Numbers", id: 409203825
 mas "OneDrive", id: 823766827
 mas "Soulver", id: 413965349
-mas "Xcode", id: 497799835
