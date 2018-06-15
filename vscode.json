@@ -11,11 +11,21 @@
   "editor.renderIndentGuides": true,
   "editor.snippetSuggestions": "none",
 
+  "files.autoSave": "onFocusChange",
+
   "git.autofetch": true,
+  "git.enableCommitSigning": true,
+  "git.inputValidation": "always",
+  "git.promptToSaveFilesBeforeCommit": true,
 
   "search.useIgnoreFiles": true,
 
+  "terminal.integrated.cursorBlinking": true,
+
   "window.restoreFullscreen": true,
+  "window.restoreWindows": "all",
+
+  "workbench.commandPalette.preserveInput": true,
 
   // extensions
   "eslint.packageManager": "yarn",
@@ -26,9 +36,22 @@
     "suppressUpdateNotice": true,
     "suppressWelcomeNotice": true
   },
+  "gitlens.codeLens.scopes": [
+    "document",
+    "containers",
+    "blocks"
+  ],
+  "gitlens.defaultGravatarsStyle": "identicon",
   "gitlens.gitExplorer.files.layout": "auto",
   "gitlens.historyExplorer.enabled": true,
+  "gitlens.historyExplorer.location": "scm",
+  "gitlens.resultsExplorer.location": "scm",
   "gitlens.showWhatsNewAfterUpgrades": false,
+
+  "gitProjectManager.baseProjectsFolders": ["~/dev/"],
+  "gitProjectManager.ignoredFolders": ["node_modules", "bin", "obj"],
+
+  "npm.enableScriptExplorer": true,
 
   "vim.disableExtension": false,
   "vim.hlsearch": true,
