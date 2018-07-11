@@ -1,4 +1,4 @@
-### https://raw.github.com/github/gitignore/fad779220742a6d54ccfc0c1a0e5b3d820253de6/Global/macOS.gitignore
+### https://raw.github.com/github/gitignore/967cd6479319efde70a6fa44fa1bfa02020f2357/Global/macOS.gitignore
 
 # General
 .DS_Store
@@ -28,39 +28,47 @@ Temporary Items
 .apdisk
 
 
-### https://raw.github.com/github/gitignore/fad779220742a6d54ccfc0c1a0e5b3d820253de6/Global/JetBrains.gitignore
+### https://raw.github.com/github/gitignore/967cd6479319efde70a6fa44fa1bfa02020f2357/Global/JetBrains.gitignore
 
-# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
-# User-specific stuff:
+# User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml
-.idea/dictionaries
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
 
-# Sensitive or high-churn files:
+# Sensitive or high-churn files
 .idea/**/dataSources/
 .idea/**/dataSources.ids
-.idea/**/dataSources.xml
 .idea/**/dataSources.local.xml
 .idea/**/sqlDataSources.xml
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
 
-# Gradle:
+# Gradle
 .idea/**/gradle.xml
 .idea/**/libraries
 
-# CMake
-cmake-build-debug/
+# Gradle and Maven with auto-import
+# When using Gradle or Maven with auto-import, you should exclude module files,
+# since they will be recreated, and may cause churn.  Uncomment if using
+# auto-import.
+# .idea/modules.xml
+# .idea/*.iml
+# .idea/modules
 
-# Mongo Explorer plugin:
+# CMake
+cmake-build-*/
+
+# Mongo Explorer plugin
 .idea/**/mongoSettings.xml
 
-## File-based project format:
+# File-based project format
 *.iws
-
-## Plugin-specific files:
 
 # IntelliJ
 out/
@@ -79,5 +87,86 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+
+# Editor-based Rest Client
+.idea/httpRequests
+
+
+### https://raw.github.com/github/gitignore/967cd6479319efde70a6fa44fa1bfa02020f2357/Global/Backup.gitignore
+
+*.bak
+*.gho
+*.ori
+*.orig
+*.tmp
+
+
+### https://raw.github.com/github/gitignore/967cd6479319efde70a6fa44fa1bfa02020f2357/Global/GPG.gitignore
+
+secring.*
+
+
+
+### https://raw.github.com/github/gitignore/967cd6479319efde70a6fa44fa1bfa02020f2357/Global/Patch.gitignore
+
+*.orig
+*.rej
+
+
+### https://raw.github.com/github/gitignore/967cd6479319efde70a6fa44fa1bfa02020f2357/Global/Vim.gitignore
+
+# Swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Session
+Session.vim
+
+# Temporary
+.netrwhist
+*~
+# Auto-generated tag files
+tags
+# Persistent undo
+[._]*.un~
+
+
+### https://raw.github.com/github/gitignore/967cd6479319efde70a6fa44fa1bfa02020f2357/Global/VisualStudioCode.gitignore
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+
+### https://raw.github.com/github/gitignore/967cd6479319efde70a6fa44fa1bfa02020f2357/Global/Xcode.gitignore
+
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+## User settings
+xcuserdata/
+
+## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
+*.xcscmblueprint
+*.xccheckout
+
+## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
+build/
+DerivedData/
+*.moved-aside
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
 
 
