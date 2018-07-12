@@ -13,3 +13,5 @@ export GOPATH=$HOME/dev/golang
 export PATH=$GOPATH/bin:$PATH
 
 export PATH=$HOME/dev/flutter/bin:$PATH
+
+export PATH=$HOME/.dotfiles/scripts:$PATH

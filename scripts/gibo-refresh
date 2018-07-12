@@ -1,0 +1,24 @@
+#!/bin/sh
+
+if [ ! "$1" ]
+then
+    echo "usage: $(basename $0) file"
+    exit 1
+fi
+
+if [ ! -f "$1" ]
+then
+    echo "$(basename $0): $1: no such file or directory"
+    exit 2
+fi
+
+gibo dump $(awk -F[/] '
+/^###/ {
+    if ($7 == "Global") {
+        a = $8
+    } else {
+        a = $7
+    }
+    split(a, b, ".")
+    print b[1]
+}' $1) > $1
