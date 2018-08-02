@@ -52,7 +52,7 @@ brew "mas"
 brew "ncdu"
 brew "nmap"
 brew "pkg-config"
-brew "node-build", args: ["HEAD"], link: false
+brew "node-build", args: ["HEAD"]
 brew "nodenv"
 brew "open-completion"
 brew "perl"
