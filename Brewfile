@@ -82,6 +82,7 @@ cask "docker-edge"
 cask "dotnet-sdk"
 cask "emojipedia"
 cask "jetbrains-toolbox"
+cask "megasync"
 cask "postman"
 cask "suspicious-package"
 cask "tunnelbear"
@@ -91,5 +92,5 @@ mas "Deliveries", id: 924726344
 mas "Jumpshare", id: 889922906
 mas "Monster", id: 942252191
 mas "Numbers", id: 409203825
-mas "OneDrive", id: 823766827
+mas "Pages", id: 409201541
 mas "Soulver", id: 413965349
