@@ -9,7 +9,7 @@
   },
   "editor.renderWhitespace": "all",
   "editor.renderIndentGuides": true,
-  "editor.snippetSuggestions": "none",
+  "editor.snippetSuggestions": "bottom",
 
   "files.autoSave": "onFocusChange",
 
@@ -66,5 +66,8 @@
       "after": [],
       "commands": [{ "command": "redo" }]
     }
-  ]
+  ],
+  "editor.largeFileOptimizations": false,
+  "editor.tabCompletion": true,
+  "explorer.confirmDragAndDrop": false
 }
