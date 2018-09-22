@@ -15,3 +15,5 @@ export PATH=$GOPATH/bin:$PATH
 export PATH=$HOME/dev/flutter/bin:$PATH
 
 export PATH=$HOME/.dotfiles/scripts:$PATH
+
+export PATH="$HOME/.fastlane/bin:$PATH"
