@@ -92,6 +92,7 @@ cask "suspicious-package"
 cask "tunnelbear"
 cask "visual-studio-code"
 mas "1Blocker", id: 1107421413
+mas "Apple Configurator 2", id: 1037126344
 mas "Deliveries", id: 924726344
 mas "Jumpshare", id: 889922906
 mas "Monster", id: 942252191
