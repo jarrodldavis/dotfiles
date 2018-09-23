@@ -79,6 +79,7 @@ cask "aerial"
 cask "alfred"
 cask "appcleaner"
 cask "backblaze"
+cask "bonjeff"
 cask "chromium"
 cask "docker-edge"
 cask "dotnet-sdk"
@@ -102,4 +103,5 @@ mas "Monster", id: 942252191
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Soulver", id: 413965349
+mas "StopTheMadness", id: 1376402589
 mas "Xcode", id: 497799835
