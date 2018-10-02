@@ -69,5 +69,6 @@
   ],
   "editor.largeFileOptimizations": false,
   "editor.tabCompletion": true,
-  "explorer.confirmDragAndDrop": false
+  "explorer.confirmDragAndDrop": false,
+  "omnisharp.path": "latest"
 }

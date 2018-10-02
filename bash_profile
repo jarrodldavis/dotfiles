@@ -17,3 +17,5 @@ export PATH=$HOME/dev/flutter/bin:$PATH
 export PATH=$HOME/.dotfiles/scripts:$PATH
 
 export PATH="$HOME/.fastlane/bin:$PATH"
+
+export MONO_GAC_PREFIX="/usr/local"
