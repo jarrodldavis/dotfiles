@@ -95,10 +95,12 @@ cask "suspicious-package"
 cask "tunnelbear"
 cask "visual-studio-code"
 mas "1Blocker", id: 1107421413
+mas "Affinity Designer", id: 824171161
 mas "Apple Configurator 2", id: 1037126344
 mas "Deliveries", id: 924726344
 mas "Jumpshare", id: 889922906
 mas "Monster", id: 942252191
+mas "Noizio", id: 928871589
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Soulver", id: 413965349
