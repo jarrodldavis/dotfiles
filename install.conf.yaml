@@ -24,6 +24,10 @@
       path: vscode.json
       create: true
       force: true
+    ~/.gnupg/gpg-agent.conf:
+      path: gpg-agent.conf
+      create: true
+      force: true
 
 - brewfile:
     - Brewfile
