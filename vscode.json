@@ -1,6 +1,7 @@
 // Place your settings in this file to overwrite the default settings
 {
   // built in
+  "editor.largeFileOptimizations": false,
   "editor.lineNumbers": "relative",
   "editor.minimap.enabled": false,
   "editor.quickSuggestionsDelay": 1,
@@ -10,6 +11,9 @@
   "editor.renderWhitespace": "all",
   "editor.renderIndentGuides": true,
   "editor.snippetSuggestions": "bottom",
+  "editor.tabCompletion": true,
+
+  "explorer.confirmDragAndDrop": false,
 
   "files.autoSave": "onFocusChange",
 
@@ -53,6 +57,8 @@
 
   "npm.enableScriptExplorer": true,
 
+  "omnisharp.path": "latest",
+
   "vim.disableExtension": false,
   "vim.hlsearch": true,
   "vim.otherModesKeyBindings": [
@@ -67,8 +73,4 @@
       "commands": [{ "command": "redo" }]
     }
   ],
-  "editor.largeFileOptimizations": false,
-  "editor.tabCompletion": true,
-  "explorer.confirmDragAndDrop": false,
-  "omnisharp.path": "latest"
 }
