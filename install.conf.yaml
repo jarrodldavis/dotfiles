@@ -28,6 +28,8 @@
       path: gpg-agent.conf
       create: true
       force: true
+    ~/.tigrc:
+    ~/.tigrc-vim:
 
 - brewfile:
     - Brewfile

@@ -1,0 +1,4 @@
+set tab-size = 4
+set diff-highlight = true
+set ignore-case = smart-case
+source ~/.tigrc-vim
