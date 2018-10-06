@@ -61,7 +61,7 @@
 
   "vim.disableExtension": false,
   "vim.hlsearch": true,
-  "vim.otherModesKeyBindings": [
+  "vim.normalModeKeyBindings": [
     {
       "before": ["u"],
       "after": [],
