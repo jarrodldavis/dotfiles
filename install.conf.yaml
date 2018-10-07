@@ -41,3 +41,6 @@
 
 - brewfile:
     - Brewfile
+
+- shell:
+    - ["code $(sed -e 's/^/--install-extension /' vscode/extensions.txt)", Installing Visual Studio Code Extensions]
