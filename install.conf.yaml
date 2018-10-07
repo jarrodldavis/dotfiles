@@ -38,6 +38,9 @@
       force: true
     ~/.tigrc:
     ~/.tigrc-vim:
+    ~/Library/LaunchAgents/:
+      glob: true
+      path: LaunchAgents/*
 
 - brewfile:
     - Brewfile
