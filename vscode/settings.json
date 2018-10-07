@@ -23,6 +23,10 @@
   "git.autofetch": true,
   "git.autoRepositoryDetection": false,
   "git.enableCommitSigning": true,
+  "git.ignoredRepositories": [
+    "/Users/jarrodldavis/.dotfiles/dotbot",
+    "/Users/jarrodldavis/.dotfiles/dotbot-brew"
+  ],
   "git.inputValidation": "always",
   "git.promptToSaveFilesBeforeCommit": true,
 
