@@ -19,6 +19,7 @@
   "files.autoSave": "onFocusChange",
 
   "git.autofetch": true,
+  "git.autoRepositoryDetection": false,
   "git.enableCommitSigning": true,
   "git.inputValidation": "always",
   "git.promptToSaveFilesBeforeCommit": true,
