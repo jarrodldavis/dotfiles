@@ -1,3 +1,50 @@
 // Place your key bindings in this file to overwrite the defaults
 [
+    // Don't use tab to accept suggestions
+    {
+        "key": "tab",
+        "command": "-acceptSelectedSuggestion"
+    },
+
+    // Use tab and shift+tab to cycle through IntelliSense
+    {
+        "key": "tab",
+        "command": "selectNextSuggestion",
+        "when": "editorTextFocus && suggestWidgetVisible"
+    },
+    {
+        "key": "shift+tab",
+        "command": "selectPrevSuggestion",
+        "when": "editorTextFocus && suggestWidgetVisible"
+    },
+
+    // Use tab and shift+tab to cycle through Parameter Hints
+    {
+        "key": "tab",
+        "command": "showNextParameterHint",
+        "when": "editorTextFocus && parameterHintsVisible"
+    },
+    {
+        "key": "shift+tab",
+        "command": "showPrevParameterHint",
+        "when": "editorTextFocus && parameterHintsVisible"
+    },
+
+    // Prevent Escape from exiting Insert Mode and dismissing IntelliSense or Parameter Hints simultaneously
+    // Instead, first dismiss IntelliSense or Parameter Hints with one keypress, then exit Insert Mode with another
+    {
+        "key": "escape",
+        "command": "extension.vim_escape",
+        "when": "editorTextFocus && vim.active && !inDebugRepl && !suggestWidgetVisible && parameterHintsVisible"
+    },
+    {
+        "key": "escape",
+        "command": "hideSuggestWidget",
+        "when": "editorTextFocus && suggestWidgetVisible"
+    },
+    {
+        "key": "escape",
+        "command": "closeParameterHints",
+        "when": "editorTextFocus && parameterHintsVisible"
+    },
 ]

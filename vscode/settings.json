@@ -4,7 +4,7 @@
   "editor.largeFileOptimizations": false,
   "editor.lineNumbers": "relative",
   "editor.minimap.enabled": false,
-  "editor.quickSuggestionsDelay": 1,
+  "editor.parameterHints.cycle": true,
   "editor.quickSuggestions": {
     "other": true
   },
@@ -12,6 +12,8 @@
   "editor.renderIndentGuides": true,
   "editor.rulers": [120],
   "editor.snippetSuggestions": "bottom",
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  "editor.suggestOnTriggerCharacters": false,
   "editor.tabCompletion": true,
 
   "explorer.confirmDragAndDrop": false,
