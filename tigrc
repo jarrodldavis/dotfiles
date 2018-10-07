@@ -1,4 +1,18 @@
 set tab-size = 4
 set diff-highlight = true
 set ignore-case = smart-case
+
+set blob-view-line-number = yes,interval=1
+set diff-view-line-number = yes,interval=1
+set log-view-line-number = yes,interval=1
+set pager-view-line-number = yes,interval=1
+set stage-view-line-number = yes,interval=1
+set blame-view-line-number = yes,interval=1
+set grep-view-line-number = yes,interval=1
+set main-view-line-number = yes,interval=1
+set refs-view-line-number = yes,interval=1
+set stash-view-line-number = yes,interval=1
+set status-view-line-number = yes,interval=1
+set tree-view-line-number = yes,interval=1
+
 source ~/.tigrc-vim
