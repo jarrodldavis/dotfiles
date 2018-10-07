@@ -40,3 +40,5 @@
 	pager = false
 [pull]
 	default = current
+[merge]
+	autosquash = true
