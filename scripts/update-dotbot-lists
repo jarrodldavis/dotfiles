@@ -1,0 +1,5 @@
+#!/bin/bash -l
+
+cd ~/.dotfiles
+brew bundle dump --force
+code --list-extensions > vscode/extensions.txt

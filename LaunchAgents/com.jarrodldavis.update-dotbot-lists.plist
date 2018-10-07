@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+  <plist version="1.0">
+  <dict>
+  <key>Label</key>
+  <string>com.jarrodldavis.update-dotbot-lists</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>bash</string>
+    <string>-l</string>
+    <string>/Users/jarrodldavis/.dotfiles/scripts/update-dotbot-lists</string>
+  </array>
+
+  <key>Nice</key>
+  <integer>1</integer>
+
+  <key>StartInterval</key>
+  <integer>1800</integer>
+
+  <key>RunAtLoad</key>
+  <true/>
+  
+  <key>StandardErrorPath</key>
+  <string>/Users/jarrodldavis/.dotfiles/logs/update-dotbot-lists.error.log</string>
+
+  <key>StandardOutPath</key>
+  <string>/Users/jarrodldavis/.dotfiles/logs/update-dotbot-lists.out.log</string>
+</dict>
+</plist>
