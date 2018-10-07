@@ -47,4 +47,10 @@
         "command": "closeParameterHints",
         "when": "editorTextFocus && parameterHintsVisible"
     },
+
+    // Additional keybindings
+    {
+        "key": "shift+cmd+a",
+        "command": "simple-alignment.align"
+    },
 ]

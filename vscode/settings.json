@@ -36,6 +36,9 @@
   "workbench.commandPalette.preserveInput": true,
 
   // extensions
+  "rewrap.autoWrap.enabled": true,
+  "rewrap.wrappingColumn": 120,
+
   "eslint.packageManager": "yarn",
 
   "gitlens.advanced.messages": {
