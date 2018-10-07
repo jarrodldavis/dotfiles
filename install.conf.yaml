@@ -21,7 +21,15 @@
     ~/.config/thefuck:
       create: true
     ~/Library/Application Support/Code/User/settings.json:
-      path: vscode.json
+      path: vscode/settings.json
+      create: true
+      force: true
+    ~/Library/Application Support/Code/User/keybindings.json:
+      path: vscode/keybindings.json
+      create: true
+      force: true
+    ~/Library/Application Support/Code/User/snippets:
+      path: vscode/snippets
       create: true
       force: true
     ~/.gnupg/gpg-agent.conf:
