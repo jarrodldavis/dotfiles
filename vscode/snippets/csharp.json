@@ -12,12 +12,32 @@
 	// 	],
 	// 	"description": "Log output to console"
 	// }
-	"Documentation Comment": {
+	"XML Documentation: Create New Comment": {
 		"prefix": "///",
 		"body": [
 			"/// <summary>",
-			"///     $1",
+			"///     $0",
 			"/// </summary>"
+		]
+	},
+	"XML Documentation: <see />": {
+		"prefix": "<see",
+		"body": "<see cref=\"$1\" />"
+	},
+	"XML Documentation: <remarks></remarks>": {
+		"prefix": "<remarks",
+		"body": [
+			"/// <remarks>",
+			"///     $0",
+			"/// </remarks>"
+		]
+	},
+	"XML Documentation: <para></para>": {
+		"prefix": "<para",
+		"body": [
+			"<para>",
+			"///         $0",
+			"///     </para>"
 		]
 	}
 }
