@@ -1,0 +1,32 @@
+#!/bin/bash
+
+if [ ! "$1" ]
+then
+    echo "usage: $(basename $0) file"
+    exit 1
+fi
+
+if [ ! -f "$1" ]
+then
+    echo "$(basename $0): $1: no such file or directory"
+    exit 2
+fi
+
+BOILERPLATES=$(awk -F[/] '
+/^###/ {
+    if ($7 == "Global") {
+        a = $8
+    } else {
+        a = $7
+    }
+    split(a, b, ".")
+    print b[1]
+}' $1)
+
+if [ -z "$BOILERPLATES" ]
+then
+    echo "$(basename $0): $1: no boilerplates found"
+    exit 3
+fi
+
+gabo dump $BOILERPLATES > $1
