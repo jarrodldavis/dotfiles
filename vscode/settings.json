@@ -71,6 +71,7 @@
   "omnisharp.path": "latest",
 
   "vim.disableExtension": false,
+  "vim.easymotion": true,
   "vim.hlsearch": true,
   "vim.normalModeKeyBindings": [
     {
@@ -84,4 +85,7 @@
       "commands": [{ "command": "redo" }]
     }
   ],
+  "vim.sneak": true,
+  "vim.sneakUseIgnorecaseAndSmartcase": true,
+  "vim.textwidth": 120,
 }
