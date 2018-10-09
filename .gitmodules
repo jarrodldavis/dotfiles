@@ -4,6 +4,3 @@
 [submodule "dotbot-brew"]
 	path = dotbot-brew
 	url = git://github.com/d12frosted/dotbot-brew.git
-[submodule "gabo"]
-	path = gabo
-	url = git://github.com/jarrodldavis/gabo.git

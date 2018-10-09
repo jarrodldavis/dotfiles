@@ -19,5 +19,3 @@ export PATH=$HOME/.dotfiles/scripts:$PATH
 export PATH="$HOME/.fastlane/bin:$PATH"
 
 export MONO_GAC_PREFIX="/usr/local"
-
-export PATH="$HOME/.dotfiles/gabo:$PATH"
