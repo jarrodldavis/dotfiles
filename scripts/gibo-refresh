@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ ! "$1" ]
 then
@@ -12,7 +12,7 @@ then
     exit 2
 fi
 
-gibo dump $(awk -F[/] '
+BOILERPLATES=$(awk -F[/] '
 /^###/ {
     if ($7 == "Global") {
         a = $8
@@ -21,4 +21,12 @@ gibo dump $(awk -F[/] '
     }
     split(a, b, ".")
     print b[1]
-}' $1) > $1
+}' $1)
+
+if [ -z "$BOILERPLATES" ]
+then
+    echo "$(basename $0): $1: no boilerplates found"
+    exit 3
+fi
+
+gibo dump $BOILERPLATES > $1

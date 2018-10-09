@@ -1,4 +1,4 @@
-### https://raw.github.com/github/gitignore/967cd6479319efde70a6fa44fa1bfa02020f2357/Global/macOS.gitignore
+### https://raw.github.com/github/gitignore/72190ee30bd1e2ccc233222341435adacb7a6500/Global/macOS.gitignore
 
 # General
 .DS_Store
@@ -28,7 +28,7 @@ Temporary Items
 .apdisk
 
 
-### https://raw.github.com/github/gitignore/967cd6479319efde70a6fa44fa1bfa02020f2357/Global/JetBrains.gitignore
+### https://raw.github.com/github/gitignore/72190ee30bd1e2ccc233222341435adacb7a6500/Global/JetBrains.gitignore
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
@@ -39,6 +39,9 @@ Temporary Items
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+
+# Generated files
+.idea/**/contentModel.xml
 
 # Sensitive or high-churn files
 .idea/**/dataSources/
@@ -91,8 +94,11 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 
+# Android studio 3.1+ serialized cache file
+.idea/caches/build_file_checksums.ser
 
-### https://raw.github.com/github/gitignore/967cd6479319efde70a6fa44fa1bfa02020f2357/Global/Backup.gitignore
+
+### https://raw.github.com/github/gitignore/72190ee30bd1e2ccc233222341435adacb7a6500/Global/Backup.gitignore
 
 *.bak
 *.gho
@@ -101,19 +107,19 @@ fabric.properties
 *.tmp
 
 
-### https://raw.github.com/github/gitignore/967cd6479319efde70a6fa44fa1bfa02020f2357/Global/GPG.gitignore
+### https://raw.github.com/github/gitignore/72190ee30bd1e2ccc233222341435adacb7a6500/Global/GPG.gitignore
 
 secring.*
 
 
 
-### https://raw.github.com/github/gitignore/967cd6479319efde70a6fa44fa1bfa02020f2357/Global/Patch.gitignore
+### https://raw.github.com/github/gitignore/72190ee30bd1e2ccc233222341435adacb7a6500/Global/Patch.gitignore
 
 *.orig
 *.rej
 
 
-### https://raw.github.com/github/gitignore/967cd6479319efde70a6fa44fa1bfa02020f2357/Global/Vim.gitignore
+### https://raw.github.com/github/gitignore/72190ee30bd1e2ccc233222341435adacb7a6500/Global/Vim.gitignore
 
 # Swap
 [._]*.s[a-v][a-z]
@@ -134,7 +140,7 @@ tags
 [._]*.un~
 
 
-### https://raw.github.com/github/gitignore/967cd6479319efde70a6fa44fa1bfa02020f2357/Global/VisualStudioCode.gitignore
+### https://raw.github.com/github/gitignore/72190ee30bd1e2ccc233222341435adacb7a6500/Global/VisualStudioCode.gitignore
 
 .vscode/*
 !.vscode/settings.json
@@ -143,7 +149,7 @@ tags
 !.vscode/extensions.json
 
 
-### https://raw.github.com/github/gitignore/967cd6479319efde70a6fa44fa1bfa02020f2357/Global/Xcode.gitignore
+### https://raw.github.com/github/gitignore/72190ee30bd1e2ccc233222341435adacb7a6500/Global/Xcode.gitignore
 
 # Xcode
 #
