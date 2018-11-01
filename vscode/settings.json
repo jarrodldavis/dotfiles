@@ -1,6 +1,8 @@
 // Place your settings in this file to overwrite the default settings
 {
   // built in
+  "csharp.suppressDotnetRestoreNotification": true,
+
   "editor.largeFileOptimizations": false,
   "editor.lineNumbers": "relative",
   "editor.minimap.enabled": false,
@@ -70,7 +72,7 @@
 
   "npm.enableScriptExplorer": true,
 
-  "omnisharp.path": "latest",
+  "omnisharp.disableMSBuildDiagnosticWarning": true,
 
   "vim.disableExtension": false,
   "vim.easymotion": true,
