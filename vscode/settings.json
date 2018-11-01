@@ -14,6 +14,7 @@
   "editor.renderIndentGuides": true,
   "editor.rulers": [120],
   "editor.snippetSuggestions": "bottom",
+  "editor.suggest.localityBonus": true,
   "editor.suggest.snippetsPreventQuickSuggestions": false,
   "editor.suggestOnTriggerCharacters": false,
   "editor.tabCompletion": true,
@@ -21,6 +22,8 @@
   "explorer.confirmDragAndDrop": false,
 
   "files.autoSave": "onFocusChange",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
 
   "git.autofetch": true,
   "git.autoRepositoryDetection": false,
