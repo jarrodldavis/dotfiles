@@ -30,6 +30,8 @@
   "git.inputValidation": "always",
   "git.promptToSaveFilesBeforeCommit": true,
 
+  "php.suggest.basic": false,
+
   "search.useIgnoreFiles": true,
 
   "terminal.integrated.cursorBlinking": true,

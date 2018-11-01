@@ -7,6 +7,8 @@ earshinov.simple-alignment
 EditorConfig.EditorConfig
 esbenp.prettier-vscode
 felipecaputo.git-project-manager
+felixfbecker.php-debug
+felixfbecker.php-intellisense
 jinsihou.diff-tool
 mechatroner.rainbow-csv
 ms-devlabs.extension-manifest-editor
