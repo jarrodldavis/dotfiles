@@ -41,6 +41,8 @@
     ~/Library/LaunchAgents/:
       glob: true
       path: LaunchAgents/*
+    ~/.hyper.js:
+      path: hyper.js
 
 - brewfile:
     - Brewfile
