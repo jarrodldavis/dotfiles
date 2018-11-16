@@ -20,7 +20,6 @@ brew "bash-completion"
 brew "boot-clj"
 brew "brew-cask-completion"
 brew "bundler-completion"
-brew "cocoapods"
 brew "delve"
 brew "diff-so-fancy"
 brew "docker-completion"
@@ -54,7 +53,6 @@ brew "imagemagick"
 brew "leiningen"
 brew "libyaml"
 brew "mas"
-brew "mono"
 brew "ncdu"
 brew "nmap"
 brew "pkg-config"
@@ -116,4 +114,3 @@ mas "Pages", id: 409201541
 mas "Soulver", id: 413965349
 mas "StopTheMadness", id: 1376402589
 mas "The Unarchiver", id: 425424353
-mas "Xcode", id: 497799835
