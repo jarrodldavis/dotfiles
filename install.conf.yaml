@@ -48,7 +48,7 @@
     - Brewfile
 
 - shell:
-    - ["code $(sed -e 's/^/--install-extension /' vscode/extensions.txt)", Installing Visual Studio Code Extensions]
+    - ["code $(sed -e 's/^/--force --install-extension /' vscode/extensions.txt)", Installing Visual Studio Code Extensions]
     -
       command: "cat vim-press-and-hold.txt | xargs -I {} defaults write {} ApplePressAndHoldEnabled -bool false"
       description: Fixing Keyboard Press and Hold for apps with vim plugins
