@@ -21,3 +21,5 @@ export PATH="$HOME/.fastlane/bin:$PATH"
 export MONO_GAC_PREFIX="/usr/local"
 
 eval "$(rbenv init -)"
+
+export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin":$PATH
