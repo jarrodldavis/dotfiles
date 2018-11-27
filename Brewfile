@@ -118,30 +118,19 @@ cask "docker"
 cask "dotnet-sdk"
 cask "emojipedia"
 cask "fastlane"
-cask "hyper"
-cask "imazing"
 cask "jetbrains-toolbox"
-cask "local-by-flywheel"
 cask "megasync"
 cask "mono-mdk"
 cask "paw"
-cask "postman"
-cask "powershell"
 cask "suspicious-package"
-cask "tunnelbear"
-cask "virtualbox"
 cask "visual-studio-code"
 cask "zoomus"
 mas "1Blocker", id: 1107421413
-mas "Affinity Designer", id: 824171161
-mas "Apple Configurator 2", id: 1037126344
 mas "CleanMyDrive 2", id: 523620159
 mas "Deliveries", id: 924726344
 mas "Jumpshare", id: 889922906
 mas "Monster", id: 942252191
-mas "Noizio", id: 928871589
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
-mas "Soulver", id: 413965349
 mas "StopTheMadness", id: 1376402589
 mas "The Unarchiver", id: 425424353
