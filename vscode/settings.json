@@ -28,6 +28,7 @@
   "git.autofetch": true,
   "git.autoRepositoryDetection": false,
   "git.enableCommitSigning": true,
+  "git.enableSmartCommit": true,
   "git.ignoredRepositories": [
     "/Users/jarrodldavis/.dotfiles/dotbot",
     "/Users/jarrodldavis/.dotfiles/dotbot-brew"
