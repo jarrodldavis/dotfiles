@@ -26,4 +26,3 @@ rogalmic.bash-debug
 stkb.rewrap
 tintoy.msbuild-project-tools
 vscodevim.vim
-WallabyJs.quokka-vscode
