@@ -41,6 +41,7 @@
   "search.useIgnoreFiles": true,
 
   "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.rendererType": "dom",
 
   "window.restoreFullscreen": true,
   "window.restoreWindows": "all",
