@@ -26,3 +26,4 @@ rogalmic.bash-debug
 stkb.rewrap
 tintoy.msbuild-project-tools
 vscodevim.vim
+zhouronghui.propertylist
