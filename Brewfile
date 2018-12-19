@@ -134,5 +134,6 @@ mas "Jumpshare", id: 889922906
 mas "Monster", id: 942252191
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
+mas "Parcel", id: 639968404
 mas "StopTheMadness", id: 1376402589
 mas "The Unarchiver", id: 425424353
