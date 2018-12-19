@@ -17,7 +17,7 @@
   "editor.suggest.localityBonus": true,
   "editor.suggest.snippetsPreventQuickSuggestions": false,
   "editor.suggestOnTriggerCharacters": false,
-  "editor.tabCompletion": true,
+  "editor.tabCompletion": "on",
 
   "explorer.confirmDragAndDrop": false,
 
