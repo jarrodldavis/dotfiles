@@ -59,17 +59,16 @@
     "suppressUpdateNotice": true,
     "suppressWelcomeNotice": true
   },
-  "gitlens.codeLens.scopes": [
-    "document",
-    "containers",
-    "blocks"
-  ],
+  "gitlens.codeLens.scopes": ["document", "containers", "blocks"],
   "gitlens.defaultGravatarsStyle": "identicon",
-  "gitlens.gitExplorer.files.layout": "auto",
-  "gitlens.historyExplorer.enabled": true,
-  "gitlens.historyExplorer.location": "scm",
-  "gitlens.resultsExplorer.location": "scm",
   "gitlens.showWhatsNewAfterUpgrades": false,
+  "gitlens.views.repositories.files.layout": "auto",
+  "gitlens.views.fileHistory.enabled": true,
+  "gitlens.views.fileHistory.location": "scm",
+  "gitlens.views.lineHistory.enabled": true,
+  "gitlens.views.lineHistory.location": "scm",
+  "gitlens.views.compare.location": "scm",
+  "gitlens.views.search.location": "scm",
 
   "gitProjectManager.baseProjectsFolders": ["~/dev/"],
   "gitProjectManager.ignoredFolders": ["node_modules", "bin", "obj"],
