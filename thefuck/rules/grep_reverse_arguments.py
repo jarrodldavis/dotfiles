@@ -3,7 +3,7 @@ from thefuck.utils import for_app
 
 @for_app('grep')
 def match(command):
-    return 'no such file or directory' in command.stderr.lower()
+    return 'no such file or directory' in command.output.lower()
 
 
 def get_new_command(command):
