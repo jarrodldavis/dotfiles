@@ -61,8 +61,6 @@
   "rewrap.autoWrap.enabled": true,
   "rewrap.wrappingColumn": 120,
 
-  "eslint.packageManager": "yarn",
-
   "gitlens.advanced.messages": {
     "suppressResultsExplorerNotice": true,
     "suppressShowKeyBindingsNotice": true,
