@@ -1,7 +1,11 @@
 // Place your settings in this file to overwrite the default settings
 {
   // built in
+  "breadcrumbs.enabled": true,
+
   "csharp.suppressDotnetRestoreNotification": true,
+
+  "debug.toolBarLocation": "docked",
 
   "editor.largeFileOptimizations": false,
   "editor.lineNumbers": "relative",
@@ -36,12 +40,17 @@
   "git.inputValidation": "always",
   "git.promptToSaveFilesBeforeCommit": true,
 
+  "javascript.suggestionActions.enabled": false,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+
   "php.suggest.basic": false,
 
   "search.useIgnoreFiles": true,
 
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.rendererType": "dom",
+
+  "typescript.implementationsCodeLens.enabled": true,
 
   "window.restoreFullscreen": true,
   "window.restoreWindows": "all",
