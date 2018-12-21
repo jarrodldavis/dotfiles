@@ -5,6 +5,9 @@
     ~/.bashrc: bashrc
     ~/.bash_profile: bash_profile
     ~/.gitconfig: gitconfig
+    ~/.gnupg/gpg-agent.conf:
+        path: gpg-agent.conf
+        create: true
     ~/bin:
         path: bin/
         create: true
