@@ -3,3 +3,23 @@
 	email = developer@jarrodldavis.com
 [commit]
 	gpgsign = true
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
+	conflictStyle = diff3
+[fetch]
+	prune = true
+[tag]
+	forceSignAnnotated = true
+[push]
+	default = current
+	gpgsign = if-asked
+	followTags = true
+[color]
+	ui = true
+	pager = false
+[pull]
+	default = current
+[core]
+	pager = tig
