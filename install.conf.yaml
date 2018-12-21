@@ -4,6 +4,7 @@
     ~/.profile: profile
     ~/.bashrc: bashrc
     ~/.bash_profile: bash_profile
+    ~/.gitconfig: gitconfig
     ~/bin:
         path: bin/
         create: true
