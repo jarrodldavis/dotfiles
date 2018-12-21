@@ -1,0 +1,1 @@
+https://dl.yarnpkg.com/rpm/pubkey.gpg

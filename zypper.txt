@@ -1,3 +1,7 @@
 keychain
 pinentry
 bash-completion
+asciinema
+exercism
+tig
+yarn
