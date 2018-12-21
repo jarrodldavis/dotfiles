@@ -3,6 +3,7 @@
 - link:
     ~/.profile: profile
     ~/.bashrc: bashrc
+    ~/.bash_profile: bash_profile
     ~/bin:
         path: bin/
         create: true
