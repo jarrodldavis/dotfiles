@@ -11,5 +11,6 @@
     ~/bin:
         path: bin/
         create: true
-
+- link:
+    ~/dev: /mnt/c/Users/jarrodldavis/source/repos
 
