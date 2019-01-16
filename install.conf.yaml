@@ -1,6 +1,13 @@
 - clean: ['~']
 
 - link:
+    ~/.bash_profile: bash_profile
     ~/.gitconfig: gitconfig
-
-
+    ~/.ssh/config:
+      path: ssh/config
+      create: true
+      force: true
+    ~/.gnupg/gpg-agent.conf:
+      path: gnupg/gpg-agent.conf
+      create: true
+      force: true

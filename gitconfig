@@ -1,3 +1,6 @@
 [user]
 	name = Jarrod Davis
 	email = developer@jarrodldavis.com
+	signingkey = EC7B702A5E8ABEC2
+[commit]
+	gpgsign = true
