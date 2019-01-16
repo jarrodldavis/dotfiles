@@ -1,0 +1,5 @@
+com.microsoft.VSCode
+com.jetbrains.rubymine
+com.jetbrains.webstorm
+com.jetbrains.datagrip
+com.jetbrains.rider

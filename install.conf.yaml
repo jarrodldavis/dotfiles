@@ -1,3 +1,9 @@
+- defaults:
+    shell:
+      stdout: true
+      stderr: true
+      stdin: true
+
 - clean: ['~']
 
 - link:
@@ -11,3 +17,13 @@
       path: gnupg/gpg-agent.conf
       create: true
       force: true
+    ~/.vimrc:
+
+- shell:
+    -
+      command: '[ -d ~/.vim/bundle/Vundle.vim/ ] || git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
+      description: Installing Vundle
+    - [vim +PluginInstall +qall, Installing vim plugins]
+    -
+      command: "cat vim-press-and-hold.txt | xargs -I {} defaults write {} ApplePressAndHoldEnabled -bool false"
+      description: Fixing Keyboard Press and Hold for apps with vim plugins
