@@ -9,7 +9,13 @@ DOTBOT_BIN="bin/dotbot"
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 cd "${BASEDIR}"
+
+echo "Checking for Xcode Tools..."
+xcrun --version || \
+    (echo 'Neither Xcode nor Xcode Command Line Tools are installed. Use `xcode-select --install` to install the Command Line Tools, then try again.' && \
+    exit 1)
+
 git -C "${DOTBOT_DIR}" submodule sync --quiet --recursive
-git submodule update --init --recursive "${DOTBOT_DIR}"
+git submodule update --init --recursive
 
 "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
