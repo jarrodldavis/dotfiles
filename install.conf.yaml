@@ -9,6 +9,7 @@
 - link:
     ~/.bash_profile: bash_profile
     ~/.gitconfig: gitconfig
+    ~/.gitignore_global: gitignore_global
     ~/.ssh/config:
       path: ssh/config
       create: true

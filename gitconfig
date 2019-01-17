@@ -4,3 +4,5 @@
 	signingkey = EC7B702A5E8ABEC2
 [commit]
 	gpgsign = true
+[core]
+	excludesfile = /Users/jarrodldavis/.gitignore_global
