@@ -7,6 +7,7 @@ brew "git"
 brew "gnupg"
 brew "mas"
 cask "1password"
+cask "chromium"
 mas "1Blocker", id: 1107421413
 mas "Keynote", id: 409183694
 mas "Numbers", id: 409203825

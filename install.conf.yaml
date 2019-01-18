@@ -19,6 +19,10 @@
       create: true
       force: true
     ~/.vimrc:
+    ~/Library/LaunchAgents/:
+      glob: true
+      create: true
+      path: LaunchAgents/*
 
 - brewfile:
     - Brewfile
