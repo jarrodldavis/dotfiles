@@ -29,5 +29,7 @@ Plugin 'leafgarland/typescript-vim'
 
 Plugin 'dart-lang/dart-vim-plugin'
 
+Plugin 'christoomey/vim-titlecase'
+
 call vundle#end()
 filetype indent plugin on
