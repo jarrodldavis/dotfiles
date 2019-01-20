@@ -3,39 +3,26 @@
       stdout: true
       stderr: true
       stdin: true
+    link:
+      create: true
+      force: true
 
 - clean: ['~']
 
 - link:
-    ~/.bash_profile: bash_profile
-    ~/.gitconfig: gitconfig
-    ~/.gitignore_global: gitignore_global
-    ~/.ssh/config:
-      path: ssh/config
-      create: true
-      force: true
-    ~/.gnupg/gpg-agent.conf:
-      path: gnupg/gpg-agent.conf
-      create: true
-      force: true
+    ~/.bash_profile:
+    ~/.gitconfig:
+    ~/.gitignore_global:
+    ~/.ssh/config: ssh/config
+    ~/.gnupg/gpg-agent.conf: gnupg/gpg-agent.conf
     ~/.vimrc:
     ~/Library/LaunchAgents/:
       glob: true
-      create: true
       path: LaunchAgents/*
 
-    ~/Library/Application Support/Code/User/settings.json:
-      path: vscode/settings.json
-      create: true
-      force: true
-    ~/Library/Application Support/Code/User/keybindings.json:
-      path: vscode/keybindings.json
-      create: true
-      force: true
-    ~/Library/Application Support/Code/User/snippets:
-      path: vscode/snippets
-      create: true
-      force: true
+    ~/Library/Application Support/Code/User/settings.json: vscode/settings.json
+    ~/Library/Application Support/Code/User/keybindings.json: vscode/keybindings.json
+    ~/Library/Application Support/Code/User/snippets: vscode/snippets
 
 - brewfile:
     - Brewfile
