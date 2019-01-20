@@ -1,5 +1,73 @@
 {
+    // core editor
+
     "breadcrumbs.enabled": true,
+
+    "debug.toolBarLocation": "docked",
+
+    "editor.lineNumbers": "relative",
+    "editor.minimap.enabled": false,
+    "editor.parameterHints.cycle": true,
+    "editor.quickSuggestions": {
+      "comments": false,
+      "strings": false,
+      "other": true,
+    },
+    "editor.renderWhitespace": "all",
+    "editor.renderIndentGuides": true,
+    "editor.rulers": [120],
+    "editor.snippetSuggestions": "bottom",
+    "editor.suggest.localityBonus": true,
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.suggestOnTriggerCharacters": false,
+    "editor.tabCompletion": "on",
+
+    "files.autoSave": "onFocusChange",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+
+    "search.useIgnoreFiles": true,
+
+    "terminal.integrated.cursorBlinking": true,
+
+    "window.restoreFullscreen": true,
+    "window.restoreWindows": "all",
+
+    "workbench.commandPalette.preserveInput": true,
+
+    // built-in extensions
+
+    "git.autofetch": true,
+    "git.autoRepositoryDetection": false,
+    "git.enableCommitSigning": true,
     "git.enableSmartCommit": true,
-    "git.autofetch": true
+    "git.ignoredRepositories": [
+      "/Users/jarrodldavis/.dotfiles/dotbot",
+      "/Users/jarrodldavis/.dotfiles/dotbot-brew"
+    ],
+    "git.inputValidation": "always",
+    "git.promptToSaveFilesBeforeCommit": true,
+
+    "npm.enableScriptExplorer": true,
+
+    // marketplace extensions
+
+    "vim.disableExtension": false,
+    "vim.easymotion": true,
+    "vim.hlsearch": true,
+    "vim.normalModeKeyBindings": [
+      {
+        "before": ["u"],
+        "after": [],
+        "commands": [{ "command": "undo" }]
+      },
+      {
+        "before": ["<C-r>"],
+        "after": [],
+        "commands": [{ "command": "redo" }]
+      }
+    ],
+    "vim.sneak": true,
+    "vim.sneakUseIgnorecaseAndSmartcase": true,
+    "vim.textwidth": 120,
 }
