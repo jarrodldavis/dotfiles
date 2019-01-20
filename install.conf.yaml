@@ -36,3 +36,4 @@
       command: "cat vim-press-and-hold.txt | xargs -I {} defaults write {} ApplePressAndHoldEnabled -bool false"
       description: Fixing Keyboard Press and Hold for apps with vim plugins
     - ["code $(sed -e 's/^/--force --install-extension /' vscode/extensions.txt)", Installing Visual Studio Code Extensions]
+    - ["cat npm-globals.txt | xargs npm i -g", Installing global npm packages]

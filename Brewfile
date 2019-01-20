@@ -8,6 +8,7 @@ brew "gibo"
 brew "git"
 brew "gnupg"
 brew "hub"
+brew "jq"
 brew "mas"
 brew "mongodb", restart_service: true
 brew "node"
