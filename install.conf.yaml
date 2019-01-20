@@ -24,6 +24,19 @@
       create: true
       path: LaunchAgents/*
 
+    ~/Library/Application Support/Code/User/settings.json:
+      path: vscode/settings.json
+      create: true
+      force: true
+    ~/Library/Application Support/Code/User/keybindings.json:
+      path: vscode/keybindings.json
+      create: true
+      force: true
+    ~/Library/Application Support/Code/User/snippets:
+      path: vscode/snippets
+      create: true
+      force: true
+
 - brewfile:
     - Brewfile
 
@@ -35,3 +48,4 @@
     -
       command: "cat vim-press-and-hold.txt | xargs -I {} defaults write {} ApplePressAndHoldEnabled -bool false"
       description: Fixing Keyboard Press and Hold for apps with vim plugins
+    - ["code $(sed -e 's/^/--force --install-extension /' vscode/extensions.txt)", Installing Visual Studio Code Extensions]

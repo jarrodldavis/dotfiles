@@ -1,0 +1,5 @@
+{
+    "breadcrumbs.enabled": true,
+    "git.enableSmartCommit": true,
+    "git.autofetch": true
+}
