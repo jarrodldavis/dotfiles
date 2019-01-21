@@ -8,36 +8,36 @@
 
   // Use tab and shift/alt+tab to cycle through Parameter Hints
   {
-      "key": "tab",
-      "command": "showNextParameterHint",
-      "when": "editorTextFocus && parameterHintsVisible"
+    "key": "tab",
+    "command": "showNextParameterHint",
+    "when": "editorTextFocus && parameterHintsVisible"
   },
   {
-      "key": "shift+tab",
-      "command": "showPrevParameterHint",
-      "when": "editorTextFocus && parameterHintsVisible"
+    "key": "shift+tab",
+    "command": "showPrevParameterHint",
+    "when": "editorTextFocus && parameterHintsVisible"
   },
   {
-      "key": "alt+tab",
-      "command": "showPrevParameterHint",
-      "when": "editorTextFocus && parameterHintsVisible"
+    "key": "alt+tab",
+    "command": "showPrevParameterHint",
+    "when": "editorTextFocus && parameterHintsVisible"
   },
 
   // Use tab and shift/alt+tab to cycle through IntelliSense
   {
-      "key": "tab",
-      "command": "selectNextSuggestion",
-      "when": "editorTextFocus && suggestWidgetVisible"
+    "key": "tab",
+    "command": "selectNextSuggestion",
+    "when": "editorTextFocus && suggestWidgetVisible"
   },
   {
-      "key": "shift+tab",
-      "command": "selectPrevSuggestion",
-      "when": "editorTextFocus && suggestWidgetVisible"
+    "key": "shift+tab",
+    "command": "selectPrevSuggestion",
+    "when": "editorTextFocus && suggestWidgetVisible"
   },
   {
-      "key": "alt+tab",
-      "command": "selectPrevSuggestion",
-      "when": "editorTextFocus && suggestWidgetVisible"
+    "key": "alt+tab",
+    "command": "selectPrevSuggestion",
+    "when": "editorTextFocus && suggestWidgetVisible"
   },
 
   // Use alt+escape to close Parameter Hints and IntelliSense
