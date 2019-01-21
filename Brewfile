@@ -1,5 +1,6 @@
 tap "homebrew/bundle"
 tap "homebrew/cask"
+tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "homebrew/services"
 brew "bash-completion"
@@ -14,7 +15,7 @@ brew "mongodb", restart_service: true
 brew "node"
 cask "1password"
 cask "chromium"
-cask "mongodb-compass-community"
+cask "mongodb-compass-beta"
 cask "visual-studio-code"
 mas "1Blocker", id: 1107421413
 mas "Keynote", id: 409183694
