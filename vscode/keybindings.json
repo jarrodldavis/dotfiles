@@ -1,3 +1,54 @@
 // Place your key bindings in this file to override the defaults
 [
+  // Don't use tab to accept suggestions
+  {
+    "key": "tab",
+    "command": "-acceptSelectedSuggestion"
+  },
+
+  // Use tab and shift/alt+tab to cycle through Parameter Hints
+  {
+      "key": "tab",
+      "command": "showNextParameterHint",
+      "when": "editorTextFocus && parameterHintsVisible"
+  },
+  {
+      "key": "shift+tab",
+      "command": "showPrevParameterHint",
+      "when": "editorTextFocus && parameterHintsVisible"
+  },
+  {
+      "key": "alt+tab",
+      "command": "showPrevParameterHint",
+      "when": "editorTextFocus && parameterHintsVisible"
+  },
+
+  // Use tab and shift/alt+tab to cycle through IntelliSense
+  {
+      "key": "tab",
+      "command": "selectNextSuggestion",
+      "when": "editorTextFocus && suggestWidgetVisible"
+  },
+  {
+      "key": "shift+tab",
+      "command": "selectPrevSuggestion",
+      "when": "editorTextFocus && suggestWidgetVisible"
+  },
+  {
+      "key": "alt+tab",
+      "command": "selectPrevSuggestion",
+      "when": "editorTextFocus && suggestWidgetVisible"
+  },
+
+  // Use alt+escape to close Parameter Hints and IntelliSense
+  {
+    "key": "alt+escape",
+    "command": "closeParameterHints",
+    "when": "editorTextFocus && parameterHintsVisible"
+  },
+  {
+    "key": "alt+escape",
+    "command": "hideSuggestWidget",
+    "when": "editorTextFocus && suggestWidgetVisible"
+  },
 ]

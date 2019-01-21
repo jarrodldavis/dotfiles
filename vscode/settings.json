@@ -18,9 +18,7 @@
     "editor.rulers": [120],
     "editor.snippetSuggestions": "bottom",
     "editor.suggest.localityBonus": true,
-    "editor.suggest.snippetsPreventQuickSuggestions": false,
-    "editor.suggestOnTriggerCharacters": false,
-    "editor.tabCompletion": "on",
+    "editor.tabCompletion": "off",
 
     "files.autoSave": "onFocusChange",
     "files.insertFinalNewline": true,
