@@ -51,4 +51,31 @@
     "command": "hideSuggestWidget",
     "when": "editorTextFocus && suggestWidgetVisible"
   },
+
+  // use alt+tab to display open files
+  {
+    "key": "alt+tab",
+    "command": "workbench.action.showAllEditors"
+  },
+
+  // notifications
+  {
+    "key": "alt+cmd+n",
+    "command": "notifications.showList"
+  },
+  {
+    "key": "tab",
+    "command": "notifications.focusNextToast",
+    "when": "notificationFocus && notificationToastsVisible"
+  },
+  {
+    "key": "shift+tab",
+    "command": "notifications.focusPreviousToast",
+    "when": "notificationFocus && notificationToastsVisible"
+  },
+  {
+    "key": "alt+tab",
+    "command": "notifications.focusPreviousToast",
+    "when": "notificationFocus && notificationToastsVisible"
+  }
 ]
