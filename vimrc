@@ -18,6 +18,12 @@ nmap Ø O<Esc>
 
 syntax on
 
+set title
+" emulate default `title` behavior without unnecessary suffixes
+" filename (relative to current directory) followed by modification flags
+" modifiable, readonly, and modified flags are wrapped in square brackets when present
+let &titlestring="%f%( [%{&ma? '':'-'}%{&ro? '=':''}%{&modified? '+':''}]%)"
+
 " Vundle
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim

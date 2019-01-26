@@ -15,7 +15,11 @@ PS1_COLOR_STOP='\e[m'
 PS1_USER_INFO='\u@\h:\w' # user@host:path
 PS1_DATE='[\d \@]' # [date 12-hour-time]
 
-PROMPT_COMMAND='__git_ps1 "$PS1_COLOR_START$PS1_DATE $PS1_USER_INFO" "\n$PS1_COLOR_STOP\$ "'
+function __prompt_command_git {
+    __git_ps1 "${PS1_COLOR_START}${PS1_DATE} ${PS1_USER_INFO}" "\n${PS1_COLOR_STOP}\$ "
+}
+
+PROMPT_COMMAND='__prompt_command_git && update_terminal_cwd'
 GIT_PS1_SHOWDIRTYSTATE=true
 GIT_PS1_SHOWSTASHSTATE=true
 GIT_PS1_SHOWUNTRACKEDFILES=true
