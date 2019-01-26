@@ -14,6 +14,7 @@ brew "jq"
 brew "mas"
 brew "mongodb", restart_service: true
 brew "node"
+brew "vim"
 cask "1password"
 cask "chromium"
 cask "mongodb-compass-beta"

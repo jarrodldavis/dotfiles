@@ -5,3 +5,5 @@ export GPG_TTY=$(tty)
 eval "$(hub alias -s)"
 
 export PATH=$HOME/.dotfiles/scripts:$PATH
+
+export EDITOR=vim
