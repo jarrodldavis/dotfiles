@@ -16,6 +16,7 @@ brew "mongodb", restart_service: true
 brew "node"
 brew "vim"
 cask "1password"
+cask "appcleaner"
 cask "chromium"
 cask "mongodb-compass-beta"
 cask "visual-studio-code"
