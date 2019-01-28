@@ -1,2 +1,3 @@
 mikestead.dotenv
+ryu1kn.partial-diff
 vscodevim.vim
