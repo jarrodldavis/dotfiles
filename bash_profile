@@ -3,6 +3,7 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then . $(brew --prefix)/etc/bash
 export GPG_TTY=$(tty)
 
 eval "$(hub alias -s)"
+eval "$(rbenv init -)"
 
 export PATH=$HOME/.dotfiles/scripts:$PATH
 
