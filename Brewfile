@@ -19,6 +19,7 @@ brew "vim"
 cask "1password"
 cask "appcleaner"
 cask "chromium"
+cask "keybase"
 cask "mongodb-compass-beta"
 cask "visual-studio-code"
 mas "1Blocker", id: 1107421413
