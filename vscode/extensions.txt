@@ -1,3 +1,4 @@
 mikestead.dotenv
+nextfaze.json-parse-stringify
 ryu1kn.partial-diff
 vscodevim.vim
