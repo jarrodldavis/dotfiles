@@ -19,7 +19,7 @@ then
     PS1_DATE='[\d \@]' # [date 12-hour-time]
 
     function __prompt_command_git {
-        __git_ps1 "${PS1_COLOR_START}${PS1_DATE} ${PS1_USER_INFO}" "\n${PS1_COLOR_STOP}\$ "
+        __git_ps1 "${PS1_COLOR_START}${PS1_DATE} ${PS1_USER_INFO}" "${PS1_COLOR_STOP}\n\$ "
     }
 
     PROMPT_COMMAND='__prompt_command_git && update_terminal_cwd'
