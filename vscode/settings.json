@@ -19,6 +19,9 @@
     "editor.snippetSuggestions": "bottom",
     "editor.tabCompletion": "off",
 
+    "files.associations": {
+      "*.har": "json"
+    },
     "files.autoSave": "onFocusChange",
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
