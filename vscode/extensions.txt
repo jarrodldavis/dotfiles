@@ -1,3 +1,5 @@
+felixfbecker.php-intellisense
+ikappas.composer
 mikestead.dotenv
 nextfaze.json-parse-stringify
 ryu1kn.partial-diff

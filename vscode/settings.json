@@ -53,6 +53,8 @@
 
     // marketplace extensions
 
+    "composer.executablePath": "composer",
+
     "vim.disableExtension": false,
     "vim.easymotion": true,
     "vim.hlsearch": true,
