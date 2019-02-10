@@ -1,5 +1,7 @@
 if [ -f $(brew --prefix)/etc/bash_completion ]; then . $(brew --prefix)/etc/bash_completion; fi
 
+if [ -f ~/.github_tokens ]; then . ~/.github_tokens; fi
+
 export GPG_TTY=$(tty)
 
 export GOOGLE_API_KEY=no
