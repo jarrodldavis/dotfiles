@@ -20,7 +20,8 @@
     "editor.tabCompletion": "off",
 
     "files.associations": {
-      "*.har": "json"
+      "*.har": "json",
+      "*.html": "html"
     },
     "files.autoSave": "onFocusChange",
     "files.insertFinalNewline": true,
@@ -55,6 +56,8 @@
     // marketplace extensions
 
     "composer.executablePath": "composer",
+
+    "svelte.plugin.typescript.diagnostics.enable": false,
 
     "vim.disableExtension": false,
     "vim.easymotion": true,

@@ -1,5 +1,7 @@
+ardenivanov.svelte-intellisense
 felixfbecker.php-intellisense
 ikappas.composer
+JamesBirtles.svelte-vscode
 mikestead.dotenv
 nextfaze.json-parse-stringify
 ryu1kn.partial-diff
