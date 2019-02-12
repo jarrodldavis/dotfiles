@@ -16,6 +16,8 @@ export PATH=$HOME/.dotfiles/scripts:$PATH
 
 export EDITOR=vim
 
+export TRAVIS_ENDPOINT=https://api.travis-ci.com/
+
 if [ $TERM_PROGRAM == 'Apple_Terminal' ]
 then
     # Git Prompt
