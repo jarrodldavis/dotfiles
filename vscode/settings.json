@@ -34,6 +34,7 @@
     "window.restoreWindows": "all",
 
     "workbench.commandPalette.preserveInput": true,
+    "workbench.settings.useSplitJSON": true,
 
     // built-in extensions
 
