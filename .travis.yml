@@ -2,4 +2,4 @@ language: objective-c
 os: osx
 osx_image: xcode10.1
 script: ./install
-if: branch = personal/mac-os
+if: branch = personal/macos
