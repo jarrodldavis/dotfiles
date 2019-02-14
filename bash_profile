@@ -38,3 +38,5 @@ then
     GIT_PS1_SHOWUPSTREAM='auto verbose name'
     GIT_PS1_DESCRIBE_STYLE='branch'
 fi
+
+shopt -s globstar
