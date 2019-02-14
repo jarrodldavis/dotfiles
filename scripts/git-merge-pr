@@ -1,0 +1,45 @@
+#! /bin/sh
+
+sep='_'
+pr_id=$1
+remote=$2
+
+if [ -z "$2" ]
+then
+    remote="origin"
+fi
+
+details=$(hub pr list -f "%I_%B${sep}%H${sep}%U" | grep "^${pr_id}${sep}")
+
+if [ $? -ne 0 ]
+then
+    status=$?
+    echo "merge-pr: $pr_id - not an open pull request number"
+    exit $status
+fi
+
+base=$(echo $details | cut -d $sep -f 2)
+head=$(echo $details | cut -d $sep -f 3)
+url=$(echo $details | cut -d $sep -f 4)
+
+function __hub_merge_pr_assert_synchronized() {
+    local current=$(git rev-parse --abbrev-ref HEAD)
+    local upstream=$(git rev-parse --abbrev-ref --symbolic-full-name @{u})
+    local range=$(git rev-parse -q $current $upstream)
+    local start=$(echo $range | cut -d ' ' -f 1)
+    local end=$(echo $range | cut -d ' ' -f 2)
+
+    if [ $start != $end ]
+    then
+        echo "merge-pr: local head branch is not in sync with upstream"
+        return 1
+    fi
+}
+
+hub checkout $base && # switch to pull request target branch
+    hub sync && # bring in any changes
+    __hub_merge_pr_assert_synchronized && # ensure local and remote head branch are in sync (`hub sync` only warns)
+    hub merge $url && # Merge similar to GitHub Merge Button
+    hub push && # Push merge to target branch
+    hub push $remote :$head && # Delete remote head branch
+    hub sync # bring in any more changes and remote local head branch
