@@ -41,4 +41,4 @@
     -
       command: "grep '/usr/local/bin/bash' /etc/shells || echo /usr/local/bin/bash | sudo tee -a /etc/shells"
       description: "Adding Homebrew bash to system shells"
-    - ["chsh -s /usr/local/bin/bash", "Setting default shell to Homebrew bash"]
+    - ["sudo chsh -s /usr/local/bin/bash $(whoami)", "Setting default shell to Homebrew bash"]
