@@ -9,7 +9,7 @@ then
     remote="origin"
 fi
 
-details=$(hub pr list -f "%I_%B${sep}%H${sep}%U" | grep "^${pr_id}${sep}")
+details=$(hub pr list -f "%I_%B${sep}%H${sep}%U${sep}%sH" | grep "^${pr_id}${sep}")
 
 if [ $? -ne 0 ]
 then
@@ -21,6 +21,7 @@ fi
 base=$(echo $details | cut -d $sep -f 2)
 head=$(echo $details | cut -d $sep -f 3)
 url=$(echo $details | cut -d $sep -f 4)
+sha=$(echo $details | cut -d $sep -f 5)
 
 function __hub_merge_pr_assert_synchronized() {
     local current=$(git rev-parse --abbrev-ref HEAD)
@@ -36,8 +37,9 @@ function __hub_merge_pr_assert_synchronized() {
     fi
 }
 
-hub checkout $base && # switch to pull request target branch
-    hub sync && # bring in any changes
+hub ci-status -v $sha && # CI status must pass before merging
+    hub checkout $base && # switch to pull request target branch
+    hub sync && # bring in any changes from upstream
     __hub_merge_pr_assert_synchronized && # ensure local and remote head branch are in sync (`hub sync` only warns)
     hub merge $url && # Merge similar to GitHub Merge Button
     hub push && # Push merge to target branch
