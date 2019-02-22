@@ -1,8 +1,11 @@
 ardenivanov.svelte-intellisense
 felixfbecker.php-intellisense
+GitHub.vscode-pull-request-github
 ikappas.composer
 JamesBirtles.svelte-vscode
 mikestead.dotenv
 nextfaze.json-parse-stringify
+rogalmic.bash-debug
 ryu1kn.partial-diff
+sidneys1.gitconfig
 vscodevim.vim

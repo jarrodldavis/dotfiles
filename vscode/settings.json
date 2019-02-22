@@ -53,6 +53,8 @@
 
     "npm.enableScriptExplorer": true,
 
+    "typescript.updateImportsOnFileMove.enabled": "always",
+
     // marketplace extensions
 
     "composer.executablePath": "composer",
