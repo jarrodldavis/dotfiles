@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /usr/bin/env bash
 
 current=$(git rev-parse --abbrev-ref HEAD --)
 
