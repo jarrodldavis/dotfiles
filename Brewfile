@@ -25,6 +25,7 @@ cask "chromium"
 cask "firefox"
 cask "keybase"
 cask "mongodb-compass-beta"
+cask "notion"
 cask "visual-studio-code"
 mas "1Blocker", id: 1107421413
 mas "Keynote", id: 409183694
