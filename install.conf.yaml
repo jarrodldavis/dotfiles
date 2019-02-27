@@ -38,6 +38,7 @@
     - ["code $(sed -e 's/^/--force --install-extension /' vscode/extensions.txt)", Installing Visual Studio Code Extensions]
     - ["cat npm-config.txt | xargs -L1 npm config set", "Configuring npm"]
     - ["cat npm-globals.txt | xargs npm i -g", Installing global npm packages]
+    - ["cat heroku-plugins.txt | xargs heroku plugins:install", Installing Heroku CLI plugins]
     -
       command: "grep '/usr/local/bin/bash' /etc/shells || echo /usr/local/bin/bash | sudo tee -a /etc/shells"
       description: "Adding Homebrew bash to system shells"

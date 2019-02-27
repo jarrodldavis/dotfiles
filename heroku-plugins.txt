@@ -1,0 +1,3 @@
+heroku-papertrail
+heroku-pg-extras
+heroku-repo

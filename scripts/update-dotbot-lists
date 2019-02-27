@@ -4,3 +4,11 @@ cd ~/.dotfiles
 brew bundle dump --force
 code --list-extensions > vscode/extensions.txt
 npm ls -g --depth 0 --json --update-notifier false | jq -r '.dependencies | del(.npm) | keys | .[]' > npm-globals.txt
+
+HEROKU_PLUGINS=$(heroku plugins)
+if [[ "$HEROKU_PLUGINS" = "no plugins installed" ]]
+then
+    echo > heroku-plugins.txt # empty file
+else
+    cut -d' ' -f1 <<< $HEROKU_PLUGINS > heroku-plugins.txt
+fi
