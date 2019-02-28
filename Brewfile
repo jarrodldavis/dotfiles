@@ -32,6 +32,7 @@ cask "mongodb-compass-beta"
 cask "notion"
 cask "visual-studio-code"
 mas "1Blocker", id: 1107421413
+mas "Deliveries", id: 924726344
 mas "GarageBand", id: 682658836
 mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
