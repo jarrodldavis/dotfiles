@@ -1,5 +1,7 @@
 ardenivanov.svelte-intellisense
 auchenberg.vscode-browser-preview
+dbaeumer.vscode-eslint
+esbenp.prettier-vscode
 felixfbecker.php-intellisense
 GitHub.vscode-pull-request-github
 ikappas.composer
@@ -9,5 +11,6 @@ msjsdiag.debugger-for-chrome
 nextfaze.json-parse-stringify
 rogalmic.bash-debug
 ryu1kn.partial-diff
+shinnn.stylelint
 sidneys1.gitconfig
 vscodevim.vim
