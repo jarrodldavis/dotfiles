@@ -1,9 +1,11 @@
 ardenivanov.svelte-intellisense
+auchenberg.vscode-browser-preview
 felixfbecker.php-intellisense
 GitHub.vscode-pull-request-github
 ikappas.composer
 JamesBirtles.svelte-vscode
 mikestead.dotenv
+msjsdiag.debugger-for-chrome
 nextfaze.json-parse-stringify
 rogalmic.bash-debug
 ryu1kn.partial-diff

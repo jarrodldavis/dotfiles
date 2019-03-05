@@ -57,6 +57,9 @@
 
     // marketplace extensions
 
+    "browser-preview.chromeExecutable": "/Applications/Chromium.app/Contents/MacOS/Chromium",
+    "browser-preview.format": "png",
+
     "composer.executablePath": "composer",
 
     "svelte.plugin.typescript.diagnostics.enable": false,
