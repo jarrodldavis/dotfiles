@@ -13,4 +13,5 @@ rogalmic.bash-debug
 ryu1kn.partial-diff
 shinnn.stylelint
 sidneys1.gitconfig
+timonwong.shellcheck
 vscodevim.vim

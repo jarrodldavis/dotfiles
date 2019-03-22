@@ -7,5 +7,7 @@ before_script:
   - echo "echo 'Mac App Store:' \$*" > travis-scripts/mas
   - chmod +x travis-scripts/mas
   - export PATH=$PWD/travis-scripts:$PATH
-script: ./install
+script:
+  - bash -O extglob -c "shellcheck install bash_profile scripts/!(git-merge-pr|npm-version)"
+  - ./install
 if: branch = personal/macos
