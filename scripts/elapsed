@@ -1,0 +1,22 @@
+#! /usr/bin/env bash
+
+description=$1
+logfile=$2
+
+shift 2
+
+command=$*
+
+current_time=$(date "+%Y-%m-%d %H:%M:%S")
+echo "-----" | tee -a $logfile
+echo "Started '$description' at $current_time" | tee -a $logfile
+echo "executing command '$command'" | tee -a $logfile
+echo "-----" | tee -a $logfile
+
+$command 2>&1 | tee -a $logfile
+exit_code=${PIPESTATUS[0]}
+
+echo "-----" | tee -a $logfile
+current_time=$(date "+%Y-%m-%d %H:%M:%S")
+echo "Finished '$description' at $current_time with exit code $exit_code" | tee -a $logfile
+echo "-----" | tee -a $logfile
