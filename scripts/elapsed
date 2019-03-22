@@ -7,15 +7,20 @@ logfile=$2
 
 shift 2
 
-command=$*
+IFS=" " read -r command command_args <<< "$@"
 
 echo "-----elapsed-----" | tee -a "$logfile"
 current_time=$(date "+%Y-%m-%d %H:%M:%S")
 echo "Started '$description' at $current_time" | tee -a "$logfile"
-echo "Executing command '$command'" | tee -a "$logfile"
+echo "Executing command '$command $command_args'" | tee -a "$logfile"
 echo "-----elapsed-----" | tee -a "$logfile"
 
-$command 2>&1 | tee -a "$logfile"
+if [ -n "$command_args" ]; then
+  echo "$command_args" | xargs "$command" 2>&1 | tee -a "$logfile"
+else
+  "$command" 2>&1 | tee -a "$logfile"
+fi
+
 exit_code=${PIPESTATUS[0]}
 
 echo "-----elapsed-----" | tee -a "$logfile"
