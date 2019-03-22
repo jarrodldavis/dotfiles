@@ -1,0 +1,9 @@
+{
+  "files.associations": {
+    "Brewfile": "ruby",
+    "gitconfig": "gitconfig",
+    "gitignore_global": "ignore",
+    "vimrc": "viml"
+  },
+  "shellformat.flag": "-i 2 -sr"
+}
