@@ -9,16 +9,16 @@ shift 2
 
 command=$*
 
-echo "-----elapsed-----" | tee -a $logfile
+echo "-----elapsed-----" | tee -a "$logfile"
 current_time=$(date "+%Y-%m-%d %H:%M:%S")
-echo "Started '$description' at $current_time" | tee -a $logfile
-echo "Executing command '$command'" | tee -a $logfile
-echo "-----elapsed-----" | tee -a $logfile
+echo "Started '$description' at $current_time" | tee -a "$logfile"
+echo "Executing command '$command'" | tee -a "$logfile"
+echo "-----elapsed-----" | tee -a "$logfile"
 
-$command 2>&1 | tee -a $logfile
+$command 2>&1 | tee -a "$logfile"
 exit_code=${PIPESTATUS[0]}
 
-echo "-----elapsed-----" | tee -a $logfile
+echo "-----elapsed-----" | tee -a "$logfile"
 current_time=$(date "+%Y-%m-%d %H:%M:%S")
-echo "Finished '$description' at $current_time with exit code $exit_code" | tee -a $logfile
-echo "-----elapsed-----" | tee -a $logfile
+echo "Finished '$description' at $current_time with exit code $exit_code" | tee -a "$logfile"
+echo "-----elapsed-----" | tee -a "$logfile"

@@ -4,9 +4,8 @@ current=$(git rev-parse --abbrev-ref HEAD --)
 
 remote=$1
 
-if [ -z "$1" ]
-then
-    remote="origin"
+if [ -z "$1" ]; then
+  remote="origin"
 fi
 
-git push --set-upstream $remote $current
+git push --set-upstream $remote "$current"
