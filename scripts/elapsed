@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+# Usage: elapsed "some description" logfile.log command --with --args
+
 description=$1
 logfile=$2
 
