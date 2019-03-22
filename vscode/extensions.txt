@@ -3,6 +3,7 @@ auchenberg.vscode-browser-preview
 dbaeumer.vscode-eslint
 esbenp.prettier-vscode
 felixfbecker.php-intellisense
+foxundermoon.shell-format
 GitHub.vscode-pull-request-github
 ikappas.composer
 JamesBirtles.svelte-vscode

@@ -10,4 +10,5 @@ before_script:
 script:
   - ./install
   - bash -O extglob -c "shellcheck install bash_profile scripts/!(git-merge-pr|npm-version)"
+  - bash -O extglob -c "shfmt -i 2 -d install bash_profile scripts/!(git-merge-pr|npm-version)"
 if: branch = personal/macos
