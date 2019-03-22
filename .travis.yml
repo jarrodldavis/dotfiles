@@ -1,4 +1,4 @@
-language: objective-c
+language: shell
 os: osx
 osx_image: xcode10.1
 before_script:
@@ -8,6 +8,6 @@ before_script:
   - chmod +x travis-scripts/mas
   - export PATH=$PWD/travis-scripts:$PATH
 script:
-  - bash -O extglob -c "shellcheck install bash_profile scripts/!(git-merge-pr|npm-version)"
   - ./install
+  - bash -O extglob -c "shellcheck install bash_profile scripts/!(git-merge-pr|npm-version)"
 if: branch = personal/macos
