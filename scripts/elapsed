@@ -35,6 +35,7 @@ function check_required() {
 }
 
 while getopts ":d:l:c:h" opt; do
+  last_opt=$opt
   case $opt in
   d)
     check_already_specified 'description'
@@ -71,7 +72,11 @@ done
 
 # if all arguments parsed, $OPTIND is one more than $#
 if [ $OPTIND -lt $# ] || [ $OPTIND -eq $# ]; then
-  echo "$me: unexpected trailing arguments (did you quote option arguments correctly?): ${*:$OPTIND}"
+  if [ -n "$last_opt" ]; then
+    echo "$me: unexpected trailing arguments (did you quote the -$last_opt argument correctly?): ${*:$OPTIND}"
+  else
+    echo "$me: unexpected trailing arguments (are you missing options?): ${*:$OPTIND}"
+  fi
   usage
   exit 7
 fi
