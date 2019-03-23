@@ -16,7 +16,11 @@ function usage() {
 
 function check_already_specified() {
   if [ -n "${!1}" ]; then
-    echo "$me: option already specified: -$opt"
+    if [ -n "$command" ]; then
+      echo "$me: option already specified (did you quote the -c argument correctly?): -$opt"
+    else
+      echo "$me: option already specified: -$opt"
+    fi
     usage
     exit 4
   fi
@@ -53,13 +57,12 @@ while getopts ":d:l:c:h" opt; do
     usage
     exit 3
     ;;
-  \?)
-    echo "$me: invalid option: -$OPTARG"
-    usage
-    exit 1
-    ;;
-  *)
-    echo "$me: invalid option: -$OPTARG"
+  \? | *)
+    if [ -n "$command" ]; then
+      echo "$me: invalid option (did you quote the -c argument correctly?): -$OPTARG"
+    else
+      echo "$me: invalid option: -$OPTARG"
+    fi
     usage
     exit 2
     ;;
