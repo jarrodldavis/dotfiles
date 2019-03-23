@@ -32,7 +32,7 @@ while getopts ":d:l:c:h" opt; do
     ;;
   c)
     check_already_specified 'command'
-    IFS=" " read -r command command_args <<< "$OPTARG"
+    command=$OPTARG
     ;;
   h)
     usage
@@ -70,14 +70,10 @@ check_required 'c' 'command'
 echo "-----elapsed-----" | tee -a "$logfile"
 current_time=$(date "+%Y-%m-%d %H:%M:%S")
 echo "Started '$description' at $current_time" | tee -a "$logfile"
-echo "Executing command: $command $command_args" | tee -a "$logfile"
+echo "Executing command: $command" | tee -a "$logfile"
 echo "-----elapsed-----" | tee -a "$logfile"
 
-if [ -n "$command_args" ]; then
-  echo "$command_args" | xargs "$command" 2>&1 | tee -a "$logfile"
-else
-  "$command" 2>&1 | tee -a "$logfile"
-fi
+bash -c "$command" 2>&1 | tee -a "$logfile"
 
 exit_code=${PIPESTATUS[0]}
 
