@@ -1,12 +1,22 @@
 #! /usr/bin/env bash
 
+# Prefer simple name for error messages
+me=$(basename -a "$0")
+
+# if not on $PATH, include path in usage message
+if [ -n "$(type -P "$me")" ]; then
+  usage_me=$me
+else
+  usage_me=$0
+fi
+
 function usage() {
-  echo "usage: elapsed -d <description> -l <logfile> -c <command>"
+  echo "usage: $usage_me -d <description> -l <logfile> -c <command>"
 }
 
 function check_already_specified() {
   if [ -n "${!1}" ]; then
-    echo "elapsed: option already specified -- $opt"
+    echo "$me: option already specified: -$opt"
     usage
     exit 4
   fi
@@ -14,7 +24,7 @@ function check_already_specified() {
 
 function check_required() {
   if [ -z "${!2}" ]; then
-    echo "elapsed: required option not specified -- $1"
+    echo "$me: required option not specified: -$1"
     usage
     exit 5
   fi
@@ -39,17 +49,17 @@ while getopts ":d:l:c:h" opt; do
     exit 0
     ;;
   :)
-    echo "elapsed: option requires an argument -- $OPTARG"
+    echo "$me: option requires an argument: -$OPTARG"
     usage
     exit 3
     ;;
   \?)
-    echo "elapsed: invalid option -- $OPTARG"
+    echo "$me: invalid option: -$OPTARG"
     usage
     exit 1
     ;;
   *)
-    echo "elapsed: invalid option -- $OPTARG"
+    echo "$me: invalid option: -$OPTARG"
     usage
     exit 2
     ;;
@@ -58,7 +68,7 @@ done
 
 # if all arguments parsed, $OPTIND is one more than $#
 if [ $OPTIND -lt $# ] || [ $OPTIND -eq $# ]; then
-  echo "elapsed: unexpected trailing options (did you quote arguments correctly?): ${*:$OPTIND}"
+  echo "$me: unexpected trailing arguments (did you quote option arguments correctly?): ${*:$OPTIND}"
   usage
   exit 7
 fi
