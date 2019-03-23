@@ -69,7 +69,7 @@ check_required 'c' 'command'
 
 received_signal=
 function trap_signals() {
-  signals=(HUP INT QUIT ILL TRAP ABRT EMT FPE KILL BUS SEGV SYS PIPE ALRM TERM URG STOP TSTP CONT CHLD TTIN TTOU IO XCPU XFSZ VTALRM PROF WINCH INFO USR1 URS2)
+  signals=(HUP INT QUIT KILL TERM)
 
   for signal in "${signals[@]}"; do
     trap "received_signal='true'" "$signal"
