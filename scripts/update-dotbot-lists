@@ -1,6 +1,9 @@
 #! /usr/bin/env bash
 
-cd ~/.dotfiles || exit
+scripts_dir=$(dirname "$0")
+dotfiles_dir="$scripts_dir/.."
+cd "$dotfiles_dir" || exit
+
 brew bundle dump --force
 code --list-extensions > vscode/extensions.txt
 npm ls -g --depth 0 --json --update-notifier false | jq -r '.dependencies | del(.npm) | keys | .[]' > npm-globals.txt
