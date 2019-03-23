@@ -16,6 +16,7 @@ EXIT_ARGUMENT_REQUIRED=2
 EXIT_OPTION_REQUIRED=3
 EXIT_TRAILING_ARGUMENTS=4
 EXIT_ALREADY_SPECIFIED=5
+EXIT_HELP_MIX=6
 EXIT_COMMAND_FAILED=127
 
 SECONDS_PER_HOUR=3600
@@ -46,6 +47,12 @@ function check_required() {
 }
 
 while getopts ":d:l:c:h" opt; do
+  if [ "$OPTARG" == "-h" ]; then
+    echo "$me: unexpected mix of invocation and help options"
+    usage
+    exit $EXIT_HELP_MIX
+  fi
+
   last_opt=$opt
   case $opt in
   d)
@@ -61,8 +68,14 @@ while getopts ":d:l:c:h" opt; do
     command=$OPTARG
     ;;
   h)
-    usage
-    exit $EXIT_HELP_PRINT
+    if [ $# -gt 1 ]; then
+      echo "$me: unexpected mix of invocation and help options"
+      usage
+      exit $EXIT_HELP_MIX
+    else
+      usage
+      exit $EXIT_HELP_PRINT
+    fi
     ;;
   :)
     echo "$me: option requires an argument: -$OPTARG"
