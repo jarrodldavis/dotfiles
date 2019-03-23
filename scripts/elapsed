@@ -105,22 +105,22 @@ function trap_signals() {
   done
 }
 
-echo "-----elapsed-----" | tee -a "$logfile"
+echo "-----$me-----" | tee -a "$logfile"
 current_time=$(date "+%Y-%m-%d %H:%M:%S")
 echo "Started '$description' at $current_time" | tee -a "$logfile"
 echo "Executing command: $command" | tee -a "$logfile"
-echo "-----elapsed-----" | tee -a "$logfile"
+echo "-----$me-----" | tee -a "$logfile"
 
 trap_signals
 bash -c "$command" 2>&1 | tee -a "$logfile"
 
 exit_code=${PIPESTATUS[0]}
 
-echo "-----elapsed-----" | tee -a "$logfile"
+echo "-----$me-----" | tee -a "$logfile"
 current_time=$(date "+%Y-%m-%d %H:%M:%S")
-elapsed_hours=$((SECONDS/SECONDS_PER_HOUR))
-elapsed_minutes=$((SECONDS%SECONDS_PER_HOUR/SECONDS_PER_MINUTE))
-elapsed_seconds=$((SECONDS%SECONDS_PER_MINUTE))
+elapsed_hours=$((SECONDS / SECONDS_PER_HOUR))
+elapsed_minutes=$((SECONDS % SECONDS_PER_HOUR / SECONDS_PER_MINUTE))
+elapsed_seconds=$((SECONDS % SECONDS_PER_MINUTE))
 elapsed_time=$(printf '%02dh:%02dm:%02ds\n' $elapsed_hours $elapsed_minutes $elapsed_seconds)
 
 if [ -n "$received_signal" ]; then
@@ -129,7 +129,7 @@ if [ -n "$received_signal" ]; then
 fi
 
 echo "Finished '$description' at $current_time with exit code $exit_code in $elapsed_time" | tee -a "$logfile"
-echo "-----elapsed-----" | tee -a "$logfile"
+echo "-----$me-----" | tee -a "$logfile"
 
 if [ "$exit_code" -ne "0" ]; then
   exit $EXIT_COMMAND_FAILED
