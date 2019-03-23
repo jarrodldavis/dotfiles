@@ -89,13 +89,14 @@ exit_code=${PIPESTATUS[0]}
 
 echo "-----elapsed-----" | tee -a "$logfile"
 current_time=$(date "+%Y-%m-%d %H:%M:%S")
+elapsed_time=$(printf '%02dh:%02dm:%02ds\n' $((SECONDS/3600)) $((SECONDS%3600/60)) $((SECONDS%60)))
 
 if [ -n "$received_signal" ]; then
   signal=$(kill -l "$exit_code")
   echo "Received SIG$signal"
 fi
 
-echo "Finished '$description' at $current_time with exit code $exit_code" | tee -a "$logfile"
+echo "Finished '$description' at $current_time with exit code $exit_code in $elapsed_time" | tee -a "$logfile"
 echo "-----elapsed-----" | tee -a "$logfile"
 
 if [ "$exit_code" -ne "0" ]; then
