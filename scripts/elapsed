@@ -1,13 +1,71 @@
 #! /usr/bin/env bash
 
-# Usage: elapsed "some description" logfile.log command --with --args
+function usage() {
+  echo "usage: elapsed -d <description> -l <logfile> -c <command>"
+}
 
-description=$1
-logfile=$2
+function check_already_specified() {
+  if [ -n "${!1}" ]; then
+    echo "elapsed: option already specified -- $opt"
+    usage
+    exit 4
+  fi
+}
 
-shift 2
+function check_required() {
+  if [ -z "${!2}" ]; then
+    echo "elapsed: required option not specified -- $1"
+    usage
+    exit 5
+  fi
+}
 
-IFS=" " read -r command command_args <<< "$@"
+while getopts ":d:l:c:h" opt; do
+  case $opt in
+  d)
+    check_already_specified 'description'
+    description=$OPTARG
+    ;;
+  l)
+    check_already_specified 'logfile'
+    logfile=$OPTARG
+    ;;
+  c)
+    check_already_specified 'command'
+    IFS=" " read -r command command_args <<< "$OPTARG"
+    ;;
+  h)
+    usage
+    exit 0
+    ;;
+  :)
+    echo "elapsed: option requires an argument -- $OPTARG"
+    usage
+    exit 3
+    ;;
+  \?)
+    echo "elapsed: invalid option -- $OPTARG"
+    usage
+    exit 1
+    ;;
+  *)
+    echo "elapsed: invalid option -- $OPTARG"
+    usage
+    exit 2
+    ;;
+  esac
+done
+
+# if all arguments parsed, $OPTIND is one more than $#
+if [ $OPTIND -lt $# ] || [ $OPTIND -eq $# ]; then
+  echo "elapsed: unexpected trailing options (did you quote arguments correctly?): ${*:$OPTIND}"
+  usage
+  exit 7
+fi
+
+check_required 'd' 'description'
+check_required 'l' 'logfile'
+check_required 'c' 'command'
 
 echo "-----elapsed-----" | tee -a "$logfile"
 current_time=$(date "+%Y-%m-%d %H:%M:%S")
