@@ -9,9 +9,7 @@ before_script:
   - export PATH=$PWD/travis-scripts:$PATH
 script:
   - ./install
-  - exec bash # use Homebrew bash
-  - source ~/.bash_profile
-  - update-dotbot-lists
+  - bash -l -c "update-dotbot-lists"
   - bash -O extglob -c "shellcheck install bash_profile scripts/!(git-merge-pr|npm-version)"
   - bash -O extglob -c "shfmt -i 2 -sr -d install bash_profile scripts/!(git-merge-pr|npm-version)"
 if: branch = personal/macos
