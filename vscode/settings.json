@@ -62,6 +62,10 @@
 
     "composer.executablePath": "composer",
 
+    "mochaExplorer.logpanel": true,
+    "mochaExplorer.mochaPath": "node_modules/mocha",
+    "mochaExplorer.timeout": 0,
+
     "svelte.plugin.typescript.diagnostics.enable": false,
 
     "vim.disableExtension": false,
