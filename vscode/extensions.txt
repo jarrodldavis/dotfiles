@@ -14,6 +14,7 @@ JamesBirtles.svelte-vscode
 mikestead.dotenv
 msjsdiag.debugger-for-chrome
 nextfaze.json-parse-stringify
+ramyaraoa.show-offset
 rogalmic.bash-debug
 ryu1kn.partial-diff
 shinnn.stylelint
