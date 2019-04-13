@@ -12,6 +12,7 @@ export GOOGLE_API_KEY=no
 export GOOGLE_DEFAULT_CLIENT_ID=no
 export GOOGLE_DEFAULT_CLIENT_SECRET=no
 export CHROME_PATH=/Applications/Chromium.app/Contents/MacOS/Chromium
+export CHROME_BIN=/Applications/Chromium.app/Contents/MacOS/Chromium
 
 eval "$(hub alias -s)"
 eval "$(rbenv init -)"
