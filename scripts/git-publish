@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-current=$(git rev-parse --abbrev-ref HEAD --)
+current=$(git rev-parse --abbrev-ref HEAD)
 
 remote=$1
 
