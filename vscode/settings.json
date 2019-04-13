@@ -15,7 +15,7 @@
     },
     "editor.renderWhitespace": "all",
     "editor.renderIndentGuides": true,
-    "editor.rulers": [120],
+    "editor.rulers": [80],
     "editor.snippetSuggestions": "bottom",
     "editor.tabCompletion": "off",
 
