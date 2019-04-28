@@ -38,6 +38,7 @@ cask "jumpshare"
 cask "keybase"
 cask "luna-display"
 cask "mongodb-compass-beta"
+cask "ngrok"
 cask "notion"
 cask "visual-studio-code"
 mas "com.apple.garageband10", id: 682658836
