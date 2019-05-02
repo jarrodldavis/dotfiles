@@ -2,6 +2,7 @@ ardenivanov.svelte-intellisense
 auchenberg.vscode-browser-preview
 chrmarti.ssh
 dbaeumer.vscode-eslint
+EditorConfig.EditorConfig
 esbenp.prettier-vscode
 fallenwood.vimL
 felixfbecker.php-intellisense
