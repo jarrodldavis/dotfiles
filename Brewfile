@@ -22,6 +22,7 @@ brew "node"
 brew "nss"
 brew "php"
 brew "rbenv"
+brew "redis@4.0", restart_service: true
 brew "shellcheck"
 brew "shfmt"
 brew "tig"
@@ -49,3 +50,4 @@ mas "com.apple.iWork.Pages", id: 409201541
 mas "com.guanshanliu.Monster", id: 942252191
 mas "com.junecloud.mac.Deliveries", id: 924726344
 mas "com.khanov.BlockerMac", id: 1107421413
+mas "li.zihua.medis", id: 1063631769
