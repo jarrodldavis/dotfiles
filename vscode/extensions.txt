@@ -7,6 +7,7 @@ fallenwood.vimL
 felixfbecker.php-intellisense
 foxundermoon.shell-format
 GitHub.vscode-pull-request-github
+hbenl.vscode-firefox-debug
 hbenl.vscode-mocha-test-adapter
 hbenl.vscode-test-explorer
 ikappas.composer
