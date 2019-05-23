@@ -66,8 +66,6 @@
     "mochaExplorer.mochaPath": "node_modules/mocha",
     "mochaExplorer.timeout": 0,
 
-    "svelte.plugin.typescript.diagnostics.enable": false,
-
     "vim.disableExtension": false,
     "vim.easymotion": true,
     "vim.hlsearch": true,
