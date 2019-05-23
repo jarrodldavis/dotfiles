@@ -3,7 +3,11 @@
 
     "breadcrumbs.enabled": true,
 
-    "debug.toolBarLocation": "docked",
+    "debug.enableAllHovers": true,
+    "debug.inlineValues": true,
+    "debug.openDebug": "openOnFirstSessionStart",
+    "debug.showSubSessionsInToolBar": true,
+    "debug.toolBarLocation": "floating",
 
     "editor.lineNumbers": "relative",
     "editor.minimap.enabled": false,
@@ -13,8 +17,9 @@
       "strings": false,
       "other": true,
     },
-    "editor.renderWhitespace": "all",
+    "editor.renderControlCharacters": true,
     "editor.renderIndentGuides": true,
+    "editor.renderWhitespace": "all",
     "editor.rulers": [80],
     "editor.snippetSuggestions": "bottom",
     "editor.tabCompletion": "off",
@@ -35,6 +40,7 @@
     "window.restoreWindows": "all",
 
     "workbench.commandPalette.preserveInput": true,
+    "workbench.settings.editor": "json",
     "workbench.settings.useSplitJSON": true,
 
     // built-in extensions
@@ -53,6 +59,7 @@
 
     "npm.enableScriptExplorer": true,
 
+    "javascript.updateImportsOnFileMove.enabled": "always",
     "typescript.updateImportsOnFileMove.enabled": "always",
 
     // marketplace extensions
