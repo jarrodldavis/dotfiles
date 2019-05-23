@@ -22,6 +22,7 @@ brew "mongodb", restart_service: true
 brew "node"
 brew "nss"
 brew "php"
+brew "postgresql", restart_service: true
 brew "rbenv"
 brew "redis@4.0", restart_service: true
 brew "shellcheck"

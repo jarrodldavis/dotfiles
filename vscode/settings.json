@@ -73,6 +73,19 @@
     "mochaExplorer.mochaPath": "node_modules/mocha",
     "mochaExplorer.timeout": 0,
 
+    "pgsql.connections": [
+      {
+        "host": "localhost",
+        "dbname": "flytime_development",
+        "user": "jarrodldavis",
+        "password": "",
+        "emptyPasswordInput": true,
+        "port": "5432",
+        "profileName": "Flytime"
+      }
+    ],
+    "pgsql.query.displayBitAsNumber": false,
+
     "vim.disableExtension": false,
     "vim.easymotion": true,
     "vim.hlsearch": true,

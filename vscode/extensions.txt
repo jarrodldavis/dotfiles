@@ -14,6 +14,7 @@ humao.rest-client
 ikappas.composer
 JamesBirtles.svelte-vscode
 mikestead.dotenv
+ms-ossdata.vscode-postgresql
 ms-vscode.csharp
 msjsdiag.debugger-for-chrome
 nextfaze.json-parse-stringify
