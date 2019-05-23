@@ -44,12 +44,12 @@ cask "mongodb-compass-beta"
 cask "ngrok"
 cask "notion"
 cask "visual-studio-code"
-mas "com.apple.garageband10", id: 682658836
-mas "com.apple.iMovieApp", id: 408981434
-mas "com.apple.iWork.Keynote", id: 409183694
-mas "com.apple.iWork.Numbers", id: 409203825
-mas "com.apple.iWork.Pages", id: 409201541
-mas "com.guanshanliu.Monster", id: 942252191
-mas "com.junecloud.mac.Deliveries", id: 924726344
-mas "com.khanov.BlockerMac", id: 1107421413
-mas "li.zihua.medis", id: 1063631769
+mas "1Blocker", id: 1107421413
+mas "Deliveries", id: 924726344
+mas "GarageBand", id: 682658836
+mas "iMovie", id: 408981434
+mas "Keynote", id: 409183694
+mas "Medis", id: 1063631769
+mas "Monster", id: 942252191
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
