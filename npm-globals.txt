@@ -1,4 +1,5 @@
 generator-web-extension
 http-server
 now
+sirv-cli
 yo
