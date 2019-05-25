@@ -5,6 +5,7 @@ EditorConfig.EditorConfig
 esbenp.prettier-vscode
 fallenwood.vimL
 felixfbecker.php-intellisense
+forbeslindesay.vscode-sql-template-literal
 foxundermoon.shell-format
 GitHub.vscode-pull-request-github
 hbenl.vscode-firefox-debug
