@@ -26,8 +26,10 @@ function usage() {
   echo "usage: $usage_me -d <description> -l <logfile> -c <command>"
 }
 
+declare -A specified_options
+
 function check_already_specified() {
-  if [ -n "${!1}" ]; then
+  if [ -n "${specified_options[$opt]}" ]; then
     if [ -n "$command" ]; then
       echo "$me: option already specified (did you quote the -c argument correctly?): -$opt"
     else
@@ -36,6 +38,23 @@ function check_already_specified() {
     usage
     exit $EXIT_ALREADY_SPECIFIED
   fi
+}
+
+function check_argument_value() {
+  case "$OPTARG" in
+    -h)
+      echo "$me: unexpected mix of invocation and help options"
+      usage
+      exit $EXIT_HELP_MIX
+      ;;
+    -*)
+      # if the argument starts with a hyphen, it is most likely another option
+      # that means the user didn't specify the argument before giving another option
+      echo "$me: option requires an argument: -$opt"
+      usage
+      exit $EXIT_OPTION_REQUIRED
+      ;;
+  esac
 }
 
 function check_required() {
@@ -47,24 +66,21 @@ function check_required() {
 }
 
 while getopts ":d:l:c:h" opt; do
-  if [ "$OPTARG" == "-h" ]; then
-    echo "$me: unexpected mix of invocation and help options"
-    usage
-    exit $EXIT_HELP_MIX
-  fi
+  check_already_specified
+  check_argument_value
 
   last_opt=$opt
   case $opt in
   d)
-    check_already_specified 'description'
+    specified_options[d]=true
     description=$OPTARG
     ;;
   l)
-    check_already_specified 'logfile'
+    specified_options[l]=true
     logfile=$OPTARG
     ;;
   c)
-    check_already_specified 'command'
+    specified_options[c]=true
     command=$OPTARG
     ;;
   h)
@@ -78,6 +94,9 @@ while getopts ":d:l:c:h" opt; do
     fi
     ;;
   :)
+    opt=$OPTARG
+    check_already_specified
+
     echo "$me: option requires an argument: -$OPTARG"
     usage
     exit $EXIT_ARGUMENT_REQUIRED
