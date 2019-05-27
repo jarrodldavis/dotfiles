@@ -27,6 +27,8 @@
     # VS Code's Chrome Debugger doesn't allow for user-scoped `runtimeExecutable` setting
     /Applications/Google Chrome.app/Contents/MacOS/Google Chrome: scripts/open-chromium
 
+    ~/.dotfiles-scripts: scripts
+
 - brewfile:
     - Brewfile
 

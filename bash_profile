@@ -17,7 +17,7 @@ export CHROME_BIN=/Applications/Chromium.app/Contents/MacOS/Chromium
 eval "$(hub alias -s)"
 eval "$(rbenv init -)"
 
-export PATH=$HOME/.dotfiles/scripts:$PATH
+export PATH=$HOME/.dotfiles-scripts:$PATH
 
 export EDITOR=vim
 
