@@ -2,10 +2,6 @@ language: shell
 os: osx
 osx_image: xcode10.1
 before_script:
-  - mkdir travis-scripts
-  - echo "#! /usr/bin/env bash" > travis-scripts/mas
-  - echo "echo 'Mac App Store:' \$*" > travis-scripts/mas
-  - chmod +x travis-scripts/mas
   - export PATH=$PWD/travis-scripts:$PATH
 script:
   - ./install
