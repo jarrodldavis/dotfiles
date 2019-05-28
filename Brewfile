@@ -24,7 +24,7 @@ brew "nss"
 brew "php"
 brew "postgresql", restart_service: true
 brew "rbenv"
-brew "redis@4.0", restart_service: true
+brew "redis", restart_service: true
 brew "shellcheck"
 brew "shfmt"
 brew "tig"
