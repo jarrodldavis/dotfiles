@@ -9,3 +9,6 @@ script:
   - bash -O extglob -c "shellcheck install bash_profile scripts/!(git-merge-pr|npm-version)"
   - bash -O extglob -c "shfmt -i 2 -sr -d install bash_profile scripts/!(git-merge-pr|npm-version)"
 if: branch = personal/macos
+notifications:
+  slack:
+    secure: UU/SDhyjRM663gJFa/fo6EzmRKMIvvwcmjg+Am+Klkal1l59KuK3t7QTTLcenFzFHcleaxLOJeCB6aZJ2wrUao7qJ5v4IloGLE3OvgsvRJUfgpWDCsRMJvnIeg9DNSmI1neYr8qajkT4YLmVCml6bHGh9OFvLIpPY7fOF2vFwSFfEYyLLmL2fenuaEkOqVJ2D8i7YzDdzvZv25CFJvaSIM1rNV3xGB7VJzwBPSW2/Gg+oQP/xIkzWOTzw8f+ZX7ACrQ0aGGQvJjVzFG3aDUcqPe/vV8o7L8Y9dEvbwwQlzHT7f9eNuO5cV7sZjJqp9PPDlJm6Sq+SSMG/WLT/CLoXhYMFuOOa8b1mxko+U8dbQFeyhtIVKMSjcfkWJFv8Wal/V7aM/yodbL4bO8RJuvM1BOZBeV571NNoHMcCevOwOIZtyOqmY5F0Zx/ocw6D/289Q6Zal1oUNHP85wUWCjDsO15XQK427Bfcx4tLkwgNhaVHMW/u/1yQle9cQLNVq9+nsihRtAj/OfTABy1BOMTzfSlTTDwwqMj6p4B0cSyxLI4EFEtesiZe4jWFBOisG4CkolemP7td2bftuBvEwF6dv6Jy6X1IAodwLiG9BmchNuT1KA9IRjHU1vm7gOv73hD8fiN07WCmI+lueQ3plDkGYrg7QdyVse6upb/rHz7uRg=
