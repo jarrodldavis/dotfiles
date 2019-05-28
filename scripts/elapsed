@@ -42,18 +42,18 @@ function check_already_specified() {
 
 function check_argument_value() {
   case "$OPTARG" in
-    -h)
-      echo "$me: unexpected mix of invocation and help options"
-      usage
-      exit $EXIT_HELP_MIX
-      ;;
-    -*)
-      # if the argument starts with a hyphen, it is most likely another option
-      # that means the user didn't specify the argument before giving another option
-      echo "$me: option requires an argument: -$opt"
-      usage
-      exit $EXIT_OPTION_REQUIRED
-      ;;
+  -h)
+    echo "$me: unexpected mix of invocation and help options"
+    usage
+    exit $EXIT_HELP_MIX
+    ;;
+  -*)
+    # if the argument starts with a hyphen, it is most likely another option
+    # that means the user didn't specify the argument before giving another option
+    echo "$me: option requires an argument: -$opt"
+    usage
+    exit $EXIT_OPTION_REQUIRED
+    ;;
   esac
 }
 
