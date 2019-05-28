@@ -1,7 +1,10 @@
 #! /usr/bin/env bash
 
 scripts_dir=$(dirname "$0")
-dotfiles_dir="$scripts_dir/.."
+cd "$scripts_dir" || exit
+
+real_scripts_dir=$(pwd -P)
+dotfiles_dir="$real_scripts_dir/.."
 cd "$dotfiles_dir" || exit
 
 brew bundle dump --force
