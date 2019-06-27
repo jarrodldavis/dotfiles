@@ -47,6 +47,7 @@ cask "firefox"
 cask "firefox-developer-edition"
 cask "ngrok"
 cask "slack"
+cask "suspicious-package"
 cask "visual-studio-code"
 mas "1Blocker", id: 1107421413
 mas "Deliveries", id: 924726344
