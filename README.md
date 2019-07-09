@@ -5,6 +5,7 @@
 ## Requirements
 
 - macOS (currently tested on 10.14 Mojave)
+- `curl` (pre-installed in macOS)
 - `bash` (the one pre-installed in macOS should work fine for initial usage)
 - Xcode or Xcode Command Line Developer Tools (for initial `git` usage and Homebrew package installation)
 
