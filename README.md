@@ -16,7 +16,7 @@ Run the following command to download and execute the bootstrap script. This wil
 Developer Tools, clone this repository to a local directory of your choosing, and run the install script.
 
 ```bash
-curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/personal/macos/scripts/bootstrap | sh -
+bash -c "$(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/personal/macos/scripts/bootstrap)"
 ```
 
 ### Manual Installation

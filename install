@@ -10,13 +10,19 @@ BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 cd "${BASEDIR}"
 
-echo "Checking for Xcode Tools..."
-# shellcheck disable=2016
-xcrun --version ||
-  (echo 'Neither Xcode nor Xcode Command Line Tools are installed. Use `xcode-select --install` to install the Command Line Tools, then try again.' &&
-    exit 1)
+while ! xcode-select --print-path &> /dev/null; do
+  xcode-select --install &> /dev/null
+  echo 'Waiting for Xcode Command Line Developer Tools installation'
+  echo '(Select "Install" in the "Install Command Line Developer Tools" prompt)'
+  sleep 15
+done
+
+echo "Xcode or Xcode Command Line Developer Tools are installed at $(xcode-select --print-path)"
 
 git -C "${DOTBOT_DIR}" submodule sync --quiet --recursive
 git submodule update --init --recursive
 
 "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" --plugin-dir dotbot-brew -c "${CONFIG}" "${@}"
+
+# Replace current shell with Homebrew bash after installation
+exec bash -l
