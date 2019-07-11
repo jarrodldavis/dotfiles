@@ -21,6 +21,10 @@ echo "Xcode or Xcode Command Line Developer Tools are installed at $(xcode-selec
 
 git submodule update --init --recursive
 
+if [[ -t 0 ]]; then
+  echo 'interactive install'
+fi
+
 "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" --plugin-dir dotbot-brew -c "${CONFIG}" "${@}"
 
 # Replace current shell with Homebrew bash after interactive installation
