@@ -24,5 +24,7 @@ git submodule update --init --recursive
 
 "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" --plugin-dir dotbot-brew -c "${CONFIG}" "${@}"
 
-# Replace current shell with Homebrew bash after installation
-exec bash -l
+# Replace current shell with Homebrew bash after interactive installation
+if [[ -t 0 ]]; then
+  exec bash -l
+fi
