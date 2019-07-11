@@ -1,5 +1,6 @@
 generator-web-extension
 http-server
 now
+npm
 sirv-cli
 yo
