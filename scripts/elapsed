@@ -23,7 +23,7 @@ SECONDS_PER_HOUR=3600
 SECONDS_PER_MINUTE=60
 
 function usage() {
-  echo "usage: $usage_me -d <description> -l <logfile> -c <command>"
+  echo "usage: $usage_me -d <description> -l <logfile> -c <command> [-s]"
 }
 
 declare -A specified_options
@@ -65,7 +65,7 @@ function check_required() {
   fi
 }
 
-while getopts ":d:l:c:h" opt; do
+while getopts ":d:l:c:sh" opt; do
   check_already_specified
   check_argument_value
 
@@ -82,6 +82,10 @@ while getopts ":d:l:c:h" opt; do
   c)
     specified_options[c]=true
     command=$OPTARG
+    ;;
+  s)
+    specified_options[s]=true
+    suppress_command_stdout=true
     ;;
   h)
     if [ $# -gt 1 ]; then
@@ -115,7 +119,15 @@ done
 
 # if all arguments parsed, $OPTIND is one more than $#
 if [ $OPTIND -lt $# ] || [ $OPTIND -eq $# ]; then
-  if [ -n "$last_opt" ]; then
+  if [ "$last_opt" == 's' ]; then
+    if [ -n "$command" ]; then
+      echo "$me: option does not accept an argument (did you quote the -c argument correctly?): -$last_opt"
+    else
+      echo "$me: option does not accept an argument: -$last_opt"
+    fi
+  elif
+    [ -n "$last_opt" ]
+  then
     echo "$me: unexpected trailing arguments (did you quote the -$last_opt argument correctly?): ${*:$OPTIND}"
   else
     echo "$me: unexpected trailing arguments (are you missing options?): ${*:$OPTIND}"
@@ -141,10 +153,17 @@ echo "-----$me-----" | tee -a "$logfile"
 current_time=$(date "+%Y-%m-%d %H:%M:%S")
 echo "Started '$description' at $current_time" | tee -a "$logfile"
 echo "Executing command: $command" | tee -a "$logfile"
+if [ $suppress_command_stdout == 'true' ]; then
+  echo "Command output suppressed; use 'tail -f $logfile' to view realtime output"
+fi
 echo "-----$me-----" | tee -a "$logfile"
 
 trap_signals
-bash -c "$command" 2>&1 | tee -a "$logfile"
+if [ $suppress_command_stdout == 'true' ]; then
+  bash -c "$command" >> "$logfile" 2>&1
+else
+  bash -c "$command" 2>&1 | tee -a "$logfile"
+fi
 
 exit_code=${PIPESTATUS[0]}
 
