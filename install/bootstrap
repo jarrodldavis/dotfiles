@@ -27,12 +27,12 @@ echo "Cloning from $SELECTED_REPO into $SELECTED_FOLDER"
 
 if ! git clone "$SELECTED_REPO" "$SELECTED_FOLDER"; then
   echo "fatal: could not clone dotfiles directory"
-  exit 1
+  exit 2
 fi
 
 if ! cd "$SELECTED_FOLDER"; then
   echo "fatal: could not change to local dotfiles directory"
-  exit 2
+  exit 3
 fi
 
-./install
+./install/core

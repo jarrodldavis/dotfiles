@@ -17,14 +17,14 @@ Run the following command to download and execute the bootstrap script. This wil
 Developer Tools, clone this repository to a local directory of your choosing, and run the install script.
 
 ```bash
-exec bash -c "$(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/personal/macos/scripts/bootstrap)"
+exec bash -c "$(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/personal/macos/install/bootstrap)"
 ```
 
 ### Manual Installation
 
 - Make sure Xcode or the Xcode Command Line Tools are installed
 - Clone this repository to the directory of your choosing (e.g. `~/.dotfiles`)
-- In the freshly-cloned directory, run the `./install` script
+- In the freshly-cloned directory, run the `./install/core` script
 
 Example:
 
@@ -40,5 +40,5 @@ remote: Total 1228 (delta 66), reused 88 (delta 43), pack-reused 1111
 Receiving objects: 100% (1228/1228), 354.84 KiB | 2.07 MiB/s, done.
 Resolving deltas: 100% (758/758), done.
 $ cd .dotfiles
-$ ./install
+$ ./install/core
 ```
