@@ -1,13 +1,21 @@
 #! /usr/bin/env bash
 
+function __color_log() {
+  local message=$2
+  if [[ -t 1 ]] && tput colors &> /dev/null; then
+    local message="\033[${1}m${2}\033[0m"
+  fi
+  echo -e "$message"
+}
+
 while ! xcode-select --print-path &> /dev/null; do
   xcode-select --install &> /dev/null
-  echo 'Waiting for Xcode Command Line Developer Tools installation'
-  echo '(Select "Install" in the "Install Command Line Developer Tools" prompt)'
+  __color_log 94 'Waiting for Xcode Command Line Developer Tools installation'
+  __color_log 94 '(Select "Install" in the "Install Command Line Developer Tools" prompt)'
   sleep 15
 done
 
-echo "Xcode or Xcode Command Line Developer Tools are installed at $(xcode-select --print-path)"
+__color_log 92 "Xcode or Xcode Command Line Developer Tools are installed at $(xcode-select --print-path)"
 
 if [[ -z "$SELECTED_FOLDER" ]]; then
   DEFAULT_FOLDER=$HOME/.dotfiles
@@ -17,7 +25,7 @@ fi
 SELECTED_FOLDER=${SELECTED_FOLDER/#\~/$HOME}
 
 if [[ -e $SELECTED_FOLDER ]]; then
-  echo "fatal: cannot clone to existing local directory"
+  __color_log 91 "fatal: cannot clone to existing local directory"
   exit 1
 fi
 
@@ -27,15 +35,15 @@ if [[ -z "$SELECTED_REPO" ]]; then
   SELECTED_REPO=${SELECTED_REPO:-$DEFAULT_REPO}
 fi
 
-echo "Cloning from $SELECTED_REPO into $SELECTED_FOLDER"
+__color_log 92 "Cloning from $SELECTED_REPO into $SELECTED_FOLDER"
 
 if ! git clone "$SELECTED_REPO" "$SELECTED_FOLDER"; then
-  echo "fatal: could not clone dotfiles directory"
+  __color_log 91 "fatal: could not clone dotfiles directory"
   exit 2
 fi
 
 if ! cd "$SELECTED_FOLDER"; then
-  echo "fatal: could not change to local dotfiles directory"
+  __color_log 91 "fatal: could not change to local dotfiles directory"
   exit 3
 fi
 

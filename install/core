@@ -10,14 +10,22 @@ BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/.."
 
 cd "${BASEDIR}"
 
+function __color_log() {
+  local message=$2
+  if [[ -t 1 ]] && tput colors &> /dev/null; then
+    local message="\033[${1}m${2}\033[0m"
+  fi
+  echo -e "$message"
+}
+
 while ! xcode-select --print-path &> /dev/null; do
   xcode-select --install &> /dev/null
-  echo 'Waiting for Xcode Command Line Developer Tools installation'
-  echo '(Select "Install" in the "Install Command Line Developer Tools" prompt)'
+  __color_log 94 'Waiting for Xcode Command Line Developer Tools installation'
+  __color_log 94 '(Select "Install" in the "Install Command Line Developer Tools" prompt)'
   sleep 15
 done
 
-echo "Xcode or Xcode Command Line Developer Tools are installed at $(xcode-select --print-path)"
+__color_log 92 "Xcode or Xcode Command Line Developer Tools are installed at $(xcode-select --print-path)"
 
 git submodule update --init --recursive
 
@@ -25,7 +33,7 @@ git submodule update --init --recursive
 
 # Check for updated bash
 if [[ "$SHELL" != "$(command -v bash)" ]]; then
-  echo "A new installation of bash was installed via Homebrew. Be sure to exit this interactive shell process to use it."
+  __color_log 95 "A new installation of bash was installed via Homebrew. Be sure to exit this interactive shell process to use it."
 elif [[ "$BASH_VERSION" != "$(bash -c 'echo $BASH_VERSION')" ]]; then
-  echo "A new version of bash was updated via Homebrew. Be sure to exit this interactive shell process to use it."
+  __color_log 95 "A new version of bash was updated via Homebrew. Be sure to exit this interactive shell process to use it."
 fi
