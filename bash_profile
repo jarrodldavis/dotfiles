@@ -1,6 +1,17 @@
 #! /usr/bin/env bash
 # shellcheck disable=1090,1091
 
+# Check for updated bash
+if [ "$SHELL" != "$(command -v bash)" ]; then
+  UPDATE_MESSAGE="A new installation of bash was installed via Homebrew. Be sure to update your shell with 'chsh -s', then exit this interactive shell process to use it."
+
+  if [ -t 1 ] && tput colors &> /dev/null; then
+    UPDATE_MESSAGE="\033[0;31m${UPDATE_MESSAGE}\033[m"
+  fi
+
+  echo -e "$UPDATE_MESSAGE"
+fi
+
 if [ -f "$(brew --prefix)"/etc/bash_completion ]; then . "$(brew --prefix)"/etc/bash_completion; fi
 
 if [ -f ~/.github_tokens ]; then . ~/.github_tokens; fi
