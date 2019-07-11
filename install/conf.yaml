@@ -37,14 +37,14 @@
       command: '[ -d ~/.vim/bundle/Vundle.vim/ ] || git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
       description: Installing Vundle
     -
-      command: vim +PluginInstall +qall
-      description: Installing vim plugins]
+      command: vim +PluginInstall +qall &>/dev/null
+      description: Installing vim plugins
     -
       command: cat vim-press-and-hold.txt | xargs -I {} defaults write {} ApplePressAndHoldEnabled -bool false
       description: Fixing Keyboard Press and Hold for apps with vim plugins
     -
       command: code $(sed -e 's/^/--force --install-extension /' vscode/extensions.txt)
-      description: Installing Visual Studio Code Extensions]
+      description: Installing Visual Studio Code Extensions
     -
       command: cat npm-config.txt | xargs -L1 npm config set
       description: Configuring npm
@@ -52,7 +52,7 @@
       command: cat npm-globals.txt | xargs npm i -g
       description: Installing global npm packages
     -
-      command: cat heroku-plugins.txt | xargs heroku plugins:install
+      command: heroku plugins:install $(cat heroku-plugins.txt)
       description: Installing Heroku CLI plugins
     -
       command: grep '/usr/local/bin/bash' /etc/shells || echo /usr/local/bin/bash | sudo tee -a /etc/shells
