@@ -9,9 +9,11 @@ done
 
 echo "Xcode or Xcode Command Line Developer Tools are installed at $(xcode-select --print-path)"
 
-DEFAULT_FOLDER=$HOME/.dotfiles
-read -r -p "Directory to clone to: ($DEFAULT_FOLDER) " SELECTED_FOLDER
-SELECTED_FOLDER=${SELECTED_FOLDER:-$DEFAULT_FOLDER}
+if [[ -z "$SELECTED_FOLDER" ]]; then
+  DEFAULT_FOLDER=$HOME/.dotfiles
+  read -r -p "Directory to clone to: ($DEFAULT_FOLDER) " SELECTED_FOLDER
+  SELECTED_FOLDER=${SELECTED_FOLDER:-$DEFAULT_FOLDER}
+fi
 SELECTED_FOLDER=${SELECTED_FOLDER/#\~/$HOME}
 
 if [[ -e $SELECTED_FOLDER ]]; then
@@ -19,9 +21,11 @@ if [[ -e $SELECTED_FOLDER ]]; then
   exit 1
 fi
 
-DEFAULT_REPO="https://github.com/jarrodldavis/dotfiles.git"
-read -r -p "Repository to clone from: ($DEFAULT_REPO) " SELECTED_REPO
-SELECTED_REPO=${SELECTED_REPO:-$DEFAULT_REPO}
+if [[ -z "$SELECTED_REPO" ]]; then
+  DEFAULT_REPO="https://github.com/jarrodldavis/dotfiles.git"
+  read -r -p "Repository to clone from: ($DEFAULT_REPO) " SELECTED_REPO
+  SELECTED_REPO=${SELECTED_REPO:-$DEFAULT_REPO}
+fi
 
 echo "Cloning from $SELECTED_REPO into $SELECTED_FOLDER"
 

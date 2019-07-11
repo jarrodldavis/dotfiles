@@ -1,13 +1,15 @@
 language: shell
 os: osx
 osx_image: xcode10.1
+env:
+  - SELECTED_FOLDER="~/.dotfiles" SELECTED_REPO="https://github.com/jarrodldavis/dotfiles.git"
 before_script:
   - export PATH=$PWD/travis-scripts:$PATH
 script:
-  - ./install
+  - bash -c "$(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/personal/macos/install/bootstrap)" # From README
   - bash -l -c "update-dotbot-lists"
-  - bash -O extglob -c "shellcheck install bash_profile scripts/!(git-merge-pr|npm-version)"
-  - bash -O extglob -c "shfmt -i 2 -sr -d install bash_profile scripts/!(git-merge-pr|npm-version)"
+  - bash -O extglob -c "shellcheck install/!(conf.yaml) bash_profile scripts/!(git-merge-pr|npm-version)"
+  - bash -O extglob -c "shfmt -i 2 -sr -d install/!(conf.yaml) bash_profile scripts/!(git-merge-pr|npm-version)"
 if: branch = personal/macos
 notifications:
   slack:
