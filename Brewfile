@@ -45,6 +45,7 @@ cask "chromium"
 cask "discord"
 cask "firefox"
 cask "firefox-developer-edition"
+cask "keepingyouawake"
 cask "ngrok"
 cask "slack"
 cask "suspicious-package"
@@ -55,6 +56,5 @@ mas "GarageBand", id: 682658836
 mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
 mas "Medis", id: 1063631769
-mas "Monster", id: 942252191
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
