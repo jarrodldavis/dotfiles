@@ -16,6 +16,7 @@
     ~/.ssh/config: ssh/config
     ~/.gnupg/gpg-agent.conf: gnupg/gpg-agent.conf
     ~/.vimrc:
+    ~/.rbenv/default-gems: rbenv/default-gems
     ~/Library/LaunchAgents/:
       glob: true
       path: LaunchAgents/*
@@ -33,6 +34,9 @@
     - Brewfile
 
 - shell:
+    -
+      command: 'cat rbenv/versions.txt | xargs -L1 rbenv install --skip-existing'
+      description: Installing rbenv-managed rubies
     -
       command: '[ -d ~/.vim/bundle/Vundle.vim/ ] || git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
       description: Installing Vundle

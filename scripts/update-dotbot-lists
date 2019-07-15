@@ -17,3 +17,5 @@ if [[ "$HEROKU_PLUGINS" == "no plugins installed" ]]; then
 else
   cut -d' ' -f1 <<< "$HEROKU_PLUGINS" > heroku-plugins.txt
 fi
+
+rbenv versions --bare > rbenv/versions.txt

@@ -26,6 +26,8 @@ brew "nss"
 brew "php"
 brew "postgresql", restart_service: true
 brew "rbenv"
+brew "rbenv-bundle-exec"
+brew "rbenv-default-gems"
 brew "reattach-to-user-namespace"
 brew "redis", restart_service: true
 brew "shellcheck"
