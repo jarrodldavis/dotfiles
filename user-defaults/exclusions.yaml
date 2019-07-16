@@ -1,0 +1,9 @@
+:global:
+  :keys:
+    - NSUserDictionaryReplacementItems
+:local:
+  :domains:
+    - com.apple.CoreDuet
+  :keys:
+    com.apple.DiskUtility:
+      - NSSplitView Subview Frames SUMainWindow
