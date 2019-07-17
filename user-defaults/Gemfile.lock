@@ -4,12 +4,14 @@ GEM
     mini_portile2 (2.4.0)
     nokogiri (1.10.3)
       mini_portile2 (~> 2.4.0)
+    rugged (0.28.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   nokogiri (>= 1.10)
+  rugged (~> 0.28.2)
 
 BUNDLED WITH
    2.0.2
