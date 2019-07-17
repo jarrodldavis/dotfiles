@@ -11,6 +11,7 @@ class UserDefaultsRepositoryExporter < UserDefaultsExporter
     super
     repo = Rugged::Repository.init_at @repository_path
     commit repo
+    return
   end
 
   private
@@ -40,5 +41,6 @@ class UserDefaultsRepositoryExporter < UserDefaultsExporter
 
     commit = Rugged::Commit.create(repo, options)
     index.write
+    return
   end
 end

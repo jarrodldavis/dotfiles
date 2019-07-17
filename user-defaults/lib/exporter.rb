@@ -8,7 +8,7 @@ class UserDefaultsExporter
   GLOBAL_FILE_NAME = "global"
   PROPERTY_LIST_EXTENSION = "plist"
 
-  def initialize(output:, exclusions: nil)
+  def initialize(output:, exclusions:)
     @output_path = File.expand_path output
     @exclusions = UserDefaultsExclusions.new exclusions
   end
@@ -23,6 +23,8 @@ class UserDefaultsExporter
         write LOCAL_DIRECTORY_NAME, domain, get_local_domain_defaults(domain)
       end
     }
+
+    return
   end
 
   private
@@ -31,6 +33,7 @@ class UserDefaultsExporter
     FileUtils.remove_dir @output_path, force: true
     FileUtils.mkdir_p @output_path
     Dir.mkdir File.join(@output_path, LOCAL_DIRECTORY_NAME)
+    return
   end
 
   def get_global_domain_defaults
@@ -49,11 +52,12 @@ class UserDefaultsExporter
       xml_doc.delete_property_list_keys! keys_to_delete
     end
 
-    xml_doc
+    return xml_doc
   end
 
   def write(*paths, xml_doc)
     path = "#{File.join(@output_path, paths)}.#{PROPERTY_LIST_EXTENSION}"
     File.write path, xml_doc
+    return
   end
 end

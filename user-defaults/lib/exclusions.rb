@@ -28,6 +28,7 @@ class UserDefaultsExclusions
     end
 
     @global_keys = parsed_global_keys.to_set
+    return
   end
 
   def initialize_local_domains parsed_exclusions
@@ -38,6 +39,7 @@ class UserDefaultsExclusions
     end
 
     @local_domains = parsed_local_domains.to_set
+    return
   end
 
   def initialize_local_keys parsed_exclusions
@@ -54,5 +56,6 @@ class UserDefaultsExclusions
       end
       @local_keys[domain] = keys.to_set
     }
+    return
   end
 end
