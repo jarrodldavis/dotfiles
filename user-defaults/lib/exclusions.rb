@@ -6,10 +6,16 @@ class UserDefaultsExclusions
   attr_accessor :global_keys, :local_domains, :local_keys
 
   def initialize path
-    parsed_exclusions = YAML.load_file path
-    initialize_global_keys parsed_exclusions
-    initialize_local_domains parsed_exclusions
-    initialize_local_keys parsed_exclusions
+    if path.nil?
+      @global_keys = Set.new
+      @local_domains = Set.new
+      @local_keys = {}
+    else
+      parsed_exclusions = YAML.load_file path
+      initialize_global_keys parsed_exclusions
+      initialize_local_domains parsed_exclusions
+      initialize_local_keys parsed_exclusions
+    end
   end
 
   private

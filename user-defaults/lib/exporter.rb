@@ -8,8 +8,8 @@ class UserDefaultsExporter
   GLOBAL_FILE_NAME = "global"
   PROPERTY_LIST_EXTENSION = "plist"
 
-  def initialize(output:, exclusions:)
-    @output_path = output
+  def initialize(output:, exclusions: nil)
+    @output_path = File.expand_path output
     @exclusions = UserDefaultsExclusions.new exclusions
   end
 
@@ -29,7 +29,7 @@ class UserDefaultsExporter
 
   def create_output_directories
     FileUtils.remove_dir @output_path, force: true
-    Dir.mkdir @output_path
+    FileUtils.mkdir_p @output_path
     Dir.mkdir File.join(@output_path, LOCAL_DIRECTORY_NAME)
   end
 
