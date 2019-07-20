@@ -17,6 +17,7 @@
     ~/.gnupg/gpg-agent.conf: gnupg/gpg-agent.conf
     ~/.vimrc:
     ~/.rbenv/default-gems: rbenv/default-gems
+    ~/.web-ext-config.js:
     ~/Library/LaunchAgents/:
       glob: true
       path: LaunchAgents/*
