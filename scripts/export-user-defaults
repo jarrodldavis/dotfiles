@@ -1,0 +1,225 @@
+#! /usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'yaml'
+
+# bundler
+require 'bundler/inline'
+
+gemfile do
+  source "https://rubygems.org"
+
+  gem "nokogiri", ">= 1.10"
+  gem "rugged", "~> 0.28.2"
+end
+
+# command handling
+at_exit {
+  next unless $!.nil?
+
+  if ARGV.first == '--private'
+    UserDefaultsRepositoryExporter.new('~/Documents/Backups/preferences').export
+  else
+    root_path = File.join __dir__, '..', 'user-defaults'
+    output_path = File.join root_path, 'data'
+    exclusions_path = File.join root_path, 'exclusions.yaml'
+    UserDefaultsExporter.new(output: output_path, exclusions: exclusions_path).export
+  end
+}
+
+# implementation details
+module Nokogiri
+  module XML
+    class Document
+      def delete_property_list_keys!(keys_to_delete)
+        unless keys_to_delete.is_a? Set
+          raise TypeError, "Expected to receive a Set, got a #{keys_to_delete.class}"
+        end
+
+        self.
+          # get root <plist> element
+          root.
+          # get the root's single child, a <dict> element
+          child.
+          # get the children of the <dict> element
+          children.
+          # iterate through those children
+          each {|element|
+            # property list dictionaries are represented as a flat array of key/value elements
+            # that list alternate between <key> elements and value elements, such as <true/> or <array>
+            next unless element.name == "key"
+
+            # filter based on key name, which is the text child of <key> elements
+            next unless keys_to_delete.include? element.child.text
+
+            # remove this element (<key>) and the next (some value like <true/> or <array>)
+            element.next.remove # remove sibling first since sibling traversal stops working after `remove`
+            element.remove
+          }
+
+        return self
+      end
+    end
+  end
+end
+
+class UserDefaultsExclusions
+  attr_accessor :global_keys, :local_domains, :local_keys
+
+  def initialize path
+    if path.nil?
+      @global_keys = Set.new
+      @local_domains = Set.new
+      @local_keys = {}
+    else
+      parsed_exclusions = YAML.load_file path
+      initialize_global_keys parsed_exclusions
+      initialize_local_domains parsed_exclusions
+      initialize_local_keys parsed_exclusions
+    end
+  end
+
+  private
+
+  def initialize_global_keys parsed_exclusions
+    parsed_global_keys = parsed_exclusions.dig(:global, :keys)
+
+    unless parsed_global_keys.is_a? Array
+      raise TypeError, "Expected global key exclusions (path :global, :keys) to be an array but got #{parsed_global_keys.class}"
+    end
+
+    @global_keys = parsed_global_keys.to_set
+    return
+  end
+
+  def initialize_local_domains parsed_exclusions
+    parsed_local_domains = parsed_exclusions.dig(:local, :domains)
+
+    unless parsed_local_domains.is_a? Array
+      raise TypeError, "Expected local domain exclusions (path :local, :domains) to be an array but got #{parsed_local_domains.class}"
+    end
+
+    @local_domains = parsed_local_domains.to_set
+    return
+  end
+
+  def initialize_local_keys parsed_exclusions
+    parsed_local_keys = parsed_exclusions.dig(:local, :keys)
+
+    unless parsed_local_keys.is_a? Hash
+      raise TypeError, "Expected local key exclusions (path :local, :keys) to be a hash but got #{parsed_local_keys.class}"
+    end
+
+    @local_keys = {}
+    parsed_local_keys.each {|domain, keys|
+      unless keys.is_a? Array
+        raise TypeError, "Expected local key exclusions for domain #{domain} (path :local, :keys, #{domain}) to be an array, but got #{keys.class}"
+      end
+      @local_keys[domain] = keys.to_set
+    }
+    return
+  end
+end
+
+class UserDefaultsExporter
+  LOCAL_DIRECTORY_NAME = "local"
+  GLOBAL_FILE_NAME = "global"
+  PROPERTY_LIST_EXTENSION = "plist"
+
+  def initialize(output:, exclusions:)
+    @output_path = File.expand_path output
+    @exclusions = UserDefaultsExclusions.new exclusions
+  end
+
+  def export
+    create_output_directories
+
+    write GLOBAL_FILE_NAME, get_global_domain_defaults
+
+    get_local_domain_names.each {|domain|
+      unless @exclusions.local_domains.include? domain
+        write LOCAL_DIRECTORY_NAME, domain, get_local_domain_defaults(domain)
+      end
+    }
+
+    return
+  end
+
+  private
+
+  def create_output_directories
+    FileUtils.remove_dir @output_path, force: true
+    FileUtils.mkdir_p @output_path
+    Dir.mkdir File.join(@output_path, LOCAL_DIRECTORY_NAME)
+    return
+  end
+
+  def get_global_domain_defaults
+    Nokogiri::XML(`defaults export -g -`) {|config| config.noblanks }.delete_property_list_keys! @exclusions.global_keys
+  end
+
+  def get_local_domain_names
+    `defaults domains`.strip.split(', ')
+  end
+
+  def get_local_domain_defaults(domain)
+    xml_doc = Nokogiri::XML(`defaults export #{domain} -`) {|config| config.noblanks }
+
+    keys_to_delete = @exclusions.local_keys[domain]
+    unless keys_to_delete.nil?
+      xml_doc.delete_property_list_keys! keys_to_delete
+    end
+
+    return xml_doc
+  end
+
+  def write(*paths, xml_doc)
+    path = "#{File.join(@output_path, paths)}.#{PROPERTY_LIST_EXTENSION}"
+    File.write path, xml_doc
+    return
+  end
+end
+
+class UserDefaultsRepositoryExporter < UserDefaultsExporter
+  def initialize repository_path
+    @repository_path = File.expand_path repository_path
+    super(output: File.join(@repository_path, 'user-defaults'), exclusions: nil)
+  end
+
+  def export
+    super
+    repo = Rugged::Repository.init_at @repository_path
+    commit repo
+    return
+  end
+
+  private
+
+  def commit repo
+    unless repo.is_a? Rugged::Repository
+      raise TypeError, "Expected a Rugged::Repository, got #{repo.class}"
+    end
+
+    index = repo.index
+    parents = []
+
+    unless repo.empty?
+      head_commit = repo.head.target
+      index.read_tree head_commit.tree
+      parents.append head_commit
+    end
+
+    index.add_all
+
+    options = {
+      :tree => index.write_tree(repo),
+      :message => "update user defaults",
+      :parents => parents,
+      :update_ref => 'HEAD'
+    }
+
+    commit = Rugged::Commit.create(repo, options)
+    index.write
+    return
+  end
+end
