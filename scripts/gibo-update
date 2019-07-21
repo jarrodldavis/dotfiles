@@ -1,0 +1,46 @@
+#! /usr/bin/env bash
+
+me=$(basename "$0")
+
+EXIT_ILLEGAL_OPTION=1
+EXIT_MISSING_FILENAME=2
+EXIT_NO_SUCH_FILE=3
+
+function usage() {
+  echo "usage: $me [-i] file"
+}
+
+while getopts ":i" opt; do
+  case $opt in
+  i)
+    in_place=true
+    ;;
+  *)
+    echo "$me: illegal option: -$OPTARG"
+    usage
+    exit $EXIT_ILLEGAL_OPTION
+    ;;
+  esac
+done
+
+# if all arguments parsed, $OPTIND is one more than $#
+if [ $OPTIND -lt $# ] || [ $OPTIND -eq $# ]; then
+  input_file="${*:$OPTIND}"
+else
+  echo "$me: missing filename"
+  usage
+  exit $EXIT_MISSING_FILENAME
+fi
+
+if [ ! -f "$input_file" ]; then
+  echo "$me: $input_file: no such file or directory"
+  exit $EXIT_NO_SUCH_FILE
+fi
+
+data=$(grep '###' "$input_file" | cut -f 7,8 -d'/' | sed -e 's/^Global\///g' -e 's/.gitignore$//g' | xargs gibo dump)
+
+if [ "$in_place" == "true" ]; then
+  echo "$data" > "$input_file"
+else
+  echo "$data"
+fi
