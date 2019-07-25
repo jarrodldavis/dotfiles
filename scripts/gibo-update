@@ -37,7 +37,14 @@ if [ ! -f "$input_file" ]; then
   exit $EXIT_NO_SUCH_FILE
 fi
 
-data=$(grep '###' "$input_file" | cut -f 7,8 -d'/' | sed -e 's/^Global\///g' -e 's/.gitignore$//g' | xargs gibo dump)
+data=$(sed -e '/###/,$d' "$input_file") # custom rules
+
+if [ -n "$data" ]; then
+  data="$data"$'\n'$'\n' # empty line between custom rules and gibo rules
+fi
+
+gibo_data=$(grep '###' "$input_file" | cut -f 7,8 -d'/' | sed -e 's/^Global\///g' -e 's/.gitignore$//g' | xargs gibo dump)
+data="${data}${gibo_data}"
 
 if [ "$in_place" == "true" ]; then
   echo "$data" > "$input_file"
