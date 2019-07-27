@@ -29,6 +29,7 @@ eval "$(hub alias -s)"
 eval "$(rbenv init -)"
 
 export PATH=$HOME/.dotfiles-scripts:$PATH
+export PATH="$HOME/.cargo/bin:$PATH"
 
 export EDITOR=vim
 

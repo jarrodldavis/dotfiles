@@ -32,6 +32,7 @@ brew "rbenv-bundle-exec"
 brew "rbenv-default-gems"
 brew "reattach-to-user-namespace"
 brew "redis", restart_service: true
+brew "rustup-init"
 brew "shellcheck"
 brew "shfmt"
 brew "tig"
