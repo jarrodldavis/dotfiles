@@ -1,4 +1,5 @@
 auchenberg.vscode-browser-preview
+be5invis.toml
 chrmarti.ssh
 dbaeumer.vscode-eslint
 EditorConfig.EditorConfig
@@ -20,6 +21,7 @@ msjsdiag.debugger-for-chrome
 mtxr.sqltools
 nextfaze.json-parse-stringify
 ramyaraoa.show-offset
+rebornix.ruby
 rogalmic.bash-debug
 ryu1kn.partial-diff
 shinnn.stylelint
