@@ -24,6 +24,19 @@ set title
 " modifiable, readonly, and modified flags are wrapped in square brackets when present
 let &titlestring="%f%( [%{&ma? '':'-'}%{&ro? '=':''}%{&modified? '+':''}]%)"
 
+" syntastic
+set statusline+=%#warningsmsg#
+set statusline+={SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" rust
+let g:rustfmt_autosave = 1
+
 " Vundle
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -31,7 +44,13 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 
+Plugin 'vim-syntastic/syntastic'
+
+Plugin 'majutsushi/tagbar'
+
 Plugin 'leafgarland/typescript-vim'
+
+Plugin 'rust-lang/rust.vim'
 
 Plugin 'dart-lang/dart-vim-plugin'
 
