@@ -43,6 +43,9 @@
       command: rustup-init -y --no-modify-path
       description: Installing Rust
     -
+      command: rustup component add clippy rls rust-analysis rust-src rustfmt
+      description: Installing additional Rust components
+    -
       command: '[ -d ~/.vim/bundle/Vundle.vim/ ] || git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
       description: Installing Vundle
     -
