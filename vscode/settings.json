@@ -69,9 +69,13 @@
 
     "composer.executablePath": "composer",
 
+    "lldb.adapterType": "native",
+
     "mochaExplorer.logpanel": true,
     "mochaExplorer.mochaPath": "node_modules/mocha",
     "mochaExplorer.timeout": 0,
+
+    "rust.wait_to_build": 0,
 
     "sqltools.connections": [
       {

@@ -1,5 +1,5 @@
 auchenberg.vscode-browser-preview
-be5invis.toml
+bungcip.better-toml
 chrmarti.ssh
 dbaeumer.vscode-eslint
 EditorConfig.EditorConfig
@@ -23,8 +23,11 @@ nextfaze.json-parse-stringify
 ramyaraoa.show-offset
 rebornix.ruby
 rogalmic.bash-debug
+rust-lang.rust
 ryu1kn.partial-diff
 shinnn.stylelint
 sidneys1.gitconfig
+Swellaby.vscode-rust-test-adapter
 timonwong.shellcheck
+vadimcn.vscode-lldb
 vscodevim.vim
