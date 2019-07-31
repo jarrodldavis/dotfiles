@@ -26,6 +26,7 @@ brew "mongodb", restart_service: true
 brew "node"
 brew "nss"
 brew "php"
+brew "pinentry-mac"
 brew "pkg-config"
 brew "postgresql", restart_service: true
 brew "rbenv"

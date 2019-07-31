@@ -16,9 +16,6 @@ if [ -f "$(brew --prefix)"/etc/bash_completion ]; then . "$(brew --prefix)"/etc/
 
 if [ -f ~/.github_tokens ]; then . ~/.github_tokens; fi
 
-GPG_TTY=$(tty)
-export GPG_TTY
-
 export GOOGLE_API_KEY=no
 export GOOGLE_DEFAULT_CLIENT_ID=no
 export GOOGLE_DEFAULT_CLIENT_SECRET=no
@@ -34,6 +31,13 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export EDITOR=vim
 
 export TRAVIS_ENDPOINT=https://api.travis-ci.com/
+
+if [ "$TERM_PROGRAM" == 'Apple_Terminal' ] || [ "$TERM_PROGRAM" == 'vscode' ]; then
+  # GPG
+  GPG_TTY=$(tty)
+  export GPG_TTY
+  export PINENTRY_USER_DATA="USE_CURSES=1"
+fi
 
 if [ "$TERM_PROGRAM" == 'Apple_Terminal' ]; then
   # Git Prompt
