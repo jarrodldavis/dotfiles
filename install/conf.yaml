@@ -37,6 +37,12 @@
 
 - shell:
     -
+      command: chmod -vv u=rwx,go= ~/.gnupg && chmod -vv u=rw,go= ~/.gnupg/* && gpgconf --kill gpg-agent
+      description: Setting correct permissions for GnuPG homedir
+    -
+      command: chmod -vv u=rwx,go= ~/.ssh && chmod -vv u=rw,go= ~/.ssh/*
+      description: Setting correct permissions for SSH directory
+    -
       command: 'cat rbenv/versions.txt | xargs -L1 rbenv install --skip-existing'
       description: Installing rbenv-managed rubies
     -
