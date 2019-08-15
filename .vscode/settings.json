@@ -6,5 +6,8 @@
     "vimrc": "viml"
   },
   "shellformat.flag": "-i 2 -sr",
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "[jsonc]": {
+    "editor.formatOnSave": false
+  }
 }

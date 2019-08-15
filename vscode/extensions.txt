@@ -3,6 +3,7 @@ bungcip.better-toml
 chrmarti.ssh
 dbaeumer.vscode-eslint
 EditorConfig.EditorConfig
+emilast.LogFileHighlighter
 esbenp.prettier-vscode
 fallenwood.vimL
 felixfbecker.php-intellisense
@@ -15,6 +16,7 @@ hbenl.vscode-test-explorer
 humao.rest-client
 ikappas.composer
 JamesBirtles.svelte-vscode
+jinsihou.diff-tool
 mikestead.dotenv
 ms-vscode.csharp
 msjsdiag.debugger-for-chrome
