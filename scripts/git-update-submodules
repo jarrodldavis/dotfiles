@@ -1,0 +1,8 @@
+#! /usr/bin/env bash
+
+# pull direct submodules
+git submodule update --remote
+# update nested submodules to match direct submodule expectations
+git submodule foreach --recursive git submodule update
+# ensure urls are correct
+git submodule sync --recursive
