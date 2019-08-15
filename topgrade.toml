@@ -1,0 +1,5 @@
+git_repos = [
+    "~/projects/repos/*/"
+]
+
+disable = ["gem"]

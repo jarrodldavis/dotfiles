@@ -11,6 +11,7 @@
 
 - link:
     ~/.bash_profile:
+    ~/Library/Preferences/topgrade.toml: topgrade.toml
     ~/.gitconfig:
     ~/.gitignore_global:
     ~/.ssh/config: ssh/config
