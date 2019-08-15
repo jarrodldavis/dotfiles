@@ -7,6 +7,8 @@ real_scripts_dir=$(pwd -P)
 dotfiles_dir="$real_scripts_dir/.."
 cd "$dotfiles_dir" || exit
 
+git update-submodules
+
 brew bundle dump --force
 code --list-extensions > vscode/extensions.txt
 npm ls -g --depth 0 --json --update-notifier false | jq -r '.dependencies | keys | .[]' > npm-globals.txt
