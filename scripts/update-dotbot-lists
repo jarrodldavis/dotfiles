@@ -19,3 +19,5 @@ else
 fi
 
 rbenv versions --bare > rbenv/versions.txt
+
+cargo install-update -al | tail -n +4 | cut -f1 -d' ' -s > cargo-bins.txt
