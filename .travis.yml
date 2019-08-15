@@ -8,7 +8,7 @@ before_script:
 script:
   - bash -c "$(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/personal/macos/install/bootstrap)" # From README
   - ./install/core # Test reinstall
-  - bash -l -c "update-dotbot-lists"
+  - bash -l -c "dotbot-update"
   - bash -O extglob -c "shellcheck install/!(conf.yaml) bash_profile scripts/!(git-merge-pr|npm-version|export-user-defaults)"
   - bash -O extglob -c "shfmt -i 2 -sr -d install/!(conf.yaml) bash_profile scripts/!(git-merge-pr|npm-version|export-user-defaults)"
 if: branch = personal/macos
