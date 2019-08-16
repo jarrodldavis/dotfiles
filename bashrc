@@ -35,6 +35,7 @@ fi
 
 # Prompt customization
 function __prompt_command_start() {
+  local PS1_CLEAR_LINE='\r'             # ensure prompt always starts at the beginning
   local PS1_COLOR_START='\e[0;37m\e[2m' # dim text + light gray
   local PS1_USER_INFO='\u@\h:\w'        # user@host:path
   local PS1_DATE='[\d \@]'              # [date 12-hour-time]
@@ -53,7 +54,7 @@ function __prompt_command_start() {
   fi
   local PS1_SHELL="${PS1_SHELL_COLOR_START}${PS1_SHELL}${PS1_COLOR_START}"
 
-  echo "${PS1_COLOR_START}${PS1_DATE} ${PS1_SHELL} ${PS1_USER_INFO}"
+  echo "${PS1_CLEAR_LINE}${PS1_COLOR_START}${PS1_DATE} ${PS1_SHELL} ${PS1_USER_INFO}"
 }
 
 function __prompt_command_end() {
