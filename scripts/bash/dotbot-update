@@ -4,7 +4,7 @@ scripts_dir=$(dirname "$0")
 cd "$scripts_dir" || exit
 
 real_scripts_dir=$(pwd -P)
-dotfiles_dir="$real_scripts_dir/.."
+dotfiles_dir="$real_scripts_dir/../.."
 cd "$dotfiles_dir" || exit
 
 git update-submodules

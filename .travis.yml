@@ -5,12 +5,13 @@ env:
   - SELECTED_FOLDER="~/.dotfiles" SELECTED_REPO="https://github.com/jarrodldavis/dotfiles.git"
 before_script:
   - export PATH=$PWD/travis-scripts:$PATH
+  - export SHELL_LINT_FILES="install/bootstrap install/core bash_profile scripts/bash/*"
 script:
   - bash -c "$(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/personal/macos/install/bootstrap)" # From README
   - ./install/core # Test reinstall
   - bash -l -c "dotbot-update"
-  - bash -O extglob -c "shellcheck install/!(conf.yaml) bash_profile scripts/!(git-merge-pr|npm-version|export-user-defaults)"
-  - bash -O extglob -c "shfmt -i 2 -sr -d install/!(conf.yaml) bash_profile scripts/!(git-merge-pr|npm-version|export-user-defaults)"
+  - shellcheck $SHELL_LINT_FILES
+  - shfmt -i 2 -sr -d $SHELL_LINT_FILES
 if: branch = personal/macos
 notifications:
   slack:

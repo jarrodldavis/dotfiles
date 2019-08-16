@@ -40,7 +40,7 @@ if [ "$(command -v hub)" ]; then eval "$(hub alias -s)"; fi
 
 if [ "$(command -v rbenv)" ]; then eval "$(rbenv init -)"; fi
 
-export PATH=$HOME/.dotfiles-scripts:$PATH
+export PATH=$HOME/.dotfiles-scripts:$HOME/.dotfiles-scripts/bash:$PATH
 export PATH="$HOME/.cargo/bin:$PATH"
 
 export EDITOR=vim
