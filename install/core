@@ -33,13 +33,12 @@ git submodule update --init --recursive
 $DOTBOT_PATH -d "${BASEDIR}" --plugin-dir dotbot-brew -c "${BASH_CONFIG}"
 bash -l -c "\"$DOTBOT_PATH\" -d \"${BASEDIR}\" --plugin-dir dotbot-brew -c \"${CONFIG}\""
 
-# Check for updated bash
-if [[ "$SHELL" != "$(command -v bash)" ]]; then
-  __color_log 95 "A new installation of bash was installed via Homebrew."
-  # force exit of old shell
-  kill -SIGUSR1 $PPID
-elif [[ "$BASH_VERSION" != "$(bash -c 'echo $BASH_VERSION')" ]]; then
-  __color_log 95 "A new version of bash was updated via Homebrew."
-  # force exit of old shell
-  kill -SIGUSR1 $PPID
+if [[ "$SHELL" != "$(command -v bash)" ]] || [[ "$BASH_VERSION" != "$(bash -c 'echo $BASH_VERSION')" ]]; then
+  if [ -n "$CI" ]; then
+    __color_log 95 "A new version of bash was installed via Homebrew. Be sure to exit this interactive shell process to use it."
+    exit 0
+  else
+    __color_log 95 "A new version of bash was installed via Homebrew. Exiting old shell process..."
+    kill -SIGUSR1 $PPID
+  fi
 fi
