@@ -33,6 +33,16 @@ Developer Tools, clone this repository to a local directory of your choosing, an
 bash -c "$(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/personal/macos/install/bootstrap)"
 ```
 
+#### Environment Variables
+
+Instead of responding to the prompts for the local directory and remote git repository, you can use the following
+environment variables:
+
+| Key               | Value                                   | Default                                        |
+| ----------------- | --------------------------------------- | ---------------------------------------------- |
+| `SELECTED_FOLDER` | the local directory to clone to         | `$HOME/.dotfiles`                              |
+| `SELECTED_REPO`   | the remote git repository to clone from | `https://github.com/jarrodldavis/dotfiles.git` |
+
 ### Manual Installation
 
 - Make sure Xcode or the Xcode Command Line Developer Tools are installed
