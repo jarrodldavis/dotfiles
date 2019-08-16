@@ -35,11 +35,11 @@ bash -l -c "\"$DOTBOT_PATH\" -d \"${BASEDIR}\" --plugin-dir dotbot-brew -c \"${C
 
 # Check for updated bash
 if [[ "$SHELL" != "$(command -v bash)" ]]; then
-  __color_log 95 "A new installation of bash was installed via Homebrew. Be sure to exit this interactive shell process to use it."
+  __color_log 95 "A new installation of bash was installed via Homebrew."
   # force exit of old shell
   kill -SIGUSR1 $PPID
 elif [[ "$BASH_VERSION" != "$(bash -c 'echo $BASH_VERSION')" ]]; then
-  __color_log 95 "A new version of bash was updated via Homebrew. Be sure to exit this interactive shell process to use it."
+  __color_log 95 "A new version of bash was updated via Homebrew."
   # force exit of old shell
   kill -SIGUSR1 $PPID
 fi

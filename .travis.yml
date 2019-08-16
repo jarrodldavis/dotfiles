@@ -4,14 +4,22 @@ osx_image: xcode10.1
 env:
   - SELECTED_FOLDER="~/.dotfiles" SELECTED_REPO="https://github.com/jarrodldavis/dotfiles.git"
 before_script:
+  # add `mas` stub to $PATH
   - export PATH=$PWD/travis-scripts:$PATH
+  # ensure `mas` stub is first for sub-shells (`path_helper` from `/etc/profile` resets $PATH on every shell login)
+  - echo $PWD/travis-scripts | cat - /etc/paths | sudo tee /etc/paths
+  # shell scripts to lint (shellcheck and shfmt)
   - export SHELL_LINT_FILES="install/bootstrap install/core bash_profile scripts/bash/*"
 script:
-  - bash -c "$(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/personal/macos/install/bootstrap)" # From README
-  - ./install/core # Test reinstall
-  - bash -l -c "dotbot-update"
+  # lint shell scripts
   - shellcheck $SHELL_LINT_FILES
   - shfmt -i 2 -sr -d $SHELL_LINT_FILES
+  # From README
+  - bash -c "$(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/personal/macos/install/bootstrap)"
+  # Test reinstall
+  - ./install/core
+  # Ensure update script doesn't error
+  - bash -l -c "dotbot-update"
 if: branch = personal/macos
 notifications:
   slack:

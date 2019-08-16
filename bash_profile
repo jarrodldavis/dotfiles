@@ -13,9 +13,7 @@ function __color_log() {
 }
 
 if [ "$SHELL" != "$(command -v bash)" ]; then
-  DEFAULT_BASH_VERSION=$(bash -c "echo \$BASH_VERSION")
-
-  if [ "$BASH_VERSION" == "$DEFAULT_BASH_VERSION" ]; then
+  if [ "$BASH_VERSION" == "$(bash -c 'echo $BASH_VERSION')" ]; then
     # if $SHELL is not Hombrew bash, but the current version is the Homebrew bash version...
     __color_log 31 "This sub-shell is using a new installation of bash installed via Homebrew, which is different than the root shell you spawned it from. Be sure to update your default shell with 'chsh -s', then exit the root shell to use this new installation of bash."
   else
