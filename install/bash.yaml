@@ -9,6 +9,7 @@
 
 - link:
     ~/.bash_profile:
+    ~/.bashrc:
     ~/.dotfiles-scripts: scripts
 
 - brew: [bash]
