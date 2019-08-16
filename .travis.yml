@@ -11,15 +11,15 @@ before_script:
   # shell scripts to lint (shellcheck and shfmt)
   - export SHELL_LINT_FILES="install/bootstrap install/core bash_profile scripts/bash/*"
 script:
-  # lint shell scripts
-  - shellcheck $SHELL_LINT_FILES
-  - shfmt -i 2 -sr -d $SHELL_LINT_FILES
   # From README
   - bash -c "$(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/personal/macos/install/bootstrap)"
   # Test reinstall
   - ./install/core
   # Ensure update script doesn't error
   - bash -l -c "dotbot-update"
+  # lint shell scripts
+  - shellcheck $SHELL_LINT_FILES
+  - shfmt -i 2 -sr -d $SHELL_LINT_FILES
 if: branch = personal/macos
 notifications:
   slack:
