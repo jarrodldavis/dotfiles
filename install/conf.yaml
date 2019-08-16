@@ -10,7 +10,6 @@
 - clean: ['~']
 
 - link:
-    ~/.bash_profile:
     ~/Library/Preferences/topgrade.toml: topgrade.toml
     ~/.gitconfig:
     ~/.gitignore_global:
@@ -31,8 +30,6 @@
     # VS Code's Chrome Debugger doesn't allow for user-scoped `runtimeExecutable` setting
     /Applications/Google Chrome.app/Contents/MacOS/Google Chrome: scripts/open-chromium
 
-    ~/.dotfiles-scripts: scripts
-
 - brewfile:
     - Brewfile
 
@@ -49,9 +46,6 @@
     -
       command: rustup-init -y --no-modify-path
       description: Installing Rust
-    -
-      command: source $HOME/.cargo/env
-      description: Adding Cargo to current $PATH
     -
       command: rustup component add clippy rls rust-analysis rust-src rustfmt
       description: Installing additional Rust components
@@ -82,9 +76,3 @@
     -
       command: heroku plugins:install $(cat heroku-plugins.txt)
       description: Installing Heroku CLI plugins
-    -
-      command: grep '/usr/local/bin/bash' /etc/shells || echo /usr/local/bin/bash | sudo tee -a /etc/shells
-      description: Adding Homebrew bash to system shells
-    -
-      command: sudo chsh -s /usr/local/bin/bash $(whoami)
-      description: Setting default shell to Homebrew bash

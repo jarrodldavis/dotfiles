@@ -1,0 +1,22 @@
+- defaults:
+    shell:
+      stdout: true
+      stderr: true
+      stdin: true
+    link:
+      create: true
+      force: true
+
+- link:
+    ~/.bash_profile:
+    ~/.dotfiles-scripts: scripts
+
+- brew: [bash]
+
+- shell:
+    -
+      command: grep '/usr/local/bin/bash' /etc/shells || echo /usr/local/bin/bash | sudo tee -a /etc/shells
+      description: Adding Homebrew bash to system shells
+    -
+      command: sudo chsh -s /usr/local/bin/bash $(whoami)
+      description: Setting default shell to Homebrew bash
