@@ -2,16 +2,15 @@ language: shell
 os: osx
 osx_image: xcode10.1
 env:
-  - SELECTED_FOLDER="~/.dotfiles" SELECTED_REPO="https://github.com/jarrodldavis/dotfiles.git"
+  - >
+    PATH=$PWD/travis-scripts:$PATH
+    SELECTED_FOLDER="~/.dotfiles"
+    SELECTED_REPO="https://github.com/jarrodldavis/dotfiles.git"
+    SKIP_SHELL_EXIT=1
+    SHELL_LINT_FILES="install/bootstrap install/core bash_profile scripts/bash/*"
 before_script:
-  # keep old bash alive after installation from Homebrew
-  - export SKIP_SHELL_EXIT=1
-  # add `mas` stub to $PATH
-  - export PATH=$PWD/travis-scripts:$PATH
   # ensure `mas` stub is first for sub-shells (`path_helper` from `/etc/profile` resets $PATH on every shell login)
   - echo $PWD/travis-scripts | cat - /etc/paths | sudo tee /etc/paths
-  # shell scripts to lint (shellcheck and shfmt)
-  - export SHELL_LINT_FILES="install/bootstrap install/core bash_profile scripts/bash/*"
 script:
   # From README
   - bash -c "$(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/personal/macos/install/bootstrap)"
