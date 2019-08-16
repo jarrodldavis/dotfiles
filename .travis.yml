@@ -4,6 +4,8 @@ osx_image: xcode10.1
 env:
   - SELECTED_FOLDER="~/.dotfiles" SELECTED_REPO="https://github.com/jarrodldavis/dotfiles.git"
 before_script:
+  # keep old bash alive after installation from Homebrew
+  - export SKIP_SHELL_EXIT=1
   # add `mas` stub to $PATH
   - export PATH=$PWD/travis-scripts:$PATH
   # ensure `mas` stub is first for sub-shells (`path_helper` from `/etc/profile` resets $PATH on every shell login)

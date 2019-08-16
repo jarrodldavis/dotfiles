@@ -20,9 +20,7 @@ prompt you to install them automatically if Xcode isn't installed, but you can i
 
 ## Install
 
-These dotfiles can be installed either automatically or by manually checking out this git repository. With either
-installation method, the current shell process will be automatically closed if `bash` is updated or installed via
-Hombrew.
+These dotfiles can be installed either automatically or by manually checking out this git repository.
 
 ### Automatic Bootstrapping
 
@@ -65,6 +63,14 @@ Resolving deltas: 100% (758/758), done.
 $ cd .dotfiles
 $ ./install/core
 ```
+
+### Environment Variables
+
+For both installation methods, the installer script uses the following environment variables:
+
+| Key               | Value         | Use                                    | Default   |
+| ----------------- | ------------- |--------------------------------------- | --------- |
+| `SKIP_SHELL_EXIT` | _(any value)_ | skip closing outdated `bash` processes | _(unset)_ |
 
 [automatic boostrapping]: #automatic-bootstrapping
 [Xcode CLDT]: #xcode-command-line-developer-tools

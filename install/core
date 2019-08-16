@@ -34,11 +34,10 @@ $DOTBOT_PATH -d "${BASEDIR}" --plugin-dir dotbot-brew -c "${BASH_CONFIG}"
 bash -l -c "\"$DOTBOT_PATH\" -d \"${BASEDIR}\" --plugin-dir dotbot-brew -c \"${CONFIG}\""
 
 if [[ "$SHELL" != "$(command -v bash)" ]] || [[ "$BASH_VERSION" != "$(bash -c 'echo $BASH_VERSION')" ]]; then
-  if [ -n "$CI" ]; then
-    __color_log 95 "A new version of bash was installed via Homebrew. Be sure to exit this interactive shell process to use it."
-    exit 0
+  if [ -n "$SKIP_SHELL_EXIT" ]; then
+    __color_log 95 "A new version of bash was installed via Homebrew. Be sure to exit this (and any other) shell process to use it."
   else
-    __color_log 95 "A new version of bash was installed via Homebrew. Exiting old shell process..."
-    kill -SIGUSR1 $PPID
+    __color_log 95 "A new version of bash was installed via Homebrew. Exiting old shell processes..."
+    pkill -SIGUSR1 -a bash
   fi
 fi

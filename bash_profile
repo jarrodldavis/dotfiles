@@ -12,14 +12,14 @@ function __color_log() {
   echo -e "$message"
 }
 
-if [ "$SHELL" != "$(command -v bash)" ]; then
-  if [ "$BASH_VERSION" == "$(bash -c 'echo $BASH_VERSION')" ]; then
-    # if $SHELL is not Hombrew bash, but the current version is the Homebrew bash version...
-    __color_log 31 "This sub-shell is using a new installation of bash installed via Homebrew, which is different than the root shell you spawned it from. Be sure to update your default shell with 'chsh -s', then exit the root shell to use this new installation of bash."
-  else
-    # otherwise, this is still the system-installed bash (either as the root shell or a sub-shell)
-    __color_log 31 "A new installation of bash was installed via Homebrew. Be sure to update your shell with 'chsh -s', then exit this interactive shell process to use it."
-  fi
+# `-bash` (with a leading hyphen) indicates a shell is a top-level login shell
+# otherwise, it's a sub-shell
+if [ "$SHELL" != "$(command -v bash)" ] && [ "$0" != "-bash" ]; then
+  __color_log 31 "The top-level login shell this sub-shell was spawned from is using the system-provided installation of bash, but a new version has been installed via Homebrew. If this is unexpected, be sure to update your default shell using 'chsh -s', then exit this and all other shell processes to use the new bash installation."
+fi
+
+if [ "$BASH_VERSION" != "$(bash -c 'echo $BASH_VERSION')" ]; then
+  __color_log 31 "This shell process is using the system-provided installation of bash, but a new version has been installed via Homebrew. If this is unexpected, be sure to update your default shell using 'chsh -s', then exit this (and any other) shell process to use the new bash installation."
 fi
 
 if [ "$(command -v brew)" ] && [ -f "$(brew --prefix)"/etc/bash_completion ]; then
