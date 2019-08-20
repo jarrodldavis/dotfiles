@@ -9,7 +9,7 @@ cd "$dotfiles_dir" || exit
 
 git update-submodules
 
-brew bundle dump --force
+brew bundle dump --global --force
 code --list-extensions > vscode/extensions.txt
 npm ls -g --depth 0 --json --update-notifier false | jq -r '.dependencies | keys | .[]' > npm-globals.txt
 

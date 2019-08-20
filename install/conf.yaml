@@ -10,6 +10,7 @@
 - clean: ['~']
 
 - link:
+    ~/.Brewfile:
     ~/Library/Preferences/topgrade.toml: topgrade.toml
     ~/.gitconfig:
     ~/.gitignore_global:
@@ -30,10 +31,13 @@
     # VS Code's Chrome Debugger doesn't allow for user-scoped `runtimeExecutable` setting
     /Applications/Google Chrome.app/Contents/MacOS/Google Chrome: scripts/bash/open-chromium
 
-- brewfile:
-    - Brewfile
-
 - shell:
+    -
+      command: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+      description: Installing Homebrew
+    -
+      command: brew bundle --global --verbose
+      description: Installing packages from Homebrew Bundle
     -
       command: chmod -vv u=rwx,go= ~/.gnupg && chmod -vv u=rw,go= ~/.gnupg/* && gpgconf --kill gpg-agent
       description: Setting correct permissions for GnuPG homedir

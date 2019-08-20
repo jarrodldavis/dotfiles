@@ -30,8 +30,8 @@ __color_log 92 "Xcode or Xcode Command Line Developer Tools are installed at $(x
 
 git submodule update --init --recursive
 
-$DOTBOT_PATH -d "${BASEDIR}" --plugin-dir dotbot-brew -c "${BASH_CONFIG}"
-bash -l -c "\"$DOTBOT_PATH\" -d \"${BASEDIR}\" --plugin-dir dotbot-brew -c \"${CONFIG}\""
+$DOTBOT_PATH -d "${BASEDIR}" -c "${BASH_CONFIG}"
+bash -l -c "\"$DOTBOT_PATH\" -d \"${BASEDIR}\" -c \"${CONFIG}\""
 
 if [[ "$SHELL" != "$(command -v bash)" ]] || [[ "$BASH_VERSION" != "$(bash -c 'echo $BASH_VERSION')" ]]; then
   if [ -n "$SKIP_SHELL_EXIT" ]; then
