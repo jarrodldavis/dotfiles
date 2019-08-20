@@ -4,6 +4,10 @@ set -e
 
 if [[ -z "$BASEDIR" ]]; then
   BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/.."
+  BASEDIR="$(cd "$BASEDIR" && pwd)"
+  echo "Using auto-detected base directory: $BASEDIR"
+else
+  echo "Using specified base directory: $BASEDIR"
 fi
 
 CONFIG="install/conf.yaml"
