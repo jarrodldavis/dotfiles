@@ -9,4 +9,3 @@ function __run_command() {
 __run_command dotbot-update
 __run_command export-user-defaults
 __run_command export-user-defaults --private
-__run_command topgrade --cleanup --no-retry
