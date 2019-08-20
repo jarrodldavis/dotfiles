@@ -10,6 +10,9 @@
 - clean: ['~']
 
 - link:
+    ~/.bash_profile:
+    ~/.bashrc:
+    ~/.dotfiles-scripts: scripts
     ~/.Brewfile:
     ~/Library/Preferences/topgrade.toml: topgrade.toml
     ~/.gitconfig:
@@ -38,6 +41,12 @@
     -
       command: brew bundle --global --verbose
       description: Installing packages from Homebrew Bundle
+    -
+      command: grep '/usr/local/bin/bash' /etc/shells || echo /usr/local/bin/bash | sudo tee -a /etc/shells
+      description: Adding Homebrew bash to system shells
+    -
+      command: sudo chsh -s /usr/local/bin/bash $(whoami)
+      description: Setting default shell to Homebrew bash
     -
       command: chmod -vv u=rwx,go= ~/.gnupg && chmod -vv u=rw,go= ~/.gnupg/* && gpgconf --kill gpg-agent
       description: Setting correct permissions for GnuPG homedir

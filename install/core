@@ -2,7 +2,6 @@
 
 set -e
 
-BASH_CONFIG="install/bash.yaml"
 CONFIG="install/conf.yaml"
 DOTBOT_DIR="dotbot"
 DOTBOT_BIN="bin/dotbot"
@@ -19,6 +18,9 @@ function __color_log() {
   echo -e "$message"
 }
 
+# shellcheck disable=SC1090
+source "${BASEDIR}/bashrc"
+
 while ! xcode-select --print-path &> /dev/null; do
   xcode-select --install &> /dev/null
   __color_log 94 'Waiting for Xcode Command Line Developer Tools installation'
@@ -30,8 +32,7 @@ __color_log 92 "Xcode or Xcode Command Line Developer Tools are installed at $(x
 
 git submodule update --init --recursive
 
-$DOTBOT_PATH -d "${BASEDIR}" -c "${BASH_CONFIG}"
-bash -l -c "\"$DOTBOT_PATH\" -d \"${BASEDIR}\" -c \"${CONFIG}\""
+$DOTBOT_PATH -d "${BASEDIR}" -c "${CONFIG}"
 
 if [[ "$SHELL" != "$(command -v bash)" ]] || [[ "$BASH_VERSION" != "$(bash -c 'echo $BASH_VERSION')" ]]; then
   if [ -n "$SKIP_SHELL_EXIT" ]; then
