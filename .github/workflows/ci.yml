@@ -15,3 +15,15 @@ jobs:
         run: shellcheck install/bootstrap install/core ./bash* ./scripts/bash/*
       - name: shfmt
         run: shfmt -i 2 -sr -d install/bootstrap install/core ./bash* ./scripts/bash/*
+  bootstrap:
+    name: Test Automatic Bootstrapping
+    runs-on: macOS-10.14
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Run Bootstrapper
+        env:
+          SELECTED_FOLDER: ~/.dotfiles
+          SELECTED_REPO: https://github.com/jarrodldavis/dotfiles.git
+          SKIP_SHELL_EXIT: 1
+        run: bash -c "$(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/personal/macos/install/bootstrap)"
