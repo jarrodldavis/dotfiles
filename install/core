@@ -18,6 +18,8 @@ function __color_log() {
   echo -e "$message"
 }
 
+echo "${BASEDIR}"
+ls -la "${BASEDIR}"
 # shellcheck disable=SC1090
 source "${BASEDIR}/bashrc"
 
