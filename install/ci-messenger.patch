@@ -1,0 +1,83 @@
+diff --git a/dotbot/dispatcher.py b/dotbot/dispatcher.py
+index d1a4f95..3d54895 100644
+--- a/dotbot/dispatcher.py
++++ b/dotbot/dispatcher.py
+@@ -35,6 +35,7 @@ class Dispatcher(object):
+                                 'An error was encountered while executing action %s' %
+                                 action)
+                             self._log.debug(err)
++                            self._log.group_end()
+                 if not handled:
+                     success = False
+                     self._log.error('Action %s not handled' % action)
+diff --git a/dotbot/messenger/messenger.py b/dotbot/messenger/messenger.py
+index b83e3f2..3796675 100644
+--- a/dotbot/messenger/messenger.py
++++ b/dotbot/messenger/messenger.py
+@@ -1,4 +1,4 @@
+-import sys
++import sys, os
+ from ..util.singleton import Singleton
+ from ..util.compat import with_metaclass
+ from .color import Color
+@@ -19,6 +19,14 @@ class Messenger(with_metaclass(Singleton, object)):
+         if (level >= self._level):
+             print('%s%s%s' % (self._color(level), message, self._reset()))
+ 
++    def group_start(self, message):
++        if os.environ.get('CI'):
++            print('##[group]%s' % message)
++
++    def group_end(self):
++        if os.environ.get('CI'):
++            print('##[endgroup]')
++
+     def debug(self, message):
+         self.log(Level.DEBUG, message)
+ 
+diff --git a/dotbot/plugins/link.py b/dotbot/plugins/link.py
+index 0b47ac6..e011776 100644
+--- a/dotbot/plugins/link.py
++++ b/dotbot/plugins/link.py
+@@ -23,6 +23,7 @@ class Link(dotbot.Plugin):
+     def _process_links(self, links):
+         success = True
+         defaults = self._context.defaults().get('link', {})
++        self._log.group_start('Setting up links')
+         for destination, source in links.items():
+             destination = os.path.expandvars(destination)
+             relative = defaults.get('relative', False)
+@@ -94,6 +95,7 @@ class Link(dotbot.Plugin):
+             self._log.info('All links have been set up')
+         else:
+             self._log.error('Some links were not successfully set up')
++        self._log.group_end()
+         return success
+ 
+     def _test_success(self, command):
+diff --git a/dotbot/plugins/shell.py b/dotbot/plugins/shell.py
+index 06a9a89..baa28b2 100644
+--- a/dotbot/plugins/shell.py
++++ b/dotbot/plugins/shell.py
+@@ -49,10 +49,13 @@ class Shell(dotbot.Plugin):
+                     cmd = item
+                     msg = None
+                 if msg is None:
++                    self._log.group_start(cmd)
+                     self._log.lowinfo(cmd)
+                 elif quiet:
++                    self._log.group_start('%s' % msg)
+                     self._log.lowinfo('%s' % msg)
+                 else:
++                    self._log.group_start('%s [%s]' % (msg, cmd))
+                     self._log.lowinfo('%s [%s]' % (msg, cmd))
+                 executable = os.environ.get('SHELL')
+                 ret = subprocess.call(cmd, shell=True, stdin=stdin, stdout=stdout,
+@@ -61,6 +64,7 @@ class Shell(dotbot.Plugin):
+                 if ret != 0:
+                     success = False
+                     self._log.warning('Command [%s] failed' % cmd)
++                self._log.group_end()
+         if success:
+             self._log.info('All commands have been executed')
+         else:

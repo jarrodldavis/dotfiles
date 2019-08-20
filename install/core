@@ -32,7 +32,13 @@ __color_log 92 "Xcode or Xcode Command Line Developer Tools are installed at $(x
 
 git submodule update --init --recursive
 
-$DOTBOT_PATH -d "${BASEDIR}" -c "${CONFIG}"
+if [ -n "$CI" ]; then
+  git -C "$DOTBOT_DIR" apply "$BASEDIR/install/ci-messenger.patch"
+  $DOTBOT_PATH -d "${BASEDIR}" -c "${CONFIG}"
+  git -C "$DOTBOT_DIR" apply -R "$BASEDIR/install/ci-messenger.patch"
+else
+  $DOTBOT_PATH -d "${BASEDIR}" -c "${CONFIG}"
+fi
 
 if [[ "$SHELL" != "$(command -v bash)" ]] || [[ "$BASH_VERSION" != "$(bash -c 'echo $BASH_VERSION')" ]]; then
   if [ -n "$SKIP_SHELL_EXIT" ]; then
