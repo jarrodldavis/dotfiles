@@ -1,2 +1,10 @@
 #! /usr/bin/env bash
-echo 'Mac App Store:' "$*"
+
+if [ "$1" == "account" ]; then
+  exit 0
+elif [ "$1" == "install" ]; then
+  /usr/local/bin/mas info "$2"
+else
+  echo mas: unexpected command: "$*"
+  exit 1
+fi
