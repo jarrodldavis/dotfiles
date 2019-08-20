@@ -2,10 +2,6 @@ name: Continuous Integration
 
 on: [push]
 
-SHELL_LINT_FILES: &SHELL_LINT_FILES
-  env:
-    SHELL_LINT_FILES: "install/bootstrap install/core bash_profile scripts/bash/*"
-
 jobs:
   lint:
     runs-on: macOS-10.14
@@ -15,8 +11,6 @@ jobs:
       - name: Install Linters
         run: brew install shellcheck shfmt
       - name: shellcheck
-        run: shellcheck $SHELL_LINT_FILES
-        <<: *SHELL_LINT_FILES
+        run: shellcheck install/bootstrap install/core ./bash* ./scripts/bash/*
       - name: shfmt
-        run: shfmt -i 2 -sr -d $SHELL_LINT_FILES
-        <<: *SHELL_LINT_FILES
+        run: shfmt -i 2 -sr -d install/bootstrap install/core ./bash* ./scripts/bash/*
