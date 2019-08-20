@@ -33,3 +33,27 @@ jobs:
         run: |
           export PATH=$HOME/.dotfiles/.github/shims:$PATH
           bash -c "$(curl -fsSL $BOOTSTRAP_URL)"
+install:
+    name: Test Core Installer
+    runs-on: macOS-10.14
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Reset Homebrew Environment
+        run: |
+          brew untap caskroom/versions
+          brew uninstall node@6
+      - name: Run Installer
+        env:
+          SKIP_SHELL_EXIT: 1
+          PYTHONUNBUFFERED: 1
+        run: |
+          export PATH=$GITHUB_WORKSPACE/.github/shims:$PATH
+          ./install/core
+      - name: Run Installer Again
+        env:
+          SKIP_SHELL_EXIT: 1
+          PYTHONUNBUFFERED: 1
+        run: |
+          export PATH=$GITHUB_WORKSPACE/.github/shims:$PATH
+          ./install/core
