@@ -19,18 +19,17 @@ jobs:
     name: Test Automatic Bootstrapping
     runs-on: macOS-10.14
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
       - name: Reset Homebrew Environment
         run: |
           brew untap caskroom/versions
           brew uninstall node@6
       - name: Run Bootstrapper
         env:
+          BOOTSTRAP_URL: https://raw.githubusercontent.com/${{ github.repository }}/${{ github.sha }}/install/core
           SELECTED_FOLDER: ~/.dotfiles
-          SELECTED_REPO: https://github.com/jarrodldavis/dotfiles.git
+          SELECTED_REPO: ${{ github.repositoryUrl }}
           SKIP_SHELL_EXIT: 1
           PYTHONUNBUFFERED: 1
         run: |
-          export PATH=$GITHUB_WORKSPACE/.github/shims:$PATH
-          bash -c "$(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/personal/macos/install/bootstrap)"
+          export PATH=$HOME/.dotfiles/.github/shims:$PATH
+          bash -c "$(curl -fsSL $BOOTSTRAP_URL)"
