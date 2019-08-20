@@ -45,7 +45,7 @@
       command: chmod -vv u=rwx,go= ~/.ssh && chmod -vv u=rw,go= ~/.ssh/*
       description: Setting correct permissions for SSH directory
     -
-      command: 'cat rbenv/versions.txt | xargs -L1 rbenv install --skip-existing'
+      command: 'cat rbenv/versions.txt | xargs -L1 rbenv install --verbose --skip-existing'
       description: Installing rbenv-managed rubies
     -
       command: rustup-init -y --no-modify-path
