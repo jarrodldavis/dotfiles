@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   lint:
+    name: Lint Shell Scripts
     runs-on: macOS-10.14
     steps:
       - name: Checkout
