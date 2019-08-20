@@ -21,6 +21,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
+      - name: Augment Path
+        run: export PATH=$PWD/.github/shims:$PATH
+      - name: Reset Homebrew Environment
+        run: |
+          brew untap caskroom/versions
+          brew uninstall node@6
       - name: Run Bootstrapper
         env:
           SELECTED_FOLDER: ~/.dotfiles
