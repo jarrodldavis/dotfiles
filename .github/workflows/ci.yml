@@ -30,6 +30,7 @@ jobs:
           SELECTED_REPO: ${{ github.repositoryUrl }}
           SKIP_SHELL_EXIT: 1
           PYTHONUNBUFFERED: 1
+          CI: true
         run: |
           export PATH=$HOME/.dotfiles/.github/shims:$PATH
           bash -c "$(curl -fsSL $BOOTSTRAP_URL)"
@@ -47,6 +48,7 @@ jobs:
         env:
           SKIP_SHELL_EXIT: 1
           PYTHONUNBUFFERED: 1
+          CI: true
         run: |
           export PATH=$GITHUB_WORKSPACE/.github/shims:$PATH
           ./install/core
@@ -54,6 +56,7 @@ jobs:
         env:
           SKIP_SHELL_EXIT: 1
           PYTHONUNBUFFERED: 1
+          CI: true
         run: |
           export PATH=$GITHUB_WORKSPACE/.github/shims:$PATH
           ./install/core
