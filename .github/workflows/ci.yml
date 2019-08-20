@@ -33,7 +33,7 @@ jobs:
         run: |
           export PATH=$HOME/.dotfiles/.github/shims:$PATH
           bash -c "$(curl -fsSL $BOOTSTRAP_URL)"
-install:
+  install:
     name: Test Core Installer
     runs-on: macOS-10.14
     steps:
