@@ -47,4 +47,5 @@ if ! cd "$SELECTED_FOLDER"; then
   exit 3
 fi
 
+export BASEDIR="$SELECTED_FOLDER"
 exec ./install/core

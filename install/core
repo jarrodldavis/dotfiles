@@ -2,10 +2,13 @@
 
 set -e
 
+if [[ -z "$BASEDIR" ]]; then
+  BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/.."
+fi
+
 CONFIG="install/conf.yaml"
 DOTBOT_DIR="dotbot"
 DOTBOT_BIN="bin/dotbot"
-BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/.."
 DOTBOT_PATH="${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}"
 
 cd "${BASEDIR}"
@@ -18,9 +21,6 @@ function __color_log() {
   echo -e "$message"
 }
 
-echo "${BASH_SOURCE[*]}"
-echo "${BASEDIR}"
-ls -la "${BASEDIR}"
 # shellcheck disable=SC1090
 source "${BASEDIR}/bashrc"
 
