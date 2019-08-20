@@ -7,23 +7,23 @@ jobs:
     name: Lint Shell Scripts
     runs-on: macOS-10.14
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v1
-      - name: Install Linters
+      - name: Install linters
         run: brew install shellcheck shfmt
-      - name: shellcheck
+      - name: Run shellcheck
         run: shellcheck install/bootstrap install/core ./bash* ./scripts/bash/*
-      - name: shfmt
+      - name: Run shfmt
         run: shfmt -i 2 -sr -d install/bootstrap install/core ./bash* ./scripts/bash/*
   bootstrap:
     name: Test Automatic Bootstrapping
     runs-on: macOS-10.14
     steps:
-      - name: Reset Homebrew Environment
+      - name: Reset Homebrew environment
         run: |
           brew untap caskroom/versions
           brew uninstall node@6
-      - name: Run Bootstrapper
+      - name: Run bootstrapper
         env:
           BOOTSTRAP_URL: https://raw.githubusercontent.com/${{ github.repository }}/${{ github.sha }}/install/core
           SELECTED_FOLDER: ~/.dotfiles
@@ -37,20 +37,20 @@ install:
     name: Test Core Installer
     runs-on: macOS-10.14
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v1
-      - name: Reset Homebrew Environment
+      - name: Reset Homebrew environment
         run: |
           brew untap caskroom/versions
           brew uninstall node@6
-      - name: Run Installer
+      - name: Run installer
         env:
           SKIP_SHELL_EXIT: 1
           PYTHONUNBUFFERED: 1
         run: |
           export PATH=$GITHUB_WORKSPACE/.github/shims:$PATH
           ./install/core
-      - name: Run Installer Again
+      - name: Run installer again
         env:
           SKIP_SHELL_EXIT: 1
           PYTHONUNBUFFERED: 1
