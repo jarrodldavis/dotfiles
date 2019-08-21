@@ -1,22 +1,10 @@
-name: Continuous Integration
+name: Installers
 
 on: [push]
 
 jobs:
-  lint:
-    name: Lint Shell Scripts
-    runs-on: macOS-10.14
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v1
-      - name: Install linters
-        run: brew install shellcheck shfmt
-      - name: Run shellcheck
-        run: shellcheck install/bootstrap install/core ./bash* ./scripts/bash/*
-      - name: Run shfmt
-        run: shfmt -i 2 -sr -d install/bootstrap install/core ./bash* ./scripts/bash/*
   bootstrap:
-    name: Test Automatic Bootstrapping
+    name: Bootstrap
     runs-on: macOS-10.14
     steps:
       - name: Reset Homebrew environment
@@ -35,7 +23,7 @@ jobs:
           export PATH=$HOME/.dotfiles/.github/shims:$PATH
           bash -c "$(curl -fsSL $BOOTSTRAP_URL)"
   install:
-    name: Test Core Installer
+    name: Core
     runs-on: macOS-10.14
     steps:
       - name: Checkout repository

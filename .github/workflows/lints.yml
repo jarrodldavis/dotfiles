@@ -1,0 +1,17 @@
+name: Lints
+
+on: [push]
+
+jobs:
+  lint:
+    name: Shell Scripts
+    runs-on: macOS-10.14
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+      - name: Install linters
+        run: brew install shellcheck shfmt
+      - name: Run shellcheck
+        run: shellcheck install/bootstrap install/core ./bash* ./scripts/bash/*
+      - name: Run shfmt
+        run: shfmt -i 2 -sr -d install/bootstrap install/core ./bash* ./scripts/bash/*
