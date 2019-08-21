@@ -21,8 +21,6 @@ if [ "$(command -v rbenv)" ]; then eval "$(rbenv init -)"; fi
 
 if [ "$(command -v rustup)" ]; then eval "$(rustup completions bash)"; fi
 
-export TRAVIS_ENDPOINT=https://api.travis-ci.com/
-
 # GPG
 if [ "$TERM_PROGRAM" == 'Apple_Terminal' ] || [ "$TERM_PROGRAM" == 'vscode' ]; then
   GPG_TTY=$(tty)
