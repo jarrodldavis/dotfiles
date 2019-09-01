@@ -14,6 +14,7 @@ jobs:
         run: |
           brew untap caskroom/versions
           brew uninstall node@6
+          brew update-reset
       - name: Run bootstrapper
         env:
           BOOTSTRAP_URL: https://raw.githubusercontent.com/${{ github.repository }}/${{ github.sha }}/install/bootstrap
@@ -35,6 +36,7 @@ jobs:
         run: |
           brew untap caskroom/versions
           brew uninstall node@6
+          brew update-reset
       - name: Run installer
         env:
           SKIP_SHELL_EXIT: 1
