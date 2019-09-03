@@ -62,6 +62,8 @@ cask "gitter"
 cask "jetbrains-toolbox"
 cask "keepingyouawake"
 cask "ngrok"
+cask "sf-symbols"
+cask "sketch"
 cask "slack"
 cask "suspicious-package"
 cask "visual-studio-code"
@@ -73,3 +75,4 @@ mas "Keynote", id: 409183694
 mas "Medis", id: 1063631769
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
+mas "Xcode", id: 497799835
