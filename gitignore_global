@@ -1,4 +1,4 @@
-### https://raw.github.com/github/gitignore/50e42aa1064d004a5c99eaa72a2d8054a0d8de55/Global/macOS.gitignore
+### https://raw.github.com/github/gitignore/499ae899e7b54e701e878759f73d9092302fd07a/Global/macOS.gitignore
 
 # General
 .DS_Store
@@ -28,7 +28,7 @@ Temporary Items
 .apdisk
 
 
-### https://raw.github.com/github/gitignore/50e42aa1064d004a5c99eaa72a2d8054a0d8de55/Global/JetBrains.gitignore
+### https://raw.github.com/github/gitignore/499ae899e7b54e701e878759f73d9092302fd07a/Global/JetBrains.gitignore
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
@@ -100,7 +100,7 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 
-### https://raw.github.com/github/gitignore/50e42aa1064d004a5c99eaa72a2d8054a0d8de55/Global/Backup.gitignore
+### https://raw.github.com/github/gitignore/499ae899e7b54e701e878759f73d9092302fd07a/Global/Backup.gitignore
 
 *.bak
 *.gho
@@ -109,19 +109,19 @@ fabric.properties
 *.tmp
 
 
-### https://raw.github.com/github/gitignore/50e42aa1064d004a5c99eaa72a2d8054a0d8de55/Global/GPG.gitignore
+### https://raw.github.com/github/gitignore/499ae899e7b54e701e878759f73d9092302fd07a/Global/GPG.gitignore
 
 secring.*
 
 
 
-### https://raw.github.com/github/gitignore/50e42aa1064d004a5c99eaa72a2d8054a0d8de55/Global/Patch.gitignore
+### https://raw.github.com/github/gitignore/499ae899e7b54e701e878759f73d9092302fd07a/Global/Patch.gitignore
 
 *.orig
 *.rej
 
 
-### https://raw.github.com/github/gitignore/50e42aa1064d004a5c99eaa72a2d8054a0d8de55/Global/Vim.gitignore
+### https://raw.github.com/github/gitignore/499ae899e7b54e701e878759f73d9092302fd07a/Global/Vim.gitignore
 
 # Swap
 [._]*.s[a-v][a-z]
@@ -143,7 +143,7 @@ tags
 [._]*.un~
 
 
-### https://raw.github.com/github/gitignore/50e42aa1064d004a5c99eaa72a2d8054a0d8de55/Global/VisualStudioCode.gitignore
+### https://raw.github.com/github/gitignore/499ae899e7b54e701e878759f73d9092302fd07a/Global/VisualStudioCode.gitignore
 
 .vscode/*
 !.vscode/settings.json
@@ -152,7 +152,7 @@ tags
 !.vscode/extensions.json
 
 
-### https://raw.github.com/github/gitignore/50e42aa1064d004a5c99eaa72a2d8054a0d8de55/Global/Xcode.gitignore
+### https://raw.github.com/github/gitignore/499ae899e7b54e701e878759f73d9092302fd07a/Global/Xcode.gitignore
 
 # Xcode
 #
@@ -178,9 +178,5 @@ DerivedData/
 *.perspectivev3
 !default.perspectivev3
 
-## Xcode Patch
-*.xcodeproj/*
-!*.xcodeproj/project.pbxproj
-!*.xcodeproj/xcshareddata/
-!*.xcworkspace/contents.xcworkspacedata
+## Gcc Patch
 /*.gcno
