@@ -20,7 +20,6 @@
     "editor.renderControlCharacters": true,
     "editor.renderIndentGuides": true,
     "editor.renderWhitespace": "all",
-    "editor.rulers": [80],
     "editor.snippetSuggestions": "bottom",
     "editor.tabCompletion": "off",
 
