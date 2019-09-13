@@ -3,3 +3,6 @@ git_repos = [
 ]
 
 disable = ["gem"]
+
+[commands]
+"Dotbot" = "dotbot-update"
