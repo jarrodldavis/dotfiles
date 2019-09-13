@@ -14,9 +14,24 @@ echo "Welcome to bash v$BASH_VERSION"
 
 # Prompt customization
 function __prompt_command_start() {
+  EXIT_CODES=${PIPESTATUS[*]}      # save now before value is reset by subsequent commands
+
   local PS1_COLOR_START='\e[0;90m' # dark gray
   local PS1_USER_INFO='\u@\h:\w'   # user@host:path
   local PS1_DATE='[\d \@]'         # [date 12-hour-time]
+
+  # exit status
+  local PS1_CMD_COLOR_START
+  local PS1_CMD_CODE
+
+  for CODE in "${EXIT_CODES[@]}"; do
+    if [ "$CODE" != 0 ]; then
+      PS1_CMD_COLOR_START='\e[31m' # red
+    fi
+  done
+  PS1_CMD_CODE=${EXIT_CODES// / | }
+
+  local PS1_CMD="${PS1_CMD_COLOR_START}exit status: ${PS1_CMD_CODE}${PS1_COLOR_START}"
 
   # shell version info
   local PS1_SHELL_START
@@ -49,7 +64,7 @@ function __prompt_command_start() {
   local PS1_SHELL="${PS1_SHELL_COLOR_START}${PS1_SHELL_START}${PS1_SHELL_END}${PS1_COLOR_START}"
 
   # assembled prompt
-  echo -e "${PS1_COLOR_START}\r\n${PS1_DATE}\r\n${PS1_SHELL}\r\n${PS1_USER_INFO}"
+  echo -e "${PS1_COLOR_START}\r\n${PS1_DATE}\r\n${PS1_CMD}\r\n${PS1_SHELL}\r\n${PS1_USER_INFO}"
 }
 
 function __prompt_command_end() {
