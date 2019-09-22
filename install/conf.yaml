@@ -12,6 +12,7 @@
 - link:
     ~/.bash_profile:
     ~/.bashrc:
+    ~/.inputrc:
     ~/.dotfiles-scripts: scripts
     ~/.Brewfile:
     ~/Library/Preferences/topgrade.toml: topgrade.toml
