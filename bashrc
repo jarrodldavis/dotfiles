@@ -14,7 +14,7 @@ echo "Welcome to bash v$BASH_VERSION"
 
 # Prompt customization
 function __prompt_command_start() {
-  EXIT_CODES=${PIPESTATUS[*]}      # save now before value is reset by subsequent commands
+  EXIT_CODES=("${PIPESTATUS[@]}")  # save now before value is reset by subsequent commands
 
   local PS1_COLOR_START='\e[0;90m' # dark gray
   local PS1_USER_INFO='\u@\h:\w'   # user@host:path
@@ -29,7 +29,8 @@ function __prompt_command_start() {
       PS1_CMD_COLOR_START='\e[31m' # red
     fi
   done
-  PS1_CMD_CODE=${EXIT_CODES// / | }
+  PS1_CMD_CODE=${EXIT_CODES[*]}       # flatten array into string
+  PS1_CMD_CODE=${PS1_CMD_CODE// / | } # perform replacement on string
 
   local PS1_CMD="${PS1_CMD_COLOR_START}exit status: ${PS1_CMD_CODE}${PS1_COLOR_START}"
 
