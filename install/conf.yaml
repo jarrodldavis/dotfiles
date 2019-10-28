@@ -64,11 +64,11 @@
       command: rustup component add clippy rls rust-analysis rust-src rustfmt
       description: Installing additional Rust components
     -
-      command: command -v cargo-install-update || cargo install cargo-update
-      description: Installing `cargo-update`
+      command: command -v cargo-cache || cargo install cargo-cache
+      description: Installing `cargo-cache`
     -
-      command: cat cargo-bins.txt | xargs cargo install-update --allow-no-update
-      description: Installing additional Cargo-managed binaries
+      command: command -v cargo-tree || cargo install cargo-tree
+      description: Installing `cargo-tree`
     -
       command: '[ -d ~/.vim/bundle/Vundle.vim/ ] || git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
       description: Installing Vundle

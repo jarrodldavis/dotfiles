@@ -1,5 +1,0 @@
-cargo-cache
-cargo-edit
-cargo-tree
-cargo-update
-cross
