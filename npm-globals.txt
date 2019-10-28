@@ -1,7 +1,3 @@
-generator-web-extension
 http-server
-netlify-cli
 now
 npm
-sirv-cli
-yo
