@@ -12,7 +12,6 @@ jobs:
     steps:
       - name: Reset Homebrew environment
         run: |
-          brew untap caskroom/versions
           brew uninstall node@6
           brew update-reset
       - name: Run bootstrapper
@@ -34,7 +33,6 @@ jobs:
         uses: actions/checkout@v1
       - name: Reset Homebrew environment
         run: |
-          brew untap caskroom/versions
           brew uninstall node@6
           brew update-reset
       - name: Run installer
