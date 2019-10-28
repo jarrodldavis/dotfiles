@@ -7,6 +7,10 @@
       create: true
       force: true
 
+- create:
+    - ~/projects
+    - ~/projects/repos
+
 - clean: ['~']
 
 - link:
