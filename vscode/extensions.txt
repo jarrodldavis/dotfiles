@@ -6,7 +6,9 @@ EditorConfig.EditorConfig
 emilast.LogFileHighlighter
 esbenp.prettier-vscode
 fallenwood.vimL
+felixfbecker.php-debug
 felixfbecker.php-intellisense
+felixfbecker.php-pack
 firefox-devtools.vscode-firefox-debug
 forbeslindesay.vscode-sql-template-literal
 foxundermoon.shell-format
@@ -15,6 +17,7 @@ hbenl.vscode-mocha-test-adapter
 hbenl.vscode-test-explorer
 humao.rest-client
 ikappas.composer
+ikappas.phpcs
 JamesBirtles.svelte-vscode
 jinsihou.diff-tool
 mikestead.dotenv
@@ -33,3 +36,5 @@ Swellaby.vscode-rust-test-adapter
 timonwong.shellcheck
 vadimcn.vscode-lldb
 vscodevim.vim
+wordup.wordup-code
+yogensia.searchwpdocs

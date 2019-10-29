@@ -1,3 +1,4 @@
 http-server
 now
 npm
+wordup-cli

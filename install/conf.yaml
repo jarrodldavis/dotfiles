@@ -19,7 +19,6 @@
     ~/.inputrc:
     ~/.dotfiles-scripts: scripts
     ~/.Brewfile:
-    ~/Library/Preferences/topgrade.toml: topgrade.toml
     ~/.gitconfig:
     ~/.gitignore_global:
     ~/.ssh/config: ssh/config

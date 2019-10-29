@@ -1,8 +1,0 @@
-git_repos = [
-    "~/projects/repos/*/"
-]
-
-disable = ["gem"]
-
-[commands]
-"Dotbot" = "dotbot-update"
