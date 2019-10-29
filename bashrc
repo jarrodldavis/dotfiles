@@ -79,3 +79,5 @@ function __prompt_command_base() {
 if [ "$TERM_PROGRAM" == 'Apple_Terminal' ]; then
   PROMPT_COMMAND='__prompt_command_base'
 fi
+
+alias composer="docker run --rm --interactive --tty --volume \$PWD:/app composer"
