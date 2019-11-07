@@ -1,0 +1,10 @@
+#! /usr/bin/env bash
+
+PARENT=$(ps -c -p $PPID -o command=)
+
+if [ "$PARENT" == "-bash" ]; then
+  /usr/bin/open "$@"
+  exit $?
+else
+  exit 1
+fi
