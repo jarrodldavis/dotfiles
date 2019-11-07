@@ -153,13 +153,13 @@ echo "-----$me-----" | tee -a "$logfile"
 current_time=$(date "+%Y-%m-%d %H:%M:%S")
 echo "Started '$description' at $current_time" | tee -a "$logfile"
 echo "Executing command: $command" | tee -a "$logfile"
-if [ $suppress_command_stdout == 'true' ]; then
+if [ "$suppress_command_stdout" == 'true' ]; then
   echo "Command output suppressed; use 'tail -f $logfile' to view realtime output"
 fi
 echo "-----$me-----" | tee -a "$logfile"
 
 trap_signals
-if [ $suppress_command_stdout == 'true' ]; then
+if [ "$suppress_command_stdout" == 'true' ]; then
   bash -c "$command" >> "$logfile" 2>&1
 else
   bash -c "$command" 2>&1 | tee -a "$logfile"
