@@ -10,10 +10,6 @@ jobs:
     name: Bootstrap
     runs-on: macOS-10.14
     steps:
-      - name: Reset Homebrew environment
-        run: |
-          brew uninstall node@6
-          brew update-reset
       - name: Run bootstrapper
         env:
           BOOTSTRAP_URL: https://raw.githubusercontent.com/${{ github.repository }}/${{ github.sha }}/install/bootstrap
@@ -31,10 +27,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
-      - name: Reset Homebrew environment
-        run: |
-          brew uninstall node@6
-          brew update-reset
       - name: Run installer
         env:
           SKIP_SHELL_EXIT: 1
