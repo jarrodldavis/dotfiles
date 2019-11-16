@@ -7,8 +7,8 @@
 | Software | Version    | Reason                    | Installation Notes        | Last Tested With               |
 | -------- | ---------- | ------------------------- | ------------------------- | ------------------------------ |
 | macOS    | latest     | host operating system     |                           | 10.14.6 (Mojave)               |
-| `bash`   | 3.2+       | command line shell        | pre-installed with macOS  | 3.2.57, 5.0.9                  |
-| Python   | 2.x or 3.x | Dotbot                    | pre-installed with macOS  | 2.7.16                         |
+| `bash`   | 3.2+       | command line shell        | pre-installed with macOS  | 3.2.57, 5.0.11                 |
+| Python   | 2.x or 3.x | Dotbot                    | pre-installed with macOS  | 2.7.17                         |
 | Xcode    | latest     | `git` and Homebrew        | alternative: [Xcode CLDT] | [Xcode CLDT] for macOS 10.14.6 |
 | `curl`   | latest     | [automatic boostrapping]  | pre-installed with macOS  | 7.54.0                         |
 
