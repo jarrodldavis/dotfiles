@@ -15,7 +15,7 @@ while ! xcode-select --print-path &> /dev/null; do
   sleep 15
 done
 
-__color_log 92 "Xcode or Xcode Command Line Developer Tools are installed at $(xcode-select --print-path)"
+__color_log 92 "Xcode or the Xcode Command Line Developer Tools are installed at $(xcode-select --print-path)"
 
 if [[ -z "$SELECTED_FOLDER" ]]; then
   DEFAULT_FOLDER=$HOME/.dotfiles

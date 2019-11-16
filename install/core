@@ -35,7 +35,7 @@ while ! xcode-select --print-path &> /dev/null; do
   sleep 15
 done
 
-__color_log 92 "Xcode or Xcode Command Line Developer Tools are installed at $(xcode-select --print-path)"
+__color_log 92 "Xcode or the Xcode Command Line Developer Tools are installed at $(xcode-select --print-path)"
 
 git submodule update --init --recursive
 
