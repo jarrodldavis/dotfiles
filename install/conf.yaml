@@ -40,7 +40,7 @@
 
 - shell:
     -
-      command: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+      command: echo "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" | grep -v "\\\\a" | ruby
       description: Installing Homebrew
     -
       command: brew bundle --global --verbose
