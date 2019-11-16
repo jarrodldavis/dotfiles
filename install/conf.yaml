@@ -46,6 +46,11 @@
       command: brew bundle --global --verbose
       description: Installing packages from Homebrew Bundle
     -
+      command: |
+        cd $(brew --repo homebrew/homebrew-cask-versions) &&
+        find . -name "microsoft-edge*" | xargs -I {} echo 'git update-index --assume-unchanged {} && rm {}' | bash
+      description: Removing Microsoft Edge Casks
+    -
       command: chmod -vv u=rwx,go= ~/.gnupg && chmod -vv u=rw,go= ~/.gnupg/* && gpgconf --kill gpg-agent
       description: Setting correct permissions for GnuPG homedir
     -
