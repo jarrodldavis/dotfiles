@@ -9,6 +9,9 @@
     "debug.showSubSessionsInToolBar": true,
     "debug.toolBarLocation": "floating",
 
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
     "editor.lineNumbers": "relative",
     "editor.minimap.enabled": false,
     "editor.parameterHints.cycle": true,
@@ -43,6 +46,11 @@
 
     // built-in extensions
 
+    "emmet.excludeLanguages": [
+      "javascriptreact",
+      "typescriptreact"
+    ],
+
     "git.autofetch": true,
     "git.autorefresh": true,
     "git.autoRepositoryDetection": false,
@@ -58,6 +66,8 @@
     "npm.enableScriptExplorer": true,
 
     "javascript.updateImportsOnFileMove.enabled": "always",
+
+    "typescript.tsdk": "node_modules/typescript/lib",
     "typescript.updateImportsOnFileMove.enabled": "always",
 
     // marketplace extensions
@@ -85,6 +95,10 @@
 
     "vim.camelCaseMotion.enable": true,
     "vim.easymotion": true,
+    "vim.easymotionMarkerFontSize": "16",
+    "vim.easymotionMarkerFontFamily": "Menlo, Monaco, 'Courier New', monspace",
+    "vim.easymotionMarkerHeight": 16,
+    "vim.easymotionMarkerYOffset": 2,
     "vim.replaceWithRegister": true,
     "vim.sneak": true,
     "vim.sneakUseIgnorecaseAndSmartcase": true,
