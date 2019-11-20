@@ -10,6 +10,8 @@ jobs:
     name: Bootstrap
     runs-on: macOS-10.14
     steps:
+      - name: Uninstall Homebrew
+        run: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)" --force
       - name: Run bootstrapper
         env:
           BOOTSTRAP_URL: https://raw.githubusercontent.com/${{ github.repository }}/${{ github.sha }}/install/bootstrap
@@ -27,6 +29,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
+      - name: Uninstall Homebrew
+        run: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)" --force
       - name: Run installer
         env:
           SKIP_SHELL_EXIT: 1
