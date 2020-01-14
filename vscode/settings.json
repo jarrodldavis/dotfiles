@@ -9,9 +9,6 @@
     "debug.showSubSessionsInToolBar": true,
     "debug.toolBarLocation": "floating",
 
-    "editor.formatOnPaste": true,
-    "editor.formatOnSave": true,
-    "editor.formatOnType": true,
     "editor.lineNumbers": "relative",
     "editor.minimap.enabled": false,
     "editor.parameterHints.cycle": true,
@@ -26,12 +23,11 @@
     "editor.snippetSuggestions": "inline",
     "editor.tabCompletion": "off",
 
+    "html.mirrorCursorOnMatchingTag": false,
+
     "files.associations": {
       "*.har": "json",
     },
-    "files.autoSave": "onFocusChange",
-    "files.insertFinalNewline": true,
-    "files.trimFinalNewlines": true,
 
     "search.useIgnoreFiles": true,
 
