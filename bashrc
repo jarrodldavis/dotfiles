@@ -2,6 +2,7 @@
 
 # Environment variables
 export EDITOR=vim
+export PATH="/usr/local/sbin:$PATH"
 export PATH=$HOME/.dotfiles-scripts:$HOME/.dotfiles-scripts/bash:$PATH
 export PATH="$HOME/.cargo/bin:$PATH"
 
