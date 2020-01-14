@@ -37,24 +37,3 @@ let g:syntastic_check_on_wq = 0
 " rust
 let g:rustfmt_autosave = 1
 
-" Vundle
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Plugin 'VundleVim/Vundle.vim'
-
-Plugin 'vim-syntastic/syntastic'
-
-Plugin 'majutsushi/tagbar'
-
-Plugin 'leafgarland/typescript-vim'
-
-Plugin 'rust-lang/rust.vim'
-
-Plugin 'dart-lang/dart-vim-plugin'
-
-Plugin 'christoomey/vim-titlecase'
-
-call vundle#end()
-filetype indent plugin on
