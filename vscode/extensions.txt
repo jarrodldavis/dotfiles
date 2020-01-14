@@ -21,6 +21,7 @@ ikappas.phpcs
 JamesBirtles.svelte-vscode
 jinsihou.diff-tool
 mikestead.dotenv
+ms-python.python
 ms-vscode.csharp
 msjsdiag.debugger-for-chrome
 mtxr.sqltools
