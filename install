@@ -1,15 +1,34 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 set -e
 
+# install Homebrew (also installs the Xcode Command Line Tools)
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+# install Homebrew packages required for bootstrapping
+brew install ghq
+
+# clone dotfiles repo for current user (from gitconfig or system user account) else fail
+GIT_TERMINAL_PROMPT=0 ghq get dotfiles
+
+# check for valid and unambiguous repo list result
+REPO_PATHS=($(ghq list --full-path --exact dotfiles))
+if [ "${#REPO_PATHS[@]}" -eq 0 ]; then
+    echo 'install: could not find dotfiles repository'
+    exit 1
+elif [ "${#REPO_PATHS[@]}" -gt 1 ]; then
+    echo 'install: unexpectedly found multiple dotfiles repositories'
+    exit 1
+fi
+
+# run Dotbot installer
 CONFIG="install.conf.yaml"
 DOTBOT_DIR="dotbot"
 
 DOTBOT_BIN="bin/dotbot"
-BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BASEDIR="$REPO_PATHS[1]"
 
 cd "${BASEDIR}"
-git -C "${DOTBOT_DIR}" submodule sync --quiet --recursive
 git submodule update --init --recursive "${DOTBOT_DIR}"
 
 "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
