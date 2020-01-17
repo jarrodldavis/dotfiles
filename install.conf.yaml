@@ -5,3 +5,5 @@
 
 - link:
     ~/.gitconfig:
+    ~/.ssh/config: ssh-config
+    ~/.gnupg/gpg-agent.conf:
