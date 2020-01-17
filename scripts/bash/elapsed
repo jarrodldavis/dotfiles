@@ -1,0 +1,187 @@
+#! /usr/bin/env bash
+
+# Prefer simple name for error messages
+me=$(basename -a "$0")
+
+# if not on $PATH, include path in usage message
+if [ -n "$(type -P "$me")" ]; then
+  usage_me=$me
+else
+  usage_me=$0
+fi
+
+EXIT_HELP_PRINT=0
+EXIT_INVALID_OPTION=1
+EXIT_ARGUMENT_REQUIRED=2
+EXIT_OPTION_REQUIRED=3
+EXIT_TRAILING_ARGUMENTS=4
+EXIT_ALREADY_SPECIFIED=5
+EXIT_HELP_MIX=6
+EXIT_COMMAND_FAILED=127
+
+SECONDS_PER_HOUR=3600
+SECONDS_PER_MINUTE=60
+
+function usage() {
+  echo "usage: $usage_me -d <description> -l <logfile> -c <command> [-s]"
+}
+
+declare -A specified_options
+
+function check_already_specified() {
+  if [ -n "${specified_options[$opt]}" ]; then
+    if [ -n "$command" ]; then
+      echo "$me: option already specified (did you quote the -c argument correctly?): -$opt"
+    else
+      echo "$me: option already specified: -$opt"
+    fi
+    usage
+    exit $EXIT_ALREADY_SPECIFIED
+  fi
+}
+
+function check_argument_value() {
+  case "$OPTARG" in
+  -h)
+    echo "$me: unexpected mix of invocation and help options"
+    usage
+    exit $EXIT_HELP_MIX
+    ;;
+  -*)
+    # if the argument starts with a hyphen, it is most likely another option
+    # that means the user didn't specify the argument before giving another option
+    echo "$me: option requires an argument: -$opt"
+    usage
+    exit $EXIT_OPTION_REQUIRED
+    ;;
+  esac
+}
+
+function check_required() {
+  if [ -z "${!2}" ]; then
+    echo "$me: required option not specified: -$1"
+    usage
+    exit $EXIT_OPTION_REQUIRED
+  fi
+}
+
+while getopts ":d:l:c:sh" opt; do
+  check_already_specified
+  check_argument_value
+
+  last_opt=$opt
+  case $opt in
+  d)
+    specified_options[d]=true
+    description=$OPTARG
+    ;;
+  l)
+    specified_options[l]=true
+    logfile=$OPTARG
+    ;;
+  c)
+    specified_options[c]=true
+    command=$OPTARG
+    ;;
+  s)
+    specified_options[s]=true
+    suppress_command_stdout=true
+    ;;
+  h)
+    if [ $# -gt 1 ]; then
+      echo "$me: unexpected mix of invocation and help options"
+      usage
+      exit $EXIT_HELP_MIX
+    else
+      usage
+      exit $EXIT_HELP_PRINT
+    fi
+    ;;
+  :)
+    opt=$OPTARG
+    check_already_specified
+
+    echo "$me: option requires an argument: -$OPTARG"
+    usage
+    exit $EXIT_ARGUMENT_REQUIRED
+    ;;
+  \? | *)
+    if [ -n "$command" ]; then
+      echo "$me: invalid option (did you quote the -c argument correctly?): -$OPTARG"
+    else
+      echo "$me: invalid option: -$OPTARG"
+    fi
+    usage
+    exit $EXIT_INVALID_OPTION
+    ;;
+  esac
+done
+
+# if all arguments parsed, $OPTIND is one more than $#
+if [ $OPTIND -lt $# ] || [ $OPTIND -eq $# ]; then
+  if [ "$last_opt" == 's' ]; then
+    if [ -n "$command" ]; then
+      echo "$me: option does not accept an argument (did you quote the -c argument correctly?): -$last_opt"
+    else
+      echo "$me: option does not accept an argument: -$last_opt"
+    fi
+  elif
+    [ -n "$last_opt" ]
+  then
+    echo "$me: unexpected trailing arguments (did you quote the -$last_opt argument correctly?): ${*:$OPTIND}"
+  else
+    echo "$me: unexpected trailing arguments (are you missing options?): ${*:$OPTIND}"
+  fi
+  usage
+  exit $EXIT_TRAILING_ARGUMENTS
+fi
+
+check_required 'd' 'description'
+check_required 'l' 'logfile'
+check_required 'c' 'command'
+
+received_signal=
+function trap_signals() {
+  signals=(HUP INT QUIT KILL TERM)
+
+  for signal in "${signals[@]}"; do
+    trap "received_signal='true'" "$signal"
+  done
+}
+
+echo "-----$me-----" | tee -a "$logfile"
+current_time=$(date "+%Y-%m-%d %H:%M:%S")
+echo "Started '$description' at $current_time" | tee -a "$logfile"
+echo "Executing command: $command" | tee -a "$logfile"
+if [ "$suppress_command_stdout" == 'true' ]; then
+  echo "Command output suppressed; use 'tail -f $logfile' to view realtime output"
+fi
+echo "-----$me-----" | tee -a "$logfile"
+
+trap_signals
+if [ "$suppress_command_stdout" == 'true' ]; then
+  bash -c "$command" >> "$logfile" 2>&1
+else
+  bash -c "$command" 2>&1 | tee -a "$logfile"
+fi
+
+exit_code=${PIPESTATUS[0]}
+
+echo "-----$me-----" | tee -a "$logfile"
+current_time=$(date "+%Y-%m-%d %H:%M:%S")
+elapsed_hours=$((SECONDS / SECONDS_PER_HOUR))
+elapsed_minutes=$((SECONDS % SECONDS_PER_HOUR / SECONDS_PER_MINUTE))
+elapsed_seconds=$((SECONDS % SECONDS_PER_MINUTE))
+elapsed_time=$(printf '%02dh:%02dm:%02ds\n' $elapsed_hours $elapsed_minutes $elapsed_seconds)
+
+if [ -n "$received_signal" ]; then
+  signal=$(kill -l "$exit_code")
+  echo "Received SIG$signal"
+fi
+
+echo "Finished '$description' at $current_time with exit code $exit_code in $elapsed_time" | tee -a "$logfile"
+echo "-----$me-----" | tee -a "$logfile"
+
+if [ "$exit_code" -ne "0" ]; then
+  exit $EXIT_COMMAND_FAILED
+fi
