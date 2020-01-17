@@ -2,9 +2,21 @@
     link:
       create: true
       force: true
+    shell:
+      stdin: true
+      stdout: true
+      stderr: true
 
 - link:
     ~/.gitconfig:
     ~/.ssh/config: ssh-config
     ~/.gnupg/gpg-agent.conf:
     ~/.Brewfile:
+
+- shell:
+    - description: Installing packages from Homebrew bundle
+      command: brew bundle --global --verbose
+    - description: Setting correct permissions for GnuPG directory
+      command: chmod -vv u=rwx,go= ~/.gnupg && chmod -vv u=rw,go= ~/.gnupg/* && gpgconf --kill gpg-agent
+    - description: Setting correct permissions for SSH directory
+      command: chmod -vv u=rwx,go= ~/.ssh && chmod -vv u=rw,go= ~/.ssh/*
