@@ -3,7 +3,9 @@
 set -e
 
 # install Homebrew (also installs the Xcode Command Line Tools)
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# use `echo` to automatically run script
+# use `grep` to remove printing of audible bell
+echo | /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install | grep -v '\\a')"
 
 # install Homebrew packages required for bootstrapping
 brew install ghq
