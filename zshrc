@@ -2,6 +2,7 @@
 
 # starship prompt
 eval "$(starship init zsh)"
+export STARSHIP_CONFIG=~/.starship.toml
 
 # command editing options
 setopt NO_CASE_GLOB

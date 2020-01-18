@@ -13,6 +13,7 @@
     ~/.ssh/config: ssh-config
     ~/.gnupg/gpg-agent.conf:
     ~/.Brewfile:
+    ~/.starship.toml:
 
 - shell:
     - description: Installing packages from Homebrew bundle
