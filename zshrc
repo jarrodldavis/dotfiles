@@ -4,6 +4,9 @@
 eval "$(starship init zsh)"
 export STARSHIP_CONFIG=~/.starship.toml
 
+# man pager
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
 # command editing options
 setopt NO_CASE_GLOB
 setopt AUTO_CD
