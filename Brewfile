@@ -1,6 +1,7 @@
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/core"
+brew "diff-so-fancy"
 brew "ghq"
 brew "git"
 brew "gnupg"
