@@ -8,7 +8,7 @@ set -e
 echo | /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install | grep -v '\\a')"
 
 # install Homebrew packages required for bootstrapping
-brew install ghq
+brew reinstall ghq
 
 # clone dotfiles repo for current user (from gitconfig or system user account) else fail
 GIT_TERMINAL_PROMPT=0 ghq get dotfiles
