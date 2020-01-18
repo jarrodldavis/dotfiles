@@ -8,6 +8,7 @@
       stderr: true
 
 - link:
+    ~/.zshrc:
     ~/.gitconfig:
     ~/.ssh/config: ssh-config
     ~/.gnupg/gpg-agent.conf:
