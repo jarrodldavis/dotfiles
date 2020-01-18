@@ -10,6 +10,7 @@
 - link:
     ~/.zshrc:
     ~/.gitconfig:
+    ~/.gitignore:
     ~/.ssh/config: ssh-config
     ~/.gnupg/gpg-agent.conf:
     ~/.Brewfile:
