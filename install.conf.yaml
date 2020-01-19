@@ -9,6 +9,7 @@
 
 - link:
     ~/.zshrc:
+    ~/.base16-shell:
     ~/.gitconfig:
     ~/.gitignore:
     ~/.ssh/config: ssh-config
