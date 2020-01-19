@@ -12,7 +12,7 @@ setopt NO_CASE_GLOB
 setopt AUTO_CD
 setopt CORRECT
 setopt CORRECT_ALL
-set CORRECT_IGNORE_FILE='.*'
+export CORRECT_IGNORE_FILE='.*'
 
 # history options
 setopt SHARE_HISTORY
