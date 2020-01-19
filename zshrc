@@ -24,6 +24,9 @@ setopt CORRECT
 setopt CORRECT_ALL
 export CORRECT_IGNORE_FILE='.*'
 
+# tab completions
+setopt COMPLETE_IN_WORD
+
 # history options
 setopt SHARE_HISTORY
 setopt APPEND_HISTORY
@@ -84,9 +87,6 @@ function ghq() {
     command ghq $*
   fi
 }
-
-# tab completions
-setopt COMPLETE_IN_WORD
 
 # The following lines were added by compinstall
 
