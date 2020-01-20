@@ -1,5 +1,9 @@
 #!/usr/bin/env zsh
 
+# custom functions
+fpath+=~/.zshfunctions
+autoload -Uz ghq
+
 # starship prompt
 eval "$(starship init zsh)"
 export STARSHIP_CONFIG=~/.starship.toml
@@ -62,31 +66,6 @@ bindkey -M vicmd cs change-surround
 bindkey -M vicmd ds delete-surround
 bindkey -M vicmd ys add-surround
 bindkey -M vicmd S add-surround
-
-# add `ghq cd` subcommand
-function ghq() {
-  if [[ "$1" == "cd" ]]; then
-    if [[ -z "$2" ]]; then
-      ROOT_PATH=$(command ghq root)
-      cd "$ROOT_PATH"
-      return 0
-    fi
-
-    REPO_PATHS=($(command ghq list --full-path --exact "$2"))
-
-    if [[ "${#REPO_PATHS[@]}" -eq 0 ]]; then
-      echo "ghq: could not find repository '$2'"
-      return 1
-    elif [[ "${#REPO_PATHS[@]}" -gt 1 ]]; then
-      echo "ghq: ambiguous repository name '$2'"
-      return 1
-    fi
-
-    cd "$REPO_PATHS[1]"
-  else
-    command ghq $*
-  fi
-}
 
 # The following lines were added by compinstall
 

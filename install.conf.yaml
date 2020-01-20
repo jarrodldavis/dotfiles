@@ -9,6 +9,7 @@
 
 - link:
     ~/.zshrc:
+    ~/.zshfunctions: scripts/zsh
     ~/.base16-shell:
     ~/.gitconfig:
     ~/.gitignore:
