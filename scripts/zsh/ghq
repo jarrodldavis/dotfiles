@@ -1,4 +1,5 @@
 #!/usr/bin/env zsh
+
 function ghq() {
   if [[ "$1" == "cd" ]]; then
     if [[ -z "$2" ]]; then
