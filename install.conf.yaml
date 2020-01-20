@@ -17,6 +17,8 @@
     ~/.gnupg/gpg-agent.conf:
     ~/.Brewfile:
     ~/.starship.toml:
+    ~/.vimrc:
+    ~/.vim:
 
 - shell:
     - description: Installing packages from Homebrew bundle

@@ -3,6 +3,7 @@
 # custom functions
 fpath+=~/.zshfunctions
 autoload -Uz ghq
+autoload -Uz vim-plugin
 
 # starship prompt
 eval "$(starship init zsh)"
