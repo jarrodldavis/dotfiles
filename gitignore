@@ -1,4 +1,4 @@
-### https://raw.github.com/github/gitignore/6c87d249af5f2b3f8ab65ae0a2648682ee4e8a2d/Global/Archives.gitignore
+### https://raw.github.com/github/gitignore/7ab549fcae8269fdd4004065470176f829d88200/Global/Archives.gitignore
 
 # It's better to unpack these files and commit the raw source because
 # git has its own built in compression methods.
@@ -34,7 +34,7 @@
 *.txz
 
 
-### https://raw.github.com/github/gitignore/6c87d249af5f2b3f8ab65ae0a2648682ee4e8a2d/Global/Backup.gitignore
+### https://raw.github.com/github/gitignore/7ab549fcae8269fdd4004065470176f829d88200/Global/Backup.gitignore
 
 *.bak
 *.gho
@@ -43,19 +43,19 @@
 *.tmp
 
 
-### https://raw.github.com/github/gitignore/6c87d249af5f2b3f8ab65ae0a2648682ee4e8a2d/Global/Diff.gitignore
+### https://raw.github.com/github/gitignore/7ab549fcae8269fdd4004065470176f829d88200/Global/Diff.gitignore
 
 *.patch
 *.diff
 
 
-### https://raw.github.com/github/gitignore/6c87d249af5f2b3f8ab65ae0a2648682ee4e8a2d/Global/GPG.gitignore
+### https://raw.github.com/github/gitignore/7ab549fcae8269fdd4004065470176f829d88200/Global/GPG.gitignore
 
 secring.*
 
 
 
-### https://raw.github.com/github/gitignore/6c87d249af5f2b3f8ab65ae0a2648682ee4e8a2d/Global/MicrosoftOffice.gitignore
+### https://raw.github.com/github/gitignore/7ab549fcae8269fdd4004065470176f829d88200/Global/MicrosoftOffice.gitignore
 
 *.tmp
 
@@ -78,13 +78,13 @@ Backup of *.doc*
 *.~vsd*
 
 
-### https://raw.github.com/github/gitignore/6c87d249af5f2b3f8ab65ae0a2648682ee4e8a2d/Global/Patch.gitignore
+### https://raw.github.com/github/gitignore/7ab549fcae8269fdd4004065470176f829d88200/Global/Patch.gitignore
 
 *.orig
 *.rej
 
 
-### https://raw.github.com/github/gitignore/6c87d249af5f2b3f8ab65ae0a2648682ee4e8a2d/Global/Tags.gitignore
+### https://raw.github.com/github/gitignore/7ab549fcae8269fdd4004065470176f829d88200/Global/Tags.gitignore
 
 # Ignore tags created by etags, ctags, gtags (GNU global) and cscope
 TAGS
@@ -105,7 +105,7 @@ cscope.po.out
 
 
 
-### https://raw.github.com/github/gitignore/6c87d249af5f2b3f8ab65ae0a2648682ee4e8a2d/Global/Vim.gitignore
+### https://raw.github.com/github/gitignore/7ab549fcae8269fdd4004065470176f829d88200/Global/Vim.gitignore
 
 # Swap
 [._]*.s[a-v][a-z]
@@ -128,23 +128,7 @@ tags
 [._]*.un~
 
 
-### https://raw.github.com/github/gitignore/6c87d249af5f2b3f8ab65ae0a2648682ee4e8a2d/Global/VirtualEnv.gitignore
-
-# Virtualenv
-# http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
-.Python
-[Bb]in
-[Ii]nclude
-[Ll]ib
-[Ll]ib64
-[Ll]ocal
-[Ss]cripts
-pyvenv.cfg
-.venv
-pip-selfcheck.json
-
-
-### https://raw.github.com/github/gitignore/6c87d249af5f2b3f8ab65ae0a2648682ee4e8a2d/Global/VisualStudioCode.gitignore
+### https://raw.github.com/github/gitignore/7ab549fcae8269fdd4004065470176f829d88200/Global/VisualStudioCode.gitignore
 
 .vscode/*
 !.vscode/settings.json
@@ -154,7 +138,7 @@ pip-selfcheck.json
 *.code-workspace
 
 
-### https://raw.github.com/github/gitignore/6c87d249af5f2b3f8ab65ae0a2648682ee4e8a2d/Global/Xcode.gitignore
+### https://raw.github.com/github/gitignore/7ab549fcae8269fdd4004065470176f829d88200/Global/Xcode.gitignore
 
 # Xcode
 #
@@ -184,7 +168,7 @@ DerivedData/
 /*.gcno
 
 
-### https://raw.github.com/github/gitignore/6c87d249af5f2b3f8ab65ae0a2648682ee4e8a2d/Global/macOS.gitignore
+### https://raw.github.com/github/gitignore/7ab549fcae8269fdd4004065470176f829d88200/Global/macOS.gitignore
 
 # General
 .DS_Store
