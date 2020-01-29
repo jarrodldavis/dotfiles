@@ -28,3 +28,5 @@
       command: chmod -vv u=rwx,go= ~/.gnupg && chmod -vv u=rwx,go= ~/.gnupg/* && gpgconf --kill gpg-agent
     - description: Setting correct permissions for SSH directory
       command: chmod -vv u=rwx,go= ~/.ssh && chmod -vv u=rw,go= ~/.ssh/*
+    - description: Updating current shell session
+      command: source ~/.zshrc
