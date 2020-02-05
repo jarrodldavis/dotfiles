@@ -5,3 +5,7 @@ Host github.com
  IdentityFile ~/.ssh/id_rsa_github
 Host gist.github.com
  IdentityFile ~/.ssh/id_rsa_github
+Host rods-bootcamp.local
+ User jarro
+ HostName rods-bootcamp.local
+ IdentityFile ~/.ssh/id_ed25519_bootcamp
