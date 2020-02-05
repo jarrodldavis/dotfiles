@@ -19,6 +19,9 @@ base16_tomorrow-night
 # hub
 eval "$(hub alias -s)"
 
+# rbenv
+eval "$(rbenv init -)"
+
 # man pager
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
