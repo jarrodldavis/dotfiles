@@ -2,18 +2,12 @@
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
 	ignore = dirty
-[submodule "base16-shell"]
-	path = base16-shell
-	url = git://github.com/chriskempson/base16-shell.git
 [submodule "vim/pack/Yggdroot/start/indentLine"]
 	path = vim/pack/Yggdroot/start/indentLine
 	url = git://github.com/Yggdroot/indentLine.git
 [submodule "vim/pack/airblade/start/vim-gitgutter"]
 	path = vim/pack/airblade/start/vim-gitgutter
 	url = git://github.com/airblade/vim-gitgutter.git
-[submodule "vim/pack/chriskempson/start/base16-vim"]
-	path = vim/pack/chriskempson/start/base16-vim
-	url = git://github.com/chriskempson/base16-vim.git
 [submodule "vim/pack/ctrlpvim/start/ctrlp.vim"]
 	path = vim/pack/ctrlpvim/start/ctrlp.vim
 	url = git://github.com/ctrlpvim/ctrlp.vim.git
@@ -98,3 +92,6 @@
 [submodule "vim/pack/tweekmonster/start/startuptime.vim"]
 	path = vim/pack/tweekmonster/start/startuptime.vim
 	url = git://github.com/tweekmonster/startuptime.vim.git
+[submodule "vim/pack/tomasiser/start/vim-code-dark"]
+	path = vim/pack/tomasiser/start/vim-code-dark
+	url = git://github.com/tomasiser/vim-code-dark.git

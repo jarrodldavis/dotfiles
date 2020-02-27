@@ -9,13 +9,6 @@ autoload -Uz vim-plugin
 eval "$(starship init zsh)"
 export STARSHIP_CONFIG=~/.starship.toml
 
-# base16
-BASE16_SHELL="$HOME/.base16-shell/"
-if [ -n "$PS1" ] && [ -s "$BASE16_SHELL/profile_helper.sh" ]; then
-  eval "$("$BASE16_SHELL/profile_helper.sh")"
-fi
-base16_tomorrow-night
-
 # hub
 eval "$(hub alias -s)"
 

@@ -46,12 +46,6 @@ let g:indentLine_leadingSpaceEnabled = 1
 set updatetime=100
 set signcolumn=yes
 
-" ==> chriskempson/base16-vim
-if filereadable(expand('~/.vimrc_background'))
-  let base16colorspace = 256
-  source ~/.vimrc_background
-endif
-
 " ==> ctrlpvim/ctrlp.vim
 let g:ctrlp_cmd = 'CtrlPMixed'
 let g:ctrlp_extensions = ['mixed', 'tag', 'buffertag']
@@ -102,6 +96,9 @@ nmap p <plug>(YoinkPaste_p)
 nmap P <plug>(YoinkPaste_P)
 nnoremap x d
 
+" ==> tomasiser/vim-code-dark
+colorscheme codedark
+
 " ==> tpope/vim-commentary
 
 " ==> tpope/vim-dispatch
@@ -130,7 +127,6 @@ nnoremap x d
 set laststatus=1
 set noshowmode
 set shortmess+=F
-let g:airline_base16_improved_contrast = 1
 let g:airline_detect_iminsert = 1
 let g:airline_detect_modified = 1
 let g:airline_detect_paste = 1
@@ -139,7 +135,7 @@ let g:airline_detect_spelllang = 1
 let g:airline_inactive_alt_sep = 1
 let g:airline_powerline_fonts = 1
 let g:airline_skip_empty_sections = 1
-let g:airline_theme = 'base16_vim'
+let g:airline_theme = 'codedark'
 let g:airline#extensions#branch#format = 2
 let g:airline#extensions#hunks#non_zero_only = 0
 let g:airline#extensions#tabline#enabled = 1

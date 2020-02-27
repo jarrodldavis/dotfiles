@@ -11,7 +11,6 @@
     ~/.zshrc:
     ~/.zprofile:
     ~/.zshfunctions: scripts/zsh
-    ~/.base16-shell:
     ~/.gitconfig:
     ~/.gitignore:
     ~/.ssh/config: ssh-config
