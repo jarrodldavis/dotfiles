@@ -2,7 +2,7 @@
 
 > Important dotfiles, managed by [Dotbot]
 
-## Prerequistes
+## Prerequisites
 
 - macOS (last tested with macOS Catalina 10.15.3)
   - ZSH
