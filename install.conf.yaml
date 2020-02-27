@@ -7,6 +7,12 @@
       stdout: true
       stderr: true
 
+- clean:
+  - '~'
+  - '~/.ssh'
+  - '~/.gnupg'
+  - '~/Library/Application Support/Code/User'
+
 - link:
     ~/.zshrc:
     ~/.zprofile:
