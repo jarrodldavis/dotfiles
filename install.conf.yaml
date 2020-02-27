@@ -22,6 +22,9 @@
     ~/Library/Application Support/Code/User/settings.json: vscode/settings.json
     ~/Library/Application Support/Code/User/keybindings.json: vscode/keybindings.json
     ~/Library/Application Support/Code/User/snippets: vscode/snippets
+    ~/Library/LaunchAgents/:
+      glob: true
+      path: launch-agents/*
 
 - shell:
     - description: Installing packages from Homebrew bundle
