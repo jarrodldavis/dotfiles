@@ -19,6 +19,9 @@
     ~/.starship.toml:
     ~/.vimrc:
     ~/.vim:
+    ~/Library/Application Support/Code/User/settings.json: vscode/settings.json
+    ~/Library/Application Support/Code/User/keybindings.json: vscode/keybindings.json
+    ~/Library/Application Support/Code/User/snippets: vscode/snippets
 
 - shell:
     - description: Installing packages from Homebrew bundle
