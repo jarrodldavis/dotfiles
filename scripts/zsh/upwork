@@ -1,0 +1,42 @@
+#!/usr/bin/env zsh
+
+function upwork {
+  if [[ "$1" == "" ]]; then
+    echo "upwork: subcommand required"
+    return 1
+  elif [[ "$1" != "start" ]] && [[ "$1" != "cd" ]] && [[ "$1" != "complete" ]]; then
+    echo "upwork: unknown subcommand '$1'"
+    return 1
+  elif [[ "$2" == "" ]]; then
+    echo "upwork: contract ID required"
+    return 2
+  fi
+
+  if ! [[ "$2" =~ ^[0-9]+$ ]]; then
+    echo "upwork: invalid contract ID '$2'"
+    return 3
+  fi
+
+  local in_progress_path="$HOME/Documents/upwork/in_progress/contract_$2/"
+  local complete_path="$HOME/Documents/upwork/completed/contract_$2/"
+
+  if [[ "$1" == "start" ]]; then
+    if [ -d "$complete_path" ]; then
+      echo "upwork: contract '$2' is already complete"
+      return 5
+    fi
+
+    mkdir -p "$in_progress_path"
+    cd "$in_progress_path"
+  elif [[ "$1" == "complete" ]]; then
+    if [ ! -d "$in_progress_path" ]; then
+      echo "upwork: no directory for in progress contract '$2'"
+      return 4
+    elif [ "$complete_progress_path" ]; then
+      echo "upwork: contract '$2' is already complete"
+      return 5
+    fi
+
+    mv "$in_progress_path" "$complete_path"
+  fi
+}

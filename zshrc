@@ -3,7 +3,10 @@
 # custom functions
 fpath+=~/.zshfunctions
 autoload -Uz ghq
+autoload -Uz upwork
 autoload -Uz vim-plugin
+
+alias upwork="nocorrect upwork"
 
 # starship prompt
 eval "$(starship init zsh)"
