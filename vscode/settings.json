@@ -1,4 +1,21 @@
 {
+    // editor
     "editor.lineNumbers": "relative",
     "editor.suggestSelection": "first",
+
+    // terminal
+    "terminal.integrated.fontFamily": "Menlo for Powerline",
+    "terminal.integrated.scrollback": 10000,
+
+    // remote extensions
+    "remote.containers.defaultExtensions": [
+        "ms-azuretools.vscode-docker",
+        "ms-vsliveshare.vsliveshare",
+        "ms-vsliveshare.vsliveshare-audio",
+        "karigari.chat",
+        "vsls-contrib.spaces"
+    ],
+    "remote.extensionKind": {
+        "jinsihou.diff-tool": ["ui"]
+    }
 }
