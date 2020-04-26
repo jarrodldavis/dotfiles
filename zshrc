@@ -4,6 +4,7 @@
 fpath+=~/.zshfunctions
 autoload -Uz ghq
 autoload -Uz upwork
+autoload -Uz upgrade-backblaze
 autoload -Uz vim-plugin
 
 alias upwork="nocorrect upwork"

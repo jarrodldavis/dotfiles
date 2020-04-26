@@ -1,0 +1,63 @@
+#!/usr/bin/env zsh
+
+# manually upgrade `backblaze` cask for two reasons:
+# - cached downloads of the DMG cause the SHA check to fail when fetching new versions
+# - even for successful upgrades, Homebrew goes through an excessive full uninstall/reinstall process
+#
+# instead, we can:
+# - perform the fetch -> attach -> caskroom copy process manually
+# - use the built-in in-place upgrade command provided by the Backblaze Installer
+# - mark the cask as upgraded by creating the appropriate metadata directory
+function upgrade-backblaze {
+  echo "=> Performing manual Backblaze upgrade"
+
+  sudo -v
+
+  local version="$(brew cask info --json=v1 backblaze | jq --raw-output '.[0].version')"
+  local caskroom="$(brew --prefix)/Caskroom"
+
+  # fetch dmg
+  brew cask fetch backblaze --force
+  local dmg="$(brew cask --cache backblaze)"
+
+  echo "==> Copying DMG contents to Caskroom..."
+
+  # mount dmg
+  local mountdir="$(mktemp -d)"
+  hdiutil attach -nobrowse -readonly -noidme -mountpoint "$mountdir" "$dmg"
+
+  # copy dmg contents into caskroom
+  mkdir -vp "$caskroom/backblaze/$version"
+  cp -vR "$mountdir/Backblaze Installer.app" "$caskroom/backblaze/$version/"
+  cp -vR "$mountdir/Backblaze Uninstaller.app" "$caskroom/backblaze/$version/"
+
+  # eject dmg
+  hdiutil eject "$mountdir"
+
+  echo "==> DMG contents copied successfully"
+
+  echo "==> Performing upgrade..."
+  # perform upgrade
+  sudo "$caskroom/backblaze/$version/Backblaze Installer.app/Contents/MacOS/bzinstall_mate" -upgrade bzdiy
+  echo "==> Upgrade successful"
+
+  echo "==> Marking Backblaze Cask as upgraded in Homebrew metadata..."
+
+  # create metadata directory
+  local timeformat="%Y%m%d%H%M%S.%L" # format used by Homebrew
+  local rubyscript="puts Time.now.utc.strftime '$timeformat'"
+  local time="$(ruby -e $rubyscript)"
+  mkdir -vp "$caskroom/backblaze/.metadata/$version/$time/Casks/"
+
+  # copy formula to metadata directory
+  local formula="$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-cask/Casks/backblaze.rb"
+  cp -v "$formula" "$caskroom/backblaze/.metadata/$version/$time/Casks/backblaze.rb"
+
+  echo "==> Homebrew metadata updated successfully"
+
+  echo "==> Performing cleanup"
+  brew cleanup backblaze
+  echo "==> Cleanup finished successfully"
+
+  echo "=> Manual Backblaze upgrade successful"
+}
