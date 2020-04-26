@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+export EDITOR='vim'
+
 # custom functions
 fpath+=~/.zshfunctions
 autoload -Uz ghq
