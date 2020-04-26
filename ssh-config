@@ -5,6 +5,8 @@ Host github.com
  IdentityFile ~/.ssh/id_rsa_github
 Host gist.github.com
  IdentityFile ~/.ssh/id_rsa_github
+Host bitbucket.org
+ IdentityFile ~/.ssh/id_rsa_bitbucket
 Host rods-bootcamp.local
  User "jarrod davis"
  HostName rods-bootcamp.local
