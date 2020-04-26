@@ -17,8 +17,8 @@ function upwork {
     return 3
   fi
 
-  local in_progress_path="$HOME/Documents/upwork/in_progress/contract_$2/"
-  local complete_path="$HOME/Documents/upwork/completed/contract_$2/"
+  local in_progress_path="$HOME/upwork/in_progress/contract_$2/"
+  local complete_path="$HOME/upwork/completed/contract_$2/"
 
   if [[ "$1" == "start" ]]; then
     if [ -d "$complete_path" ]; then
