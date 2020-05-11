@@ -4,7 +4,7 @@ function upwork {
   if [[ "$1" == "" ]]; then
     echo "upwork: subcommand required"
     return 1
-  elif [[ "$1" != "start" ]] && [[ "$1" != "cd" ]] && [[ "$1" != "complete" ]]; then
+  elif [[ "$1" != "start" ]] && [[ "$1" != "clone" ]] && [[ "$1" != "cd" ]] && [[ "$1" != "complete" ]]; then
     echo "upwork: unknown subcommand '$1'"
     return 1
   elif [[ "$2" == "" ]]; then
@@ -28,6 +28,26 @@ function upwork {
 
     mkdir -p "$in_progress_path"
     cd "$in_progress_path"
+  elif [[ "$1" == "cd" ]]; then
+    cd "$in_progress_path"
+  elif [[ "$1" == "clone" ]]; then
+    if [[ "$3" == "" ]]; then
+      echo "upwork: repository required"
+      return 1
+    fi
+
+    ghq get -u -p "$3"
+    upwork start "$2"
+    repo_path="$(ghq pwd "$3")"
+
+    if [[ "$4" == "" ]]; then
+      link_path="$in_progress_path/$(basename "$repo_path")"
+    else
+      link_path="$in_progress_path/$4"
+    fi
+
+    ln -fs "$repo_path" "$link_path"
+    cd "$link_path"
   elif [[ "$1" == "complete" ]]; then
     if [ ! -d "$in_progress_path" ]; then
       echo "upwork: no directory for in progress contract '$2'"
