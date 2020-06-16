@@ -1,7 +1,11 @@
 {
     // editor
     "editor.lineNumbers": "relative",
+    "editor.minimap.showSlider": "always",
     "editor.suggestSelection": "first",
+
+    // git
+    "git.showProgress": false,
 
     // terminal
     "terminal.integrated.fontFamily": "Menlo for Powerline",
