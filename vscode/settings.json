@@ -6,6 +6,7 @@
     // terminal
     "terminal.integrated.fontFamily": "Menlo for Powerline",
     "terminal.integrated.scrollback": 10000,
+    "terminal.integrated.shell.linux": "/bin/zsh",
 
     // remote extensions
     "remote.containers.defaultExtensions": [
@@ -17,5 +18,10 @@
     ],
     "remote.extensionKind": {
         "jinsihou.diff-tool": ["ui"]
-    }
+    },
+
+    // remote dotfiles
+    "dotfiles.repository": "https://github.com/jarrodldavis/dotfiles.git",
+    "dotfiles.targetPath": "~/.dotfiles",
+    "remote.containers.dotfiles.installCommand": "~/.dotfiles/scripts/vscode-devcontainer.sh",
 }
