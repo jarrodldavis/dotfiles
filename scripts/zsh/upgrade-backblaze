@@ -38,7 +38,7 @@ function upgrade-backblaze {
 
   echo "==> Performing upgrade..."
   # perform upgrade
-  sudo "$caskroom/backblaze/$version/Backblaze Installer.app/Contents/MacOS/bzinstall_mate" -upgrade bzdiy
+  sudo "$caskroom/backblaze/$version/Backblaze Installer.app/Contents/MacOS/bzinstall_mate" -upgrade bzdiy || (echo "==> Upgrade failed" && return 1)
   echo "==> Upgrade successful"
 
   echo "==> Marking Backblaze Cask as upgraded in Homebrew metadata..."
