@@ -2,9 +2,9 @@
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
 	ignore = dirty
-[submodule "vim/pack/Yggdroot/start/indentLine"]
-	path = vim/pack/Yggdroot/start/indentLine
-	url = git://github.com/Yggdroot/indentLine.git
+[submodule "vim/pack/yggdroot/start/indentLine"]
+	path = vim/pack/yggdroot/start/indentLine
+	url = git://github.com/yggdroot/indentLine.git
 [submodule "vim/pack/airblade/start/vim-gitgutter"]
 	path = vim/pack/airblade/start/vim-gitgutter
 	url = git://github.com/airblade/vim-gitgutter.git
@@ -14,9 +14,6 @@
 [submodule "vim/pack/easymotion/start/vim-easymotion"]
 	path = vim/pack/easymotion/start/vim-easymotion
 	url = git://github.com/easymotion/vim-easymotion.git
-[submodule "vim/pack/yggdroot/start/indentLine"]
-	path = vim/pack/yggdroot/start/indentLine
-	url = git://github.com/Yggdroot/indentLine.git
 [submodule "vim/pack/editorconfig/start/editorconfig-vim"]
 	path = vim/pack/editorconfig/start/editorconfig-vim
 	url = git://github.com/editorconfig/editorconfig-vim.git
