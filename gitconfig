@@ -10,3 +10,5 @@
 	excludesfile = ~/.gitignore
 [diff-so-fancy]
 	stripLeadingSymbols = false
+[init]
+	templateDir = ~/.git-template-dir

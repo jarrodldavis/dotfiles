@@ -19,6 +19,7 @@
     ~/.zshfunctions: scripts/zsh
     ~/.gitconfig:
     ~/.gitignore:
+    ~/.git-template-dir:
     ~/.ssh/config: ssh-config
     ~/.gnupg/gpg-agent.conf:
     ~/.Brewfile:
