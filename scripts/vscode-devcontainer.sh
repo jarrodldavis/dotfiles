@@ -3,7 +3,7 @@
 # https://github.com/microsoft/vscode-dev-containers/blob/v0.122.1/containers/debian-10-git/.devcontainer/Dockerfile
 
 USERNAME=vscode
-USER_UID=1000
+USER_UID=10000
 USER_GID=$USER_UID
 
 INSTALL_ZSH="true"
