@@ -71,8 +71,10 @@ echo "exec zsh" > ~/.bashrc
 
 # Copy configs
 cp ~/.dotfiles/zshrc ~/.zshrc
-cp ~/.dotfiles/zprofile ~/.zprofile
 cp ~/.dotfiles/starship.toml ~/.starship.toml
+cp -r ~/.dotfiles/scripts/zsh ~/.zshfunctions
+git -C ~/.dotfiles submodule update --init scripts/zsh-async
+cp ~/.dotfiles/scripts/zsh-async/async.zsh ~/.zshfunctions/async
 
 # Set EDITOR to Visual Studio Code
 sed -i "s/export EDITOR='vim'/export EDITOR='code --wait'/" ~/.zshrc
