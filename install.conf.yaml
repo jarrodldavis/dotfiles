@@ -15,7 +15,6 @@
 
 - link:
     ~/.zshrc:
-    ~/.zprofile:
     ~/.zshfunctions: scripts/zsh
     ~/.zshfunctions/async: scripts/zsh-async/async.zsh
     ~/.gitconfig:
