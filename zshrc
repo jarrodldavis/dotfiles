@@ -11,8 +11,13 @@ autoload -Uz vim-plugin
 
 alias upwork="nocorrect upwork"
 
+# async
+autoload -Uz async
+async
+
 # starship prompt
-eval "$(starship init zsh)"
+autoload -Uz starship-init
+starship-init
 export STARSHIP_CONFIG=~/.starship.toml
 
 # hub
