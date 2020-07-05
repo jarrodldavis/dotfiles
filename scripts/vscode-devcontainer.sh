@@ -31,6 +31,9 @@ curl -fsSL https://raw.githubusercontent.com/MicrosoftDocs/live-share/master/scr
 # Install starship prompt
 curl -fsSL https://starship.rs/install.sh | bash -s -- --yes
 
+# Install X11 apps to test X11 forwarding
+apt-get -y install x11-apps
+
 # Install additional tools
 function install_from_github() {
     local OWNER="$1"

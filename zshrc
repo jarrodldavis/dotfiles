@@ -20,6 +20,13 @@ autoload -Uz starship-init
 starship-init
 export STARSHIP_CONFIG=~/.starship.toml
 
+# Docker X11 forwarding
+if [ -f /.dockerenv ]; then
+    export DISPLAY="host.docker.internal:0"
+else
+    xhost "$HOST" >/dev/null
+fi
+
 # hub
 eval "$(hub alias -s)"
 
