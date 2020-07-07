@@ -2,6 +2,11 @@
 
 set -e
 
+if [ -f "/.dockerenv" ]; then
+    ~/.dotfiles/scripts/vscode-devcontainer.sh
+    exit 0
+fi
+
 # install Homebrew (also installs the Xcode Command Line Tools)
 # use `echo` to automatically run script
 # use `sed` to remove printing of audible bell

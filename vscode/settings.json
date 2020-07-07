@@ -24,8 +24,22 @@
         "jinsihou.diff-tool": ["ui"]
     },
 
+    // codespaces
+    "codespaces.accountProvider": "Microsoft",
+    "codespaces.enableSubmoduleCloning": true,
+    "codespaces.defaultExtensions": [
+        "ms-azuretools.vscode-docker",
+        "ms-vsliveshare.vsliveshare",
+        "ms-vsliveshare.vsliveshare-audio",
+        "karigari.chat",
+        "vsls-contrib.spaces"
+    ],
+
     // remote dotfiles
     "dotfiles.repository": "https://github.com/jarrodldavis/dotfiles.git",
     "dotfiles.targetPath": "~/.dotfiles",
-    "remote.containers.dotfiles.installCommand": "~/.dotfiles/scripts/vscode-devcontainer.sh",
+    "dotfiles.installCommand": "scripts/vscode-devcontainer.sh",
+    "remote.containers.dotfiles.repository": "https://github.com/jarrodldavis/dotfiles.git",
+    "remote.containers.dotfiles.targetPath": "~/.dotfiles",
+    "remote.containers.dotfiles.installCommand": "scripts/vscode-devcontainer.sh",
 }

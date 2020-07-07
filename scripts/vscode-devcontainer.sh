@@ -11,28 +11,43 @@ UPGRADE_PACKAGES="true"
 COMMON_SCRIPT_SOURCE="https://raw.githubusercontent.com/microsoft/vscode-dev-containers/v0.122.1/script-library/common-debian.sh"
 COMMON_SCRIPT_SHA="da956c699ebef75d3d37d50569b5fbd75d6363e90b3f5d228807cff1f7fa211c"
 
+set -e
+
 # Configure apt and install packages
-apt-get update
+if ! command -v sudo &> /dev/null
+then
+    if [ "$UID" != 1 ]; then
+        echo "You are not root and sudo is not installed. This script requires superuser permissions"
+        exit 1
+    else
+        apt-get -y install sudo
+    fi
+fi
+
+shopt -s expand_aliases
+alias sudo="sudo -n"
+
+sudo apt-get update
 export DEBIAN_FRONTEND=noninteractive
 
 # Install man
-apt-get -y install man-db
+sudo apt-get -y install man-db
 
 # Verify git, common tools / libs installed, add/modify non-root user, optionally install zsh
-apt-get -y install --no-install-recommends curl ca-certificates 2>&1
-curl -sSL  ${COMMON_SCRIPT_SOURCE} -o /tmp/common-setup.sh
+sudo apt-get -y install --no-install-recommends curl ca-certificates 2>&1
+sudo curl -sSL  ${COMMON_SCRIPT_SOURCE} -o /tmp/common-setup.sh
 ([ "${COMMON_SCRIPT_SHA}" = "dev-mode" ] || (echo "${COMMON_SCRIPT_SHA} */tmp/common-setup.sh" | sha256sum -c -))
-/bin/bash /tmp/common-setup.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}"
-rm /tmp/common-setup.sh
+sudo /bin/bash /tmp/common-setup.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}"
+sudo rm /tmp/common-setup.sh
 
 ## Install Live Share prerequisites
-curl -fsSL https://raw.githubusercontent.com/MicrosoftDocs/live-share/master/scripts/linux-prereqs.sh | bash
+curl -fsSL https://raw.githubusercontent.com/MicrosoftDocs/live-share/master/scripts/linux-prereqs.sh | sudo bash
 
 # Install starship prompt
-curl -fsSL https://starship.rs/install.sh | bash -s -- --yes
+curl -fsSL https://starship.rs/install.sh | sudo bash -s -- --yes
 
 # Install X11 apps to test X11 forwarding
-apt-get -y install x11-apps
+sudo apt-get -y install x11-apps
 
 # Install additional tools
 function install_from_github() {
@@ -55,11 +70,11 @@ function install_from_github() {
     local DOWNLOAD_URL="$(curl -s $RELEASE_URL | jq -r "$JQ_SCRIPT")"
 
     local INSTALL_DIR="/opt/github.com/$OWNER/$REPO/"
-    mkdir -p "$INSTALL_DIR"
-    curl -fsSL $DOWNLOAD_URL | tar -xz -C "$INSTALL_DIR" --strip-components=1
+    sudo mkdir -p "$INSTALL_DIR"
+    curl -fsSL $DOWNLOAD_URL | sudo tar -xz -C "$INSTALL_DIR" --strip-components=1
 
     local BIN_ABS="$INSTALL_DIR/$BIN_REL"
-    ln -s "$BIN_ABS" /usr/local/bin
+    sudo ln -s "$BIN_ABS" /usr/local/bin
 }
 
 install_from_github "sharkdp" "bat" "-x86_64-unknown-linux-gnu.tar.gz" "bat"
@@ -80,6 +95,6 @@ cp ~/.dotfiles/scripts/zsh-async/async.zsh ~/.zshfunctions/async
 sed -i "s/export EDITOR='vim'/export EDITOR='code --wait'/" ~/.zshrc
 
 # Clean up
-apt-get autoremove -y
-apt-get clean -y
-rm -rf /var/lib/apt/lists/*
+sudo apt-get autoremove -y
+sudo apt-get clean -y
+sudo rm -rf /var/lib/apt/lists/*
