@@ -3,7 +3,6 @@
 set -e
 
 if [ -f "/.dockerenv" ]; then
-    ~/.dotfiles/scripts/vscode-devcontainer.sh
     BASEDIR="$HOME/.dotfiles"
 else
     # install Homebrew (also installs the Xcode Command Line Tools)
@@ -47,4 +46,8 @@ if [ -f "/.dockerenv" ]; then
     "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" --plugin-dir ./dotbot-plugins --only defaults clean link
 else
     "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" --plugin-dir ./dotbot-plugins "${@}"
+fi
+
+if [ -f "/.dockerenv" ]; then
+    ~/.dotfiles/scripts/vscode-devcontainer.sh
 fi
