@@ -16,7 +16,6 @@
 - link:
     ~/.zshrc:
     ~/.zshfunctions: scripts/zsh
-    ~/.zshfunctions/async: scripts/zsh-async/async.zsh
     ~/.gitconfig:
     ~/.gitignore:
     ~/.git-template-dir:
@@ -32,6 +31,9 @@
     ~/Library/LaunchAgents/:
       glob: true
       path: launch-agents/*
+- link:
+    # ensure this is run after main ~/.zshfunctions link
+    ~/.zshfunctions/async: scripts/zsh-async/async.zsh
 
 - shell:
     - description: Installing packages from Homebrew bundle

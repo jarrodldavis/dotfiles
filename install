@@ -9,7 +9,7 @@ else
     # install Homebrew (also installs the Xcode Command Line Tools)
     # use `echo` to automatically run script
     # use `sed` to remove printing of audible bell
-    #echo | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | sed 's/\\a//')"
+    echo | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | sed 's/\\a//')"
 
     # install Homebrew packages required for bootstrapping
     brew reinstall ghq
