@@ -43,11 +43,8 @@ cd "${BASEDIR}"
 git submodule update --init --recursive
 
 if [ -f "/.dockerenv" ]; then
+    ~/.dotfiles/scripts/vscode-devcontainer.sh
     "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" --plugin-dir ./dotbot-plugins --only defaults clean link
 else
     "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" --plugin-dir ./dotbot-plugins "${@}"
-fi
-
-if [ -f "/.dockerenv" ]; then
-    ~/.dotfiles/scripts/vscode-devcontainer.sh
 fi
