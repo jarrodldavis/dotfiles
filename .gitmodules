@@ -95,3 +95,12 @@
 [submodule "scripts/zsh-async"]
 	path = scripts/zsh-async
 	url = git://github.com/mafredri/zsh-async.git
+[submodule "scripts/vscode-dev-containers"]
+	path = scripts/vscode-dev-containers
+	url = git://github.com/microsoft/vscode-dev-containers.git
+[submodule "scripts/live-share"]
+	path = scripts/live-share
+	url = git://github.com/MicrosoftDocs/live-share.git
+[submodule "scripts/starship"]
+	path = scripts/starship
+	url = git://github.com/starship/starship.git

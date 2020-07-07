@@ -2,37 +2,50 @@
 
 set -e
 
-# Configure apt and install packages
-if ! command -v sudo &> /dev/null
-then
-    if [ "$UID" != 1 ]; then
-        echo "You are not root and sudo is not installed. This script requires superuser permissions"
-        exit 1
+function common_setup() {
+    export DEBIAN_FRONTEND=noninteractive
+
+    # Install common packages, add non-root user, install ZSH
+    local USERNAME
+    USERNAME="$(awk -v val=1000 -F ":" '$3==val{print $1}' /etc/passwd)" # use existing user, if it exists
+    USERNAME="${USERNAME:-vscode}" # fallback to `vscode` user
+
+    local INSTALLER_SCRIPT
+    if type apt-get > /dev/null 2>&1; then
+        INSTALLER_SCRIPT="common-debian.sh"
+    elif type yum  > /dev/null 2>&1; then
+        INSTALLER_SCRIPT="common-redhat.sh"
+    elif type apk > /dev/null 2>&1; then
+        INSTALLER_SCRIPT="common-alpine.sh"
     else
-        apt-get -y install sudo
+        echo "Unsupported Linux distribution"
+        exit 1
     fi
-fi
 
-shopt -s expand_aliases
-alias sudo="sudo -n"
+    local INSTALLER="$HOME/.dotfiles/scripts/vscode-dev-containers/script-library/$INSTALLER_SCRIPT"
+    if [ "$EUID" != 0 ]; then
+        sudo -n apt-get update
+        sudo -n "$INSTALLER" true "$USERNAME"
+    else
+        apt-get update
+        "$INSTALLER" true "$USERNAME"
+    fi
 
-sudo apt-get update
-export DEBIAN_FRONTEND=noninteractive
+    # Install Live Share prerequisites
+    ~/.dotfiles/scripts/live-share/scripts/linux-prereqs.sh
 
-# Install man-db for manpages
-# Install curl and ca-certificates to download setup scripts
-# Install python for dotbot
-# Install x11-apps to test X11 forwarding
-sudo apt-get -y install man-db curl ca-certificates python x11-apps
+    # Install man-db for manpages
+    # Install python for dotbot
+    # Install x11-apps to test X11 forwarding
+    sudo -n apt-get -y install man-db python x11-apps
 
-# Install common packages, add non-root user, install ZSH
-curl -fsSL https://raw.githubusercontent.com/microsoft/vscode-dev-containers/v0.127.0/script-library/common-debian.sh | sudo bash
+    unset DEBIAN_FRONTEND
+}
 
-# Install Live Share prerequisites
-curl -fsSL https://raw.githubusercontent.com/MicrosoftDocs/live-share/master/scripts/linux-prereqs.sh | sudo bash
+common_setup
 
-# Install starship prompt
-curl -fsSL https://starship.rs/install.sh | sudo bash -s -- --yes
+# Install Starship prompt
+~/.dotfiles/scripts/starship/install/install.sh --yes
 
 # Install additional tools
 function install_from_github() {
@@ -52,14 +65,15 @@ function install_from_github() {
             ;;
     esac
 
-    local DOWNLOAD_URL="$(curl -s $RELEASE_URL | jq -r "$JQ_SCRIPT")"
+    local DOWNLOAD_URL
+    DOWNLOAD_URL=$(curl -s "$RELEASE_URL" | jq -r "$JQ_SCRIPT")
 
     local INSTALL_DIR="/opt/github.com/$OWNER/$REPO/"
-    sudo mkdir -pv "$INSTALL_DIR"
-    curl -fsSL $DOWNLOAD_URL | sudo tar -xzv -C "$INSTALL_DIR" --strip-components=1
+    sudo -n mkdir -pv "$INSTALL_DIR"
+    curl -fsSL "$DOWNLOAD_URL" | sudo tar -xzv -C "$INSTALL_DIR" --strip-components=1
 
     local BIN_ABS="$INSTALL_DIR/$BIN_REL"
-    sudo ln -sfv "$BIN_ABS" /usr/local/bin
+    sudo -n ln -sfv "$BIN_ABS" /usr/local/bin
 }
 
 install_from_github "sharkdp" "bat" "-x86_64-unknown-linux-gnu.tar.gz" "bat"
