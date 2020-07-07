@@ -47,7 +47,8 @@ function common_setup() {
     # Install man-db for manpages
     # Install python for dotbot
     # Install x11-apps to test X11 forwarding
-    sudo_if apt-get -y install man-db python x11-apps
+    # Install gnupg and pinentry-curses for git commit signing
+    sudo_if apt-get -y install man-db python x11-apps gnupg pinentry-curses
 
     unset DEBIAN_FRONTEND
 }

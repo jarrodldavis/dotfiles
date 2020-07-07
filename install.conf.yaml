@@ -21,6 +21,7 @@
     ~/.git-template-dir:
     ~/.ssh/config: ssh-config
     ~/.gnupg/gpg-agent.conf:
+    /usr/local/bin/pinentry-auto: scripts/pinentry-auto.sh
     ~/.Brewfile:
     ~/.starship.toml:
     ~/.vimrc:
