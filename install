@@ -19,15 +19,15 @@ else
     # check for valid and unambiguous repo list result
     REPO_PATHS=$(ghq list --full-path --exact dotfiles)
     for REPO_PATH in $REPO_PATHS; do
-        if [ -z "$FOUND_PATH" ]; then
-            FOUND_PATH="$REPO_PATH"
+        if [ -z "$BASEDIR" ]; then
+            BASEDIR="$REPO_PATH"
         else
             echo 'install: unexpectedly found multiple dotfiles repositories'
             exit 1
         fi
     done
 
-    if [ -z "$FOUND_PATH" ]; then
+    if [ -z "$BASEDIR" ]; then
         echo 'install: could not find dotfiles repository'
         exit 1
     fi
