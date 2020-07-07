@@ -1,6 +1,11 @@
 #!/usr/bin/env zsh
 
-export EDITOR='vim'
+# Set default editor
+if [ -f "/.dockerenv" ]; then
+    export EDITOR='code --wait'
+else
+    export EDITOR='vim'
+fi
 
 # custom functions
 fpath+=~/.zshfunctions
@@ -28,7 +33,7 @@ else
 fi
 
 # hub
-eval "$(hub alias -s)"
+alias git=hub
 
 # man pager
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"

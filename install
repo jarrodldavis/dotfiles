@@ -4,28 +4,33 @@ set -e
 
 if [ -f "/.dockerenv" ]; then
     ~/.dotfiles/scripts/vscode-devcontainer.sh
-    exit 0
-fi
+    BASEDIR="~/.dotfiles"
+    ARGS="--only link"
+else
+    ARGS="${@}"
 
-# install Homebrew (also installs the Xcode Command Line Tools)
-# use `echo` to automatically run script
-# use `sed` to remove printing of audible bell
-echo | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | sed 's/\\a//')"
+    # install Homebrew (also installs the Xcode Command Line Tools)
+    # use `echo` to automatically run script
+    # use `sed` to remove printing of audible bell
+    #echo | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | sed 's/\\a//')"
 
-# install Homebrew packages required for bootstrapping
-brew reinstall ghq
+    # install Homebrew packages required for bootstrapping
+    brew reinstall ghq
 
-# clone dotfiles repo for current user (from gitconfig or system user account) else fail
-GIT_TERMINAL_PROMPT=0 ghq get dotfiles
+    # clone dotfiles repo for current user (from gitconfig or system user account) else fail
+    GIT_TERMINAL_PROMPT=0 ghq get dotfiles
 
-# check for valid and unambiguous repo list result
-REPO_PATHS=($(ghq list --full-path --exact dotfiles))
-if [ "${#REPO_PATHS[@]}" -eq 0 ]; then
-    echo 'install: could not find dotfiles repository'
-    exit 1
-elif [ "${#REPO_PATHS[@]}" -gt 1 ]; then
-    echo 'install: unexpectedly found multiple dotfiles repositories'
-    exit 1
+    # check for valid and unambiguous repo list result
+    REPO_PATHS=($(ghq list --full-path --exact dotfiles))
+    if [ "${#REPO_PATHS[@]}" -eq 0 ]; then
+        echo 'install: could not find dotfiles repository'
+        exit 1
+    elif [ "${#REPO_PATHS[@]}" -gt 1 ]; then
+        echo 'install: unexpectedly found multiple dotfiles repositories'
+        exit 1
+    fi
+
+    BASEDIR="$REPO_PATHS[1]"
 fi
 
 # run Dotbot installer
@@ -33,9 +38,8 @@ CONFIG="install.conf.yaml"
 DOTBOT_DIR="dotbot"
 
 DOTBOT_BIN="bin/dotbot"
-BASEDIR="$REPO_PATHS[1]"
 
 cd "${BASEDIR}"
 git submodule update --init --recursive "${DOTBOT_DIR}"
 
-"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" --plugin-dir ./dotbot-plugins "${@}"
+"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" --plugin-dir ./dotbot-plugins "${=ARGS}"

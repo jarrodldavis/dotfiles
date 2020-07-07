@@ -1,16 +1,5 @@
 #!/usr/bin/env bash
 
-# https://github.com/microsoft/vscode-dev-containers/blob/v0.122.1/containers/debian-10-git/.devcontainer/Dockerfile
-
-USERNAME=vscode
-USER_UID=10000
-USER_GID=$USER_UID
-
-INSTALL_ZSH="true"
-UPGRADE_PACKAGES="true"
-COMMON_SCRIPT_SOURCE="https://raw.githubusercontent.com/microsoft/vscode-dev-containers/v0.122.1/script-library/common-debian.sh"
-COMMON_SCRIPT_SHA="da956c699ebef75d3d37d50569b5fbd75d6363e90b3f5d228807cff1f7fa211c"
-
 set -e
 
 # Configure apt and install packages
@@ -30,24 +19,27 @@ alias sudo="sudo -n"
 sudo apt-get update
 export DEBIAN_FRONTEND=noninteractive
 
-# Install man
-sudo apt-get -y install man-db
+# Install man-db for manpages
+# Install curl and ca-certificates to download setup scripts
+# Install python for dotbot
+# Install x11-apps to test X11 forwarding
+sudo apt-get -y install man-db curl ca-certificates python x11-apps
 
-# Verify git, common tools / libs installed, add/modify non-root user, optionally install zsh
-sudo apt-get -y install --no-install-recommends curl ca-certificates 2>&1
-sudo curl -sSL  ${COMMON_SCRIPT_SOURCE} -o /tmp/common-setup.sh
-([ "${COMMON_SCRIPT_SHA}" = "dev-mode" ] || (echo "${COMMON_SCRIPT_SHA} */tmp/common-setup.sh" | sha256sum -c -))
-sudo /bin/bash /tmp/common-setup.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}"
-sudo rm /tmp/common-setup.sh
+# Install common packages, add non-root user, install ZSH
+INSTALL_ZSH="true"
+USERNAME=vscode
+USER_UID=10000
+USER_GID=$USER_UID
+UPGRADE_PACKAGES="true"
 
-## Install Live Share prerequisites
+curl -fsSL https://raw.githubusercontent.com/microsoft/vscode-dev-containers/v0.122.1/script-library/common-debian.sh | \
+    sudo bash -s -- "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}"
+
+# Install Live Share prerequisites
 curl -fsSL https://raw.githubusercontent.com/MicrosoftDocs/live-share/master/scripts/linux-prereqs.sh | sudo bash
 
 # Install starship prompt
 curl -fsSL https://starship.rs/install.sh | sudo bash -s -- --yes
-
-# Install X11 apps to test X11 forwarding
-sudo apt-get -y install x11-apps
 
 # Install additional tools
 function install_from_github() {
@@ -83,18 +75,3 @@ install_from_github "so-fancy" "diff-so-fancy" "__TARBALL__" "diff-so-fancy"
 
 # Force ZSH as default shell
 echo "exec zsh" > ~/.bashrc
-
-# Copy configs
-cp ~/.dotfiles/zshrc ~/.zshrc
-cp ~/.dotfiles/starship.toml ~/.starship.toml
-cp -r ~/.dotfiles/scripts/zsh ~/.zshfunctions
-git -C ~/.dotfiles submodule update --init scripts/zsh-async
-cp ~/.dotfiles/scripts/zsh-async/async.zsh ~/.zshfunctions/async
-
-# Set EDITOR to Visual Studio Code
-sed -i "s/export EDITOR='vim'/export EDITOR='code --wait'/" ~/.zshrc
-
-# Clean up
-sudo apt-get autoremove -y
-sudo apt-get clean -y
-sudo rm -rf /var/lib/apt/lists/*
