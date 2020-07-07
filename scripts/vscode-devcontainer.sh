@@ -62,11 +62,11 @@ function install_from_github() {
     local DOWNLOAD_URL="$(curl -s $RELEASE_URL | jq -r "$JQ_SCRIPT")"
 
     local INSTALL_DIR="/opt/github.com/$OWNER/$REPO/"
-    sudo mkdir -p "$INSTALL_DIR"
-    curl -fsSL $DOWNLOAD_URL | sudo tar -xz -C "$INSTALL_DIR" --strip-components=1
+    sudo mkdir -pv "$INSTALL_DIR"
+    curl -fsSL $DOWNLOAD_URL | sudo tar -xzv -C "$INSTALL_DIR" --strip-components=1
 
     local BIN_ABS="$INSTALL_DIR/$BIN_REL"
-    sudo ln -s "$BIN_ABS" /usr/local/bin
+    sudo ln -sfv "$BIN_ABS" /usr/local/bin
 }
 
 install_from_github "sharkdp" "bat" "-x86_64-unknown-linux-gnu.tar.gz" "bat"

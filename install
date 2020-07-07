@@ -4,11 +4,8 @@ set -e
 
 if [ -f "/.dockerenv" ]; then
     ~/.dotfiles/scripts/vscode-devcontainer.sh
-    BASEDIR="~/.dotfiles"
-    ARGS="--only link"
+    BASEDIR="$HOME/.dotfiles"
 else
-    ARGS="${@}"
-
     # install Homebrew (also installs the Xcode Command Line Tools)
     # use `echo` to automatically run script
     # use `sed` to remove printing of audible bell
@@ -40,6 +37,10 @@ DOTBOT_DIR="dotbot"
 DOTBOT_BIN="bin/dotbot"
 
 cd "${BASEDIR}"
-git submodule update --init --recursive "${DOTBOT_DIR}"
+git submodule update --init --recursive
 
-"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" --plugin-dir ./dotbot-plugins "${=ARGS}"
+if [ -f "/.dockerenv" ]; then
+    "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" --plugin-dir ./dotbot-plugins --only defaults clean link
+else
+    "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" --plugin-dir ./dotbot-plugins "${@}"
+fi
