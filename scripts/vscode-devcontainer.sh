@@ -2,6 +2,15 @@
 
 set -e
 
+# only sudo if necessary, as sudo may not be pre-installed
+function sudo_if() {
+    if [ "$EUID" != 0 ]; then
+        sudo -n "$@"
+    else
+        "$@"
+    fi
+}
+
 function common_setup() {
     export DEBIAN_FRONTEND=noninteractive
 
@@ -12,6 +21,12 @@ function common_setup() {
 
     local INSTALLER_SCRIPT
     if type apt-get > /dev/null 2>&1; then
+        # for some odd reason the Oryx images used by Visual Studio Codespaces has
+        # Debian 10 (buster) sources even though the image is Debian 9 (stretch)
+        if [ -f "/etc/apt/sources.list.d/buster.list" ]; then
+            sudo_if rm /etc/apt/sources.list.d/buster.list
+        fi
+
         INSTALLER_SCRIPT="common-debian.sh"
     elif type yum  > /dev/null 2>&1; then
         INSTALLER_SCRIPT="common-redhat.sh"
@@ -23,13 +38,8 @@ function common_setup() {
     fi
 
     local INSTALLER="$HOME/.dotfiles/scripts/vscode-dev-containers/script-library/$INSTALLER_SCRIPT"
-    if [ "$EUID" != 0 ]; then
-        sudo -n apt-get update
-        sudo -n "$INSTALLER" true "$USERNAME"
-    else
-        apt-get update
-        "$INSTALLER" true "$USERNAME"
-    fi
+    sudo_if apt-get update
+    sudo_if "$INSTALLER" true "$USERNAME"
 
     # Install Live Share prerequisites
     ~/.dotfiles/scripts/live-share/scripts/linux-prereqs.sh
@@ -37,7 +47,7 @@ function common_setup() {
     # Install man-db for manpages
     # Install python for dotbot
     # Install x11-apps to test X11 forwarding
-    sudo -n apt-get -y install man-db python x11-apps
+    sudo_if apt-get -y install man-db python x11-apps
 
     unset DEBIAN_FRONTEND
 }
@@ -69,11 +79,11 @@ function install_from_github() {
     DOWNLOAD_URL=$(curl -s "$RELEASE_URL" | jq -r "$JQ_SCRIPT")
 
     local INSTALL_DIR="/opt/github.com/$OWNER/$REPO/"
-    sudo -n mkdir -pv "$INSTALL_DIR"
+    sudo_if mkdir -pv "$INSTALL_DIR"
     curl -fsSL "$DOWNLOAD_URL" | sudo tar -xzv -C "$INSTALL_DIR" --strip-components=1
 
     local BIN_ABS="$INSTALL_DIR/$BIN_REL"
-    sudo -n ln -sfv "$BIN_ABS" /usr/local/bin
+    sudo_if ln -sfv "$BIN_ABS" /usr/local/bin
 }
 
 install_from_github "sharkdp" "bat" "-x86_64-unknown-linux-gnu.tar.gz" "bat"
