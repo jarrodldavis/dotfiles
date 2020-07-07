@@ -91,5 +91,8 @@ install_from_github "sharkdp" "bat" "-x86_64-unknown-linux-gnu.tar.gz" "bat"
 install_from_github "github" "hub" "hub-linux-amd64" "bin/hub"
 install_from_github "so-fancy" "diff-so-fancy" "__TARBALL__" "diff-so-fancy"
 
+sudo_if cp -fv /opt/github.com/github/hub/etc/hub.zsh_completion /usr/local/share/zsh/site-functions/_hub
+sudo_if chmod 755 /usr/local/share/zsh/site-functions/_hub
+
 # Force ZSH as default shell
 echo "exec zsh" > ~/.bashrc
