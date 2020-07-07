@@ -58,20 +58,21 @@ setopt HIST_FIND_NO_DUPS
 setopt HIST_REDUCE_BLANKS
 setopt HIST_VERIFY
 
-# key bindings
+# key bindings and vim mode
+export KEYTIMEOUT=1
+bindkey -v
+
 bindkey '^[[A' up-line-or-search
 bindkey '^[[B' down-line-or-search
 
-# vim mode
-export KEYTIMEOUT=1
-
-bindkey -v
 bindkey '^P' up-history
 bindkey '^N' down-history
 bindkey '^?' backward-delete-char
 bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
 bindkey '^r' history-incremental-search-backward
+bindkey -M vicmd 'j' down-line-or-search
+bindkey -M vicmd 'k' up-line-or-search
 bindkey -M vicmd '?' history-incremental-search-backward
 bindkey -M vicmd '/' history-incremental-search-forward
 
