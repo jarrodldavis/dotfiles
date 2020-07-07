@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 set -e
 
@@ -18,16 +18,20 @@ else
     GIT_TERMINAL_PROMPT=0 ghq get dotfiles
 
     # check for valid and unambiguous repo list result
-    REPO_PATHS=($(ghq list --full-path --exact dotfiles))
-    if [ "${#REPO_PATHS[@]}" -eq 0 ]; then
+    REPO_PATHS=$(ghq list --full-path --exact dotfiles)
+    for REPO_PATH in $REPO_PATHS; do
+        if [ -z "$FOUND_PATH" ]; then
+            FOUND_PATH="$REPO_PATH"
+        else
+            echo 'install: unexpectedly found multiple dotfiles repositories'
+            exit 1
+        fi
+    done
+
+    if [ -z "$FOUND_PATH" ]; then
         echo 'install: could not find dotfiles repository'
         exit 1
-    elif [ "${#REPO_PATHS[@]}" -gt 1 ]; then
-        echo 'install: unexpectedly found multiple dotfiles repositories'
-        exit 1
     fi
-
-    BASEDIR="$REPO_PATHS[1]"
 fi
 
 # run Dotbot installer

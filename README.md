@@ -5,16 +5,16 @@
 ## Prerequisites
 
 - macOS (last tested with macOS Catalina 10.15.3)
-  - ZSH
+  - Bash
   - Python 2.x or 3.x
   - curl (if using automatic bootstrapping)
 - Xcode or the Xcode Command Line Developer Tools (if installing manually)
 
-ZSH, Python, and curl are pre-installed with macOS.
+Bash, Python, and curl are pre-installed with macOS.
 
 Xcode can be downloaded from the Mac App Store, or the Xcode Command Line Developer Tools can be installed by running this command:
 
-```zsh
+```bash
 xcode-select --install
 ```
 
@@ -24,8 +24,8 @@ xcode-select --install
 
 Run the following command to download and execute the bootstrap script. This will install [Homebrew] (along with the Xcode Command Line Developer Tools), then use [`ghq`] the clone the appropriate `dotfiles` repository.
 
-```zsh
-zsh -c "$(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/personal/macos/install)"
+```bash
+bash -c "$(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/personal/macos/install)"
 ```
 
 ### Manual Installation
@@ -38,8 +38,8 @@ The repository will be selected based on [your git configuration or macOS accoun
 
 If you need to override the username detected by `ghq`, you can (temporarily) set the `GITHUB_USER` environment variable before invoking the installation script:
 
-```zsh
-GITHUB_USER=jarrodldavis zsh -c "$(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/personal/macos/install)"
+```bash
+GITHUB_USER=jarrodldavis bash -c "$(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/personal/macos/install)"
 ```
 
 [dotbot]: https://github.com/anishathalye

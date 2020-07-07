@@ -41,5 +41,5 @@
     "dotfiles.installCommand": "install",
     "remote.containers.dotfiles.repository": "https://github.com/jarrodldavis/dotfiles.git",
     "remote.containers.dotfiles.targetPath": "~/.dotfiles",
-    "remote.containers.dotfiles.installCommand": "install",
+    "remote.containers.dotfiles.installCommand": "~/.dotfiles/install",
 }
