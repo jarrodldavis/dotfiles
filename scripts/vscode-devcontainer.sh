@@ -26,14 +26,7 @@ export DEBIAN_FRONTEND=noninteractive
 sudo apt-get -y install man-db curl ca-certificates python x11-apps
 
 # Install common packages, add non-root user, install ZSH
-INSTALL_ZSH="true"
-USERNAME=vscode
-USER_UID=10000
-USER_GID=$USER_UID
-UPGRADE_PACKAGES="true"
-
-curl -fsSL https://raw.githubusercontent.com/microsoft/vscode-dev-containers/v0.122.1/script-library/common-debian.sh | \
-    sudo bash -s -- "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}"
+curl -fsSL https://raw.githubusercontent.com/microsoft/vscode-dev-containers/v0.127.0/script-library/common-debian.sh | sudo bash
 
 # Install Live Share prerequisites
 curl -fsSL https://raw.githubusercontent.com/MicrosoftDocs/live-share/master/scripts/linux-prereqs.sh | sudo bash
