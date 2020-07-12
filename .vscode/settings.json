@@ -1,0 +1,11 @@
+{
+  "files.associations": {
+    "Brewfile": "ruby",
+    "gitconfig": "gitconfig",
+    "gitignore": "ignore",
+    "install": "shellscript",
+    "ssh-config": "ssh_config",
+    "vimrc": "vimrc",
+    "zshrc": "shellscript"
+  },
+}
