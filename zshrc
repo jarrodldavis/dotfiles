@@ -10,6 +10,7 @@ fi
 # custom functions
 fpath+=~/.zshfunctions
 autoload -Uz ghq
+autoload -Uz rebind-local
 autoload -Uz upwork
 autoload -Uz upgrade-backblaze
 autoload -Uz vim-plugin

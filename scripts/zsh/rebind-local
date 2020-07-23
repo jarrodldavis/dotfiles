@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+rebind-local() {
+    socat TCP4-LISTEN:$1,bind=0.0.0.0,reuseaddr,fork TCP4:localhost:$1,bind=localhost
+}
