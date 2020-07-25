@@ -12,6 +12,11 @@
     "terminal.integrated.scrollback": 10000,
     "terminal.integrated.shell.linux": "/bin/zsh",
 
+    // workbench
+    "workbench.colorTheme": "Visual Studio 2019 Dark",
+    "workbench.settings.openDefaultSettings": true,
+    "workbench.settings.useSplitJSON": true,
+
     // remote extensions
     "remote.containers.defaultExtensions": [
         "ms-azuretools.vscode-docker",
