@@ -94,5 +94,8 @@ install_from_github "so-fancy" "diff-so-fancy" "__TARBALL__" "diff-so-fancy"
 sudo_if cp -fv /opt/github.com/github/hub/etc/hub.zsh_completion /usr/local/share/zsh/site-functions/_hub
 sudo_if chmod 755 /usr/local/share/zsh/site-functions/_hub
 
+# Fix GnuPG permissions
+chmod -vv u=rwx,go= ~/.gnupg && chmod -vv u=rwx,go= ~/.gnupg/* && gpgconf --kill gpg-agent
+
 # Force ZSH as default shell
 echo "exec zsh" > ~/.bashrc
