@@ -12,3 +12,5 @@
 	stripLeadingSymbols = false
 [init]
 	templateDir = ~/.git-template-dir
+[pull]
+	rebase = false
