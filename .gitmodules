@@ -104,3 +104,6 @@
 [submodule "scripts/starship"]
 	path = scripts/starship
 	url = git://github.com/starship/starship.git
+[submodule "scripts/docker-install"]
+	path = scripts/docker-install
+	url = git://github.com/docker/docker-install.git

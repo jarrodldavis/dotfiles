@@ -71,6 +71,10 @@ common_setup
 # Install Starship prompt
 "$BASEDIR/starship/install/install.sh" --yes
 
+# Install Docker
+chmod +x "$BASEDIR/docker-install/install.sh"
+"$BASEDIR/docker-install/install.sh"
+
 # Install additional tools
 function install_from_github() {
     local OWNER="$1"
