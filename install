@@ -3,7 +3,7 @@
 set -e
 
 if [ -f "/.dockerenv" ]; then
-    BASEDIR="$HOME/.dotfiles"
+    BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 else
     # install Homebrew (also installs the Xcode Command Line Tools)
     # use `echo` to automatically run script
@@ -44,7 +44,7 @@ git submodule update --init --recursive
 
 if [ -f "/.dockerenv" ]; then
     # use /dev/null to ensure stdin is not a tty during setup
-    bash --noediting -c ~/.dotfiles/scripts/vscode-devcontainer.sh < /dev/null 
+    bash --noediting -c "$BASEDIR/scripts/vscode-devcontainer.sh" < /dev/null 
     "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" --plugin-dir ./dotbot-plugins --only defaults clean link
 else
     "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" --plugin-dir ./dotbot-plugins "${@}"

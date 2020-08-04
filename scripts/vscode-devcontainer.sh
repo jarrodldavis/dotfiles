@@ -2,6 +2,8 @@
 
 set -e
 
+BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # only sudo if necessary, as sudo may not be pre-installed
 function sudo_if() {
     if [ "$EUID" != 0 ]; then
@@ -28,27 +30,38 @@ function common_setup() {
         fi
 
         INSTALLER_SCRIPT="common-debian.sh"
+        sudo_if apt-get update
     elif type yum  > /dev/null 2>&1; then
         INSTALLER_SCRIPT="common-redhat.sh"
+        sudo_if yum check-update
     elif type apk > /dev/null 2>&1; then
+        sudo_if apk update --wait
         INSTALLER_SCRIPT="common-alpine.sh"
     else
         echo "Unsupported Linux distribution"
         exit 1
     fi
 
-    local INSTALLER="$HOME/.dotfiles/scripts/vscode-dev-containers/script-library/$INSTALLER_SCRIPT"
-    sudo_if apt-get update
+    local INSTALLER="$BASEDIR/vscode-dev-containers/script-library/$INSTALLER_SCRIPT"
     sudo_if "$INSTALLER" true "$USERNAME"
 
     # Install Live Share prerequisites
-    ~/.dotfiles/scripts/live-share/scripts/linux-prereqs.sh
+    "$BASEDIR/live-share/scripts/linux-prereqs.sh"
 
     # Install man-db for manpages
     # Install python for dotbot
-    # Install x11-apps to test X11 forwarding
+    # Install x11-apps/xeyes/xclock to test X11 forwarding
     # Install gnupg and pinentry-curses for git commit signing
-    sudo_if apt-get -y install man-db python x11-apps gnupg pinentry-curses
+    if type apt-get > /dev/null 2>&1; then
+        sudo_if apt-get -y install man-db python x11-apps gnupg pinentry-curses
+    elif type yum  > /dev/null 2>&1; then
+        sudo_if yum install -y man-db python xeyes xclock gnupg pinentry-curses
+    elif type apk > /dev/null 2>&1; then
+        sudo_if apk add man-db python3 xeyes xclock gnupg pinentry-curses
+    else
+        echo "Unsupported Linux distribution"
+        exit 1
+    fi
 
     unset DEBIAN_FRONTEND
 }
@@ -56,7 +69,7 @@ function common_setup() {
 common_setup
 
 # Install Starship prompt
-~/.dotfiles/scripts/starship/install/install.sh --yes
+"$BASEDIR/starship/install/install.sh" --yes
 
 # Install additional tools
 function install_from_github() {
