@@ -2,6 +2,11 @@
 
 set -e
 
+# Retrieve OS information, including $ID and $VERSION_ID
+if [ -f /etc/os-release ]; then
+    source /etc/os-release
+fi
+
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # only sudo if necessary, as sudo may not be pre-installed
@@ -33,9 +38,11 @@ function common_setup() {
         sudo_if apt-get update
     elif type yum  > /dev/null 2>&1; then
         INSTALLER_SCRIPT="common-redhat.sh"
-        sudo_if yum check-update
+        # yum exits with code 100 if package updates are available
+        # prevent existing script (because of set -e) when no error has occurred
+        sudo_if yum check-update || ([ $? -eq 1 ] && false || true)
     elif type apk > /dev/null 2>&1; then
-        sudo_if apk update --wait
+        sudo_if apk update
         INSTALLER_SCRIPT="common-alpine.sh"
     else
         echo "Unsupported Linux distribution"
@@ -46,6 +53,11 @@ function common_setup() {
     sudo_if "$INSTALLER" true "$USERNAME"
 
     # Install Live Share prerequisites
+    if [ "$ID" == "alpine" ] && [ "$(echo $VERSION_ID | cut -f2 -d'.')" -ge 9 ]; then
+        # libssl1.0 has been updated to libssl1.1 as of Alpine 3.9
+        sed -i 's/libssl1.0/libssl1.1/g' "$BASEDIR/live-share/scripts/linux-prereqs.sh"
+    fi
+
     "$BASEDIR/live-share/scripts/linux-prereqs.sh"
 
     # Install man-db for manpages
@@ -57,7 +69,7 @@ function common_setup() {
     elif type yum  > /dev/null 2>&1; then
         sudo_if yum install -y man-db python xeyes xclock gnupg pinentry-curses
     elif type apk > /dev/null 2>&1; then
-        sudo_if apk add man-db python3 xeyes xclock gnupg pinentry-curses
+        sudo_if apk add man-db python3 xeyes xclock gnupg pinentry
     else
         echo "Unsupported Linux distribution"
         exit 1
@@ -72,8 +84,16 @@ common_setup
 "$BASEDIR/starship/install/install.sh" --yes
 
 # Install Docker
-chmod +x "$BASEDIR/docker-install/install.sh"
-"$BASEDIR/docker-install/install.sh"
+if [ "$ID" == "fedora" ] && [ "$VERSION_ID" -ge 32 ]; then
+    # Official Docker repository doesn't support Fedora 32
+    # Install open source Moby package from core Fedora repository instead
+    yum install -y moby-engine
+elif [ "$ID" == "alpine" ]; then
+    apk add docker
+else
+    chmod +x "$BASEDIR/docker-install/install.sh"
+    "$BASEDIR/docker-install/install.sh"
+fi
 
 # Install additional tools
 function install_from_github() {
@@ -104,12 +124,32 @@ function install_from_github() {
     sudo_if ln -sfv "$BIN_ABS" /usr/local/bin
 }
 
-install_from_github "sharkdp" "bat" "-x86_64-unknown-linux-gnu.tar.gz" "bat"
-install_from_github "github" "hub" "hub-linux-amd64" "bin/hub"
+if [ "$ID" == "alpine" ]; then
+    install_from_github "sharkdp" "bat" "-x86_64-unknown-linux-musl.tar.gz" "bat"
+else
+    install_from_github "sharkdp" "bat" "-x86_64-unknown-linux-gnu.tar.gz" "bat"
+fi
+
+if [ "$ID" == "alpine" ]; then
+    apk add --no-cache -X http://dl-cdn.alpinelinux.org/alpine/edge/testing hub
+else
+    install_from_github "github" "hub" "hub-linux-amd64" "bin/hub"
+
+    if [ -d /usr/local/share/zsh/site-functions ]; then
+        COMP_DIR="/usr/local/share/zsh/site-functions"
+    elif [ -d /usr/share/zsh/site-functions ]; then
+        COMP_DIR="/usr/share/zsh/site-functions"
+    else
+        echo "Unable to determine ZSH completions directory"
+        exit 1
+    fi
+
+    sudo_if cp -fv /opt/github.com/github/hub/etc/hub.zsh_completion "$COMP_DIR/_hub"
+    sudo_if chmod 755 "$COMP_DIR/_hub"
+fi
+
 install_from_github "so-fancy" "diff-so-fancy" "__TARBALL__" "diff-so-fancy"
 
-sudo_if cp -fv /opt/github.com/github/hub/etc/hub.zsh_completion /usr/local/share/zsh/site-functions/_hub
-sudo_if chmod 755 /usr/local/share/zsh/site-functions/_hub
 
 # Fix GnuPG permissions
 chmod -vv u=rwx,go= ~/.gnupg && chmod -vv u=rwx,go= ~/.gnupg/* && gpgconf --kill gpg-agent
