@@ -1,0 +1,34 @@
+- defaults:
+    link:
+      create: true
+      force: true
+    shell:
+      stdin: true
+      stdout: true
+      stderr: true
+
+- clean:
+  - '~/Library/Application Support/Code/User'
+
+- link:
+    ~/Library/Application Support/Code/User/settings.json: vscode/settings.json
+    ~/Library/Application Support/Code/User/keybindings.json: vscode/keybindings.json
+    ~/Library/Application Support/Code/User/snippets: vscode/snippets
+    ~/Library/LaunchAgents/:
+      glob: true
+      path: launch-agents/*
+
+- shell:
+    - description: Installing packages from Homebrew bundle
+      command: brew bundle --global --verbose
+
+- vscode:
+    - jinsihou.diff-tool
+    - karigari.chat
+    - ms-azuretools.vscode-docker
+    - ms-vscode-remote.vscode-remote-extensionpack
+    - ms-vsliveshare.vsliveshare
+    - ms-vsliveshare.vsliveshare-audio
+    - ms-vsonline.vsonline
+    - vsls-contrib.spaces
+    - vscodevim.vim

@@ -150,9 +150,5 @@ fi
 
 install_from_github "so-fancy" "diff-so-fancy" "__TARBALL__" "diff-so-fancy"
 
-
-# Fix GnuPG permissions
-chmod -vv u=rwx,go= ~/.gnupg && chmod -vv u=rwx,go= ~/.gnupg/* && gpgconf --kill gpg-agent
-
 # Force ZSH as default shell
 echo "exec zsh" > ~/.bashrc
