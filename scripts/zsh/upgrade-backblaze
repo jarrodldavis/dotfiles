@@ -9,7 +9,19 @@
 # - use the built-in in-place upgrade command provided by the Backblaze Installer
 # - mark the cask as upgraded by creating the appropriate metadata directory
 function upgrade-backblaze {
-  echo "=> Performing manual Backblaze upgrade"
+  function log1() {
+    echo -e "\033[34m=>\033[0m \033[1m$1\033[0m"
+  }
+
+  function log2_error() {
+    echo -e "\033[31m=>\033[0m \033[1m$1\033[0m"
+  }
+
+  function log2() {
+    echo -e "\033[34m==>\033[0m \033[1m$1\033[0m"
+  }
+
+  log1 "Performing manual Backblaze upgrade"
 
   sudo -v
 
@@ -20,28 +32,33 @@ function upgrade-backblaze {
   brew cask fetch backblaze --force
   local dmg="$(brew cask --cache backblaze)"
 
-  echo "==> Copying DMG contents to Caskroom..."
+  log2 "Copying DMG contents to Caskroom"
 
   # mount dmg
   local mountdir="$(mktemp -d)"
-  hdiutil attach -nobrowse -readonly -noidme -mountpoint "$mountdir" "$dmg"
+  hdiutil attach -verbose -nobrowse -readonly -noidme -mountpoint "$mountdir" "$dmg"
 
   # copy dmg contents into caskroom
-  mkdir -vp "$caskroom/backblaze/$version"
-  cp -vR "$mountdir/Backblaze Installer.app" "$caskroom/backblaze/$version/"
-  cp -vR "$mountdir/Backblaze Uninstaller.app" "$caskroom/backblaze/$version/"
+  local version_dir="$caskroom/backblaze/$version"
+  mkdir -vp "$version_dir"
+  cp -vR "$mountdir/Backblaze Installer.app" "$version_dir/"
+  cp -vR "$mountdir/Backblaze Uninstaller.app" "$version_dir/"
 
   # eject dmg
-  hdiutil eject "$mountdir"
+  hdiutil eject -verbose "$mountdir"
 
-  echo "==> DMG contents copied successfully"
+  log2 "Success! Copied successfully to -> $version_dir"
 
-  echo "==> Performing upgrade..."
+  log2 "Performing upgrade"
   # perform upgrade
-  sudo "$caskroom/backblaze/$version/Backblaze Installer.app/Contents/MacOS/bzinstall_mate" -upgrade bzdiy || (echo "==> Upgrade failed" && return 1)
-  echo "==> Upgrade successful"
+  sudo "$version_dir/Backblaze Installer.app/Contents/MacOS/bzinstall_mate" -upgrade bzdiy || {
+    log2_error "Manual Backblaze upgrade failed"
+    return 1
+  }
 
-  echo "==> Marking Backblaze Cask as upgraded in Homebrew metadata..."
+  log2 "Upgrade successful"
+
+  log2 "Marking Cask 'backblaze' as upgraded in Homebrew metadata"
 
   # create metadata directory
   local timeformat="%Y%m%d%H%M%S.%L" # format used by Homebrew
@@ -53,11 +70,11 @@ function upgrade-backblaze {
   local formula="$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-cask/Casks/backblaze.rb"
   cp -v "$formula" "$caskroom/backblaze/.metadata/$version/$time/Casks/backblaze.rb"
 
-  echo "==> Homebrew metadata updated successfully"
+  log2 "Homebrew metadata updated successfully"
 
-  echo "==> Performing cleanup"
-  brew cleanup backblaze
-  echo "==> Cleanup finished successfully"
+  log2 "Performing cleanup"
+  brew cleanup --verbose backblaze
+  log2 "Cleanup finished successfully"
 
-  echo "=> Manual Backblaze upgrade successful"
+  log1 "Manual Backblaze upgrade successful"
 }
