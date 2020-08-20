@@ -6,27 +6,30 @@ class VSCode(dotbot.Plugin):
     '''
 
     _directive = 'vscode'
+    _insider_directive = 'vscode-insiders'
 
     def can_handle(self, directive):
-        return directive == self._directive
+        return directive == self._directive or directive == self._insider_directive
 
     def handle(self, directive, data):
-        if directive != self._directive:
+        if directive != self._directive and directive != self._insider_directive:
             raise ValueError('VSCode cannot handle directive %s' % directive)
-        return self._process_extensions(data)
+        return self._process_extensions(data, directive == self._insider_directive)
 
-    def _process_extensions(self, data):
+    def _process_extensions(self, data, isinsiders = False):
         success = True
+
+        executable = 'code-insiders' if isinsiders else 'code'
 
         with open(os.devnull, 'w') as devnull:
             try:
-                subprocess.check_call(['code', '-h'], stdout=devnull, stderr=devnull)
+                subprocess.check_call([executable, '-h'], stdout=devnull, stderr=devnull)
             except (subprocess.CalledProcessError, OSError):
                 self._log.error('Visual Studio Code does not appear to be installed')
                 return False
 
             try:
-                installed = set(subprocess.check_output(['code', '--list-extensions'], stderr=devnull).split())
+                installed = set(subprocess.check_output([executable, '--list-extensions'], stderr=devnull).split())
             except subprocess.CalledProcessError:
                 installed = set()
 
@@ -37,7 +40,7 @@ class VSCode(dotbot.Plugin):
 
                 self._log.lowinfo('Installing extension %s' % ext)
 
-                ret = subprocess.call(['code', '--install-extension', ext], stdout=devnull, stderr=devnull)
+                ret = subprocess.call([executable, '--install-extension', ext], stdout=devnull, stderr=devnull)
                 if ret != 0:
                     success = False
                     self._log.warning('Extension %s failed to install' % ext)
