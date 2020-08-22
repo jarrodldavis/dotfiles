@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+set -e
+
+OWNER="$1"
+REPO="$2"
+FILE="$3"
+BIN_REL="$4"
+
+RELEASE_URL="https://api.github.com/repos/$OWNER/$REPO/releases/latest"
+
+case "$FILE" in
+    "__TARBALL__")
+        JQ_SCRIPT=".tarball_url"
+        ;;
+    *)
+        JQ_SCRIPT=".assets[].browser_download_url | select(. | contains(\"$FILE\"))"
+        ;;
+esac
+
+DOWNLOAD_URL=$(curl -s "$RELEASE_URL" | jq -r "$JQ_SCRIPT")
+
+INSTALL_DIR="/opt/github.com/$OWNER/$REPO"
+sudo mkdir -pv "$INSTALL_DIR"
+curl -fsSL "$DOWNLOAD_URL" | sudo tar -xzv -C "$INSTALL_DIR" --strip-components=1
+
+BIN_ABS="$INSTALL_DIR/$BIN_REL"
+sudo ln -sfv "$BIN_ABS" /usr/local/bin

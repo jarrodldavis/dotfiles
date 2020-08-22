@@ -1,0 +1,32 @@
+#cloud-config
+ssh_import_id:
+    - gh:jarrodldavis
+    - lp:jarrodldavis
+
+package_update: true
+package_upgrade: true
+package_reboot_if_required: true
+
+packages:
+    - git
+    - jq
+    - unzip
+    - man-db
+    - gnupg
+    - pinentry-curses
+    - python
+    - zsh
+
+runcmd:
+    - git clone --recurse-submodules "https://github.com/jarrodldavis/dotfiles.git" /opt/github.com/jarrodldavis/dotfiles
+    - cd /opt/github.com/jarrodldavis/dotfiles
+    - ./dotbot/bin/dotbot -c install.conf.yaml
+    - ./scripts/live-share/scripts/linux-prereqs.sh
+    - ./scripts/starship/install/install.sh --yes
+    - ./multipass/install-from-github sharkdp bat -x86_64-unknown-linux-gnu.tar.gz bat
+    - ./multipass/install-from-github github hub hub-linux-amd64 bin/hub
+    - ./multipass/install-from-github so-fancy diff-so-fancy __TARBALL__ diff-so-fancy
+    - ./multipass/install-ngrok
+    - passwd -d ubuntu
+    - chsh -s $(which zsh) ubuntu
+    - sudo -u ubuntu -- ./dotbot/bin/dotbot -c install.conf.yaml
