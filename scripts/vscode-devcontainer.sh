@@ -150,5 +150,19 @@ fi
 
 install_from_github "so-fancy" "diff-so-fancy" "__TARBALL__" "diff-so-fancy"
 
+function install_ngrok() {
+    local DOWNLOAD_URL="https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip"
+    local DOWNLOAD_PATH="$(mktemp -d)/ngrok.zip"
+    curl -fsSL "$DOWNLOAD_URL" -o "$DOWNLOAD_PATH"
+
+    local INSTALL_DIR="/opt/ngrok.com/ngrok/"
+    sudo_if mkdir -pv "$INSTALL_DIR"
+
+    sudo_if unzip "$DOWNLOAD_PATH" -d "$INSTALL_DIR"
+    sudo_if ln -sfv "$INSTALL_DIR/ngrok" /usr/local/bin
+
+    ngrok update --log stdout --log-level debug
+}
+
 # Force ZSH as default shell
 echo "exec zsh" > ~/.bashrc
