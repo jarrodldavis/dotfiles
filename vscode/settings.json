@@ -12,11 +12,6 @@
     "terminal.integrated.scrollback": 10000,
     "terminal.integrated.shell.linux": "/bin/zsh",
 
-    // workbench
-    "workbench.colorTheme": "Visual Studio 2019 Dark",
-    "workbench.settings.openDefaultSettings": true,
-    "workbench.settings.useSplitJSON": true,
-
     // remote extensions
     "remote.containers.defaultExtensions": [
         "ms-azuretools.vscode-docker",
@@ -30,7 +25,7 @@
     },
 
     // codespaces
-    "codespaces.accountProvider": "Microsoft",
+    "codespaces.accountProvider": "GitHub",
     "codespaces.enableSubmoduleCloning": true,
     "codespaces.defaultExtensions": [
         "ms-azuretools.vscode-docker",
@@ -49,5 +44,5 @@
     "remote.containers.dotfiles.installCommand": "~/.dotfiles/install",
 
     // sqltools
-    "sqltools.autoOpenSessionFiles": false,
+    "sqltools.autoOpenSessionFiles": false
 }
