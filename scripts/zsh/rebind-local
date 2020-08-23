@@ -5,8 +5,10 @@ rebind-local() {
     local HOST="$2"
 
     if [ -z "$HOST" ]; then
-        socat TCP4-LISTEN:$PORT,bind=0.0.0.0,reuseaddr,fork TCP4:localhost:$PORT,bind=localhost
+        echo -e "Exposing localhost-only service on port \033[32;1m$PORT\033[0m as \033[32;1m0.0.0.0:$PORT\033[0m"
+        socat -d -d TCP4-LISTEN:$PORT,bind=0.0.0.0,reuseaddr,fork TCP4:localhost:$PORT,bind=localhost
     else
-        socat TCP4-LISTEN:$PORT,bind=0.0.0.0,reuseaddr,fork TCP4:$HOST:$PORT
+        echo -e "Exposing service running on \033[32;1m$HOST:$PORT\033[0m as \033[32;1m0.0.0.0:$PORT\033[0m"
+        socat -d -d TCP4-LISTEN:$PORT,bind=0.0.0.0,reuseaddr,fork TCP4:$HOST:$PORT
     fi
 }
