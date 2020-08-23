@@ -20,6 +20,9 @@ packages:
 runcmd:
     - git clone --recurse-submodules "https://github.com/jarrodldavis/dotfiles.git" /opt/github.com/jarrodldavis/dotfiles
     - cd /opt/github.com/jarrodldavis/dotfiles
+    - sed -i /MulticastDNS/c\MulticastDNS=yes /etc/systemd/resolved.conf
+    - ./multipass/create-net-config $(ls /sys/class/net | grep -v lo)
+    - systemctl restart systemd-resolved systemd-networkd
     - ./dotbot/bin/dotbot -c install.conf.yaml
     - ./scripts/live-share/scripts/linux-prereqs.sh
     - ./scripts/starship/install/install.sh --yes

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -e
+
+INTERFACE="$1"
+
+# Only one main (non drop-in `.network`) file can match an interface
+# Use "drop-in" path to augment config created by netplan
+CONFIG_DIR="/etc/systemd/network/10-netplan-$INTERFACE.network.d/"
+
+mkdir -p "$CONFIG_DIR"
+
+cat << EOF > "$CONFIG_DIR/multicast.conf"
+[Match]
+Name=$INTERFACE
+
+[Network]
+MulticastDNS=yes
+EOF
