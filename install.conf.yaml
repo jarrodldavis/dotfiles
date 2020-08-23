@@ -25,6 +25,7 @@
     ~/.starship.toml:
     ~/.vimrc:
     ~/.vim:
+    ~/.multipassrc: multipass/cloud-init.yml
 - link:
     # ensure this is run after main ~/.zshfunctions link
     ~/.zshfunctions/async: scripts/zsh-async/async.zsh
