@@ -21,6 +21,7 @@ runcmd:
     # Download dotfiles
     - git clone --recurse-submodules "https://github.com/jarrodldavis/dotfiles.git" /opt/github.com/jarrodldavis/dotfiles
     - cd /opt/github.com/jarrodldavis/dotfiles
+    - chown -Rv ubuntu:ubuntu .
 
     # Enable mDNS
     - sed -i /MulticastDNS/c\MulticastDNS=yes /etc/systemd/resolved.conf
