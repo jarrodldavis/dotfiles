@@ -18,18 +18,29 @@ packages:
     - zsh
 
 runcmd:
+    # Download dotfiles
     - git clone --recurse-submodules "https://github.com/jarrodldavis/dotfiles.git" /opt/github.com/jarrodldavis/dotfiles
     - cd /opt/github.com/jarrodldavis/dotfiles
+
+    # Enable mDNS
     - sed -i /MulticastDNS/c\MulticastDNS=yes /etc/systemd/resolved.conf
     - ./multipass/create-net-config $(ls /sys/class/net | grep -v lo)
     - systemctl restart systemd-resolved systemd-networkd
+
+    # Link config files
     - ./dotbot/bin/dotbot -c install.conf.yaml
+
+    # Install Visual Studio Live Share prerequisites
     - ./scripts/live-share/scripts/linux-prereqs.sh
+
+    # Install tools
     - ./scripts/starship/install/install.sh --yes
     - ./multipass/install-from-github sharkdp bat -x86_64-unknown-linux-gnu.tar.gz bat
     - ./multipass/install-from-github github hub hub-linux-amd64 bin/hub
     - ./multipass/install-from-github so-fancy diff-so-fancy __TARBALL__ diff-so-fancy
     - ./multipass/install-ngrok
+
+    # Configure `ubuntu` user with config files and ZSH
     - passwd -d ubuntu
     - chsh -s $(which zsh) ubuntu
     - sudo -u ubuntu -- ./dotbot/bin/dotbot -c install.conf.yaml
