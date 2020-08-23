@@ -1,5 +1,12 @@
 #!/usr/bin/env zsh
 
 rebind-local() {
-    socat TCP4-LISTEN:$1,bind=0.0.0.0,reuseaddr,fork TCP4:localhost:$1,bind=localhost
+    local PORT="$1"
+    local HOST="$2"
+
+    if [ -z "$HOST" ]; then
+        socat TCP4-LISTEN:$PORT,bind=0.0.0.0,reuseaddr,fork TCP4:localhost:$PORT,bind=localhost
+    else
+        socat TCP4-LISTEN:$PORT,bind=0.0.0.0,reuseaddr,fork TCP4:$HOST:$PORT
+    fi
 }
