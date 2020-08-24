@@ -17,16 +17,28 @@ packages:
     - python
     - zsh
 
+write_files:
+    # Configure mDNS
+    - content: |
+        MulticastDNS=yes
+      path: /etc/systemd/resolved.conf
+      append: true
+    - content: |
+        [Match]
+        Name=enp0s2
+
+        [Network]
+        MulticastDNS=yes
+      path: /etc/systemd/network/10-netplan-enp0s2.network.d/multicast.conf
+
 runcmd:
+    # Enable mDNS
+    - systemctl restart systemd-resolved systemd-networkd
+
     # Download dotfiles
     - git clone --recurse-submodules "https://github.com/jarrodldavis/dotfiles.git" /opt/github.com/jarrodldavis/dotfiles
     - cd /opt/github.com/jarrodldavis/dotfiles
     - chown -Rv ubuntu:ubuntu .
-
-    # Enable mDNS
-    - sed -i /MulticastDNS/c\MulticastDNS=yes /etc/systemd/resolved.conf
-    - ./multipass/create-net-config $(ls /sys/class/net | grep -v lo)
-    - systemctl restart systemd-resolved systemd-networkd
 
     # Link config files
     - ./dotbot/bin/dotbot -c install.conf.yaml
