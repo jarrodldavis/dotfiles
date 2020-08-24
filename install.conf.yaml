@@ -19,8 +19,7 @@
     ~/.gitignore:
     ~/.git-template-dir:
     ~/.ssh/config: ssh-config
-    ~/.gnupg/gpg-agent.conf:
-    /usr/local/bin/pinentry-auto: scripts/pinentry-auto.sh
+    ~/.gnupg/gpg.conf:
     ~/.Brewfile:
     ~/.starship.toml:
     ~/.vimrc:
@@ -32,6 +31,6 @@
 
 - shell:
     - description: Setting correct permissions for GnuPG directory
-      command: chmod -vv u=rwx,go= ~/.gnupg && chmod -vv u=rwx,go= ~/.gnupg/* && gpgconf --kill gpg-agent
+      command: chmod -vv u=rwx,go= ~/.gnupg && chmod -vv u=rwx,go= ~/.gnupg/*
     - description: Setting correct permissions for SSH directory
       command: chmod -vv u=rwx,go= ~/.ssh && chmod -vv u=rw,go= ~/.ssh/*

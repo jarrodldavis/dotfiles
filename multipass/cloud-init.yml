@@ -31,6 +31,19 @@ write_files:
         MulticastDNS=yes
       path: /etc/systemd/network/10-netplan-enp0s2.network.d/multicast.conf
 
+    # Configure GPG agent forwarding
+    - content: |
+        StreamLocalBindUnlink yes
+      path: /etc/ssh/sshd_config.d/gpg-forwarding.conf
+    - content: |
+        gpgconf --create-socketdir
+      path: /etc/bash.bashrc
+      append: true
+    - content: |
+        gpgconf --create-socketdir
+      path: /etc/zsh/zshrc
+      append: true
+
 runcmd:
     # Enable mDNS
     - systemctl restart systemd-resolved systemd-networkd
@@ -57,3 +70,6 @@ runcmd:
     - passwd -d ubuntu
     - chsh -s $(which zsh) ubuntu
     - sudo -u ubuntu -- ./dotbot/bin/dotbot -c install.conf.yaml
+
+    # Import and trust GPG key
+    - sudo -u ubuntu -- gpg --keyserver keyserver.ubuntu.com --recv C4B786A43A96728174A31CE2EC7B702A5E8ABEC2
