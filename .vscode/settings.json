@@ -8,4 +8,5 @@
     "vimrc": "vimrc",
     "zshrc": "shellscript"
   },
+  "git.detectSubmodules": false,
 }
