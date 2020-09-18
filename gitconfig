@@ -11,6 +11,6 @@
 [diff-so-fancy]
 	stripLeadingSymbols = false
 [init]
-	templateDir = ~/.git-template-dir
+	defaultBranch = main
 [pull]
 	rebase = false
