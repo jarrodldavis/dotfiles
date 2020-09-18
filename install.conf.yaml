@@ -46,6 +46,8 @@
       command: chmod -vv u=rwx,go= ~/.ssh && chmod -vv u=rw,go= ~/.ssh/*
     - description: Initializing git submodules
       command: git submodule update --init --recursive
+    - description: Updating dotfiles remote url
+      command: git remote set-url origin git@github.com:jarrodldavis/dotfiles.git
 
 - link:
     # ensure this is run after main ~/.zshfunctions link
