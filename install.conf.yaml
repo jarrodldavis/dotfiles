@@ -34,9 +34,6 @@
     ~/Library/LaunchAgents/:
       glob: true
       path: launch-agents/*
-- link:
-    # ensure this is run after main ~/.zshfunctions link
-    ~/.zshfunctions/async: scripts/zsh-async/async.zsh
 
 - shell:
     - description: Installing Homebrew
@@ -47,6 +44,12 @@
       command: chmod -vv u=rwx,go= ~/.gnupg && chmod -vv u=rwx,go= ~/.gnupg/*
     - description: Setting correct permissions for SSH directory
       command: chmod -vv u=rwx,go= ~/.ssh && chmod -vv u=rw,go= ~/.ssh/*
+    - description: Initializing git submodules
+      command: git submodule update --init --recursive
+
+- link:
+    # ensure this is run after main ~/.zshfunctions link
+    ~/.zshfunctions/async: scripts/zsh-async/async.zsh
 
 - vscode:
     - jinsihou.diff-tool
