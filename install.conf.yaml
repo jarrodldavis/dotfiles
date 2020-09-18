@@ -11,6 +11,7 @@
   - '~'
   - '~/.ssh'
   - '~/.gnupg'
+  - '~/Library/Application Support/Code/User'
 
 - link:
     ~/.zshrc:
@@ -24,13 +25,33 @@
     ~/.starship.toml:
     ~/.vimrc:
     ~/.vim:
-    ~/.multipassrc: multipass/cloud-init.yml
+    ~/.gnupg/gpg-agent.conf:
+    ~/Library/Application Support/Code/User/settings.json: vscode/settings.json
+    ~/Library/Application Support/Code/User/keybindings.json: vscode/keybindings.json
+    ~/Library/Application Support/Code/User/snippets: vscode/snippets
+    # VS Code's Chrome Debugger doesn't allow for user-scoped `runtimeExecutable` setting
+    /Applications/Google Chrome.app/Contents/MacOS/Google Chrome: scripts/bash/open-chromium
+    ~/Library/LaunchAgents/:
+      glob: true
+      path: launch-agents/*
 - link:
     # ensure this is run after main ~/.zshfunctions link
     ~/.zshfunctions/async: scripts/zsh-async/async.zsh
 
 - shell:
+    - description: Installing Homebrew
+      command: CI=true /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    - description: Installing packages from Homebrew bundle
+      command: brew bundle --global --verbose
     - description: Setting correct permissions for GnuPG directory
       command: chmod -vv u=rwx,go= ~/.gnupg && chmod -vv u=rwx,go= ~/.gnupg/*
     - description: Setting correct permissions for SSH directory
       command: chmod -vv u=rwx,go= ~/.ssh && chmod -vv u=rw,go= ~/.ssh/*
+
+- vscode:
+    - jinsihou.diff-tool
+    - vscodevim.vim
+
+- vscode-insiders:
+    - jinsihou.diff-tool
+    - vscodevim.vim

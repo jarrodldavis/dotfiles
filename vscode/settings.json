@@ -12,37 +12,6 @@
     "terminal.integrated.scrollback": 10000,
     "terminal.integrated.shell.linux": "/bin/zsh",
 
-    // remote extensions
-    "remote.containers.defaultExtensions": [
-        "ms-azuretools.vscode-docker",
-        "ms-vsliveshare.vsliveshare",
-        "ms-vsliveshare.vsliveshare-audio",
-        "karigari.chat",
-        "vsls-contrib.spaces"
-    ],
-    "remote.extensionKind": {
-        "jinsihou.diff-tool": ["ui"]
-    },
-
-    // codespaces
-    "codespaces.accountProvider": "GitHub",
-    "codespaces.enableSubmoduleCloning": true,
-    "codespaces.defaultExtensions": [
-        "ms-azuretools.vscode-docker",
-        "ms-vsliveshare.vsliveshare",
-        "ms-vsliveshare.vsliveshare-audio",
-        "karigari.chat",
-        "vsls-contrib.spaces"
-    ],
-
-    // remote dotfiles
-    "dotfiles.repository": "https://github.com/jarrodldavis/dotfiles.git",
-    "dotfiles.targetPath": "~/.dotfiles",
-    "dotfiles.installCommand": "install",
-    "remote.containers.dotfiles.repository": "https://github.com/jarrodldavis/dotfiles.git",
-    "remote.containers.dotfiles.targetPath": "~/.dotfiles",
-    "remote.containers.dotfiles.installCommand": "~/.dotfiles/install",
-
     // sqltools
     "sqltools.autoOpenSessionFiles": false
 }

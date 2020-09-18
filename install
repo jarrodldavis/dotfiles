@@ -2,53 +2,32 @@
 
 set -e
 
-if [ -f "/.dockerenv" ]; then
-    BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-else
-    # install Homebrew (also installs the Xcode Command Line Tools)
-    # use `echo` to automatically run script
-    # use `sed` to remove printing of audible bell
-    echo | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | sed 's/\\a//')"
+function log() {
+    echo -e "\033[34m=>\033[0m \033[1m$1\033[0m"
+}
 
-    # install Homebrew packages required for bootstrapping
-    brew reinstall ghq
-
-    # clone dotfiles repo for current user (from gitconfig or system user account) else fail
-    GIT_TERMINAL_PROMPT=0 ghq get dotfiles
-
-    # check for valid and unambiguous repo list result
-    REPO_PATHS=$(ghq list --full-path --exact dotfiles)
-    for REPO_PATH in $REPO_PATHS; do
-        if [ -z "$BASEDIR" ]; then
-            BASEDIR="$REPO_PATH"
-        else
-            echo 'install: unexpectedly found multiple dotfiles repositories'
-            exit 1
-        fi
-    done
-
-    if [ -z "$BASEDIR" ]; then
-        echo 'install: could not find dotfiles repository'
-        exit 1
-    fi
-fi
-
-# run Dotbot installer
 CONFIG="install.conf.yaml"
 DOTBOT_DIR="dotbot"
 
 DOTBOT_BIN="bin/dotbot"
 
-cd "${BASEDIR}"
-git submodule update --init --recursive
-
-if [ -f "/.dockerenv" ]; then
-    # use /dev/null to ensure stdin is not a tty during setup
-    bash --noediting -c "$BASEDIR/scripts/vscode-devcontainer.sh" < /dev/null 
-    "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" --plugin-dir ./dotbot-plugins "${@}"
+if [ -n "${BASH_SOURCE[0]}" ]; then
+    BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    log "Using existing dotfiles directory $BASEDIR"
 else
-    "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" --plugin-dir ./dotbot-plugins "${@}"
+    BASEDIR="$HOME/ghq/github.com/jarrodldavis/dotfiles"
 
-    CONFIG="install.conf-macos.yaml"
-    "${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" --plugin-dir ./dotbot-plugins "${@}"
+    if [ -d "$BASEDIR" ]; then
+        log "Using existing dotfiles directory $BASEDIR"
+    else
+        REPO="https://github.com/jarrodldavis/dotfiles.git"
+        log "Cloning dotfiles repository $REPO to $BASEDIR"
+        git clone "$REPO" "$BASEDIR"
+    fi
 fi
+
+cd "${BASEDIR}"
+git -C "${DOTBOT_DIR}" submodule sync --quiet --recursive
+git submodule update --init --recursive "${DOTBOT_DIR}"
+
+"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" --plugin-dir ./dotbot-plugins "${@}"

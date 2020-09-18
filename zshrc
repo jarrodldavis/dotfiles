@@ -1,11 +1,7 @@
 #!/usr/bin/env zsh
 
 # Set default editor
-if [ -f "/.dockerenv" ]; then
-    export EDITOR='code --wait'
-else
-    export EDITOR='vim'
-fi
+export EDITOR='vim'
 
 # custom functions
 fpath+=~/.zshfunctions
@@ -25,13 +21,6 @@ async
 autoload -Uz starship-init
 starship-init
 export STARSHIP_CONFIG=~/.starship.toml
-
-# Docker X11 forwarding
-if [ -f /.dockerenv ]; then
-    export DISPLAY="host.docker.internal:0"
-elif (( $+commands[xhost] )); then
-    xhost "$HOST" >/dev/null
-fi
 
 # hub
 alias git=hub
