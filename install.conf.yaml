@@ -29,8 +29,6 @@
     ~/Library/Application Support/Code/User/settings.json: vscode/settings.json
     ~/Library/Application Support/Code/User/keybindings.json: vscode/keybindings.json
     ~/Library/Application Support/Code/User/snippets: vscode/snippets
-    # VS Code's Chrome Debugger doesn't allow for user-scoped `runtimeExecutable` setting
-    /Applications/Google Chrome.app/Contents/MacOS/Google Chrome: scripts/bash/open-chromium
     ~/Library/LaunchAgents/:
       glob: true
       path: launch-agents/*
