@@ -1,3 +1,4 @@
 map gh :action QuickJavaDoc<CR>
 set ideajoin
+set number
 set relativenumber
