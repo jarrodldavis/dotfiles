@@ -18,7 +18,7 @@ brew "jq"
 brew "node"
 brew "pinentry-mac"
 brew "pipenv"
-brew "postgresql", restart_service: true
+brew "postgresql@12", restart_service: true
 brew "socat"
 brew "starship"
 brew "tree"
