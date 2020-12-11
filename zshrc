@@ -13,6 +13,9 @@ autoload -Uz vim-plugin
 
 alias upwork="nocorrect upwork"
 
+# less
+export LESS="-RS"
+
 # async
 autoload -Uz async
 async

@@ -6,7 +6,7 @@
 [commit]
 	gpgsign = true
 [core]
-	pager = diff-so-fancy | less --tabs=4 -RFX
+	pager = delta
 	excludesfile = ~/.gitignore
 [diff-so-fancy]
 	stripLeadingSymbols = false
@@ -14,3 +14,9 @@
 	defaultBranch = main
 [pull]
 	rebase = false
+[interactive]
+	diffFilter = delta --color-only
+[diff]
+	colorMoved = default
+[delta]
+	side-by-side = true
