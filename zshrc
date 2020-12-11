@@ -17,6 +17,10 @@ autoload -Uz upgrade-backblaze
 autoload -Uz vim-plugin
 
 alias upwork="nocorrect upwork"
+alias npm="nocorrect npm"
+
+alias cat="bat"
+alias ls="ls -G"
 
 # less
 export LESS="-RS"
