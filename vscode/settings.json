@@ -3,8 +3,9 @@
     "editor.fontFamily": "JetBrains Mono",
     "editor.fontLigatures": true,
     "editor.lineNumbers": "relative",
-    "editor.minimap.showSlider": "always",
+    "editor.minimap.enabled": false,
     "editor.suggestSelection": "first",
+    "editor.suggest.showStatusBar": true,
 
     // git
     "git.showProgress": false,
@@ -14,5 +15,8 @@
     "terminal.integrated.shell.linux": "/bin/zsh",
 
     // sqltools
-    "sqltools.autoOpenSessionFiles": false
+    "sqltools.autoOpenSessionFiles": false,
+
+    // vim
+    "vim.debug.silent": true,
 }
