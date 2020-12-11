@@ -1,5 +1,7 @@
 {
     // editor
+    "editor.fontFamily": "JetBrains Mono",
+    "editor.fontLigatures": true,
     "editor.lineNumbers": "relative",
     "editor.minimap.showSlider": "always",
     "editor.suggestSelection": "first",
@@ -8,7 +10,6 @@
     "git.showProgress": false,
 
     // terminal
-    "terminal.integrated.fontFamily": "Menlo for Powerline",
     "terminal.integrated.scrollback": 10000,
     "terminal.integrated.shell.linux": "/bin/zsh",
 
