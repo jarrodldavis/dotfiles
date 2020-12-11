@@ -1,5 +1,10 @@
 #!/usr/bin/env zsh
 
+# Homebrew
+if [ -f "$HOME/.homebrew-github-token.sh" ]; then
+    source ~/.homebrew-github-token.sh
+fi
+
 # Set default editor
 export EDITOR='vim'
 
