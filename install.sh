@@ -594,6 +594,7 @@ makedir() {
 
 ## TODO: Clean symbolic links
 
+link bashrc                         ~/.bashrc
 link zshrc                          ~/.zshrc
 link scripts/zsh                    ~/.zshfunctions
 makedir                             ~/.zshasync/
