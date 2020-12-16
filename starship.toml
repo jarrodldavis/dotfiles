@@ -1,1 +1,17 @@
 add_newline = false
+
+[cmd_duration]
+show_notifications = true
+
+[git_status]
+#format     = '([\[$conflicted $stashed $deleted $renamed $modified $staged $untracked $ahead_behind\]]($style) )'
+conflicted = '=$count'
+ahead      = '⇡$count'
+behind     = '⇣$count'
+diverged   = "⇕⇡${ahead_count}⇣${behind_count}"
+untracked  = '?$count'
+stashed    = '$$count'
+modified   = '!$count'
+staged     = '+$count'
+renamed    = '»$count'
+deleted    = '✘$count'
