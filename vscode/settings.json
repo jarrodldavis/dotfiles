@@ -12,7 +12,28 @@
 
     // terminal
     "terminal.integrated.scrollback": 10000,
-    "terminal.integrated.shell.linux": "/bin/zsh",
+    "terminal.integrated.shell.linux": "/home/linuxbrew/.linuxbrew/bin/zsh",
+
+    // GitHub Codespaces and Remote Development
+    "dotfiles.repository": "jarrodldavis/dotfiles",
+    "github.codespaces.defaultExtensions": [
+        "GitHub.codespaces",
+        "GitHub.vscode-pull-request-github",
+        "jinsihou.diff-tool",
+        "spadin.remote-x11",
+        "ms-azuretools.vscode-docker"
+    ],
+    "github.codespaces.showPerformanceExplorer": true,
+    "remote.containers.defaultExtensions": [
+        "jinsihou.diff-tool",
+        "spadin.remote-x11",
+        "ms-azuretools.vscode-docker"
+    ],
+    "remote.SSH.defaultExtensions": [
+        "jinsihou.diff-tool",
+        "spadin.remote-x11",
+        "ms-azuretools.vscode-docker"
+    ],
 
     // sqltools
     "sqltools.autoOpenSessionFiles": false,

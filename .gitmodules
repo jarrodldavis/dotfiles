@@ -1,7 +1,3 @@
-[submodule "dotbot"]
-	path = dotbot
-	url = https://github.com/anishathalye/dotbot
-	ignore = dirty
 [submodule "vim/pack/yggdroot/start/indentLine"]
 	path = vim/pack/yggdroot/start/indentLine
 	url = git://github.com/yggdroot/indentLine.git
@@ -95,3 +91,6 @@
 [submodule "scripts/zsh-async"]
 	path = scripts/zsh-async
 	url = git://github.com/mafredri/zsh-async.git
+[submodule "homebrew"]
+	path = homebrew
+	url = git://github.com/Homebrew/install.git

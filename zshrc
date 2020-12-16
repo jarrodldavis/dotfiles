@@ -5,6 +5,10 @@ if [ -f "$HOME/.homebrew-github-token.sh" ]; then
     source ~/.homebrew-github-token.sh
 fi
 
+if [ "$(uname)" = "Linux" ]; then
+    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+fi
+
 # Set default editor
 export EDITOR='vim'
 
@@ -26,6 +30,7 @@ alias ls="ls -G"
 export LESS="-RS"
 
 # async
+fpath+=~/.zshasync
 autoload -Uz async
 async
 
