@@ -8,11 +8,14 @@
     "editor.suggest.showStatusBar": true,
 
     // git
+    "git.autofetch": true,
+    "git.fetchOnPull": true,
+    "git.enableCommitSigning": true,
     "git.showProgress": false,
 
     // terminal
     "terminal.integrated.scrollback": 10000,
-    "terminal.integrated.shell.linux": "/home/linuxbrew/.linuxbrew/bin/zsh",
+    "terminal.integrated.shell.linux": "zsh",
 
     // GitHub Codespaces and Remote Development
     "dotfiles.repository": "jarrodldavis/dotfiles",
@@ -40,4 +43,5 @@
 
     // vim
     "vim.debug.silent": true,
+    "python.languageServer": "Pylance",
 }
