@@ -7,6 +7,9 @@ fi
 
 if [ "$(uname)" = "Linux" ]; then
     eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+
+    # https://github.com/Homebrew/linuxbrew-core/issues/21601
+    export HOMEBREW_PATCHELF_RB_WRITE=1
 fi
 
 # Set default editor

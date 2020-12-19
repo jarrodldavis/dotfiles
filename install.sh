@@ -650,7 +650,9 @@ fi
 
 # region Skip Homebrew Bundle
 
-if [ -n "$INSTALLER_SKIP_HOMEBREW_BUNDLE" ]; then
+if [ "$IN_DOCKER" ] && [ -n "$INSTALLER_CONTINUE_HOMEBREW_BUNDLE" ]; then
+    log_warn 'Continuing with Homebrew Bundle; this may take a while.'
+elif [ "$IN_DOCKER" ] || [ -n "$INSTALLER_SKIP_HOMEBREW_BUNDLE" ]; then
     log_warn 'Skipping Homebrew Bundle and subsequent installation steps.'
     exit_success 'Dotfiles installation complete'
 fi
