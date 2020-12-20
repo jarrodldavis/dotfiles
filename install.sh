@@ -560,13 +560,23 @@ link() {
     destination="$2"
 
     if [ -f "$source" ] || [ -d "$source" ]; then
-        if [ -s "$destination" ]; then
-            run_quiet rm "$destination"
-        fi
-
         log_subinfo "> $destination -> $source"
 
-        run_quiet ln -sf "$source" "$destination"
+        case "$destination" in
+            "$HOME"*)
+                if [ -s "$destination" ]; then
+                    run_quiet rm "$destination"
+                fi
+                run_quiet ln -sf "$source" "$destination"
+                ;;
+
+            *)
+                if [ -s "$destination" ]; then
+                    run_quiet sudo rm "$destination"
+                fi
+                run_quiet sudo ln -sf "$source" "$destination"
+                ;;
+        esac
     else
         exit_error "Non-existent source: $destination -> $source"
     fi
