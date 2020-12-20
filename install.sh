@@ -651,11 +651,20 @@ fi
 
 # region Skip Homebrew Bundle
 
-if [ "$IN_DOCKER" ] && [ -n "$INSTALLER_CONTINUE_HOMEBREW_BUNDLE" ]; then
-    log_warn 'Continuing with Homebrew Bundle; this may take a while.'
-elif [ "$IN_DOCKER" ] || [ -n "$INSTALLER_SKIP_HOMEBREW_BUNDLE" ]; then
-    log_warn 'Skipping Homebrew Bundle and subsequent installation steps.'
-    exit_success 'Dotfiles installation complete'
+if [ -n "$IN_DOCKER" ]; then
+    if [ -z "$INSTALLER_CONTINUE_HOMEBREW_BUNDLE" ]; then
+        log_warn 'Skipping Homebrew Bundle and subsequent installation steps.'
+        log_info 'Set INSTALLER_CONTINUE_HOMEBREW_BUNDLE=1 to continue with Homebrew Bundle.'
+        exit_success 'Dotfiles installation complete'
+    else
+        log_warn 'Continuing with Homebrew Bundle; this may take a while.'
+    fi
+else
+    if [ -n "$INSTALLER_SKIP_HOMEBREW_BUNDLE" ]; then
+        log_warn 'Skipping Homebrew Bundle and subsequent installation steps.'
+        log_info 'Unset INSTALLER_SKIP_HOMEBREW_BUNDLE to continue with Homebrew Bundle.'
+        exit_success 'Dotfiles installation complete'
+    fi
 fi
 
 # endregion
@@ -700,20 +709,22 @@ fi
 
 if [ "$OS_FAMILY" = 'Darwin' ]; then
     log_step 'Installing Visual Studio Code extensions...'
-    run code --force --install-extension github.codespaces
-    run code --force --install-extension jinsihou.diff-tool
-    run code --force --install-extension ms-azuretools.vscode-docker
-    run code --force --install-extension ms-vscode-remote.vscode-remote-extensionpack
-    run code --force --install-extension spadin.remote-x11
-    run code --force --install-extension vscodevim.vim
+    run code --force \
+        --install-extension github.codespaces \
+        --install-extension jinsihou.diff-tool \
+        --install-extension ms-azuretools.vscode-docker \
+        --install-extension ms-vscode-remote.vscode-remote-extensionpack \
+        --install-extension spadin.remote-x11 \
+        --install-extension vscodevim.vim
 
     log_step 'Installing Visual Studio Code Insiders extensions...'
-    run code-insiders --force --install-extension github.codespaces
-    run code-insiders --force --install-extension jinsihou.diff-tool
-    run code-insiders --force --install-extension ms-azuretools.vscode-docker
-    run code-insiders --force --install-extension ms-vscode-remote.vscode-remote-extensionpack
-    run code-insiders --force --install-extension spadin.remote-x11
-    run code-insiders --force --install-extension vscodevim.vim
+    run code-insiders --force \
+        --install-extension github.codespaces \
+        --install-extension jinsihou.diff-tool \
+        --install-extension ms-azuretools.vscode-docker \
+        --install-extension ms-vscode-remote.vscode-remote-extensionpack \
+        --install-extension spadin.remote-x11 \
+        --install-extension vscodevim.vim
 fi
 
 # endregion
