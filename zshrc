@@ -42,6 +42,12 @@ autoload -Uz starship-init
 starship-init
 export STARSHIP_CONFIG=~/.starship.toml
 
+# GPG pinentry
+if [ -t 0 ] || [ -f /.dockerenv ]; then
+    export GPG_TTY="$(tty)"
+    export PINENTRY_USER_DATA=USE_CURSES=1
+fi
+
 # hub
 alias git=hub
 
