@@ -692,7 +692,8 @@ fi
 EXTERNAL_PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$EXTERNAL_PATH"
 
 if [ "$OS_FAMILY" = 'Linux' ]; then
-    run export HOMEBREW_BUNDLE_BREW_SKIP=pinentry-mac
+    run export HOMEBREW_BUNDLE_TAP_SKIP='heroku/brew homebrew/cask-versions'
+    run export HOMEBREW_BUNDLE_BREW_SKIP='pinentry-mac heroku/brew/heroku'
 
     # https://github.com/Homebrew/linuxbrew-core/issues/21601
     run export HOMEBREW_PATCHELF_RB_WRITE=1
