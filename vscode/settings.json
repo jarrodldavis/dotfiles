@@ -11,11 +11,13 @@
     "git.autofetch": true,
     "git.fetchOnPull": true,
     "git.enableCommitSigning": true,
+    "git.enableSmartCommit": true,
     "git.showProgress": false,
+    "scm.inputFontFamily": "editor",
 
     // terminal
     "terminal.integrated.scrollback": 10000,
-    "terminal.integrated.shell.linux": "zsh",
+    "terminal.integrated.shell.linux": "/home/linuxbrew/.linuxbrew/bin/zsh",
 
     // GitHub Codespaces and Remote Development
     "dotfiles.repository": "jarrodldavis/dotfiles",
@@ -38,10 +40,13 @@
         "ms-azuretools.vscode-docker"
     ],
 
+    // python
+    "python.languageServer": "Pylance",
+    "python.terminal.activateEnvInCurrentTerminal": true,
+
     // sqltools
     "sqltools.autoOpenSessionFiles": false,
 
     // vim
     "vim.debug.silent": true,
-    "python.languageServer": "Pylance",
 }
