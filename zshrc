@@ -26,7 +26,10 @@ autoload -Uz vim-plugin
 alias upwork="nocorrect upwork"
 alias npm="nocorrect npm"
 
-alias cat="bat"
+if [ "$(command -v bat)" ]; then
+    alias cat="bat"
+fi
+
 alias ls="ls -G"
 
 # less
@@ -38,10 +41,11 @@ autoload -Uz async
 async
 
 # starship prompt
-eval "$(starship init zsh)"
-export STARSHIP_CONFIG=~/.starship.toml
-
-PROMPT="$(PWD=~ starship prompt)"
+if [ "$(command -v starship)" ]; then
+    eval "$(starship init zsh)"
+    export STARSHIP_CONFIG=~/.starship.toml
+    PROMPT="$(PWD=~ starship prompt)"
+fi
 
 # override render function to account for slow performance in large git repositories
 starship_render() {
@@ -77,7 +81,9 @@ if [ -t 0 ] || [ -f /.dockerenv ]; then
 fi
 
 # hub
-alias git=hub
+if [ "$(command -v hub)" ]; then
+    alias git=hub
+fi
 
 # man pager
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"

@@ -604,6 +604,7 @@ makedir() {
 
 ## TODO: Clean symbolic links
 
+link scripts/zsh.sh                 /usr/local/bin/zsh-auto
 link scripts/pinentry-auto.sh       /usr/local/bin/pinentry-auto
 link bashrc                         ~/.bashrc
 link zshrc                          ~/.zshrc
