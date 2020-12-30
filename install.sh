@@ -721,22 +721,32 @@ fi
 
 if [ "$OS_FAMILY" = 'Darwin' ]; then
     log_step 'Installing Visual Studio Code extensions...'
-    run code --force \
-        --install-extension github.codespaces \
-        --install-extension jinsihou.diff-tool \
-        --install-extension ms-azuretools.vscode-docker \
-        --install-extension ms-vscode-remote.vscode-remote-extensionpack \
-        --install-extension spadin.remote-x11 \
-        --install-extension vscodevim.vim
 
-    log_step 'Installing Visual Studio Code Insiders extensions...'
-    run code-insiders --force \
-        --install-extension github.codespaces \
-        --install-extension jinsihou.diff-tool \
-        --install-extension ms-azuretools.vscode-docker \
-        --install-extension ms-vscode-remote.vscode-remote-extensionpack \
-        --install-extension spadin.remote-x11 \
-        --install-extension vscodevim.vim
+    vscode_extensions="\
+        github.codespaces \
+        jinsihou.diff-tool \
+        ms-azuretools.vscode-docker \
+        ms-vscode-remote.vscode-remote-extensionpack \
+        spadin.remote-x11 \
+        vscodevim.vim \
+    "
+
+    install_vscode_extensions() {
+        # shellcheck disable=2086
+        set -- $vscode_extensions
+
+        vscode_args='--force'
+        for extension; do
+            vscode_args="$vscode_args --install-extension $extension"
+        done
+
+        # shellcheck disable=2086
+        run code $vscode_args
+        # shellcheck disable=2086
+        run code-insiders $vscode_args
+    }
+
+    install_vscode_extensions
 fi
 
 # endregion
