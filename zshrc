@@ -10,6 +10,12 @@ if [ "$(uname)" = "Linux" ]; then
 
     # https://github.com/Homebrew/linuxbrew-core/issues/21601
     export HOMEBREW_PATCHELF_RB_WRITE=1
+
+    # ensure Homebrew-installed Zsh is used, if installed
+    homebrew_zsh="$(command -v zsh)"
+    if [ "$SHELL" != "$homebrew_zsh" ]; then
+        exec env SHELL="$homebrew_zsh" zsh
+    fi
 fi
 
 # Set default editor
@@ -138,6 +144,11 @@ bindkey -M vicmd cs change-surround
 bindkey -M vicmd ds delete-surround
 bindkey -M vicmd ys add-surround
 bindkey -M vicmd S add-surround
+
+# completions
+if [ "$(command -v brew)" ]; then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
+fi
 
 # The following lines were added by compinstall
 

@@ -17,7 +17,6 @@
 
     // terminal
     "terminal.integrated.scrollback": 10000,
-    "terminal.integrated.shell.linux": "/usr/local/bin/zsh-auto",
 
     // GitHub Codespaces and Remote Development
     "dotfiles.repository": "jarrodldavis/dotfiles",
