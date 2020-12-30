@@ -1,4 +1,13 @@
 {
+    // settings sync
+    "settingsSync.ignoredSettings": [
+        "debug.javascript.defaultRuntimeExecutable",
+        "editor.fontFamily"
+    ],
+
+    // workbench
+    "workbench.colorTheme": "Default Dark+",
+
     // editor
     "editor.fontFamily": "JetBrains Mono",
     "editor.fontLigatures": true,
@@ -6,6 +15,9 @@
     "editor.minimap.enabled": false,
     "editor.suggestSelection": "first",
     "editor.suggest.showStatusBar": true,
+
+    // terminal
+    "terminal.integrated.scrollback": 10000,
 
     // git
     "git.autofetch": true,
@@ -15,14 +27,16 @@
     "git.showProgress": false,
     "scm.inputFontFamily": "editor",
 
-    // terminal
-    "terminal.integrated.scrollback": 10000,
+    // debug
+    "debug.javascript.defaultRuntimeExecutable": {
+        "pwa-node": "node",
+        "pwa-chrome": "/Applications/Chromium.app/Contents/MacOS/Chromium"
+    },
+
 
     // GitHub Codespaces and Remote Development
     "dotfiles.repository": "jarrodldavis/dotfiles",
     "github.codespaces.defaultExtensions": [
-        "GitHub.codespaces",
-        "GitHub.vscode-pull-request-github",
         "jinsihou.diff-tool",
         "spadin.remote-x11",
         "ms-azuretools.vscode-docker"
@@ -47,5 +61,5 @@
     "sqltools.autoOpenSessionFiles": false,
 
     // vim
-    "vim.debug.silent": true,
+    "vim.debug.silent": true
 }
