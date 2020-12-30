@@ -723,9 +723,12 @@ if [ "$OS_FAMILY" = 'Darwin' ]; then
     log_step 'Installing Visual Studio Code extensions...'
 
     vscode_extensions="\
+        firefox-devtools.vscode-firefox-debug \
         github.codespaces \
+        github.vscode-pull-request-github \
         jinsihou.diff-tool \
         ms-azuretools.vscode-docker \
+        ms-vscode.github-browser \
         ms-vscode-remote.vscode-remote-extensionpack \
         spadin.remote-x11 \
         vscodevim.vim \
