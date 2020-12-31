@@ -5,6 +5,16 @@ if [ -f "$HOME/.homebrew-github-token.sh" ]; then
     source ~/.homebrew-github-token.sh
 fi
 
+if [ "$(command -v brew)" ]; then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
+
+
+  if [ "$(uname)" = "Darwin" ]; then
+    HB_CNF_HANDLER="$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
+    source "$HB_CNF_HANDLER"
+  fi
+fi
+
 if [ "$(uname)" = "Linux" ]; then
     eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
@@ -144,11 +154,6 @@ bindkey -M vicmd cs change-surround
 bindkey -M vicmd ds delete-surround
 bindkey -M vicmd ys add-surround
 bindkey -M vicmd S add-surround
-
-# completions
-if [ "$(command -v brew)" ]; then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
-fi
 
 # The following lines were added by compinstall
 
