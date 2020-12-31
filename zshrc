@@ -66,7 +66,7 @@ fi
 # override render function to account for slow performance in large git repositories
 starship_render() {
     # render dimmed prompt to indicate render-in-progress
-    PROMPT="$(echo "$PROMPT" | sed -E 's/%{[^%]+%}//g')"
+    PROMPT="$(echo "$PROMPT" | sed -E 's/%\{[^%]+%}//g')"
     PROMPT="$(printf '%%{\e[2m%%}%s%%{\e[0m%%}' "$PROMPT")"
 
     # Use length of jobstates array as number of jobs. Expansion fails inside

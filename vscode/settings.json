@@ -18,6 +18,7 @@
 
     // terminal
     "terminal.integrated.scrollback": 10000,
+    "terminal.integrated.shellArgs.linux": ["-l"], // ensure login shells are used
 
     // git
     "git.autofetch": true,
