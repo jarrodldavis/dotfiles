@@ -496,7 +496,23 @@ fi
 
 log_step 'Initializing dotfiles repository...'
 
-if [ -f "$0" ] && [ "${0#*'install.sh'}" != "$0" ]; then
+clone_standard_path() {
+    dir="$HOME/ghq/github.com/jarrodldavis/dotfiles"
+
+    if [ -d "$dir" ]; then
+        log_info 'Using existing standard local dotfiles directory:'
+        log_subinfo "$dir"
+    else
+        REPO='https://github.com/jarrodldavis/dotfiles.git'
+        log_substep 'Cloning dotfiles repository to standard local dotfiles path:'
+        run git clone --verbose "$REPO" "$dir"
+    fi   
+}
+
+if [ "$0" = 'sh' ] || [ "$0" = '/bin/sh' ]; then
+    log_info "Detected automatic bootstrapping."
+    clone_standard_path
+elif [ -f "$0" ]; then
     log_substep "Determining absolute directory of installer script:"
     log_subinfo "$0"
 
@@ -513,26 +529,15 @@ if [ -f "$0" ] && [ "${0#*'install.sh'}" != "$0" ]; then
         log_info "Found installer script in non-accessible directory:"
         log_subinfo "$dir"
         exit_error "Cannot continue installation in non-accessible directory."
+    elif ! run_and_continue git -C "$abs_dir" status ; then
+        log_warn "Found installer script in non-repository directory:"
+        log_subinfo "$abs_dir"
+        clone_standard_path
     else
         dir="$abs_dir"
         unset abs_dir
         log_info 'Using existing dotfiles directory:'
         log_subinfo "$dir"
-    fi
-elif [ "$0" = 'sh' ] || [ "$0" = '/bin/sh' ]; then
-    dir="$HOME/ghq/github.com/jarrodldavis/dotfiles"
-
-    log_info "Detected automatic bootstrapping; using standard local dotfiles path:"
-    log_subinfo "$dir"
-
-    if [ -d "$dir" ]; then
-        log_info 'Using existing dotfiles directory:'
-        log_subinfo "$dir"
-    else
-        REPO='https://github.com/jarrodldavis/dotfiles.git'
-        log_substep 'Cloning dotfiles repository:'
-        log_subinfo "$REPO -> $dir"
-        run git clone --verbose "$REPO" "$dir"
     fi
 else
     exit_error "Unable to determine source of installer script."
@@ -541,6 +546,7 @@ fi
 log_run "cd $dir"
 cd "$dir"
 unset dir
+unset -f clone_standard_path
 
 log_substep 'Initializing git submodules...'
 run git submodule update --init --recursive

@@ -48,6 +48,8 @@ cd dotfiles
 ./install.sh
 ```
 
+Alternatively, you can copy the [contents of `install.sh`] to a file on disk and run it using `sh ./install.sh`.
+
 ## Options
 
 All installer options are specified as environment variables:
@@ -70,9 +72,10 @@ On macOS and non-Docker Linux environments, you can skip the default Homebrew Bu
 everything else as quickly as possible.
 
 
-[Homebrew]:               https://brew.sh
-[Homebrew Bundle]:        https://github.com/Homebrew/homebrew-bundle
-[Visual Studio Code]:     https://code.visualstudio.com
-[Remote Development]:     https://code.visualstudio.com/docs/remote/remote-overview
-[Development Containers]: https://code.visualstudio.com/docs/remote/containers
-[GitHub Codespaces]:      https://code.visualstudio.com/docs/remote/codespaces
+[Homebrew]:                 https://brew.sh
+[Homebrew Bundle]:          https://github.com/Homebrew/homebrew-bundle
+[contents of `install.sh`]: https://github.com/jarrodldavis/dotfiles/raw/personal/macos/install.sh
+[Visual Studio Code]:       https://code.visualstudio.com
+[Remote Development]:       https://code.visualstudio.com/docs/remote/remote-overview
+[Development Containers]:   https://code.visualstudio.com/docs/remote/containers
+[GitHub Codespaces]:        https://code.visualstudio.com/docs/remote/codespaces
