@@ -519,7 +519,7 @@ if [ -f "$0" ] && [ "${0#*'install.sh'}" != "$0" ]; then
         log_info 'Using existing dotfiles directory:'
         log_subinfo "$dir"
     fi
-elif [ "$0" = 'sh' ]; then
+elif [ "$0" = 'sh' ] || [ "$0" = '/bin/sh' ]; then
     dir="$HOME/ghq/github.com/jarrodldavis/dotfiles"
 
     log_info "Detected automatic bootstrapping; using standard local dotfiles path:"
