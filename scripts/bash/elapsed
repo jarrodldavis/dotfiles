@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
 
 # Prefer simple name for error messages
 me=$(basename -a "$0")

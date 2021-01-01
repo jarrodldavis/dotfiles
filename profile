@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 # Override Visual Studio Code default shell of `sh`.
 if [ -f "/.dockerenv" ] && [ -z "$SKIP_FORCE_ZSH" ]; then
