@@ -637,6 +637,8 @@ if [ "$OS_FAMILY" = 'Darwin' ]; then
     link vscode/settings.json                           ~/Library/Application\ Support/Code/User/settings.json
     link vscode/keybindings.json                        ~/Library/Application\ Support/Code/User/keybindings.json
     link vscode/snippets                                ~/Library/Application\ Support/Code/User/snippets
+    makedir                                             /Applications/Google\ Chrome.app/Contents/MacOS/
+    link scripts/open-chromium.sh                       /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome
 fi
 
 unset -f link makedir
