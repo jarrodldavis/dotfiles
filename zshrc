@@ -91,10 +91,7 @@ starship_render_done() {
 }
 
 # GPG pinentry
-if [ -t 0 ] || [ -f /.dockerenv ]; then
-    export GPG_TTY="$(tty)"
-    export PINENTRY_USER_DATA=USE_CURSES=1
-fi
+export GPG_TTY="$(tty)"
 
 # hub
 if [ "$(command -v hub)" ]; then
