@@ -44,6 +44,7 @@ alias npm="nocorrect npm"
 
 if [ "$(command -v bat)" ]; then
     alias cat="bat"
+    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
 
 alias ls="ls -G"
@@ -97,9 +98,6 @@ export GPG_TTY="$(tty)"
 if [ "$(command -v hub)" ]; then
     alias git=hub
 fi
-
-# man pager
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # command editing options
 setopt NO_CASE_GLOB
