@@ -612,7 +612,6 @@ makedir() {
 
 link scripts/pinentry-auto.sh       /usr/local/bin/pinentry-auto
 link profile                        ~/.profile
-link bashrc                         ~/.bashrc
 link zshrc                          ~/.zshrc
 link scripts/zsh                    ~/.zshfunctions
 makedir                             ~/.zshasync/
