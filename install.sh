@@ -749,6 +749,7 @@ if [ "$OS_FAMILY" = 'Darwin' ]; then
     log_step 'Installing Visual Studio Code extensions...'
 
     vscode_extensions="\
+        editorconfig.editorconfig \
         firefox-devtools.vscode-firefox-debug \
         github.codespaces \
         github.vscode-pull-request-github \

@@ -33,25 +33,31 @@
         "pwa-node": "node",
         "pwa-chrome": "/Applications/Chromium.app/Contents/MacOS/Chromium"
     },
-
+    "debug.javascript.usePreview": false,
 
     // GitHub Codespaces and Remote Development
     "dotfiles.repository": "jarrodldavis/dotfiles",
     "github.codespaces.defaultExtensions": [
         "jinsihou.diff-tool",
         "spadin.remote-x11",
-        "ms-azuretools.vscode-docker"
+        "ms-azuretools.vscode-docker",
+        "editorconfig.editorconfig",
+        "github.vscode-pull-request-github"
     ],
     "github.codespaces.showPerformanceExplorer": true,
     "remote.containers.defaultExtensions": [
         "jinsihou.diff-tool",
         "spadin.remote-x11",
-        "ms-azuretools.vscode-docker"
+        "ms-azuretools.vscode-docker",
+        "editorconfig.editorconfig",
+        "github.vscode-pull-request-github"
     ],
     "remote.SSH.defaultExtensions": [
         "jinsihou.diff-tool",
         "spadin.remote-x11",
-        "ms-azuretools.vscode-docker"
+        "ms-azuretools.vscode-docker",
+        "editorconfig.editorconfig",
+        "github.vscode-pull-request-github"
     ],
 
     // python
