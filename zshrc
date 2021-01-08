@@ -31,6 +31,15 @@ fi
 # Set default editor
 export EDITOR='vim'
 
+if [ -d ~/.vscode-server/ ]; then
+    VSCODE_BIN_PATHS=(~/.vscode-server/bin/*/bin)
+    for VSCODE_BIN_PATH in $VSCODE_BIN_PATHS; do
+      export PATH="$VSCODE_BIN_PATH:$PATH"
+    done
+
+    export EDITOR='code --wait'
+fi
+
 # custom functions
 fpath+=~/.zshfunctions
 autoload -Uz ghq
