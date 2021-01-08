@@ -13,6 +13,19 @@ if [ "$(command -v brew)" ]; then
     HB_CNF_HANDLER="$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
     source "$HB_CNF_HANDLER"
   fi
+
+  # In order to use `code` as $EDITOR in dev containers, some environment variables from Visual Studio Code need to
+  # be kept around. By default, Homebrew filters out all but a select set of environment variables. This overrides
+  # that -- but only for the `brew edit` command, to minimize the potential for environment pollution.
+  __brew_unfiltered_edit() {
+    if [ "$1" = "edit" ]; then
+      env HOMEBREW_NO_ENV_FILTERING=1 brew "$@"
+    else
+      brew "$@"
+    fi
+  }
+
+  alias brew=__brew_unfiltered_edit
 fi
 
 if [ "$(uname)" = "Linux" ]; then
