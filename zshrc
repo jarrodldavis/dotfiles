@@ -1,43 +1,39 @@
 #!/usr/bin/env zsh
 
 # Homebrew
-if [ -f "$HOME/.homebrew-github-token.sh" ]; then
-    source ~/.homebrew-github-token.sh
-fi
-
-if [ "$(command -v brew)" ]; then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
-
-
-  if [ "$(uname)" = "Darwin" ]; then
-    HB_CNF_HANDLER="$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
-    source "$HB_CNF_HANDLER"
-  fi
-
-  # In order to use `code` as $EDITOR in dev containers, some environment variables from Visual Studio Code need to
-  # be kept around. By default, Homebrew filters out all but a select set of environment variables. This overrides
-  # that -- but only for the `brew edit` command, to minimize the potential for environment pollution.
-  __brew_unfiltered_edit() {
-    if [ "$1" = "edit" ]; then
-      env HOMEBREW_NO_ENV_FILTERING=1 brew "$@"
-    else
-      brew "$@"
-    fi
-  }
-
-  alias brew=__brew_unfiltered_edit
-fi
-
-if [ "$(uname)" = "Linux" ]; then
+if [ "$(uname)" = "Linux" ] && [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
     eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-
-    # https://github.com/Homebrew/linuxbrew-core/issues/21601
-    export HOMEBREW_PATCHELF_RB_WRITE=1
 
     # ensure Homebrew-installed Zsh is used, if installed
     homebrew_zsh="$(command -v zsh)"
     if [ "$SHELL" != "$homebrew_zsh" ]; then
         exec env SHELL="$homebrew_zsh" zsh
+    fi
+fi
+
+if [ "$(command -v brew)" ]; then
+    FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
+
+    if [ "$(uname)" = "Darwin" ]; then
+        HB_CNF_HANDLER="$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
+        source "$HB_CNF_HANDLER"
+    fi
+
+    # In order to use `code` as $EDITOR in dev containers, some environment variables from Visual Studio Code need to
+    # be kept around. By default, Homebrew filters out all but a select set of environment variables. This overrides
+    # that -- but only for the `brew edit` command, to minimize the potential for environment pollution.
+    __brew_unfiltered_edit() {
+        if [ "$1" = "edit" ]; then
+            env HOMEBREW_NO_ENV_FILTERING=1 brew "$@"
+        else
+            brew "$@"
+        fi
+    }
+
+    alias brew=__brew_unfiltered_edit
+
+    if [ -f "$HOME/.homebrew-github-token.sh" ]; then
+        source ~/.homebrew-github-token.sh
     fi
 fi
 
