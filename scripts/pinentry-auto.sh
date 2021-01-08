@@ -2,6 +2,6 @@
 
 if [ "$(uname)" = 'Darwin' ]; then
 	exec pinentry-mac "$@"
-fi
+else
 	exec pinentry-curses "$@"
 fi
