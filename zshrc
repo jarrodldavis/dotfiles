@@ -50,7 +50,11 @@ fi
 alias ls="ls -G"
 
 # less
-export LESS="-RS"
+export LESS="-iJMRSw"
+
+if ! [ "$(command -v delta)" ]; then
+    export GIT_PAGER=less
+fi
 
 # async
 fpath+=~/.zshasync
