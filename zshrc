@@ -1,13 +1,22 @@
 #!/usr/bin/env zsh
 
-# ensure Homebrew-installed Zsh is used, if installed
+# Ensure Homebrew-installed Zsh is used, if installed
 homebrew_linux_zsh='/home/linuxbrew/.linuxbrew/bin/zsh'
 if [ -f "$homebrew_linux_zsh" ] && [ "$SHELL" != "$homebrew_linux_zsh" ]; then
     exec env SHELL="$homebrew_linux_zsh" zsh
 fi
 
-# The following lines were added by compinstall
+# Initialize Homebrew
+if [ "$(uname)" = "Linux" ]; then
+    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+fi
 
+# Load Homebrew-installed completions
+if [ "$(command -v brew)" ]; then
+    FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
+fi
+
+# Completions
 zstyle ':completion:*' completer _expand _complete _ignored _match _correct _approximate _prefix
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-colors ''
@@ -23,16 +32,8 @@ zstyle :compinstall filename '~/.zshrc'
 autoload -Uz compinit
 compinit
 
-# End of lines added by compinstall
-
-# Homebrew
-if [ "$(uname)" = "Linux" ]; then
-    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-fi
-
+# Additional Homebrew setup
 if [ "$(command -v brew)" ]; then
-    FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
-
     if [ "$(uname)" = "Darwin" ]; then
         HB_CNF_HANDLER="$(brew --prefix)/Homebrew/Library/Taps/homebrew/homebrew-command-not-found/handler.sh"
         source "$HB_CNF_HANDLER"
