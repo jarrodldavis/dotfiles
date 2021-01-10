@@ -6,6 +6,25 @@ if [ -f "$homebrew_linux_zsh" ] && [ "$SHELL" != "$homebrew_linux_zsh" ]; then
     exec env SHELL="$homebrew_linux_zsh" zsh
 fi
 
+# The following lines were added by compinstall
+
+zstyle ':completion:*' completer _expand _complete _ignored _match _correct _approximate _prefix
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' 'm:{[:lower:]}={[:upper:]} m:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:]}={[:upper:]} m:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[._-]=** r:|=**' 'm:{[:lower:]}={[:upper:]} m:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[._-]=** r:|=** l:|=*'
+zstyle ':completion:*' max-errors 3
+zstyle ':completion:*' menu select=1
+zstyle ':completion:*' preserve-prefix '//[^/]##/'
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' verbose true
+zstyle :compinstall filename '~/.zshrc'
+
+autoload -Uz compinit
+compinit
+
+# End of lines added by compinstall
+
 # Homebrew
 if [ "$(uname)" = "Linux" ]; then
     eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
@@ -180,22 +199,3 @@ bindkey -M vicmd cs change-surround
 bindkey -M vicmd ds delete-surround
 bindkey -M vicmd ys add-surround
 bindkey -M vicmd S add-surround
-
-# The following lines were added by compinstall
-
-zstyle ':completion:*' completer _expand _complete _ignored _match _correct _approximate _prefix
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' 'm:{[:lower:]}={[:upper:]} m:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:]}={[:upper:]} m:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[._-]=** r:|=**' 'm:{[:lower:]}={[:upper:]} m:{[:lower:][:upper:]}={[:upper:][:lower:]} r:|[._-]=** r:|=** l:|=*'
-zstyle ':completion:*' max-errors 3
-zstyle ':completion:*' menu select=1
-zstyle ':completion:*' preserve-prefix '//[^/]##/'
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-zstyle ':completion:*' verbose true
-zstyle :compinstall filename '~/.zshrc'
-
-autoload -Uz compinit
-compinit
-
-# End of lines added by compinstall
