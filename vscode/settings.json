@@ -4,12 +4,16 @@
         "debug.javascript.defaultRuntimeExecutable",
         "editor.fontFamily"
     ],
+    "debug.javascript.defaultRuntimeExecutable": {
+        "pwa-node": "node",
+        "pwa-chrome": "/Applications/Chromium.app/Contents/MacOS/Chromium"
+    },
+    "editor.fontFamily": "JetBrains Mono",
 
     // workbench
     "workbench.colorTheme": "Default Dark+",
 
     // editor
-    "editor.fontFamily": "JetBrains Mono",
     "editor.fontLigatures": true,
     "editor.lineNumbers": "relative",
     "editor.minimap.enabled": false,
@@ -17,10 +21,13 @@
     "editor.suggest.showStatusBar": true,
 
     // terminal
+	"terminal.integrated.localEchoLatencyThreshold": -1,
     "terminal.integrated.scrollback": 10000,
     "terminal.integrated.shellArgs.linux": ["-l"], // ensure login shells are used
+	"terminal.integrated.showExitAlert": false,
 
     // git
+    "diffEditor.ignoreTrimWhitespace": false,
     "git.autofetch": true,
     "git.fetchOnPull": true,
     "git.enableCommitSigning": true,
@@ -29,10 +36,6 @@
     "scm.inputFontFamily": "editor",
 
     // debug
-    "debug.javascript.defaultRuntimeExecutable": {
-        "pwa-node": "node",
-        "pwa-chrome": "/Applications/Chromium.app/Contents/MacOS/Chromium"
-    },
     "debug.javascript.usePreview": false,
 
     // GitHub Codespaces and Remote Development
