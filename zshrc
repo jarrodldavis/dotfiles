@@ -31,6 +31,7 @@ if [ "$(command -v brew)" ]; then
     }
 
     alias brew=__brew_unfiltered_edit
+    compdef __brew_unfiltered_edit=brew
 
     if [ -f "$HOME/.homebrew-github-token.sh" ]; then
         source ~/.homebrew-github-token.sh
