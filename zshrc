@@ -1,14 +1,14 @@
 #!/usr/bin/env zsh
 
-# Homebrew
-if [ "$(uname)" = "Linux" ] && [ -f /home/linuxbrew/.linuxbrew/bin/brew ]; then
-    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+# ensure Homebrew-installed Zsh is used, if installed
+homebrew_linux_zsh='/home/linuxbrew/.linuxbrew/bin/zsh'
+if [ -f "$homebrew_linux_zsh" ] && [ "$SHELL" != "$homebrew_linux_zsh" ]; then
+    exec env SHELL="$homebrew_linux_zsh" zsh
+fi
 
-    # ensure Homebrew-installed Zsh is used, if installed
-    homebrew_zsh="$(command -v zsh)"
-    if [ "$SHELL" != "$homebrew_zsh" ]; then
-        exec env SHELL="$homebrew_zsh" zsh
-    fi
+# Homebrew
+if [ "$(uname)" = "Linux" ]; then
+    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 fi
 
 if [ "$(command -v brew)" ]; then
