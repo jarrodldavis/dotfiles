@@ -40,8 +40,16 @@ fi
 # Set default editor
 export EDITOR='vim'
 
-if [ -d ~/.vscode-server/ ]; then
-    VSCODE_BIN_PATHS=(~/.vscode-server/bin/*/bin)
+# The Visual Studio Code Remote server's `code` (or `code-insiders`) binary is installed in various folders using
+# unique identifiers, presumably for each installation or server connection. Even though Remote Development
+# environments have a shim `code` binary, it still expects the real `code` or `code-insiders` binary to be present in
+# $PATH, which is not true by default.
+#
+# Additionally, there's a different top-level directory for Remote - Containers (~/.vscode-server) and GitHub
+# Codespaces (~/.vscode-remote). The (N) glob parameter allows globs that don't match anything to not cause an error
+# and instead just be removed from the created array of paths.
+if [ -d ~/.vscode-server/ ] || [ -d ~/.vscode-remote ]; then
+    VSCODE_BIN_PATHS=(~/.vscode-server/bin/*/bin(N) ~/.vscode-remote/bin/*/bin(N))
     for VSCODE_BIN_PATH in $VSCODE_BIN_PATHS; do
       export PATH="$VSCODE_BIN_PATH:$PATH"
     done
