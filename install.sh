@@ -543,8 +543,7 @@ else
     exit_error "Unable to determine source of installer script."
 fi
 
-log_run "cd $dir"
-cd "$dir"
+run cd "$dir"
 unset dir
 unset -f clone_standard_path
 
