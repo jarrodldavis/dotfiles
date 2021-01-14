@@ -741,8 +741,14 @@ fi
 # region Import GPG public keys
 
 log_step 'Importing GPG public keys...'
-run sh -c 'curl https://github.com/jarrodldavis.gpg | gpg --import'
-run sh -c 'curl https://github.com/web-flow.gpg | gpg --import'
+
+import_gpg_key() {
+    run sh -c "curl https://github.com/$1.gpg | gpg --import-options keep-ownertrust --import"
+}
+
+import_gpg_key web-flow
+import_gpg_key jarrodldavis
+run gpg --list-keys
 
 # endregion
 
