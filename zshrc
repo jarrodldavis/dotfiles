@@ -145,6 +145,21 @@ starship_render_done() {
 # GPG pinentry
 export GPG_TTY="$(tty)"
 
+# GitHub Codespaces configures containers to automatically sign with GitHub's `web-flow` key, similar to editing files
+# directly in the GitHub UI. If my own GPG key exists and is used to sign commits, the Codespaces configuration will
+# cause those commits to be unverified since the committer won't match the GPG key.
+if [ -f /.dockerenv ]; then
+    if signing_key="$(git config --get user.signingkey)"; then
+        if gpg --list-secret-keys "$signing_key" >/dev/null 2>&1; then
+            unset GIT_COMMITTER_EMAIL GIT_COMMITTER_NAME
+
+            if [ -d ./.git ]; then
+                git config --local --unset gpg.program
+            fi
+        fi
+    fi
+fi
+
 # hub
 if [ "$(command -v hub)" ]; then
     alias git=hub

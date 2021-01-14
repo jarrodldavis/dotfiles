@@ -740,6 +740,14 @@ fi
 
 # endregion
 
+# region Import GPG public keys
+
+log_step 'Importing GPG public keys...'
+run sh -c 'curl https://github.com/jarrodldavis.gpg | gpg --import'
+run sh -c 'curl https://github.com/web-flow.gpg | gpg --import'
+
+# endregion
+
 # region Install Visual Studio Code extensions
 
 if [ "$OS_FAMILY" = 'Darwin' ]; then
