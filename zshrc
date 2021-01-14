@@ -103,12 +103,9 @@ if ! [ "$(command -v delta)" ]; then
     export GIT_PAGER=less
 fi
 
-# async
-autoload -Uz async
-async
-
 # starship prompt
-if [ "$(command -v starship)" ]; then
+if autoload -Uz async 2>/dev/null && [ "$(command -v starship)" ]; then
+    async
     eval "$(starship init zsh)"
     export STARSHIP_CONFIG=~/.starship.toml
     PROMPT="$(PWD=~ starship prompt)"
