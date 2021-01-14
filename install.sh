@@ -702,7 +702,7 @@ EXTERNAL_PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$EXTERNAL_PATH"
 
 if [ "$OS_FAMILY" = 'Linux' ]; then
     run export HOMEBREW_BUNDLE_TAP_SKIP='heroku/brew homebrew/cask-versions'
-    run export HOMEBREW_BUNDLE_BREW_SKIP='pinentry-mac heroku/brew/heroku'
+    run export HOMEBREW_BUNDLE_BREW_SKIP='act pinentry-mac heroku/brew/heroku'
 
     if [ "$IN_DOCKER" = '1' ]; then
         while read -r dependency_type dependency_name; do
