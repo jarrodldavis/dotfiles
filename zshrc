@@ -104,7 +104,6 @@ if ! [ "$(command -v delta)" ]; then
 fi
 
 # async
-fpath+=~/.zshasync
 autoload -Uz async
 async
 

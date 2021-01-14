@@ -88,9 +88,6 @@
 [submodule "vim/pack/tomasiser/start/vim-code-dark"]
 	path = vim/pack/tomasiser/start/vim-code-dark
 	url = git://github.com/tomasiser/vim-code-dark.git
-[submodule "scripts/zsh-async"]
-	path = scripts/zsh-async
-	url = git://github.com/mafredri/zsh-async.git
 [submodule "homebrew"]
 	path = homebrew
 	url = git://github.com/Homebrew/install.git

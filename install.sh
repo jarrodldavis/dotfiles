@@ -615,8 +615,6 @@ link profile                        ~/.profile
 link profile                        ~/.bashrc
 link zshrc                          ~/.zshrc
 link scripts/zsh                    ~/.zshfunctions
-makedir                             ~/.zshasync/
-link scripts/zsh-async/async.zsh    ~/.zshasync/async
 link gitconfig                      ~/.gitconfig
 link gitignore                      ~/.gitignore
 makedir                             ~/.ssh/
