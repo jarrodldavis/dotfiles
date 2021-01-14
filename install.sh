@@ -732,6 +732,20 @@ if [ "$OS_FAMILY" = 'Linux' ]; then
 
     log_substep 'Continuing with Homebrew Bundle...'
     run brew bundle --global --verbose
+
+    # Unlink formulae that are likely to conflict with versions explicitly
+    # installed in a development container image.
+    log_substep 'Unlinking workspace-conflicting formulae...'
+
+    # use globs while in the Cellar to target versioned formulae (e.g. `python@3.9`)
+    run cd "$HOMEBREW_PREFIX/Cellar"
+    for formula in java* node* perl* python* ruby*; do
+        if [ -d "$formula" ]; then
+            run brew unlink "$formula"
+        fi
+    done
+
+    run cd "$OLDPWD"
 else
     run brew bundle --global --verbose
 fi
