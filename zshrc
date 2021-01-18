@@ -89,6 +89,11 @@ autoload -Uz vim-plugin
 alias upwork="nocorrect upwork"
 alias npm="nocorrect npm"
 
+if [ "$(uname)" = "Darwin" ]; then
+    autoload -Uz docker-compose-destroy-devcontainer
+    alias dcdd="docker-compose-destroy-devcontainer"
+fi
+
 if [ "$(command -v bat)" ]; then
     alias cat="bat"
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"

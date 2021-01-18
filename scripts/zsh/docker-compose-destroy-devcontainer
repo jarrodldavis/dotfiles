@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+function docker-compose-destroy-devcontainer {
+  if [ "$(basename $PWD)" = '.devcontainer' ]; then
+    cd ..
+  fi
+
+  if ! [ -d ./.devcontainer ]; then
+    echo 'This project does not have a development container configuration.'
+    return 1
+  fi
+
+  project_name="$(basename $PWD)"
+
+  docker-compose \
+    --file ./.devcontainer/docker-compose.yml \
+    --project-name "${project_name}_devcontainer" \
+    down --rmi local --volumes --remove-orphans
+}
