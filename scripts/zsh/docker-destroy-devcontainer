@@ -1,0 +1,33 @@
+#!/usr/bin/env zsh
+
+function docker-destroy-devcontainer {
+  if [ "$(basename $PWD)" = '.devcontainer' ]; then
+    cd ..
+  fi
+
+  if ! [ -d .devcontainer ]; then
+    echo 'This project does not have a development container configuration.'
+    return 1
+  fi
+
+  project_name="$(basename $PWD)"
+
+  if [ -f .devcontainer/docker-compose.yml ]; then
+    echo "Removing Docker Compose development containers..."
+    docker-compose \
+      --file .devcontainer/docker-compose.yml \
+      --project-name "${project_name}_devcontainer" \
+      down --rmi local --volumes --remove-orphans
+  elif [ -f .devcontainer/Dockerfile ]; then
+    containers="$(docker ps -a --format "{{.ID}}:{{.Image}}" | grep "$project_name" | cut -f1 -d':')"
+    images="$(docker images -qa -f reference="*$project_name*")"
+
+    if [ -z "$containers" ] && [ -z "$images" ]; then
+      echo "No Dockerfile development containers or images to remove."
+    else
+      echo "Removing Dockerfile development containers and images..."
+      echo "$containers" | xargs docker rm --volumes -f 
+      echo "$images" | xargs docker rmi 
+    fi
+  fi
+}

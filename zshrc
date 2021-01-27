@@ -90,8 +90,8 @@ alias upwork="nocorrect upwork"
 alias npm="nocorrect npm"
 
 if [ "$(uname)" = "Darwin" ]; then
-    autoload -Uz docker-compose-destroy-devcontainer
-    alias dcdd="docker-compose-destroy-devcontainer"
+    autoload -Uz docker-destroy-devcontainer
+    alias ddd="docker-destroy-devcontainer"
 fi
 
 if [ "$(command -v bat)" ]; then
