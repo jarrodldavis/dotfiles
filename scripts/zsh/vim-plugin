@@ -23,14 +23,24 @@ function vim-plugin {
     fi
   fi
 
-  local plugin_repo="$2/$3"
-  local plugin_path="vim/pack/$2/start/$3"
+  local plugin_repo="https://github.com/$2/$3.git"
+  local plugin_path="$HOME/.vim/pack/$2/start/$3"
 
   if [[ "$1" == "add" ]]; then
-    hub submodule add "$plugin_repo" "$plugin_path"
+    echo "$plugin_repo" >> ./Vimfile
+    plugins="$(cat ./Vimfile | sort | uniq)"
+    echo "$plugins" > ./Vimfile
+
+    if [ -d "$plugin_path" ]; then
+      git -C "$plugin_path" pull 
+    else
+      mkdir -p "$plugin_path"
+      git clone "$plugin_repo" "$plugin_path"
+    fi
   elif [[ "$1" == "remove" ]]; then
-    git submodule deinit -f "./$plugin_path"
-    rm -rf "./.git/modules/$plugin_path"
-    git rm -rf "./$plugin_path"
+    rm -rf "$plugin_path"
+
+    plugins="$(cat ./Vimfile | grep -v "$plugin_repo")"
+    echo "$plugins" > ./Vimfile
   fi
 }

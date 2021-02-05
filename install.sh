@@ -624,7 +624,6 @@ link gpg-agent.conf                 ~/.gnupg/gpg-agent.conf
 link Brewfile                       ~/.Brewfile
 link starship.toml                  ~/.starship.toml
 link vimrc                          ~/.vimrc
-link vim                            ~/.vim
 
 if [ "$OS_FAMILY" = 'Darwin' ]; then
     link ideavimrc                                      ~/.ideavimrc
@@ -762,6 +761,25 @@ import_gpg_key() {
 import_gpg_key web-flow
 import_gpg_key jarrodldavis
 run gpg --list-keys
+
+# endregion
+
+# region Install Vim plugins
+
+log_step 'Installing Vim plugins...'
+
+while IFS='/' read -r plugin_owner plugin_repo; do
+    plugin_remote="https://github.com/${plugin_owner}/${plugin_repo}.git"
+    plugin_path="$HOME/.vim/pack/${plugin_owner}/start/${plugin_repo}"
+
+    if [ -d "$plugin_path" ]; then
+        run git -C "$plugin_path" pull
+    else
+        run git clone "$plugin_remote" "$plugin_path"
+    fi
+done < ./Vimfile
+
+unset plugin_owner plugin_repo plugin_remote plugin_path
 
 # endregion
 
