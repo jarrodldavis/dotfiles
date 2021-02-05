@@ -788,35 +788,17 @@ unset plugin_owner plugin_repo plugin_remote plugin_path
 if [ "$OS_FAMILY" = 'Darwin' ]; then
     log_step 'Installing Visual Studio Code extensions...'
 
-    vscode_extensions="\
-        editorconfig.editorconfig \
-        firefox-devtools.vscode-firefox-debug \
-        github.codespaces \
-        github.vscode-pull-request-github \
-        jinsihou.diff-tool \
-        ms-azuretools.vscode-docker \
-        ms-vscode.github-browser \
-        ms-vscode-remote.vscode-remote-extensionpack \
-        spadin.remote-x11 \
-        vscodevim.vim \
-    "
+    vscode_args='--force'
+    while IFS='' read -r extension; do
+        vscode_args="$vscode_args --install-extension $extension"
+    done < ./Codefile
 
-    install_vscode_extensions() {
-        # shellcheck disable=2086
-        set -- $vscode_extensions
+    # shellcheck disable=2086
+    run code $vscode_args
+    # shellcheck disable=2086
+    run code-insiders $vscode_args
 
-        vscode_args='--force'
-        for extension; do
-            vscode_args="$vscode_args --install-extension $extension"
-        done
-
-        # shellcheck disable=2086
-        run code $vscode_args
-        # shellcheck disable=2086
-        run code-insiders $vscode_args
-    }
-
-    install_vscode_extensions
+    unset vscode_args
 fi
 
 # endregion
