@@ -55,6 +55,7 @@
         "editorconfig.editorconfig",
         "github.vscode-pull-request-github"
     ],
+    "remote.containers.workspaceMountConsistency": "delegated",
     "remote.SSH.defaultExtensions": [
         "jinsihou.diff-tool",
         "spadin.remote-x11",
@@ -65,6 +66,7 @@
 
     // python
     "python.languageServer": "Pylance",
+    "python.showStartPage": false,
     "python.terminal.activateEnvInCurrentTerminal": true,
 
     // sqltools
