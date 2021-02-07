@@ -9,5 +9,5 @@ esac
 
 if [ -t 0 ] && [ "$interactive" = '1' ] && [ -f "/.dockerenv" ] && [ -z "$SKIP_FORCE_ZSH" ]; then
     eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-    exec env SHELL="$(command -v zsh)" zsh
+    exec env SHELL="$(command -v zsh)" zsh -l
 fi

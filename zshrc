@@ -3,7 +3,7 @@
 # Ensure Homebrew-installed Zsh is used, if installed
 homebrew_linux_zsh='/home/linuxbrew/.linuxbrew/bin/zsh'
 if [ -f "$homebrew_linux_zsh" ] && [ "$SHELL" != "$homebrew_linux_zsh" ]; then
-    exec env SHELL="$homebrew_linux_zsh" zsh
+    exec env SHELL="$homebrew_linux_zsh" zsh -l
 fi
 
 # Initialize Homebrew
