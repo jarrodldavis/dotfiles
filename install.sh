@@ -126,6 +126,11 @@ exit_success() {
     exit 0
 }
 
+exit_warn() {
+    log_warn "$1"
+    exit 0
+}
+
 exit_error() {
     log_error "$1"
     exit 1
@@ -310,6 +315,21 @@ elif [ "$OS_FAMILY" = 'Linux' ]; then
     fi
 else
     exit_error "Unsupported operating system family \"$OS_FAMILY\"."
+fi
+
+# endregion
+
+# region Early exit in GitHub Codespaces
+
+if [ -n "$CODESPACES" ]; then
+    if [ -z "$INSTALLER_CONTINUE_IN_CODESPACES" ] && [ -z "$INSTALLER_CONTINUE_HOMEBREW_BUNDLE" ]; then
+        log_warn 'Exiting automatic GitHub Codespaces installation to prevent unclean environment setup.'
+        log_info 'Set INSTALLER_CONTINUE_IN_CODESPACES=1 to start the installation process.'
+        log_info 'Set INSTALLER_CONTINUE_HOMEBREW_BUNDLE=1 to additionally continue with Homebrew Bundle.'
+        exit_warn 'Dotfiles installation skipped'
+    else
+        log_info 'Continuing with dotfiles installation.'
+    fi
 fi
 
 # endregion
