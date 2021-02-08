@@ -700,24 +700,6 @@ if [ "$OS_FAMILY" = 'Linux' ]; then
     run export HOMEBREW_BUNDLE_TAP_SKIP='heroku/brew homebrew/cask-versions'
     run export HOMEBREW_BUNDLE_BREW_SKIP='act pinentry-mac heroku/brew/heroku'
 
-    if [ "$IN_DOCKER" = '1' ]; then
-        while read -r dependency_type dependency_name; do
-            # strip leading and trailing double quote
-            dependency_name="${dependency_name##'"'}"
-            dependency_name="${dependency_name%%'"'}"
-
-            if [ "$dependency_type" = "whalebrew" ]; then
-                HOMEBREW_BUNDLE_WHALEBREW_SKIP="$HOMEBREW_BUNDLE_WHALEBREW_SKIP $dependency_name"
-            fi
-        done < ./Brewfile
-        unset dependency_type dependency_name
-
-        # strip leading space
-        HOMEBREW_BUNDLE_WHALEBREW_SKIP="${HOMEBREW_BUNDLE_WHALEBREW_SKIP##' '}"
-
-        run export HOMEBREW_BUNDLE_WHALEBREW_SKIP="$HOMEBREW_BUNDLE_WHALEBREW_SKIP"
-    fi
-
     # https://github.com/Homebrew/linuxbrew-core/issues/21601
     run export HOMEBREW_PATCHELF_RB_WRITE=1
 
