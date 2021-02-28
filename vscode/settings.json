@@ -64,6 +64,8 @@
         "github.vscode-pull-request-github"
     ],
 
+    "docker.showStartPage": false,
+
     // python
     "python.languageServer": "Pylance",
     "python.showStartPage": false,
