@@ -14,6 +14,7 @@
     "workbench.colorTheme": "Default Dark+",
 
     // editor
+    "editor.accessibilitySupport": "off",
     "editor.fontLigatures": true,
     "editor.lineNumbers": "relative",
     "editor.minimap.enabled": false,
@@ -75,5 +76,5 @@
     "sqltools.autoOpenSessionFiles": false,
 
     // vim
-    "vim.debug.silent": true
+    "vim.debug.silent": true,
 }
