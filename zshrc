@@ -80,6 +80,7 @@ fi
 
 # custom functions
 fpath+=~/.zshfunctions
+autoload -Uz brewfile-diff
 autoload -Uz ghq
 autoload -Uz rebind-local
 autoload -Uz upwork

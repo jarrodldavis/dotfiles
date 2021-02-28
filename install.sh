@@ -24,6 +24,8 @@ SUDO_INSTALLED=''
 NON_ROOT_USER_ID=''
 NON_ROOT_USER_NAME=''
 
+INSTALLER_BUNDLE_SCOPE="$1"
+
 if [ "$(command -v sudo)" ]; then
     SUDO_INSTALLED='1'
 fi
@@ -657,7 +659,6 @@ link ssh-config                     ~/.ssh/config
 makedir                             ~/.gnupg/
 link gpg.conf                       ~/.gnupg/gpg.conf
 link gpg-agent.conf                 ~/.gnupg/gpg-agent.conf
-link Brewfile                       ~/.Brewfile
 link starship.toml                  ~/.starship.toml
 link vimrc                          ~/.vimrc
 
@@ -717,6 +718,22 @@ fi
 
 EXTERNAL_PATH="$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:$EXTERNAL_PATH"
 
+execute_bundle() {
+    if [ -z "$INSTALLER_BUNDLE_SCOPE" ]; then
+        log_warn "No bundle scope provided; continuing installation with only common-scoped packages".
+    elif ! [ -f "packages.$INSTALLER_BUNDLE_SCOPE.Brewfile" ]; then
+        exit_error "Unknown bundle scope $INSTALLER_BUNDLE_SCOPE"
+    fi
+
+    log_substep 'Installing packages from common scope...'
+    run brew bundle --verbose --no-lock --file="packages.common.Brewfile"
+
+    if [ -n "$INSTALLER_BUNDLE_SCOPE" ]; then
+        log_substep "Installing packages from $INSTALLER_BUNDLE_SCOPE scope..."
+        run brew bundle --verbose --no-lock --file="packages.$INSTALLER_BUNDLE_SCOPE.Brewfile"
+    fi
+}
+
 if [ "$OS_FAMILY" = 'Linux' ]; then
     run export HOMEBREW_BUNDLE_TAP_SKIP='heroku/brew homebrew/cask-versions'
     run export HOMEBREW_BUNDLE_BREW_SKIP='act pinentry-mac heroku/brew/heroku'
@@ -732,7 +749,7 @@ if [ "$OS_FAMILY" = 'Linux' ]; then
     run brew install perl
 
     log_substep 'Continuing with Homebrew Bundle...'
-    run brew bundle --global --verbose
+    execute_bundle
 
     # Unlink formulae that are likely to conflict with versions explicitly
     # installed in a development container image.
@@ -748,7 +765,7 @@ if [ "$OS_FAMILY" = 'Linux' ]; then
 
     run cd "$OLDPWD"
 else
-    run brew bundle --global --verbose
+    execute_bundle
 fi
 
 # endregion

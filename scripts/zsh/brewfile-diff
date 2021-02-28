@@ -1,0 +1,41 @@
+#!/usr/bin/env zsh
+
+brewfile-diff() {
+    local brewfiles="$(echo packages.*.Brewfile(N))"
+    if [ -z "$brewfiles" ]; then
+        echo "brewfile-diff: could not find Brewfiles"
+        echo "brewfile-diff: are you in the dotfiles directory?"
+        return 1
+    fi
+
+    local scope="$1"
+    if [ -z "$scope" ]; then
+        echo "brewfile-diff: scope is required"
+        return 1
+    elif ! [ -f "packages.$scope.Brewfile" ]; then
+        echo "brewfile-diff: unknown scope: $scope"
+        return 1
+    fi
+
+    local current_packages_path="$(mktemp)"
+    brew bundle dump --force --file="$current_packages_path"
+
+    local saved_packages_path="$(mktemp)"
+    sort packages.{common,$scope}.Brewfile | uniq > "$saved_packages_path"
+
+    local added_packages="$(sort "$current_packages_path" "$saved_packages_path" "$saved_packages_path" | uniq -u)"
+    echo "==> The following Homebrew packages are not present in the common nor $scope saved scopes:"
+    if [ -n "$added_packages" ]; then
+        echo "$added_packages"
+    else
+        echo -e "\e[3mNo unsaved added packages.\e[0m"
+    fi
+
+    local removed_packages="$(sort "$saved_packages_path" "$current_packages_path" "$current_packages_path" | uniq -u)"
+    echo "==> The following Homebrew packages are present in the common or $scope saved scope but not installed locally:"
+    if [ -n "$removed_packages" ]; then
+        echo "$removed_packages"
+    else
+        echo -e "\e[3mNo uninstalled saved packages.\e[0m"
+    fi
+}

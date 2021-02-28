@@ -1,6 +1,6 @@
 {
   "files.associations": {
-    "Brewfile": "ruby",
+    "*.Brewfile": "ruby",
     "gitconfig": "gitconfig",
     "gitignore": "ignore",
     "ssh-config": "ssh_config",
