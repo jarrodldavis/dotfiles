@@ -19,7 +19,7 @@ function docker-destroy-devcontainer {
       --project-name "${project_name}_devcontainer" \
       down --rmi local --volumes --remove-orphans
   elif [ -f .devcontainer/Dockerfile ]; then
-    containers="$(docker ps -a --format "{{.ID}}:{{.Image}}" | grep "$project_name" | cut -f1 -d':')"
+    containers="$(docker ps -a --format "{{.ID}}:{{.Image}}" | grep -i "$project_name" | cut -f1 -d':')"
     images="$(docker images -qa -f reference="*$project_name*")"
 
     if [ -z "$containers" ] && [ -z "$images" ]; then
