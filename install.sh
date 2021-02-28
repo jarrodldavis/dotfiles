@@ -512,6 +512,21 @@ fi
 
 # endregion
 
+# region Install Hombrew
+
+log_step 'Installing Homebrew...'
+
+# CI environment variable is used to run installer non-interactively
+
+if [ "$NON_ROOT_USER_NAME" ]; then
+    run env CI=true homebrew/install.sh
+elif [ "$USER_ID" = '0' ]; then
+    log_warn 'Overriding effective user ID to force root Homebrew installation.'
+    run env CI=true EUID=1 homebrew/install.sh
+fi
+
+# endregion
+
 # region Initialize dotfiles directory
 
 log_step 'Initializing dotfiles repository...'
@@ -629,6 +644,7 @@ makedir() {
 
 ## TODO: Clean symbolic links
 
+makedir                             /usr/local/bin
 link scripts/pinentry-auto.sh       /usr/local/bin/pinentry-auto
 link profile                        ~/.profile
 link profile                        ~/.bashrc
@@ -666,21 +682,6 @@ run chmod u=rwx,go= ~/.gnupg/* # TODO: only set +x for subdirectories
 log_substep 'Setting correct permissions for SSH directory...'
 run chmod u=rwx,go= ~/.ssh
 run chmod u=rw,go= ~/.ssh/*
-
-# endregion
-
-# region Install Hombrew
-
-log_step 'Installing Homebrew...'
-
-# CI environment variable is used to run installer non-interactively
-
-if [ "$NON_ROOT_USER_NAME" ]; then
-    run env CI=true homebrew/install.sh
-elif [ "$USER_ID" = '0' ]; then
-    log_warn 'Overriding effective user ID to force root Homebrew installation.'
-    run env CI=true EUID=1 homebrew/install.sh
-fi
 
 # endregion
 
