@@ -518,14 +518,22 @@ fi
 
 log_step 'Installing Homebrew...'
 
+log_substep 'Downloading Homebrew installer...'
+run curl -fL -o homebrew-install.sh https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+run chmod +x homebrew-install.sh
+
 # CI environment variable is used to run installer non-interactively
 
+log_substep 'Running Homebrew installer...'
 if [ "$NON_ROOT_USER_NAME" ]; then
-    run env CI=true homebrew/install.sh
+    run env CI=true ./homebrew-install.sh
 elif [ "$USER_ID" = '0' ]; then
     log_warn 'Overriding effective user ID to force root Homebrew installation.'
-    run env CI=true EUID=1 homebrew/install.sh
+    run env CI=true EUID=1 ./homebrew-install.sh
 fi
+
+log_substep 'Cleaning up Homebrew installer...'
+run rm homebrew-install.sh
 
 # endregion
 
