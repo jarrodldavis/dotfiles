@@ -83,6 +83,7 @@ fpath+=~/.zshfunctions
 autoload -Uz brewfile-diff
 autoload -Uz ghq
 autoload -Uz rebind-local
+autoload -Uz sync-clouds
 autoload -Uz upwork
 autoload -Uz upgrade-backblaze
 autoload -Uz vim-plugin

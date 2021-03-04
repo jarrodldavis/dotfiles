@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+function sync-clouds() {
+  cd ~
+
+  echo "==> Syncing files from iCloud Documents to MEGA..."
+  rsync -va ./Documents/ ./MEGA/Documents
+
+  echo
+  echo "==> Syncing files from iCloud Documents to OneDrive..."
+  # OneDrive doesn't like the filenames used inside of Contacts.app archives (`.abbu`)
+  rsync -va --exclude='*.abbu' ./Documents/ ./OneDrive/Documents
+}
