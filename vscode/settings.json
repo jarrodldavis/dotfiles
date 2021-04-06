@@ -77,4 +77,7 @@
 
     // vim
     "vim.debug.silent": true,
+
+    // uncategorized settings
+    "": true,
 }
