@@ -111,39 +111,10 @@ if ! [ "$(command -v delta)" ]; then
 fi
 
 # starship prompt
-if autoload -Uz async 2>/dev/null && [ "$(command -v starship)" ]; then
-    async
+if [ "$(command -v starship)" ]; then
     eval "$(starship init zsh)"
     export STARSHIP_CONFIG=~/.starship.toml
-    PROMPT="$(PWD=~ starship prompt)"
 fi
-
-# override render function to account for slow performance in large git repositories
-starship_render() {
-    # render dimmed prompt to indicate render-in-progress
-    PROMPT="$(echo "$PROMPT" | sed -E 's/%\{[^%]+%}//g')"
-    PROMPT="$(printf '%%{\e[2m%%}%s%%{\e[0m%%}' "$PROMPT")"
-
-    # Use length of jobstates array as number of jobs. Expansion fails inside
-    # quotes so we set it here and then use the value later on.
-    NUM_JOBS=$#jobstates
-
-    # start async worker to render prompt without blocking input
-    async_stop_worker starship_prompt
-    async_start_worker starship_prompt
-    async_register_callback starship_prompt starship_render_done
-    async_job starship_prompt starship_render_worker
-}
-
-starship_render_worker() {
-    PROMPT="$(starship prompt --keymap="${KEYMAP-}" --status=${STARSHIP_CMD_STATUS-"$STATUS"} --cmd-duration=${STARSHIP_DURATION-} --jobs="$NUM_JOBS")"
-    print "$PROMPT"
-}
-
-starship_render_done() {
-    PROMPT="$3"
-    zle reset-prompt
-}
 
 # GPG pinentry
 export GPG_TTY="$(tty)"
