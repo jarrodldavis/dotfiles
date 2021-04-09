@@ -615,7 +615,12 @@ link() {
         case "$destination" in
             "$HOME"*)
                 if [ -s "$destination" ]; then
-                    run_quiet rm "$destination"
+                    if [ -d "$destination" ] && ! [ -h "$destination" ]; then
+                        log_warn "Removing directory: $destination"
+                        run rm -rf "$destination"
+                    else
+                        run_quiet rm "$destination"
+                    fi
                 fi
                 run_quiet ln -sf "$source" "$destination"
                 ;;
@@ -678,6 +683,10 @@ if [ "$OS_FAMILY" = 'Darwin' ]; then
     link vscode/settings.json                           ~/Library/Application\ Support/Code/User/settings.json
     link vscode/keybindings.json                        ~/Library/Application\ Support/Code/User/keybindings.json
     link vscode/snippets                                ~/Library/Application\ Support/Code/User/snippets
+    makedir                                             ~/Library/Application\ Support/Code\ -\ Insiders/User/
+    link vscode/settings.json                           ~/Library/Application\ Support/Code\ -\ Insiders/User/settings.json
+    link vscode/keybindings.json                        ~/Library/Application\ Support/Code\ -\ Insiders/User/keybindings.json
+    link vscode/snippets                                ~/Library/Application\ Support/Code\ -\ Insiders/User/snippets
 fi
 
 unset -f link makedir
