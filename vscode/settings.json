@@ -24,7 +24,6 @@
     // terminal
 	"terminal.integrated.localEchoLatencyThreshold": -1,
     "terminal.integrated.scrollback": 10000,
-    "terminal.integrated.shellArgs.linux": ["-l"], // ensure login shells are used
 	"terminal.integrated.showExitAlert": false,
 
     // git
