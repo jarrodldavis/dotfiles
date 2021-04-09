@@ -747,14 +747,6 @@ if [ "$OS_FAMILY" = 'Linux' ]; then
     # https://github.com/Homebrew/linuxbrew-core/issues/21601
     run export HOMEBREW_PATCHELF_RB_WRITE=1
 
-    # Vim and Zsh use Perl but the formula for Perl has problems in the postinstall step.
-    # On some Linux distros (CentOS, Fedora, and Arch Linux), installing XML::Parser fails
-    # because the Homebrew-installed Perl's CPAN can't find the Homebrew-installed expat.
-    log_substep 'Installing Perl...'
-    run sh -c 'EDITOR="sed -i -e /XML::/d" brew edit perl'
-    run brew install perl
-
-    log_substep 'Continuing with Homebrew Bundle...'
     execute_bundle
 
     # Unlink formulae that are likely to conflict with versions explicitly
