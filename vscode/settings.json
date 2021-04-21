@@ -64,6 +64,16 @@
         "github.vscode-pull-request-github"
     ],
 
+    // Deno
+    "deno.codeLens.implementations": true,
+    "deno.codeLens.references": true,
+    "deno.codeLens.referencesAllFunctions": true,
+    "deno.suggest.autoImports": true,
+    "deno.suggest.completeFunctionCalls": true,
+    "deno.suggest.names": true,
+    "deno.suggest.paths": true,
+
+    // Docker
     "docker.showStartPage": false,
 
     // python
