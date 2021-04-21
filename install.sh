@@ -321,21 +321,6 @@ fi
 
 # endregion
 
-# region Early exit in GitHub Codespaces
-
-if [ -n "$CODESPACES" ]; then
-    if [ -z "$INSTALLER_CONTINUE_IN_CODESPACES" ] && [ -z "$INSTALLER_CONTINUE_HOMEBREW_BUNDLE" ]; then
-        log_warn 'Exiting automatic GitHub Codespaces installation to prevent unclean environment setup.'
-        log_info 'Set INSTALLER_CONTINUE_IN_CODESPACES=1 to start the installation process.'
-        log_info 'Set INSTALLER_CONTINUE_HOMEBREW_BUNDLE=1 to additionally continue with Homebrew Bundle.'
-        exit_warn 'Dotfiles installation skipped'
-    else
-        log_info 'Continuing with dotfiles installation.'
-    fi
-fi
-
-# endregion
-
 # region Check installation permissions for current user
 
 log_step "Checking installation permissions for current user..."
@@ -703,20 +688,10 @@ run chmod u=rw,go= ~/.ssh/*
 
 # region Skip Homebrew Bundle
 
-if [ "$IN_DOCKER" = 1 ]; then
-    if [ -z "$INSTALLER_CONTINUE_HOMEBREW_BUNDLE" ]; then
-        log_warn 'Skipping Homebrew Bundle and subsequent installation steps.'
-        log_info 'Set INSTALLER_CONTINUE_HOMEBREW_BUNDLE=1 to continue with Homebrew Bundle.'
-        exit_success 'Dotfiles installation complete'
-    else
-        log_warn 'Continuing with Homebrew Bundle; this may take a while.'
-    fi
-else
-    if [ -n "$INSTALLER_SKIP_HOMEBREW_BUNDLE" ]; then
-        log_warn 'Skipping Homebrew Bundle and subsequent installation steps.'
-        log_info 'Unset INSTALLER_SKIP_HOMEBREW_BUNDLE to continue with Homebrew Bundle.'
-        exit_success 'Dotfiles installation complete'
-    fi
+if [ -n "$INSTALLER_SKIP_HOMEBREW_BUNDLE" ]; then
+    log_warn 'Skipping Homebrew Bundle and subsequent installation steps.'
+    log_info 'Unset INSTALLER_SKIP_HOMEBREW_BUNDLE to continue with Homebrew Bundle.'
+    exit_success 'Dotfiles installation complete'
 fi
 
 # endregion
