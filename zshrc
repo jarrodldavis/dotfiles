@@ -137,11 +137,6 @@ if [ -f /.dockerenv ]; then
     fi
 fi
 
-# hub
-if [ "$(command -v hub)" ]; then
-    alias git=hub
-fi
-
 # n (node version manager)
 export N_PREFIX=$HOME/n
 export PATH="$PATH:$N_PREFIX/bin"
