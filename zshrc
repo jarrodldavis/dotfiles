@@ -58,6 +58,9 @@ if [ "$(command -v brew)" ]; then
     fi
 fi
 
+# quiet `brew doctor` warning about sbin
+export PATH="/usr/local/sbin:$PATH"
+
 # Set default editor
 export EDITOR='vim'
 
@@ -138,6 +141,10 @@ fi
 if [ "$(command -v hub)" ]; then
     alias git=hub
 fi
+
+# n (node version manager)
+export N_PREFIX=$HOME/n
+export PATH="$PATH:$N_PREFIX/bin"
 
 # command editing options
 setopt NO_CASE_GLOB
