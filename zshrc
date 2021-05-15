@@ -87,11 +87,9 @@ autoload -Uz brewfile-diff
 autoload -Uz ghq
 autoload -Uz rebind-local
 autoload -Uz sync-clouds
-autoload -Uz upwork
 autoload -Uz upgrade-backblaze
 autoload -Uz vim-plugin
 
-alias upwork="nocorrect upwork"
 alias npm="nocorrect npm"
 
 if [ "$(uname)" = "Darwin" ]; then
