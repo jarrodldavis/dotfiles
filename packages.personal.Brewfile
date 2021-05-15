@@ -1,7 +1,5 @@
-tap "heroku/brew"
 tap "stripe/stripe-cli"
 brew "act"
-brew "heroku/brew/heroku"
 brew "stripe/stripe-cli/stripe"
 cask "algodoo"
 cask "backblaze"
