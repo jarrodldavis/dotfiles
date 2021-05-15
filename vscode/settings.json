@@ -12,6 +12,7 @@
 
     // workbench
     "workbench.colorTheme": "Default Dark+",
+    "workbench.startupEditor": "none",
 
     // editor
     "editor.accessibilitySupport": "off",
@@ -80,6 +81,9 @@
     "python.languageServer": "Pylance",
     "python.showStartPage": false,
     "python.terminal.activateEnvInCurrentTerminal": true,
+
+    // rust-analyzer
+    "rust-analyzer.inlayHints.enable": false,
 
     // sqltools
     "sqltools.autoOpenSessionFiles": false,
