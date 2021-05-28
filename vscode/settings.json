@@ -10,8 +10,12 @@
     },
     "editor.fontFamily": "JetBrains Mono",
 
+    // window
+    "window.dialogStyle": "custom",
+
     // workbench
     "workbench.colorTheme": "Default Dark+",
+    "workbench.experimental.useCustomHover": true,
     "workbench.startupEditor": "none",
 
     // editor
@@ -26,6 +30,10 @@
 	"terminal.integrated.localEchoLatencyThreshold": -1,
     "terminal.integrated.scrollback": 10000,
 	"terminal.integrated.showExitAlert": false,
+    "terminal.integrated.tabs.enabled": true,
+
+    // TypeScript
+    "typescript.updateImportsOnFileMove.enabled": "never",
 
     // git
     "diffEditor.ignoreTrimWhitespace": false,
