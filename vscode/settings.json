@@ -94,6 +94,13 @@
 
     // vim
     "vim.debug.silent": true,
+    "vim.highlightedyank.enable": true,
+    "vim.camelCaseMotion.enable": true,
+    "vim.easymotion": true,
+    "vim.replaceWithRegister": true,
+    "vim.smartcase": true,
+    "vim.sneak": true,
+    "vim.surround": true,
 
     // uncategorized settings
     "": true,
