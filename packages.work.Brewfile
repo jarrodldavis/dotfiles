@@ -1,7 +1,6 @@
 tap "aws/tap"
 brew "awscli"
 brew "n"
-cask "google-chrome"
 cask "google-drive"
 cask "imageoptim"
 cask "pgadmin4"

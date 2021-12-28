@@ -4,10 +4,6 @@
         "debug.javascript.defaultRuntimeExecutable",
         "editor.fontFamily"
     ],
-    "debug.javascript.defaultRuntimeExecutable": {
-        "pwa-node": "node",
-        "pwa-chrome": "/Applications/Chromium.app/Contents/MacOS/Chromium"
-    },
     "editor.fontFamily": "JetBrains Mono",
 
     // window
