@@ -1,8 +1,9 @@
 #!/usr/bin/env zsh
 
-# manually upgrade `backblaze` cask for two reasons:
-# - cached downloads of the zipball cause the SHA check to fail when fetching new versions
+# manually upgrade `backblaze` cask for three reasons:
+# - cached downloads of the DMG cause the SHA check to fail when fetching new versions
 # - even for successful upgrades, Homebrew goes through an excessive full uninstall/reinstall process
+# - (probably because of the above), `brew upgrade --force backblaze` is specifically refused
 #
 # instead, we can:
 # - perform the fetch -> attach -> caskroom copy process manually
@@ -28,21 +29,30 @@ function upgrade-backblaze {
   local version="$(brew info --cask --json=v2 backblaze | jq --raw-output '.casks[0].version')"
   local caskroom="$(brew --prefix)/Caskroom"
 
-  # fetch zipball
+  # fetch disk image
   brew fetch --cask backblaze --force
-  local zipball="$(brew --cache --cask backblaze)"
+  local dmg="$(brew --cache --cask backblaze)"
 
-  # extract zipball contents into caskroom
-  log2 "Extracting zipball contents into Caskroom"
+  log2 "Copying disk image contents to Caskroom"
+
+  # mount disk image
+  local mountdir="$(mktemp -d)"
+  hdiutil attach -verbose -nobrowse -readonly -noidme -mountpoint "$mountdir" "$dmg"
+
+  # copy disk image contents into caskroom
   local version_dir="$caskroom/backblaze/$version"
   mkdir -vp "$version_dir"
-  unzip -u "$zipball" -d "$version_dir"
+  cp -vR "$mountdir/Backblaze Installer.app" "$version_dir/"
+  cp -vR "$mountdir/Backblaze Uninstaller.app" "$version_dir/"
+
+  # eject dmg
+  hdiutil eject -verbose "$mountdir"
 
   log2 "Success! Copied successfully to -> $version_dir"
 
   # perform upgrade
   log2 "Performing upgrade"
-  sudo "$version_dir/bzdoinstall.app/Contents/MacOS/bzinstall_mate" -upgrade bzdiy || {
+  sudo "$version_dir/Backblaze Installer.app/Contents/MacOS/bzinstall_mate" -upgrade bzdiy || {
     log2_error "Manual Backblaze upgrade failed"
     return 1
   }
