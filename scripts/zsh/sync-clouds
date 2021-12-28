@@ -4,10 +4,11 @@ function sync-clouds() {
   cd ~
 
   echo "==> Syncing files from iCloud Documents to MEGA..."
-  rsync -va ./Documents/ ./MEGA/Documents
+  rsync -va --delete --force-delete ./Documents/ /Volumes/Transcend/MEGA/Documents
 
   echo
   echo "==> Syncing files from iCloud Documents to OneDrive..."
   # OneDrive doesn't like the filenames used inside of Contacts.app archives (`.abbu`)
-  rsync -va --exclude='*.abbu' ./Documents/ ./OneDrive/Documents
+  # OneDrive doesn't support external drives
+  # rsync -va --delete --force-delete --exclude='*.abbu' ./Documents/ /Volumes/Transcend/OneDrive/Documents
 }
