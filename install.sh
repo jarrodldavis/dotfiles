@@ -725,8 +725,8 @@ execute_bundle() {
 }
 
 if [ "$OS_FAMILY" = 'Linux' ]; then
-    run export HOMEBREW_BUNDLE_TAP_SKIP='heroku/brew homebrew/cask-versions'
-    run export HOMEBREW_BUNDLE_BREW_SKIP='act pinentry-mac heroku/brew/heroku'
+    run export HOMEBREW_BUNDLE_TAP_SKIP='homebrew/cask-versions'
+    run export HOMEBREW_BUNDLE_BREW_SKIP='act pinentry-mac'
 
     # https://github.com/Homebrew/linuxbrew-core/issues/21601
     run export HOMEBREW_PATCHELF_RB_WRITE=1
