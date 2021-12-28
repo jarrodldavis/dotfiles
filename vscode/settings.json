@@ -40,9 +40,6 @@
     "git.showProgress": false,
     "scm.inputFontFamily": "editor",
 
-    // debug
-    "debug.javascript.usePreview": false,
-
     // GitHub Codespaces and Remote Development
     "dotfiles.repository": "jarrodldavis/dotfiles",
     "github.codespaces.defaultExtensions": [
@@ -91,6 +88,9 @@
 
     // sqltools
     "sqltools.autoOpenSessionFiles": false,
+
+    // Tailwind CSS
+    "tailwindCSS.emmetCompletions": true,
 
     // vim
     "vim.debug.silent": true,
