@@ -64,6 +64,11 @@ export PATH="/usr/local/sbin:$PATH"
 # Set default editor
 export EDITOR='vim'
 
+# hledger
+if [ -f "$HOME/.hledger.sh" ]; then
+    source ~/.hledger.sh
+fi
+
 # The Visual Studio Code Remote server's `code` (or `code-insiders`) binary is installed in various folders using
 # unique identifiers, presumably for each installation or server connection. Even though Remote Development
 # environments have a shim `code` binary, it still expects the real `code` or `code-insiders` binary to be present in

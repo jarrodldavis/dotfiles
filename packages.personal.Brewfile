@@ -1,6 +1,7 @@
 tap "stripe/stripe-cli"
 tap "teamookla/speedtest"
 brew "act"
+brew "hledger"
 brew "ncdu"
 brew "watch"
 brew "stripe/stripe-cli/stripe"
