@@ -147,8 +147,8 @@ export PATH="$PATH:$N_PREFIX/bin"
 # command editing options
 setopt NO_CASE_GLOB
 setopt AUTO_CD
-setopt CORRECT
-setopt CORRECT_ALL
+# setopt CORRECT
+# setopt CORRECT_ALL
 export CORRECT_IGNORE_FILE='.*'
 
 # tab completions
