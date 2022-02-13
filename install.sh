@@ -663,7 +663,6 @@ link vimrc                          ~/.vimrc
 if [ "$OS_FAMILY" = 'Darwin' ]; then
     link ideavimrc                                      ~/.ideavimrc
     makedir                                             ~/Library/LaunchAgents/
-    link launch-agents/com.jarrodldavis.setenv.plist    ~/Library/LaunchAgents/com.jarrodldavis.setenv.plist
     makedir                                             ~/Library/Application\ Support/Code/User/
     link vscode/settings.json                           ~/Library/Application\ Support/Code/User/settings.json
     link vscode/keybindings.json                        ~/Library/Application\ Support/Code/User/keybindings.json
