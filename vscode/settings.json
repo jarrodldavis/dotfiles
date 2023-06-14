@@ -8,9 +8,6 @@
 
     // window
     "window.dialogStyle": "custom",
-
-    // workbench
-    "workbench.colorTheme": "Default Dark+",
     "workbench.experimental.useCustomHover": true,
     "workbench.startupEditor": "none",
 
@@ -50,14 +47,14 @@
         "github.vscode-pull-request-github"
     ],
     "github.codespaces.showPerformanceExplorer": true,
-    "remote.containers.defaultExtensions": [
+    "dev.containers.defaultExtensions": [
         "jinsihou.diff-tool",
         "spadin.remote-x11",
         "ms-azuretools.vscode-docker",
         "editorconfig.editorconfig",
         "github.vscode-pull-request-github"
     ],
-    "remote.containers.workspaceMountConsistency": "delegated",
+    "dev.containers.workspaceMountConsistency": "delegated",
     "remote.SSH.defaultExtensions": [
         "jinsihou.diff-tool",
         "spadin.remote-x11",
