@@ -15,5 +15,9 @@ struct DotFiles: AsyncParsableCommand {
         logger.info("Hello, world!")
         try await Task.sleep(for: .seconds(2))
         logger.info("Goodbye, world!")
+
+        try await link {
+            ".zshrc" --> "zshrc"
+        }
     }
 }
