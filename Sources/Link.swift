@@ -10,7 +10,11 @@ struct Link {
     let source: URL
 
     init(destination: String, source: String) {
-        self.destination = URL(filePath: destination, directoryHint: .inferFromPath, relativeTo: Self.home)
+        self.destination = URL(
+            filePath: destination,
+            directoryHint: .inferFromPath,
+            relativeTo: Self.home
+        )
         self.source = URL(filePath: source, directoryHint: .inferFromPath, relativeTo: Self.cwd)
     }
 }
