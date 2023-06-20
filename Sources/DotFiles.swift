@@ -12,12 +12,13 @@ let logger = Logger(label: "com.jarrodldavis.DotFiles")
 @main
 struct DotFiles: AsyncParsableCommand {
     mutating func run() async throws {
-        logger.info("Hello, world!")
-        try await Task.sleep(for: .seconds(2))
-        logger.info("Goodbye, world!")
+        LoggingSystem.bootstrap(
+            StreamLogHandler.standardOutput,
+            metadataProvider: .multiplex([LinkCreator.metadataProvider])
+        )
 
-        try await link {
-            ".zshrc" --> "zshrc"
+        try LinkCreator.create {
+            "zshrc" <- ".zshrc"
         }
     }
 }
