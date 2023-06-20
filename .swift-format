@@ -6,5 +6,8 @@
     "lineLength": 120,
     "maximumBlankLines": 1,
     "respectsExistingLineBreaks" : true,
+    "rules": {
+        "NoAccessLevelOnExtensionDeclaration": false
+    },
     "version": 1
 }

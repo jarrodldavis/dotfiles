@@ -14,11 +14,13 @@ struct DotFiles: AsyncParsableCommand {
     mutating func run() async throws {
         LoggingSystem.bootstrap(
             StreamLogHandler.standardOutput,
-            metadataProvider: .multiplex([LinkCreator.metadataProvider])
+            metadataProvider: .multiplex([LinkCreator.metadataProvider, RemoteScriptRunner.metadataProvider])
         )
 
         try LinkCreator.create {
             "zshrc" <- ".zshrc"
         }
+
+        try await RemoteScriptRunner.run(.homebrewInstaller, using: .bash)
     }
 }

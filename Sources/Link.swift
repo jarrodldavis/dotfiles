@@ -74,8 +74,7 @@ struct LinkCreator {
                 try fileManager.createSymbolicLink(at: link.target, withDestinationURL: link.source)
             }
         } catch {
-            logger.error("failed to create symbolic link", error: error)
-            throw error
+            throw logger.error("failed to create symbolic link", error: error)
         }
 
         logger.info("successfully created symbolic link: \(link)")
