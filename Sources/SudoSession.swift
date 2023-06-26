@@ -27,7 +27,7 @@ struct SudoSession {
 
     static func start() async throws -> Self {
         try await $current.withValue(true) {
-            logger.info("Priming sudo keep-alive session")
+            logger.info("priming sudo keep-alive session")
             try await ProcessExecutor.execute(command: "/usr/bin/sudo", with: "-v")
         }
 
@@ -35,7 +35,7 @@ struct SudoSession {
             try await $current.withValue(true) {
                 while !Task.isCancelled {
                     try await Task.sleep(for: .seconds(60))
-                    logger.debug("Continuing sudo keep-alive session")
+                    logger.debug("continuing sudo keep-alive session")
                     try await ProcessExecutor.execute(command: "/usr/bin/sudo", with: "-vn")
                 }
             }

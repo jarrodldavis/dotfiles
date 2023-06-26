@@ -15,14 +15,18 @@ struct DotFiles: AsyncParsableCommand {
         LoggingSystem.bootstrap(
             StreamLogHandler.standardOutput,
             metadataProvider: .multiplex([
+                Bootstrapper.metadataProvider,
                 LinkCreator.metadataProvider,
-                RemoteScriptRunner.metadataProvider,
                 ProcessExecutor.metadataProvider,
+                RemoteScriptRunner.metadataProvider,
                 SudoSession.metadataProvider,
+                VersionParser.metadataProvider,
             ])
         )
 
         let sudoSession = try await SudoSession.start()
+
+        try await Bootstrapper.pull()
 
         try LinkCreator.create {
             "zshrc" <- ".zshrc"

@@ -7,6 +7,17 @@ private enum ProcessExecutorError: Error {
     case unsuccessfulTermination(reason: Process.TerminationReason, status: Int32)
 }
 
+struct ProcessOutput {
+    let stdout: FileHandle.AsyncBytes
+    let stderr: FileHandle.AsyncBytes
+
+    fileprivate init(stdout: Pipe, stderr: Pipe) {
+        // TODO: Make sure this doesn't leak.
+        self.stdout = stdout.fileHandleForReading.bytes
+        self.stderr = stderr.fileHandleForReading.bytes
+    }
+}
+
 struct ProcessExecutor {
     @TaskLocal private static var current: Process?
 
@@ -20,6 +31,21 @@ struct ProcessExecutor {
                 "arguments": .array(current.arguments, else: "<none>"),
             ]
         ]
+    }
+
+    static func captureOutput(of command: String, with arguments: String...) async throws -> ProcessOutput {
+        let process = Process()
+        process.executableURL = URL(filePath: command, directoryHint: .notDirectory)
+        process.arguments = arguments
+
+        let stdout = Pipe();
+        let stderr = Pipe();
+        process.standardOutput = stdout
+        process.standardError = stderr
+
+        try await $current.withValue(process, operation: execute)
+
+        return ProcessOutput(stdout: stdout, stderr: stderr)
     }
 
     static func execute(contents: String, using shell: URL, with environment: [String: String]? = nil) async throws {
@@ -65,7 +91,7 @@ struct ProcessExecutor {
         }
 
         let _ = await complete
-        logger.debug("process terminated")
+        logger.info("process finished")
 
         let reason = process.terminationReason
         let status = process.terminationStatus
