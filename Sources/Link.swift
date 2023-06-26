@@ -11,6 +11,12 @@ struct Link: CustomStringConvertible {
     var description: String { "\(targetPath) -> \(sourcePath)" }
 }
 
+fileprivate extension URL {
+    static var dotfilesDirectory: URL {
+        .homeDirectory.appending(component: ".dotfiles", directoryHint: .isDirectory)
+    }
+}
+
 fileprivate extension Link {
     var sourcePath: String { FilePath(source)!.string }
     var sourceDirectory: URL { source.deletingLastPathComponent() }
@@ -21,7 +27,7 @@ fileprivate extension Link {
     var metadata: Logger.MetadataValue { ["source": "\(sourcePath)", "target": "\(targetPath)"] }
 
     init(source: String, target: String) {
-        self.source = URL(filePath: source, relativeTo: .currentDirectory())
+        self.source = URL(filePath: source, relativeTo: .dotfilesDirectory)
         self.target = URL(filePath: target, relativeTo: .homeDirectory)
     }
 }
