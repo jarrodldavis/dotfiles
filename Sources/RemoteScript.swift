@@ -5,6 +5,7 @@ import System
 struct RemoteScript {
     fileprivate let source: URL
     fileprivate let shell: URL
+    fileprivate let environment: [String: String]?
 }
 
 fileprivate extension RemoteScript {
@@ -41,8 +42,8 @@ struct RemoteScriptRunner {
         return ["script": current.metadata]
     }
 
-    static func run(_ script: URL, using shell: URL) async throws {
-        try await $current.withValue(RemoteScript(source: script, shell: shell), operation: run)
+    static func run(_ script: URL, using shell: URL, with environment: [String: String]? = nil) async throws {
+        try await $current.withValue(RemoteScript(source: script, shell: shell, environment: environment), operation: run)
     }
 
     private static func run() async throws {
@@ -51,7 +52,7 @@ struct RemoteScriptRunner {
         logger.info("running remote script")
 
         let contents = try await download(from: script.source)
-        try await ProcessExecutor.execute(contents: contents, using: script.shell)
+        try await ProcessExecutor.execute(contents: contents, using: script.shell, with: script.environment)
 
         logger.info("remote script executed successfully")
     }

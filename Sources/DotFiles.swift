@@ -25,6 +25,6 @@ struct DotFiles: AsyncParsableCommand {
             "zshrc" <- ".zshrc"
         }
 
-        try await RemoteScriptRunner.run(.homebrewInstaller, using: .bash)
+        try await RemoteScriptRunner.run(.homebrewInstaller, using: .bash, with: ["CI": "true"])
     }
 }

@@ -22,10 +22,15 @@ struct ProcessExecutor {
         ]
     }
 
-    static func execute(contents: String, using shell: URL) async throws {
+    static func execute(contents: String, using shell: URL, with environment: [String: String]? = nil) async throws {
         let process = Process()
         process.executableURL = shell
         process.arguments = ["-c", contents]
+
+        if let environment {
+            process.environment = ProcessInfo.processInfo.environment.merging(environment) { $1 }
+        }
+
         try await $current.withValue(process, operation: execute)
     }
 
