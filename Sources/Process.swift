@@ -15,7 +15,7 @@ struct ProcessExecutor {
 
         return [
             "process": [
-                "pid": "\(current.processIdentifier)",
+                "pid": current.processIdentifier == 0 ? "<none>" : "\(current.processIdentifier)",
                 "executableURL": .stringConvertible(current.executableURL, else: "<none>"),
                 "arguments": .array(current.arguments, else: "<none>"),
             ]
@@ -46,6 +46,7 @@ struct ProcessExecutor {
 
         async let complete = withCheckedContinuation { process.terminationHandler = $0.resume }
 
+        logger.info("starting process")
         do {
             try process.run()
         } catch {
@@ -64,6 +65,7 @@ struct ProcessExecutor {
         }
 
         let _ = await complete
+        logger.debug("process terminated")
 
         let reason = process.terminationReason
         let status = process.terminationStatus

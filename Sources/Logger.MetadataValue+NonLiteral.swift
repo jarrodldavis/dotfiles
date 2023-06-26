@@ -3,13 +3,15 @@ import Logging
 
 extension Logger.MetadataValue {
     static func array(_ array: [String]) -> Self {
-        return Self.array(array.map {
-            if $0.count <= 100 {
-                return .string($0)
-            } else {
-                return "\($0.prefix(100))…"
+        return Self.array(
+            array.map {
+                if $0.count <= 100 {
+                    return .string($0)
+                } else {
+                    return "\($0.prefix(100))…"
+                }
             }
-        })
+        )
     }
 
     static func array(_ array: [String]?, else fallback: @autoclosure () -> Self) -> Self {

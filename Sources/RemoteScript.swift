@@ -43,7 +43,10 @@ struct RemoteScriptRunner {
     }
 
     static func run(_ script: URL, using shell: URL, with environment: [String: String]? = nil) async throws {
-        try await $current.withValue(RemoteScript(source: script, shell: shell, environment: environment), operation: run)
+        try await $current.withValue(
+            RemoteScript(source: script, shell: shell, environment: environment),
+            operation: run
+        )
     }
 
     private static func run() async throws {
