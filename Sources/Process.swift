@@ -43,7 +43,9 @@ struct ProcessExecutor {
         process.standardOutput = stdout
         process.standardError = stderr
 
-        try await $current.withValue(process, operation: execute)
+        try await $current.withValue(process) {
+            try await execute(.info)
+        }
 
         return ProcessOutput(stdout: stdout, stderr: stderr)
     }
@@ -57,22 +59,26 @@ struct ProcessExecutor {
             process.environment = ProcessInfo.processInfo.environment.merging(environment) { $1 }
         }
 
-        try await $current.withValue(process, operation: execute)
+        try await $current.withValue(process) {
+            try await execute(.info)
+        }
     }
 
-    static func execute(command: String, with arguments: String...) async throws {
+    static func execute(command: String, with arguments: String..., at level: Logger.Level = .info) async throws {
         let process = Process()
         process.executableURL = URL(filePath: command, directoryHint: .notDirectory)
         process.arguments = arguments
-        try await $current.withValue(process, operation: execute)
+        try await $current.withValue(process) {
+            try await execute(level)
+        }
     }
 
-    private static func execute() async throws {
+    private static func execute(_ level: Logger.Level) async throws {
         let process = current!
 
         async let complete = withCheckedContinuation { process.terminationHandler = $0.resume }
 
-        logger.info("starting process")
+        logger.log(level: level, "starting process")
         do {
             try process.run()
         } catch {
@@ -91,7 +97,7 @@ struct ProcessExecutor {
         }
 
         let _ = await complete
-        logger.info("process finished")
+        logger.log(level: level, "process finished")
 
         let reason = process.terminationReason
         let status = process.terminationStatus

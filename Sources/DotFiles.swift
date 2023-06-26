@@ -7,10 +7,13 @@
 import ArgumentParser
 import Logging
 
-let logger = Logger(label: "com.jarrodldavis.DotFiles")
+var logger = Logger(label: "com.jarrodldavis.DotFiles")
 
 @main
 struct DotFiles: AsyncParsableCommand {
+    @Flag(name: .shortAndLong, help: "Increases the verbosity of logs.")
+    var verbosity: Int
+
     mutating func run() async throws {
         LoggingSystem.bootstrap(
             StreamLogHandler.standardOutput,
@@ -23,6 +26,17 @@ struct DotFiles: AsyncParsableCommand {
                 VersionParser.metadataProvider,
             ])
         )
+
+        switch verbosity {
+        case 1:
+            logger.logLevel = .debug
+            logger.debug("debug logs enabled")
+        case 2:
+            logger.logLevel = .trace
+            logger.trace("trace logs enabled")
+        default:
+            break
+        }
 
         let sudoSession = try await SudoSession.start()
 

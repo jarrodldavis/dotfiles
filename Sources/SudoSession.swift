@@ -36,7 +36,7 @@ struct SudoSession {
                 while !Task.isCancelled {
                     try await Task.sleep(for: .seconds(60))
                     logger.debug("continuing sudo keep-alive session")
-                    try await ProcessExecutor.execute(command: "/usr/bin/sudo", with: "-vn")
+                    try await ProcessExecutor.execute(command: "/usr/bin/sudo", with: "-vn", at: .debug)
                 }
             }
         }
