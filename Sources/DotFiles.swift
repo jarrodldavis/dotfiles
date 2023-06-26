@@ -18,13 +18,18 @@ struct DotFiles: AsyncParsableCommand {
                 LinkCreator.metadataProvider,
                 RemoteScriptRunner.metadataProvider,
                 ProcessExecutor.metadataProvider,
+                SudoSession.metadataProvider,
             ])
         )
+
+        let sudoSession = try await SudoSession.start()
 
         try LinkCreator.create {
             "zshrc" <- ".zshrc"
         }
 
         try await RemoteScriptRunner.run(.homebrewInstaller, using: .bash, with: ["CI": "true"])
+
+        try await sudoSession.finish()
     }
 }
