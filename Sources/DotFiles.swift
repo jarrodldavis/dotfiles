@@ -14,7 +14,11 @@ struct DotFiles: AsyncParsableCommand {
     mutating func run() async throws {
         LoggingSystem.bootstrap(
             StreamLogHandler.standardOutput,
-            metadataProvider: .multiplex([LinkCreator.metadataProvider, RemoteScriptRunner.metadataProvider])
+            metadataProvider: .multiplex([
+                LinkCreator.metadataProvider,
+                RemoteScriptRunner.metadataProvider,
+                ProcessExecutor.metadataProvider,
+            ])
         )
 
         try LinkCreator.create {
