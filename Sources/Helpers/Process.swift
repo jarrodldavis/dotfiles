@@ -18,6 +18,13 @@ struct ProcessOutput {
     }
 }
 
+extension Process {
+    var executablePath: String? {
+        guard let executableURL, let executablePath = FilePath(executableURL) else { return nil }
+        return executablePath.string
+    }
+}
+
 struct ProcessExecutor {
     @TaskLocal private static var current: Process?
 
@@ -27,7 +34,7 @@ struct ProcessExecutor {
         return [
             "process": [
                 "pid": current.processIdentifier == 0 ? "<none>" : "\(current.processIdentifier)",
-                "executableURL": .stringConvertible(current.executableURL, else: "<none>"),
+                "executable": .stringConvertible(current.executablePath, else: "<none>"),
                 "arguments": .array(current.arguments, else: "<none>"),
             ]
         ]

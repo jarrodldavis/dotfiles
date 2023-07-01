@@ -44,13 +44,13 @@ struct DotFiles: AsyncParsableCommand {
         LoggingSystem.bootstrap(
             StreamLogHandler.standardOutput,
             metadataProvider: .multiplex([
-                XcodeToolsInstaller.metadataProvider,
                 LinkCreator.metadataProvider,
                 ProcessExecutor.metadataProvider,
                 RemoteScriptRunner.metadataProvider,
                 RepositoryCloner.metadataProvider,
                 SudoSession.metadataProvider,
                 VersionParser.metadataProvider,
+                XcodeToolsInstaller.metadataProvider,
             ])
         )
 
