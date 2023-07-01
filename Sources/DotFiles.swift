@@ -44,7 +44,7 @@ struct DotFiles: AsyncParsableCommand {
         LoggingSystem.bootstrap(
             StreamLogHandler.standardOutput,
             metadataProvider: .multiplex([
-                Bootstrapper.metadataProvider,
+                XcodeToolsInstaller.metadataProvider,
                 LinkCreator.metadataProvider,
                 ProcessExecutor.metadataProvider,
                 RemoteScriptRunner.metadataProvider,
@@ -67,7 +67,7 @@ struct DotFiles: AsyncParsableCommand {
 
         let sudoSession = try await SudoSession.start()
 
-        try await Bootstrapper.pull()
+        try await XcodeToolsInstaller.install()
         try await RepositoryCloner.clone(from: remote, to: local)
 
         try LinkCreator.create {

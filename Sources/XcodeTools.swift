@@ -3,9 +3,10 @@ import Logging
 import RegexBuilder
 import System
 
-fileprivate enum BootstrapperError: Error {
+fileprivate enum XcodeToolsError: Error {
+    case failedInstallation(underlying: Error)
     case incompleteInstallation(underlying: Error)
-    case noCLTCandidate
+    case noInstallationCandidate
 }
 
 fileprivate let git = URL(filePath: "/Library/Developer/CommandLineTools/usr/bin/git")
@@ -18,15 +19,15 @@ fileprivate let label = Regex {
     }
 }
 
-struct Bootstrapper {
+struct XcodeToolsInstaller {
     @TaskLocal private static var current: Bool = false
 
     static let metadataProvider = Logger.MetadataProvider {
         guard current else { return [:] }
-        return ["bootstrap": "true"]
+        return ["xcode-tools-install": "true"]
     }
 
-    static func pull() async throws {
+    static func install() async throws {
         do {
             try await $current.withValue(true, operation: installTools)
         } catch {
@@ -52,7 +53,7 @@ struct Bootstrapper {
         guard let result else {
             throw logger.error(
                 "could not find command line tools installation candidate",
-                error: BootstrapperError.noCLTCandidate
+                error: XcodeToolsError.noInstallationCandidate
             )
         }
 
@@ -67,7 +68,7 @@ struct Bootstrapper {
                 throw CocoaError(.fileReadNoSuchFile, userInfo: [NSFilePathErrorKey: FilePath(git)!.string])
             }
         } catch {
-            throw BootstrapperError.incompleteInstallation(underlying: error)
+            throw XcodeToolsError.incompleteInstallation(underlying: error)
         }
     }
 }
