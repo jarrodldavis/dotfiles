@@ -22,6 +22,6 @@ jobs:
       - name: Select Xcode version
         run: sudo xcode-select --switch "/Applications/${{ matrix.xcode }}.app"
       - name: Build
-        run: swift build -v
+        run: swift build ${{ runner.debug && '-v' }}
       - name: Run
-        run: swift run -v
+        run: swift run ${{ runner.debug && '-v' }} DotFiles ${{ runner.debug && '-v' }}
