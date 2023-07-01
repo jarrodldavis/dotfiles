@@ -5,12 +5,38 @@
 // https://swiftpackageindex.com/apple/swift-argument-parser/documentation
 
 import ArgumentParser
+import Foundation
 import Logging
+import System
+
+fileprivate let defaultLocal = URL.homeDirectory.appending(component: ".dotfiles", directoryHint: .isDirectory)
+fileprivate let defaultRemote = URL(string: "https://github.com/jarrodldavis/dotfiles.git")!
 
 var logger = Logger(label: "com.jarrodldavis.DotFiles")
 
 @main
 struct DotFiles: AsyncParsableCommand {
+    @Option(
+        help: .init(
+            "Specifies the local directory to clone the dotfiles repository to.",
+            discussion: "Default: \(FilePath(defaultLocal)!.string)",
+            valueName: "directory"
+        ),
+        completion: .directory,
+        transform: { URL(filePath: $0, directoryHint: .isDirectory) }
+    )
+    var local: URL = defaultLocal
+
+    @Option(
+        help: .init(
+            "Specifies the remote repository to clone the dotfiles repository from.",
+            discussion: "Default: \(defaultRemote.absoluteString)",
+            valueName: "url"
+        ),
+        transform: { try URL(string: $0) ?? { throw ValidationError("invalid URL") }() }
+    )
+    var remote: URL = defaultRemote
+
     @Flag(name: .shortAndLong, help: "Increases the verbosity of logs.")
     var verbosity: Int
 
@@ -22,6 +48,7 @@ struct DotFiles: AsyncParsableCommand {
                 LinkCreator.metadataProvider,
                 ProcessExecutor.metadataProvider,
                 RemoteScriptRunner.metadataProvider,
+                RepositoryCloner.metadataProvider,
                 SudoSession.metadataProvider,
                 VersionParser.metadataProvider,
             ])
@@ -41,9 +68,10 @@ struct DotFiles: AsyncParsableCommand {
         let sudoSession = try await SudoSession.start()
 
         try await Bootstrapper.pull()
+        try await RepositoryCloner.clone(from: remote, to: local)
 
         try LinkCreator.create {
-            "zshrc" <- ".zshrc"
+            local / "zshrc" <- ".zshrc"
         }
 
         try await RemoteScriptRunner.run(.homebrewInstaller, using: .bash, with: ["CI": "true"])

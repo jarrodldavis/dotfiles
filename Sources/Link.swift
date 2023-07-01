@@ -11,12 +11,6 @@ struct Link: CustomStringConvertible {
     var description: String { "\(targetPath) -> \(sourcePath)" }
 }
 
-fileprivate extension URL {
-    static var dotfilesDirectory: URL {
-        .homeDirectory.appending(component: ".dotfiles", directoryHint: .isDirectory)
-    }
-}
-
 fileprivate extension Link {
     var sourcePath: String { FilePath(source)!.string }
     var sourceDirectory: URL { source.deletingLastPathComponent() }
@@ -26,16 +20,21 @@ fileprivate extension Link {
 
     var metadata: Logger.MetadataValue { ["source": "\(sourcePath)", "target": "\(targetPath)"] }
 
-    init(source: String, target: String) {
-        self.source = URL(filePath: source, relativeTo: .dotfilesDirectory)
+    init(source: URL, target: String) {
+        self.source = source
         self.target = URL(filePath: target, relativeTo: .homeDirectory)
     }
 }
 
-infix operator <-
+precedencegroup LinkPrededence {
+    lowerThan: MultiplicationPrecedence
+}
+
+infix operator <- : LinkPrededence
 
 extension String {
-    static func <- (source: String, target: String) -> Link { Link(source: source, target: target) }
+    static func <- (source: URL, target: String) -> Link { Link(source: source, target: target) }
+    static func / (directory: URL, path: String) -> URL { directory.appending(path: path) }
 }
 
 @resultBuilder
