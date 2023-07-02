@@ -24,4 +24,4 @@ jobs:
       - name: Build
         run: swift build ${{ runner.debug && '-v' }}
       - name: Run
-        run: swift run ${{ runner.debug && '-v' }} DotFiles ${{ runner.debug && '-v' }}
+        run: sudo swift run ${{ runner.debug && '-v' }} DotFiles ${{ runner.debug && '-v' }}
