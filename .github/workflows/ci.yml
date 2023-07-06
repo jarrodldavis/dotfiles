@@ -22,9 +22,12 @@ jobs:
       - name: Select Xcode version
         run: sudo xcode-select --switch "/Applications/${{ matrix.xcode }}.app"
       - name: cat sudo
-        run: sudo cat /etc/sudoers
-      - name: ls sudo
-        run: sudo ls -la /etc/sudoers.d 
+        run: |
+            sudo cat /etc/sudoers
+            echo '---'
+            sudo cat /etc/sudoers.d/anka
+            echo '---'
+            sudo cat /etc/sudoers.d/runner
       - name: sudo -ll
         run: sudo -ll
       - name: Build
