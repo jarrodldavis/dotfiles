@@ -21,13 +21,10 @@ jobs:
       - uses: actions/checkout@v3
       - name: Select Xcode version
         run: sudo xcode-select --switch "/Applications/${{ matrix.xcode }}.app"
-      - name: cat sudo
-        run: |
-            sudo cat /etc/sudoers
-            echo '---'
-            sudo cat /etc/sudoers.d/anka
-            echo '---'
-            sudo cat /etc/sudoers.d/runner
+      - name: Update sudo config
+        # Don't require password for `sudo -v`
+        # https://askubuntu.com/a/1211226/9812
+        run: sudo sh -c 'echo "Defaults verifypw = any" >> /etc/sudoers.d/verifypw'
       - name: sudo -ll
         run: sudo -ll
       - name: Build
