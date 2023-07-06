@@ -21,6 +21,10 @@ jobs:
       - uses: actions/checkout@v3
       - name: Select Xcode version
         run: sudo xcode-select --switch "/Applications/${{ matrix.xcode }}.app"
+      - name: cat sudo
+        run: sudo cat /etc/sudoers
+      - name: ls sudo
+        run: sudo ls -la /etc/sudoers.d 
       - name: sudo -ll
         run: sudo -ll
       - name: Build
