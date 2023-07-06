@@ -3,10 +3,8 @@ import Logging
 import System
 
 private enum ProcessExecutorError: Error {
-    case currentProcessGroupProbeFailure(reason: Errno)
+    case unsuccessfulInteractivityProbe
     case failedToStart(reason: Error)
-    case quasiInteractive(controllingProcessGroupID: Int32, currentProcessGroupID: Int32)
-    case unsuccessfulForegrounding(reason: Errno)
     case unsuccessfulTermination(reason: Process.TerminationReason, status: Int32)
 }
 
@@ -86,7 +84,16 @@ struct ProcessExecutor {
     private static func execute(_ level: Logger.Level) async throws {
         let process = current!
 
-        let isInteractive = try probeIsInteractive(level: level)
+        let interactivityStatus = InteractivityProber.getStatus()
+
+        guard interactivityStatus != .unknown else {
+            logger.error("failed to probe interactivity status")
+            throw ProcessExecutorError.unsuccessfulInteractivityProbe
+        }
+
+        if interactivityStatus == .backgroundFollower {
+            try background()
+        }
 
         logger.log(level: level, "starting process")
         do {
@@ -95,22 +102,34 @@ struct ProcessExecutor {
             let error = ProcessExecutorError.failedToStart(reason: error)
             throw logger.error("failed to start process", error: error)
         }
+        logger.log(level: min(.debug, level), "started process successfully")
 
         async let complete = withCheckedContinuation { process.terminationHandler = $0.resume }
 
-        if isInteractive {
-            logger.log(level: level, "attempting to foreground interactive process")
-            guard tcsetpgrp(STDIN_FILENO, process.processIdentifier) == 0 else {
-                let error = logger.error("failed to foreground process", error: Errno(rawValue: errno))
+        if interactivityStatus == .interactiveLeader {
+            do {
+                try foreground(pid: process.processIdentifier)
+            } catch {
                 logger.notice("attempting to terminate process")
                 process.terminate()
                 let _ = await complete
                 logger.notice("process terminated")
-                throw ProcessExecutorError.unsuccessfulForegrounding(reason: error)
+                throw error
             }
-            logger.log(level: level, "process foregrounded successfully")
         } else {
-            logger.log(level: level, "skipping foregrounding of non-interactive process")
+            logger.log(level: min(.debug, level), "skipping foregrounding of non-interactive or non-leader process")
+        }
+
+        defer {
+            if interactivityStatus == .interactiveLeader {
+                do {
+                    logger.trace("restoring foreground process")
+                    try foreground(pid: ProcessInfo.processInfo.processIdentifier)
+                    logger.trace("foreground process restored successfully")
+                } catch {
+                    logger.warning("failed to restore foreground process", metadata: ["reason": "\(error)"])
+                }
+            }
         }
 
         let _ = await complete
@@ -122,49 +141,6 @@ struct ProcessExecutor {
         guard reason == .exit, status == 0 else {
             let error = ProcessExecutorError.unsuccessfulTermination(reason: reason, status: status)
             throw logger.error("process terminated unsuccessfully", error: error)
-        }
-    }
-
-    private static func probeIsInteractive(level: Logger.Level) throws -> Bool {
-        logger.log(level: level, "probing controlling process status")
-
-        let currentProcessGroupID = getpgrp()
-        guard currentProcessGroupID != -1 else {
-            let error = ProcessExecutorError.currentProcessGroupProbeFailure(reason: Errno(rawValue: errno))
-            throw logger.error("failed to probe for current process group", error: error)
-        }
-
-        let controllingProcessGroupID = tcgetpgrp(STDIN_FILENO);
-        guard controllingProcessGroupID != -1 else {
-            logger.log(
-                level: level,
-                "could not probe for controlling process group",
-                metadata: [
-                    "reason": "\(Errno(rawValue: errno))"
-                ]
-            )
-            return false
-        }
-
-        if controllingProcessGroupID != currentProcessGroupID {
-            let error = ProcessExecutorError.quasiInteractive(
-                controllingProcessGroupID: controllingProcessGroupID,
-                currentProcessGroupID: currentProcessGroupID
-            )
-
-            throw logger.error("current process group is quasi-interactive", error: error)
-        } else {
-            logger.log(
-                level: level,
-                "current process group is controlling",
-                metadata: [
-                    "interactive": [
-                        "controllingProcessGroupID": "\(controllingProcessGroupID)",
-                        "currentProcessGroupID": "\(currentProcessGroupID)",
-                    ]
-                ]
-            )
-            return true
         }
     }
 }

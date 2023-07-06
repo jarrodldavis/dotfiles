@@ -1,6 +1,7 @@
 import Logging
 
 extension Logger {
+    @discardableResult
     func error<T: Error>(
         _ message: @autoclosure () -> Message,
         error: T,

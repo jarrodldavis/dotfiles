@@ -46,15 +46,15 @@ struct VersionParser: CustomConsumingRegexComponent {
     private static func parse() -> ParserResult {
         let args = current!
 
-        logger.debug("parsing version from input")
+        logger.trace("parsing version from input")
 
         if let version = Version(args.versionString) {
-            logger.debug("parsed full version string")
+            logger.trace("parsed full version string")
             return (args.bounds.upperBound, version)
         }
 
         if let version = Version("\(args.versionString).0") {
-            logger.debug("parsed partial (non-patch) version string")
+            logger.trace("parsed partial (non-patch) version string")
             return (args.bounds.upperBound, version)
         }
 

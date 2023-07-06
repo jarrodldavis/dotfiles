@@ -25,9 +25,7 @@ jobs:
         # Don't require password for `sudo -v`
         # https://askubuntu.com/a/1211226/9812
         run: sudo sh -c 'echo "Defaults verifypw = any" >> /etc/sudoers.d/verifypw'
-      - name: sudo -ll
-        run: sudo -ll
       - name: Build
         run: swift build ${{ runner.debug && '-v' }}
       - name: Run
-        run: swift run ${{ runner.debug && '-v' }} DotFiles ${{ runner.debug && '-v' }}
+        run: swift run ${{ runner.debug && '-v' }} DotFiles ${{ runner.debug && '-vv' }}

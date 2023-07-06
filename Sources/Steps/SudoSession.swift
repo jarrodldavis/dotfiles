@@ -28,6 +28,7 @@ struct SudoSession {
     static func start() async throws -> Self {
         try await $current.withValue(true) {
             logger.info("priming sudo keep-alive session")
+            // TODO: require leadership for interactive execution to prevent quasi-interactive input stall
             try await ProcessExecutor.execute(command: "/usr/bin/sudo", with: "-v")
             logger.debug("sudo keep-alive session primed successfully")
         }
