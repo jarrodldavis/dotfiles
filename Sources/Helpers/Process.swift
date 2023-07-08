@@ -84,17 +84,6 @@ struct ProcessExecutor {
     private static func execute(_ level: Logger.Level) async throws {
         let process = current!
 
-        let interactivityStatus = InteractivityProber.getStatus()
-
-        guard interactivityStatus != .unknown else {
-            logger.error("failed to probe interactivity status")
-            throw ProcessExecutorError.unsuccessfulInteractivityProbe
-        }
-
-        if interactivityStatus == .backgroundFollower {
-            try background()
-        }
-
         logger.log(level: level, "starting process")
         do {
             try process.run()
@@ -104,43 +93,30 @@ struct ProcessExecutor {
         }
         logger.log(level: min(.debug, level), "started process successfully")
 
-        async let complete = withCheckedContinuation { process.terminationHandler = $0.resume }
-
-        if interactivityStatus == .interactiveLeader {
-            do {
-                try foreground(pid: process.processIdentifier)
-            } catch {
-                logger.notice("attempting to terminate process")
-                process.terminate()
-                let _ = await complete
-                logger.notice("process terminated")
-                throw error
+        try await ExecutionSession.child(pid: process.processIdentifier) {
+            let _ = await withCheckedContinuation {
+                process.terminationHandler = $0.resume
             }
-        } else {
-            logger.log(level: min(.debug, level), "skipping foregrounding of non-interactive or non-leader process")
-        }
 
-        defer {
-            if interactivityStatus == .interactiveLeader {
-                do {
-                    logger.trace("restoring foreground process")
-                    try foreground(pid: ProcessInfo.processInfo.processIdentifier)
-                    logger.trace("foreground process restored successfully")
-                } catch {
-                    logger.warning("failed to restore foreground process", metadata: ["reason": "\(error)"])
-                }
+            logger.log(level: level, "process finished")
+            
+            let reason = process.terminationReason
+            let status = process.terminationStatus
+            
+            guard reason == .exit, status == 0 else {
+                let error = ProcessExecutorError.unsuccessfulTermination(reason: reason, status: status)
+                throw logger.error("process terminated unsuccessfully", error: error)
             }
-        }
+        } onPromotionFailed: {
+            logger.notice("attempting to terminate process")
 
-        let _ = await complete
-        logger.log(level: level, "process finished")
+            async let complete = await withCheckedContinuation {
+                process.terminationHandler = $0.resume
+            }
 
-        let reason = process.terminationReason
-        let status = process.terminationStatus
-
-        guard reason == .exit, status == 0 else {
-            let error = ProcessExecutorError.unsuccessfulTermination(reason: reason, status: status)
-            throw logger.error("process terminated unsuccessfully", error: error)
+            process.terminate()
+            let _ = await complete
+            logger.notice("process terminated")
         }
     }
 }

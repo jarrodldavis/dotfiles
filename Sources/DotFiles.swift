@@ -44,6 +44,7 @@ struct DotFiles: AsyncParsableCommand {
         LoggingSystem.bootstrap(
             StreamLogHandler.standardOutput,
             metadataProvider: .multiplex([
+                ExecutionSession.metadataProvider,
                 LinkCreator.metadataProvider,
                 ProcessExecutor.metadataProvider,
                 RemoteScriptRunner.metadataProvider,
@@ -65,17 +66,19 @@ struct DotFiles: AsyncParsableCommand {
             break
         }
 
-        let sudoSession = try await SudoSession.start()
-
-        try await XcodeToolsInstaller.install()
-        try await RepositoryCloner.clone(from: remote, to: local)
-
-        try LinkCreator.create {
-            local / "zshrc" <- ".zshrc"
+        try await ExecutionSession.main {
+            let sudoSession = try await SudoSession.start()
+            
+            try await XcodeToolsInstaller.install()
+            try await RepositoryCloner.clone(from: remote, to: local)
+            
+            try LinkCreator.create {
+                local / "zshrc" <- ".zshrc"
+            }
+            
+            try await RemoteScriptRunner.run(.homebrewInstaller, using: .bash, with: ["CI": "true"])
+            
+            try await sudoSession.finish()
         }
-
-        try await RemoteScriptRunner.run(.homebrewInstaller, using: .bash, with: ["CI": "true"])
-
-        try await sudoSession.finish()
     }
 }
