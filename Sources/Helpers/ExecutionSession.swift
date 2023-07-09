@@ -21,10 +21,10 @@ enum ExecutionSessionError: Error {
 }
 
 enum InteractivityStatus {
-    case backgroundFollower(groupID: Int32, sessionID: Int32)
-    case backgroundLeader(groupID: Int32, sessionID: Int32)
-    case foregroundFollower(groupID: Int32, sessionID: Int32)
-    case foregroundLeader(groupID: Int32, sessionID: Int32)
+    case backgroundFollower(groupID: Int32)
+    case backgroundLeader(groupID: Int32)
+    case foregroundFollower(groupID: Int32)
+    case foregroundLeader(groupID: Int32)
     case unknown
 }
 
@@ -112,75 +112,25 @@ class InteractivityState {
 
     func promote() throws {
         switch targetStatus {
-        case .backgroundFollower(let groupID, _):
+        case .backgroundFollower(let groupID):
             guard self.currentProcessID == self.targetProcessID else {
                 logger.trace("maintaining background follower")
                 return
             }
 
-            logger.trace("promoting background follower to leader")
-
-            let result = switch makesyscall(setsid) {
-            case .failure(let error):
-                logger.error("`setsid` failed", error: error)
-                throw ExecutionSessionError.unsuccessfulBackgrounding(reason: error)
-            case .success(let result):
-                result
-            }
-
-            logger.trace("`setsid` completed", metadata: ["result": "\(result)"])
-
-            self.refresh()
-
-            guard case .backgroundLeader = self.targetStatus else {
-                switch self.targetSessionID {
-                case .success(let sessionID):
-                    logger.error("process promotion failed despite `setsid` success")
-                    throw ExecutionSessionError.mismatchedBackgrounding(expected: groupID, actual: sessionID)
-                case .failure(let error):
-                    logger.error("failed to verify process promotion", error: error)
-                    throw ExecutionSessionError.unsuccessfulBackgrounding(reason: error)
-                }
-            }
-
-            logger.trace("process promoted successfully")
+            try promoteBackground(groupID: groupID)
 
         case .backgroundLeader:
             logger.trace("maintaining background leader")
 
-        case .foregroundFollower(let groupID, _):
+        case .foregroundFollower(let groupID):
             guard self.currentProcessID == self.targetProcessID || self.currentProcessGroupID == self.controllingProcessGroupID else {
                 // TODO: Make this an error by default and allow opting into refusal ("sidecar" execution).
                 logger.trace("refusing to steal leadership from other foreground child process")
                 return
             }
 
-            logger.trace("promoting foreground follower to leader")
-
-            let result = switch makesyscall(tcsetpgrp, STDIN_FILENO, groupID) {
-            case .success(let result):
-                result
-            case .failure(let error):
-                logger.error("`tcsetpgrp` failed", error: error)
-                throw ExecutionSessionError.unsuccessfulForegrounding(reason: error)
-            }
-
-            logger.trace("`tcsetpgrp` completed", metadata: ["result": "\(result)"])
-
-            self.refresh()
-
-            guard case .foregroundLeader = self.targetStatus else {
-                switch self.controllingProcessGroupID {
-                case .success(let controllingGroupID):
-                    logger.error("process promotion failed despite `tcsetpgrp` success")
-                    throw ExecutionSessionError.mismatchedForegrounding(expected: groupID, actual: controllingGroupID)
-                case .failure(let error):
-                    logger.error("failed to verify process promotion", error: error)
-                    throw ExecutionSessionError.unsuccessfulForegrounding(reason: error)
-                }
-            }
-
-            logger.trace("process promoted successfully")
+            try promoteForeground(groupID: groupID)
 
         case .foregroundLeader:
             logger.trace("maintaining foreground leader")
@@ -189,6 +139,64 @@ class InteractivityState {
             logger.error("failed to probe interactivity status")
             throw ExecutionSessionError.unsuccessfulInteractivityProbe
         }
+    }
+
+    private func promoteBackground(groupID: Int32) throws {
+        logger.trace("promoting background follower to leader")
+
+        let result = switch makesyscall(setsid) {
+        case .failure(let error):
+            logger.error("`setsid` failed", error: error)
+            throw ExecutionSessionError.unsuccessfulBackgrounding(reason: error)
+        case .success(let result):
+            result
+        }
+
+        logger.trace("`setsid` completed", metadata: ["result": "\(result)"])
+
+        self.refresh()
+
+        guard case .backgroundLeader = self.targetStatus else {
+            switch self.targetSessionID {
+            case .success(let sessionID):
+                logger.error("process promotion failed despite `setsid` success")
+                throw ExecutionSessionError.mismatchedBackgrounding(expected: groupID, actual: sessionID)
+            case .failure(let error):
+                logger.error("failed to verify process promotion", error: error)
+                throw ExecutionSessionError.unsuccessfulBackgrounding(reason: error)
+            }
+        }
+
+        logger.trace("process promoted successfully")
+    }
+
+    private func promoteForeground(groupID: Int32) throws {
+        logger.trace("promoting foreground follower to leader")
+
+        let result = switch makesyscall(tcsetpgrp, STDIN_FILENO, groupID) {
+        case .success(let result):
+            result
+        case .failure(let error):
+            logger.error("`tcsetpgrp` failed", error: error)
+            throw ExecutionSessionError.unsuccessfulForegrounding(reason: error)
+        }
+
+        logger.trace("`tcsetpgrp` completed", metadata: ["result": "\(result)"])
+
+        self.refresh()
+
+        guard case .foregroundLeader = self.targetStatus else {
+            switch self.controllingProcessGroupID {
+            case .success(let controllingGroupID):
+                logger.error("process promotion failed despite `tcsetpgrp` success")
+                throw ExecutionSessionError.mismatchedForegrounding(expected: groupID, actual: controllingGroupID)
+            case .failure(let error):
+                logger.error("failed to verify process promotion", error: error)
+                throw ExecutionSessionError.unsuccessfulForegrounding(reason: error)
+            }
+        }
+
+        logger.trace("process promoted successfully")
     }
 }
 
@@ -207,26 +215,26 @@ private func resolveStatus(
             where groupID == sessionID,
          (.success(let groupID), .success(let sessionID), _, .failure(_))
             where groupID == sessionID:
-        return .backgroundLeader(groupID: groupID, sessionID: sessionID)
+        return .backgroundLeader(groupID: groupID)
 
-    case (.success(let groupID), .success(let sessionID), .failure(_), _),
-         (.success(let groupID), .success(let sessionID), _, .failure(_)):
-        return .backgroundFollower(groupID: groupID, sessionID: sessionID)
+    case (.success(let groupID), .success(_), .failure(_), _),
+         (.success(let groupID), .success(_), _, .failure(_)):
+        return .backgroundFollower(groupID: groupID)
 
-    case (.success(let target), .success(let sessionID), .success(let controlling), .success(_))
+    case (.success(let target), .success(_), .success(let controlling), .success(_))
             where target == controlling:
-        return .foregroundLeader(groupID: target, sessionID: sessionID)
+        return .foregroundLeader(groupID: target)
 
     case (.success(let groupID), .success(let target), .success(_), .success(let controlling))
             where target == controlling:
-        return .foregroundFollower(groupID: groupID, sessionID: target)
+        return .foregroundFollower(groupID: groupID)
 
     case (.success(let groupID), .success(let sessionID), .success(_), .success(_))
             where groupID == sessionID:
-        return .backgroundLeader(groupID: groupID, sessionID: sessionID)
+        return .backgroundLeader(groupID: groupID)
 
-    case (.success(let groupID), .success(let sessionID), .success(_), .success(_)):
-        return .backgroundFollower(groupID: groupID, sessionID: sessionID)
+    case (.success(let groupID), .success(_), .success(_), .success(_)):
+        return .backgroundFollower(groupID: groupID)
     }
 }
 

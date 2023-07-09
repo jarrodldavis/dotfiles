@@ -99,10 +99,10 @@ struct ProcessExecutor {
             }
 
             logger.log(level: level, "process finished")
-            
+
             let reason = process.terminationReason
             let status = process.terminationStatus
-            
+
             guard reason == .exit, status == 0 else {
                 let error = ProcessExecutorError.unsuccessfulTermination(reason: reason, status: status)
                 throw logger.error("process terminated unsuccessfully", error: error)
