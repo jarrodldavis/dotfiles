@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "gitconfig": "properties",
+        "gitconfig-1password": "properties",
+        "gitignore": "ignore",
+        "*.plist": "xml"
+    },
+    "[markdown]": {
+        "editor.rulers": [100]
+    },
+}

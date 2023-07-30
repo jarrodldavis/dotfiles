@@ -1,0 +1,29 @@
+{
+    "editor.accessibilitySupport": "off",
+    "editor.lineNumbers": "relative",
+    "editor.minimap.enabled": false,
+    "editor.renderWhitespace": "all",
+    "editor.suggest.showStatusBar": true,
+    "dev.containers.defaultFeatures": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": true,
+            "configureZshAsDefaultShell": true,
+            "upgradePackages": true
+        }
+    },
+    "dotfiles.repository": "jarrodldavis/dotfiles",
+    "dotfiles.targetPath": "~/.dotfiles",
+    "git.autofetch": true,
+    "git.fetchOnPull": true,
+    "git.enableCommitSigning": true,
+    "git.enableSmartCommit": true,
+    "git.showProgress": false,
+    "scm.inputFontFamily": "editor",
+    "terminal.integrated.showExitAlert": false,
+    "vim.highlightedyank.enable": true,
+    "vim.camelCaseMotion.enable": true,
+    "vim.easymotion": true,
+    "vim.replaceWithRegister": true,
+    "vim.sneak": true,
+    "window.dialogStyle": "custom"
+}
