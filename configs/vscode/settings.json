@@ -9,6 +9,10 @@
             "installZsh": true,
             "configureZshAsDefaultShell": true,
             "upgradePackages": true
+        },
+        "ghcr.io/devcontainers/features/github-cli:1": {
+            "installDirectlyFromGitHubRelease": true,
+            "version": "latest"
         }
     },
     "dotfiles.repository": "jarrodldavis/dotfiles",
