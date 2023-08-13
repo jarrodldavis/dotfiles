@@ -22,6 +22,9 @@
     "git.enableCommitSigning": true,
     "git.enableSmartCommit": true,
     "git.showProgress": false,
+    "gopls": {
+        "ui.semanticTokens": true
+    },
     "scm.inputFontFamily": "editor",
     "terminal.integrated.showExitAlert": false,
     "vim.highlightedyank.enable": true,
