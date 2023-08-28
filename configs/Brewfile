@@ -4,12 +4,14 @@ brew "gibo"
 brew "git-delta"
 brew "jq"
 brew "mas"
+cask "backblaze"
 cask "discord"
 cask "docker"
 cask "firefox"
 cask "google-chrome"
 cask "jetbrains-toolbox"
 cask "jumpshare"
+cask "megasync"
 cask "raycast"
 cask "visual-studio-code"
 mas "1Blocker", id: 1365531024
@@ -31,6 +33,7 @@ mas "StopTheMadness", id: 1376402589
 mas "Userscripts-Mac-App", id: 1463298887
 mas "Xcode", id: 497799835
 vscode "GitHub.codespaces"
+vscode "github.vscode-github-actions"
 vscode "GitHub.vscode-pull-request-github"
 vscode "ms-azuretools.vscode-docker"
 vscode "ms-vscode-remote.remote-containers"
