@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+
+echo '==> Stopping all containers...'
+docker ps -a --format='{{.ID}}' | xargs docker stop
+
+echo
+echo '==> Pruning system...'
+docker system prune --force --all --volumes
+
+echo
+echo '==> Pruning volumes...'
+docker volume prune --force --all
+
+echo
+echo '==> Done!'
