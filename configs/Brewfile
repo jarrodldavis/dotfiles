@@ -12,6 +12,7 @@ cask "google-chrome"
 cask "jetbrains-toolbox"
 cask "jumpshare"
 cask "megasync"
+cask "multiapp"
 cask "raycast"
 cask "visual-studio-code"
 mas "1Blocker", id: 1365531024
