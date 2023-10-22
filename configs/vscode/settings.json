@@ -10,6 +10,11 @@
             "version": "latest"
         }
     },
+    "dev.containers.defaultExtensions": [
+        "stkb.rewrap",
+        "GitHub.vscode-pull-request-github",
+        "outofsync42.select-compare-tabs"
+    ],
     "dotfiles.repository": "jarrodldavis/dotfiles",
     "dotfiles.targetPath": "~/.dotfiles",
     "editor.accessibilitySupport": "off",
@@ -28,6 +33,7 @@
         "ui.semanticTokens": true
     },
     "scm.inputFontFamily": "editor",
+    "terminal.integrated.scrollback": 10000,
     "terminal.integrated.showExitAlert": false,
     "vim.camelCaseMotion.enable": true,
     "vim.easymotion": true,
