@@ -3,6 +3,7 @@
         "gitconfig": "properties",
         "gitconfig-1password": "properties",
         "gitignore": "ignore",
+        "*vimrc": "vimrc",
         "*.plist": "xml"
     },
     "[markdown]": {
