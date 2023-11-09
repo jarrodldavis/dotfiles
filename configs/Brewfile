@@ -20,6 +20,7 @@ mas "1Password for Safari", id: 1569813296
 mas "Affinity Designer 2", id: 1616831348
 mas "Affinity Photo 2", id: 1616822987
 mas "Affinity Publisher 2", id: 1606941598
+mas "Baking Soda", id: 1601151613
 mas "Developer", id: 640199958
 mas "DuckDuckGo Privacy for Safari", id: 1482920575
 mas "GarageBand", id: 682658836
@@ -32,6 +33,7 @@ mas "Pages", id: 409201541
 mas "Soulver 3", id: 1508732804
 mas "StopTheMadness", id: 1376402589
 mas "Userscripts-Mac-App", id: 1463298887
+mas "Vinegar", id: 1591303229
 mas "Xcode", id: 497799835
 vscode "GitHub.codespaces"
 vscode "github.vscode-github-actions"
