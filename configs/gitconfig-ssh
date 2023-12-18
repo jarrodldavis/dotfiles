@@ -1,0 +1,5 @@
+# Commit Identity
+[user]
+    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ0s4NVGOAKdGxa8FCTAhbSjzn2MY2dvTWos5zUveHAr
+[gpg]
+    format = ssh

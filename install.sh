@@ -37,12 +37,15 @@ ln          -v  -sf    ~/.dotfiles/configs/gitignore               ~/.gitignore
 mkdir       -v  -p                                                 ~/.ssh
 ln          -v  -sf    ~/.dotfiles/configs/ssh/allowed_signers     ~/.ssh/allowed_signers
 
-if [ "$(uname)" = "Darwin" ]; then
+if [ "$(uname)" = "Linux" ] && [ -n "${REMOTE_CONTAINERS:-}" ]; then
+    ln      -v  -sf    ~/.dotfiles/configs/gitconfig-ssh           ~/.gitconfig-ssh
+elif [ "$(uname)" = "Darwin" ]; then
     ln      -v  -sf    ~/.dotfiles/configs/Brewfile                ~/.Brewfile
     ln      -v  -sf    ~/.dotfiles/configs/Brewfile.lock.json      ~/.Brewfile.lock.json
     mkdir   -v  -p                                                 ~/Library/Application\ Support/Code/User
     ln      -v  -sf    ~/.dotfiles/configs/vscode/settings.json    ~/Library/Application\ Support/Code/User/settings.json
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig-1password     ~/.gitconfig-1password
+    ln      -v  -sf    ~/.dotfiles/configs/gitconfig-ssh           ~/.gitconfig-ssh
     ln      -v  -sf    ~/.dotfiles/configs/ideavimrc               ~/.ideavimrc
     mkdir   -v  -p                                                 ~/Library/LaunchAgents
 

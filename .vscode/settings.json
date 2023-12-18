@@ -1,7 +1,7 @@
 {
     "files.associations": {
         "gitconfig": "properties",
-        "gitconfig-1password": "properties",
+        "gitconfig-*": "properties",
         "gitignore": "ignore",
         "*vimrc": "vimrc",
         "*.plist": "xml"
