@@ -2,8 +2,6 @@
 [user]
     name = Jarrod Davis
     email = developer@jarrodldavis.com
-[commit]
-    gpgsign = true
 [gpg "ssh"]
     allowedSignersFile = ~/.ssh/allowed_signers
 [include]
