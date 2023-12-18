@@ -13,6 +13,8 @@ cask "jetbrains-toolbox"
 cask "jumpshare"
 cask "megasync"
 cask "multiapp"
+cask "ngrok"
+cask "orion"
 cask "raycast"
 cask "visual-studio-code"
 mas "1Blocker", id: 1365531024
@@ -32,6 +34,7 @@ mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Soulver 3", id: 1508732804
 mas "StopTheMadness", id: 1376402589
+mas "StopTheMadness Pro", id: 6471380298
 mas "Userscripts-Mac-App", id: 1463298887
 mas "Vinegar", id: 1591303229
 mas "Xcode", id: 497799835
