@@ -33,7 +33,8 @@
         "ui.semanticTokens": true
     },
     "scm.inputFontFamily": "editor",
-    "terminal.integrated.scrollback": 10000,
+    "terminal.integrated.enableMultiLinePasteWarning": "never",
+    "terminal.integrated.scrollback": 100000,
     "terminal.integrated.showExitAlert": false,
     "vim.camelCaseMotion.enable": true,
     "vim.easymotion": true,
