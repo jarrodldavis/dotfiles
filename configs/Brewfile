@@ -1,4 +1,5 @@
 tap "homebrew/bundle"
+tap "homebrew/cask-versions"
 brew "gh"
 brew "gibo"
 brew "git-delta"
@@ -10,13 +11,14 @@ cask "docker"
 cask "firefox"
 cask "google-chrome"
 cask "jetbrains-toolbox"
-cask "jumpshare"
 cask "megasync"
 cask "multiapp"
 cask "ngrok"
 cask "orion"
 cask "raycast"
+cask "virtualbuddy"
 cask "visual-studio-code"
+cask "visual-studio-code-insiders"
 mas "1Blocker", id: 1365531024
 mas "1Password for Safari", id: 1569813296
 mas "Affinity Designer 2", id: 1616831348
@@ -28,6 +30,7 @@ mas "DuckDuckGo Privacy for Safari", id: 1482920575
 mas "GarageBand", id: 682658836
 mas "Homecoming for Mastodon", id: 1666139593
 mas "iMovie", id: 408981434
+mas "Jumpshare", id: 889922906
 mas "Keynote", id: 409183694
 mas "Microsoft Excel", id: 462058435
 mas "Numbers", id: 409203825
@@ -38,9 +41,9 @@ mas "StopTheMadness Pro", id: 6471380298
 mas "Userscripts-Mac-App", id: 1463298887
 mas "Vinegar", id: 1591303229
 mas "Xcode", id: 497799835
-vscode "GitHub.codespaces"
+vscode "github.codespaces"
 vscode "github.vscode-github-actions"
-vscode "GitHub.vscode-pull-request-github"
+vscode "github.vscode-pull-request-github"
 vscode "ms-azuretools.vscode-docker"
 vscode "ms-vscode-remote.remote-containers"
 vscode "ms-vscode-remote.remote-ssh"
@@ -51,4 +54,6 @@ vscode "ms-vscode.remote-explorer"
 vscode "ms-vscode.remote-server"
 vscode "outofsync42.select-compare-tabs"
 vscode "stkb.rewrap"
+vscode "tomoki1207.pdf"
 vscode "vscodevim.vim"
+vscode "yoavbls.pretty-ts-errors"
