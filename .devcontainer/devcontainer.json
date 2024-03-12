@@ -8,6 +8,11 @@
 		"ghcr.io/devcontainers/features/common-utils:2": {}
 	}
 
+	// Test local changes to installer before publishing
+	// "mounts": [
+	// 	{ "source": "${localWorkspaceFolder}", "target": "/home/vscode/.dotfiles", "type": "bind" }
+	// ]
+
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 
