@@ -11,9 +11,10 @@
         }
     },
     "dev.containers.defaultExtensions": [
+        "github.vscode-pull-request-github",
+        "outofsync42.select-compare-tabs",
         "stkb.rewrap",
-        "GitHub.vscode-pull-request-github",
-        "outofsync42.select-compare-tabs"
+        "yoavbls.pretty-ts-errors"
     ],
     "dotfiles.repository": "jarrodldavis/dotfiles",
     "dotfiles.targetPath": "~/.dotfiles",
