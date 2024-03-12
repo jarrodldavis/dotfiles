@@ -49,7 +49,19 @@ elif [ "$(uname)" = "Darwin" ]; then
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig-ssh           ~/.gitconfig-ssh
     ln      -v  -sf    ~/.dotfiles/configs/ideavimrc               ~/.ideavimrc
     mkdir   -v  -p                                                 ~/Library/LaunchAgents
+fi
 
+if [ "$(uname)" = "Linux" ]; then
+    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing system dependencies...'
+
+    if apt-get --version 1>/dev/null 2>/dev/null; then
+        ~/.dotfiles/scripts/install-github-release-deb.sh sharkdp       bat
+        ~/.dotfiles/scripts/install-github-release-deb.sh dandavison    delta   git-delta
+    else
+        echo 'fatal: unsupported package manager'
+        exit 1
+    fi
+elif [ "$(uname)" = "Darwin" ]; then
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing system dependencies from Homebrew Bundle...'
 
     if [ -n "${DOTFILES_SKIP_MAS:-}" ]; then
