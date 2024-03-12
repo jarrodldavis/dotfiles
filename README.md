@@ -5,7 +5,7 @@
 ## Prerequisites
 
 - A UNIX-ish operating system, one of:
-  - macOS (tested with macOS Ventura 13.5)
+  - macOS (tested with macOS Sonoma 14.3)
   - Debian (tested with `bookworm` in [Visual Studio Code]'s [Development Containers])
   - Others (untested)
 - Bash (for [Homebrew] installation)
