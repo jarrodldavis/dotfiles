@@ -20,7 +20,7 @@ cask "orion"
 cask "raycast"
 cask "virtualbuddy"
 cask "visual-studio-code"
-cask "visual-studio-code-insiders"
+cask "visual-studio-code@insiders"
 mas "1Blocker", id: 1365531024
 mas "1Password for Safari", id: 1569813296
 mas "Affinity Designer 2", id: 1616831348
