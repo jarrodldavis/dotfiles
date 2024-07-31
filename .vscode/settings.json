@@ -1,4 +1,15 @@
 {
+    "editor.detectIndentation": false,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4,
+    "editor.trimAutoWhitespace": true,
+    "files.autoGuessEncoding": false,
+    "files.encoding": "utf8",
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+
     "files.associations": {
         "gitconfig": "properties",
         "gitconfig-*": "properties",
@@ -6,6 +17,7 @@
         "*vimrc": "vimrc",
         "*.plist": "xml"
     },
+
     "[markdown]": {
         "editor.rulers": [100]
     },
