@@ -12,6 +12,7 @@
     },
     "dev.containers.defaultExtensions": [
         "github.vscode-pull-request-github",
+        "mathematic.vscode-pdf",
         "outofsync42.select-compare-tabs",
         "stkb.rewrap",
         "yoavbls.pretty-ts-errors"

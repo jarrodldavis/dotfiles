@@ -511,6 +511,7 @@
       "github.codespaces": null,
       "github.vscode-github-actions": null,
       "github.vscode-pull-request-github": null,
+      "mathematic.vscode-pdf": null,
       "ms-azuretools.vscode-docker": null,
       "ms-vscode-remote.remote-containers": null,
       "ms-vscode-remote.remote-ssh": null,
@@ -521,7 +522,6 @@
       "ms-vscode.remote-server": null,
       "outofsync42.select-compare-tabs": null,
       "stkb.rewrap": null,
-      "tomoki1207.pdf": null,
       "vscodevim.vim": null,
       "yoavbls.pretty-ts-errors": null
     }
