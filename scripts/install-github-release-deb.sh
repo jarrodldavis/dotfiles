@@ -4,7 +4,7 @@ set -euo pipefail
 LOG_TEMPLATE='\033[1;%sm%b\033[0m\033[1;%sm%s\033[0m\n'
 
 function TRAPZERR() {
-    printf "$LOG_TEMPLATE" 31 '==> ' 39 "Failing to install package."
+    printf "$LOG_TEMPLATE" 31 '==> ' 39 "Failed to install package."
 }
 
 owner="${1:-}"
