@@ -13,6 +13,7 @@
     "dev.containers.defaultExtensions": [
         "github.vscode-pull-request-github",
         "mathematic.vscode-pdf",
+        "mattpocock.ts-error-translator",
         "outofsync42.select-compare-tabs",
         "stkb.rewrap",
         "yoavbls.pretty-ts-errors"
@@ -38,6 +39,10 @@
     "terminal.integrated.enableMultiLinePasteWarning": "never",
     "terminal.integrated.scrollback": 100000,
     "terminal.integrated.showExitAlert": false,
+    "totalTypeScript.hideAllTips": false,
+    "totalTypeScript.hideBasicTips": true,
+    "totalTypeScript.hiddenTips": [
+    ],
     "vim.camelCaseMotion.enable": true,
     "vim.easymotion": true,
     "vim.highlightedyank.enable": true,
