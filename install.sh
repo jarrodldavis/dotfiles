@@ -29,6 +29,8 @@ else
     git -C ~/.dotfiles pull
 fi
 
+git -C ~/.dotfiles remote set-url --push origin git@github.com:jarrodldavis/dotfiles.git
+
 printf "$LOG_TEMPLATE" 35 '--> ' 39 'Linking dotfiles...'
 
 ln          -v  -sf    ~/.dotfiles/configs/zshrc                   ~/.zshrc
