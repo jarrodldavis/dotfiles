@@ -18,6 +18,8 @@
         "stkb.rewrap",
         "yoavbls.pretty-ts-errors"
     ],
+    "diffEditor.experimental.showMoves": true,
+    "diffEditor.hideUnchangedRegions.enabled": true,
     "dotfiles.repository": "jarrodldavis/dotfiles",
     "dotfiles.targetPath": "~/.dotfiles",
     "editor.accessibilitySupport": "off",
@@ -30,6 +32,7 @@
     "git.enableCommitSigning": true,
     "git.enableSmartCommit": true,
     "git.fetchOnPull": true,
+    "git.openRepositoryInParentFolders": "never",
     "git.showProgress": false,
     "gopls": {
         "ui.semanticTokens": true
@@ -39,10 +42,8 @@
     "terminal.integrated.enableMultiLinePasteWarning": "never",
     "terminal.integrated.scrollback": 100000,
     "terminal.integrated.showExitAlert": false,
-    "totalTypeScript.hideAllTips": false,
+    "totalTypeScript.hideAllTips": true,
     "totalTypeScript.hideBasicTips": true,
-    "totalTypeScript.hiddenTips": [
-    ],
     "vim.camelCaseMotion.enable": true,
     "vim.easymotion": true,
     "vim.highlightedyank.enable": true,
