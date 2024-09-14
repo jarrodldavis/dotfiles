@@ -20,7 +20,6 @@ if [[ -z "$repo" ]]; then
   exit 1
 fi
 
-
 printf "$LOG_TEMPLATE" 35 '==> ' 39 "Fetching latest release from \`$owner/$repo\`..."
 
 release="$(curl -fL "https://api.github.com/repos/$owner/$repo/releases/latest")"

@@ -5,19 +5,24 @@
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/base:bookworm",
 	"features": {
-		"ghcr.io/devcontainers/features/common-utils:2": {}
-	}
+		"ghcr.io/devcontainers/features/common-utils:2": {
+			"configureZshAsDefaultShell": true
+		}
+	},
 
 	// Test local changes to installer before publishing
-	// "mounts": [
-	// 	{ "source": "${localWorkspaceFolder}", "target": "/home/vscode/.dotfiles", "type": "bind" }
-	// ]
+	"mounts": [
+		{ "source": "${localWorkspaceFolder}", "target": "/home/vscode/.dotfiles", "type": "bind" }
+	],
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"onCreateCommand": "./.devcontainer/on-create.sh"
 
 	// Configure tool-specific properties.
 	// "customizations": {},

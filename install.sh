@@ -34,14 +34,16 @@ git -C ~/.dotfiles remote set-url --push origin git@github.com:jarrodldavis/dotf
 printf "$LOG_TEMPLATE" 35 '--> ' 39 'Linking dotfiles...'
 
 ln          -v  -sf    ~/.dotfiles/configs/zshrc                   ~/.zshrc
-ln          -v  -sf    ~/.dotfiles/configs/gitconfig               ~/.gitconfig
 ln          -v  -sf    ~/.dotfiles/configs/gitignore               ~/.gitignore
 mkdir       -v  -p                                                 ~/.ssh
 ln          -v  -sf    ~/.dotfiles/configs/ssh/allowed_signers     ~/.ssh/allowed_signers
 
 if [ "$(uname)" = "Linux" ] && [ -n "${REMOTE_CONTAINERS:-}" ]; then
+    # copy gitconfig to avoid picking up dev container credential configuration changes
+    cp      -v  -f     ~/.dotfiles/configs/gitconfig               ~/.gitconfig
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig-ssh           ~/.gitconfig-ssh
 elif [ "$(uname)" = "Darwin" ]; then
+    ln      -v  -sf    ~/.dotfiles/configs/gitconfig               ~/.gitconfig
     ln      -v  -sf    ~/.dotfiles/configs/Brewfile                ~/.Brewfile
     ln      -v  -sf    ~/.dotfiles/configs/Brewfile.lock.json      ~/.Brewfile.lock.json
     mkdir   -v  -p                                                 ~/Library/Application\ Support/Code/User
