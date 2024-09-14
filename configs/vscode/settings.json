@@ -29,6 +29,9 @@
     "editor.minimap.enabled": false,
     "editor.renderWhitespace": "all",
     "editor.suggest.showStatusBar": true,
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
     "git.enableCommitSigning": true,
     "git.enableSmartCommit": true,
     "git.fetchOnPull": true,
