@@ -3,6 +3,9 @@
     "tap": {
       "homebrew/bundle": {
         "revision": "ea9d90e4a2a986897444fe5abd2a4a968bc8e9cb"
+      },
+      "jarrodldavis/dotfiles": {
+        "revision": null
       }
     },
     "brew": {
