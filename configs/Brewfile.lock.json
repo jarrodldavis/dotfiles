@@ -341,6 +341,10 @@
             }
           }
         }
+      },
+      "jarrodldavis/dotfiles/rails-new": {
+        "version": "0.4.1",
+        "bottle": false
       }
     },
     "cask": {
