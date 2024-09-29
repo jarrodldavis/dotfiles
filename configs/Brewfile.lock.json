@@ -396,12 +396,6 @@
           "full_name": "google-chrome"
         }
       },
-      "jetbrains-toolbox": {
-        "version": "2.4.2,2.4.2.32922",
-        "options": {
-          "full_name": "jetbrains-toolbox"
-        }
-      },
       "megasync": {
         "version": "5.4.1.0",
         "options": {
