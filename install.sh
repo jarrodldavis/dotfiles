@@ -54,7 +54,7 @@ elif [ "$(uname)" = "Darwin" ]; then
     ln      -v  -sf    ~/.dotfiles/configs/ideavimrc               ~/.ideavimrc
     mkdir   -v  -p                                                 ~/Library/LaunchAgents
     mkdir   -v  -p                                                 $(brew --repository)/Library/Taps/jarrodldavis/homebrew-dotfiles
-    ln      -v  -sf    ~/.dotfiles/Formula                         $(brew --repository)/Library/Taps/jarrodldavis/homebrew-dotfiles/Formula
+    ln      -v  -shf   ~/.dotfiles/Formula                         $(brew --repository)/Library/Taps/jarrodldavis/homebrew-dotfiles/Formula
 fi
 
 if [ "$(uname)" = "Linux" ]; then
