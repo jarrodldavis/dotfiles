@@ -1,0 +1,72 @@
+#!/usr/bin/env zsh
+
+laravel-new() {(
+
+set -euo pipefail
+
+LOG_TEMPLATE='\033[1;%sm%b\033[0m\033[1;%sm%s\033[0m\n'
+
+function TRAPZERR() {
+    printf "$LOG_TEMPLATE" 31 '==> ' 39 'Failed to run `laravel-new`.'
+    return 1
+}
+
+php=()
+with=()
+devc=()
+zparseopts -E -D -F -- -php:=php -with+:=with -devcontainer=devc
+
+name="${1:-}"
+devc="${#devc}"
+
+if [[ -z "$name" ]]; then
+    printf "$LOG_TEMPLATE" 31 '==> ' 39 "Name argument is required."
+    return 1
+fi
+
+if [[ -n "${php[1]:-}" ]]; then
+    php=${php[2]}
+else
+    php=""
+fi
+
+services=()
+for flag val in ${(@)with}; do
+    # split comma-separated values
+    services+=(${(s:,:)val})
+done
+
+printf "$LOG_TEMPLATE" 35 '==> ' 39 "Creating new Laravel app..."
+printf "$LOG_TEMPLATE" 34 '==> ' 39 "Name: $name"
+printf "$LOG_TEMPLATE" 34 '==> ' 39 "PHP Version: ${php:-<default>}"
+printf "$LOG_TEMPLATE" 34 '==> ' 39 "Services: ${services:-<default>}"
+printf "$LOG_TEMPLATE" 34 '==> ' 39 "Dev Container: ${(v)${(v)devc/#1/yes}/#0/no}"
+
+url="https://laravel.build/$name"
+php="${php//./}" # remove periods in PHP version
+with=${(j:,:)services} # join services into comma-separated value
+params=()
+if [[ -n "$php" ]];     then params+=("php=$php")       ; fi
+if [[ -n "$with" ]];    then params+=("with=$with")     ; fi
+if [[ "$devc" = 1 ]];   then params+=("devcontainer")   ; fi
+if [[ -n "$params" ]];  then url="$url?${(j:&:)params}" ; fi
+
+printf "$LOG_TEMPLATE" 34 '==> ' 39 "Script URL: $url"
+
+if ! script="$(curl -sSL --fail-with-body $url)" ; then
+    echo "$script"
+    return 1
+fi
+
+echo "$script" | \
+    # modify script to exit on errors and run Docker connected to the TTY
+    awk 'NR==1{print "set -euo pipefail"} {gsub(/docker run/, "docker run -t"); print}' | \
+    bash
+
+printf "$LOG_TEMPLATE" 35 '==> ' 39 "Initializing git repository..."
+cd "$name"
+git init
+git add .
+git commit -m 'initial commit'
+
+)}
