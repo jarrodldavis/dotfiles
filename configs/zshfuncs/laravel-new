@@ -13,11 +13,9 @@ function TRAPZERR() {
 
 php=()
 with=()
-devc=()
-zparseopts -E -D -F -- -php:=php -with+:=with -devcontainer=devc
+zparseopts -E -D -F -- -php:=php -with+:=with
 
 name="${1:-}"
-devc="${#devc}"
 
 if [[ -z "$name" ]]; then
     printf "$LOG_TEMPLATE" 31 '==> ' 39 "Name argument is required."
@@ -40,16 +38,14 @@ printf "$LOG_TEMPLATE" 35 '==> ' 39 "Creating new Laravel app..."
 printf "$LOG_TEMPLATE" 34 '==> ' 39 "Name: $name"
 printf "$LOG_TEMPLATE" 34 '==> ' 39 "PHP Version: ${php:-<default>}"
 printf "$LOG_TEMPLATE" 34 '==> ' 39 "Services: ${services:-<default>}"
-printf "$LOG_TEMPLATE" 34 '==> ' 39 "Dev Container: ${(v)${(v)devc/#1/yes}/#0/no}"
+printf "$LOG_TEMPLATE" 34 '==> ' 39 "Dev Container: yes"
 
-url="https://laravel.build/$name"
 php="${php//./}" # remove periods in PHP version
 with=${(j:,:)services} # join services into comma-separated value
-params=()
+params=("devcontainer")
 if [[ -n "$php" ]];     then params+=("php=$php")       ; fi
 if [[ -n "$with" ]];    then params+=("with=$with")     ; fi
-if [[ "$devc" = 1 ]];   then params+=("devcontainer")   ; fi
-if [[ -n "$params" ]];  then url="$url?${(j:&:)params}" ; fi
+url="https://laravel.build/$name?${(j:&:)params}"
 
 printf "$LOG_TEMPLATE" 34 '==> ' 39 "Script URL: $url"
 
@@ -67,6 +63,13 @@ printf "$LOG_TEMPLATE" 35 '==> ' 39 "Initializing git repository..."
 cd "$name"
 git init
 git add .
-git commit -m 'initial commit'
+git commit -m "initial commit
+
+==> $url"
+
+printf "$LOG_TEMPLATE" 35 '==> ' 39 "Updating configs for dev container..."
+git apply ~/.dotfiles/resources/laravel-dev-container.diff
+git add .
+git commit -m 'update configs for dev container'
 
 )}
