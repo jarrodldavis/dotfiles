@@ -3,6 +3,8 @@
         "ghcr.io/devcontainers/features/common-utils:2": {
             "installZsh": true,
             "configureZshAsDefaultShell": true,
+            "installOhMyZsh": false,
+            "installOhMyZshConfig": false,
             "upgradePackages": true
         },
         "ghcr.io/devcontainers/features/github-cli:1": {
