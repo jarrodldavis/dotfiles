@@ -51,6 +51,7 @@ elif [ "$(uname)" = "Darwin" ]; then
     ln      -v  -sf    ~/.dotfiles/configs/vscode/settings.json    ~/Library/Application\ Support/Code/User/settings.json
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig-1password     ~/.gitconfig-1password
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig-ssh           ~/.gitconfig-ssh
+    ln      -v  -sf    ~/.dotfiles/configs/ideavimrc               ~/.ideavimrc
     mkdir   -v  -p                                                 ~/Library/LaunchAgents
     mkdir   -v  -p                                                 $(brew --repository)/Library/Taps/jarrodldavis/homebrew-dotfiles
     ln      -v  -shf   ~/.dotfiles/Formula                         $(brew --repository)/Library/Taps/jarrodldavis/homebrew-dotfiles/Formula
