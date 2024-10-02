@@ -396,6 +396,12 @@
           "full_name": "google-chrome"
         }
       },
+      "herd": {
+        "version": "1.11.1",
+        "options": {
+          "full_name": "herd"
+        }
+      },
       "jetbrains-toolbox": {
         "version": "2.4.2,2.4.2.32922",
         "options": {
