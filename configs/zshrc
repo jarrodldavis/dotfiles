@@ -6,4 +6,3 @@ fi
 
 fpath=( ~/.dotfiles/configs/zshfuncs $fpath )
 autoload -Uz docker-reset
-autoload -Uz laravel-new
