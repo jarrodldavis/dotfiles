@@ -2,7 +2,7 @@
   "entries": {
     "tap": {
       "homebrew/bundle": {
-        "revision": "ea9d90e4a2a986897444fe5abd2a4a968bc8e9cb"
+        "revision": "4b25b5279e597217c26b50d42b17a34a027b26d7"
       },
       "jarrodldavis/dotfiles": {
         "revision": null
@@ -355,7 +355,7 @@
         }
       },
       "chatgpt": {
-        "version": "1.2024.261,1726884870",
+        "version": "1.2024.268,1727484326",
         "options": {
           "full_name": "chatgpt"
         }
@@ -367,7 +367,7 @@
         }
       },
       "discord": {
-        "version": "0.0.320",
+        "version": "0.0.321",
         "options": {
           "full_name": "discord"
         }
@@ -385,19 +385,19 @@
         }
       },
       "firefox": {
-        "version": "130.0.1",
+        "version": "131.0",
         "options": {
           "full_name": "firefox"
         }
       },
       "google-chrome": {
-        "version": "129.0.6668.71",
+        "version": "129.0.6668.90",
         "options": {
           "full_name": "google-chrome"
         }
       },
       "megasync": {
-        "version": "5.4.1.0",
+        "version": "5.5.0.0",
         "options": {
           "full_name": "megasync"
         }
@@ -421,7 +421,7 @@
         }
       },
       "raycast": {
-        "version": "1.83.1",
+        "version": "1.83.2",
         "options": {
           "full_name": "raycast"
         }
@@ -558,7 +558,7 @@
   "system": {
     "macos": {
       "sonoma": {
-        "HOMEBREW_VERSION": "4.3.24",
+        "HOMEBREW_VERSION": "4.4.0",
         "HOMEBREW_PREFIX": "/opt/homebrew",
         "Homebrew/homebrew-core": "api",
         "CLT": "15.3.0.0.1.1708646388",
