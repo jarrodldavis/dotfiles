@@ -1,0 +1,3 @@
+configs/zsh/
+!configs/zsh/.zprofile
+!configs/zsh/.zshrc

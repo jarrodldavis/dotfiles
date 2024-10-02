@@ -33,7 +33,7 @@ git -C ~/.dotfiles remote set-url --push origin git@github.com:jarrodldavis/dotf
 
 printf "$LOG_TEMPLATE" 35 '--> ' 39 'Linking dotfiles...'
 
-ln          -v  -sf    ~/.dotfiles/configs/zshrc                   ~/.zshrc
+ln          -v  -sf    ~/.dotfiles/configs/zshenv                  ~/.zshenv
 ln          -v  -sf    ~/.dotfiles/configs/gitignore               ~/.gitignore
 mkdir       -v  -p                                                 ~/.ssh
 ln          -v  -sf    ~/.dotfiles/configs/ssh/allowed_signers     ~/.ssh/allowed_signers
