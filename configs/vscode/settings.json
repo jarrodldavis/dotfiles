@@ -39,6 +39,12 @@
     "gopls": {
         "ui.semanticTokens": true
     },
+    "jupyter.askForKernelRestart": false,
+    "jupyter.widgetScriptSources": [
+        "jsdelivr.com",
+        "unpkg.com"
+    ],
+    "remote.autoForwardPortsSource": "hybrid",
     "search.quickOpen.includeHistory": false,
     "scm.inputFontFamily": "editor",
     "terminal.integrated.enableMultiLinePasteWarning": "never",
