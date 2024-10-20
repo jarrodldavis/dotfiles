@@ -1,1 +1,53 @@
+" base Vim options
+set hlsearch
+set incsearch
+set ignorecase
 set relativenumber
+set scrolloff=5
+set smartcase
+
+" IdeaVim-specific options
+set ideajoin
+set ideastatusicon=gray
+
+" IdeaVim-implemented plugins
+set commentary
+set highlightedyank
+set multiple-cursors
+set surround
+set NERDTree
+set ReplaceWithRegister
+
+" navigate
+nmap ]g <Action>(Forward)
+nmap [g <Action>(Back)
+nmap ]e <Action>(GotoNextError)
+nmap [e <Action>(GotoPreviousError)
+
+" symbol info
+nmap gh <Action>(ShowHoverInfo)
+nmap gd <Action>(GotoDeclaration)
+
+" multiple cursors
+nmap <C-n> <Plug>NextWholeOccurrence
+xmap <C-n> <Plug>NextWholeOccurrence
+nmap g<C-n> <Plug>NextOccurrence
+xmap g<C-n> <Plug>NextOccurrence
+xmap <C-x> <Plug>SkipOccurrence
+xmap <C-p> <Plug>RemoveOccurrence
+
+" move lines
+vmap <S-J> <Action>(MoveLineDown)
+vmap <S-K> <Action>(MoveLineUp)
+
+" editor splits
+nmap <C-s>h :split <CR>
+nmap <C-s>H <Action>(MoveTabDown)
+nmap <C-s>v :vsplit <CR>
+nmap <C-s>V <Action>(MoveTabRight)
+nmap <C-s>s <Action>(MoveEditorToOppositeTabGroup)
+nmap <C-s>o <Action>(MaximizeEditorInSplit)
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l

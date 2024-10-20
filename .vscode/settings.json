@@ -14,7 +14,7 @@
         "gitconfig": "properties",
         "gitconfig-*": "properties",
         "gitignore": "ignore",
-        "*vimrc": "vimrc",
+        "*vimrc": "Vimscript",
         "*.plist": "xml"
     },
 
