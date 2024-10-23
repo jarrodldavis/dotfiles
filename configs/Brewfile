@@ -26,6 +26,7 @@ cask "raycast"
 cask "virtualbuddy"
 cask "visual-studio-code"
 cask "visual-studio-code@insiders"
+cask "zotero"
 mas "1Blocker", id: 1365531024
 mas "1Password for Safari", id: 1569813296
 mas "Affinity Designer 2", id: 1616831348
@@ -40,6 +41,7 @@ mas "iMovie", id: 408981434
 mas "Jumpshare", id: 889922906
 mas "Keynote", id: 409183694
 mas "Microsoft Excel", id: 462058435
+mas "Microsoft Word", id: 462054704
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Soulver 3", id: 1508732804
@@ -48,6 +50,7 @@ mas "StopTheMadness Pro", id: 6471380298
 mas "Userscripts-Mac-App", id: 1463298887
 mas "Vinegar", id: 1591303229
 mas "Xcode", id: 497799835
+vscode "bierner.docs-view"
 vscode "github.codespaces"
 vscode "github.vscode-github-actions"
 vscode "github.vscode-pull-request-github"
