@@ -332,6 +332,55 @@
           }
         }
       },
+      "shellcheck": {
+        "version": "0.10.0",
+        "bottle": {
+          "rebuild": 0,
+          "root_url": "https://ghcr.io/v2/homebrew/core",
+          "files": {
+            "arm64_sequoia": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/shellcheck/blobs/sha256:5045be1e530288251353848343322f5a423617d061830b7ea7465fe550787364",
+              "sha256": "5045be1e530288251353848343322f5a423617d061830b7ea7465fe550787364"
+            },
+            "arm64_sonoma": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/shellcheck/blobs/sha256:ef742b6992cfcdcd7289718ac64b27174e421d29ce3ad9b81e1856349059b117",
+              "sha256": "ef742b6992cfcdcd7289718ac64b27174e421d29ce3ad9b81e1856349059b117"
+            },
+            "arm64_ventura": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/shellcheck/blobs/sha256:6e60ee03edb09ac5bc852b8eb813849fa654400e21ffb4c746989678172f5a26",
+              "sha256": "6e60ee03edb09ac5bc852b8eb813849fa654400e21ffb4c746989678172f5a26"
+            },
+            "arm64_monterey": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/shellcheck/blobs/sha256:d5e8407806dbf757e71930ce2cb9b0d23bae286f0c058d9ff246d851dd7aa871",
+              "sha256": "d5e8407806dbf757e71930ce2cb9b0d23bae286f0c058d9ff246d851dd7aa871"
+            },
+            "sonoma": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/shellcheck/blobs/sha256:b53cf1e5464406ee49743fc2db84850b6d34d3a2098cf729e629b23f9d6dd6e0",
+              "sha256": "b53cf1e5464406ee49743fc2db84850b6d34d3a2098cf729e629b23f9d6dd6e0"
+            },
+            "ventura": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/shellcheck/blobs/sha256:15ba88c48a5ae3b08e085791e3c5e514d9d78ce88414c96bd21ed33f29fb4aca",
+              "sha256": "15ba88c48a5ae3b08e085791e3c5e514d9d78ce88414c96bd21ed33f29fb4aca"
+            },
+            "monterey": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/shellcheck/blobs/sha256:b3d14cb62e325d0f7221cd24a7fb4533936feae4ed4dce00e8983ec6e55123f8",
+              "sha256": "b3d14cb62e325d0f7221cd24a7fb4533936feae4ed4dce00e8983ec6e55123f8"
+            },
+            "x86_64_linux": {
+              "cellar": ":any_skip_relocation",
+              "url": "https://ghcr.io/v2/homebrew/core/shellcheck/blobs/sha256:6d0867f144686a5caa025cb15ecac49286654b78e7b89979a54eedc9a0cc9b6b",
+              "sha256": "6d0867f144686a5caa025cb15ecac49286654b78e7b89979a54eedc9a0cc9b6b"
+            }
+          }
+        }
+      },
       "jarrodldavis/dotfiles/rails-new": {
         "version": "0.4.1",
         "bottle": false

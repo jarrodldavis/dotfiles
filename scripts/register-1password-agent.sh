@@ -20,7 +20,7 @@ cat << EOF > ~/Library/LaunchAgents/com.1password.SSH_AUTH_SOCK.plist
 </plist>
 EOF
 
-if [[ -n "$(launchctl list | grep com.1password.SSH_AUTH_SOCK)" ]]; then
+if launchctl list | grep -q com.1password.SSH_AUTH_SOCK ; then
     launchctl unload -w ~/Library/LaunchAgents/com.1password.SSH_AUTH_SOCK.plist
 fi
 

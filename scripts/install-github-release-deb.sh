@@ -10,12 +10,12 @@ function TRAPZERR() {
 owner="${1:-}"
 repo="${2:-}"
 
-if [[ -z "$owner" ]]; then
+if [ -z "$owner" ]; then
   printf "$LOG_TEMPLATE" 31 '==> ' 39 "Owner argument is required."
   exit 1
 fi
 
-if [[ -z "$repo" ]]; then
+if [ -z "$repo" ]; then
   printf "$LOG_TEMPLATE" 31 '==> ' 39 "Repo argument is required."
   exit 1
 fi
@@ -25,17 +25,11 @@ printf "$LOG_TEMPLATE" 35 '==> ' 39 "Fetching latest release from \`$owner/$repo
 release="$(curl -fL "https://api.github.com/repos/$owner/$repo/releases/latest")"
 
 function parse_release() {
-    # `jq` doesn't like `$release` passed as input but is fine with it passed as a JSON arg.
-    jq \
-        --null-input \
-        --raw-output \
-        --argjson release "$release" \
-        --arg file_name "${file_name:-}" \
-        "$1"
+    printf "%s" "$release" | jq --raw-output --arg file_name "${file_name:-}" "$1"
 }
 
-version="$(parse_release '$release.tag_name')"
-published="$(parse_release '$release.published_at')"
+version="$(parse_release '.tag_name')"
+published="$(parse_release '.published_at')"
 printf "$LOG_TEMPLATE" 36 '==> ' 39 "$version published at $published"
 
 printf "$LOG_TEMPLATE" 35 '==> ' 39 'Resolving Debian archive asset...'
@@ -54,7 +48,7 @@ printf "$LOG_TEMPLATE" 34 '==> ' 39 "Filename: $file_name"
 
 jq_program=$(
 <<"EOF"
-      [ $release.assets[] | select(.name == $file_name) ]
+      [ .assets[] | select(.name == $file_name) ]
     | if length > 1 then
         error("more than one asset found")
       elif length < 1 then
