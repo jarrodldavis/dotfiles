@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+rm -rf ~/Library/Caches/gibo/
+gibo update
