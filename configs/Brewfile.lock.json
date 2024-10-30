@@ -447,6 +447,12 @@
           "full_name": "jetbrains-toolbox"
         }
       },
+      "lm-studio": {
+        "version": "0.3.5",
+        "options": {
+          "full_name": "lm-studio"
+        }
+      },
       "megasync": {
         "version": "5.6.0.0",
         "options": {
