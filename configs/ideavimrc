@@ -14,6 +14,7 @@ set ideastatusicon=gray
 set commentary
 set highlightedyank
 set multiple-cursors
+set sneak
 set surround
 set NERDTree
 set ReplaceWithRegister
@@ -35,6 +36,10 @@ nmap g<C-n> <Plug>NextOccurrence
 xmap g<C-n> <Plug>NextOccurrence
 xmap <C-x> <Plug>SkipOccurrence
 xmap <C-p> <Plug>RemoveOccurrence
+nmap <leader><C-n> <Plug>AllWholeOccurrences
+xmap <leader><C-n> <Plug>AllWholeOccurrences
+nmap <leader>g<C-n> <Plug>AllOccurrences
+xmap <leader>g<C-n> <Plug>AllOccurrences
 
 " move lines
 vmap <S-J> <Action>(MoveLineDown)
