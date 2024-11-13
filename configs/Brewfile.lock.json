@@ -446,12 +446,6 @@
           "full_name": "ngrok"
         }
       },
-      "orion": {
-        "version": "0.99,129",
-        "options": {
-          "full_name": "orion"
-        }
-      },
       "raycast": {
         "version": "1.85.2",
         "options": {
