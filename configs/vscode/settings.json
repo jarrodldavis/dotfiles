@@ -1,4 +1,5 @@
 {
+    "chat.editing.alwaysSaveWithGeneratedChanges": true,
     "dev.containers.defaultFeatures": {
         "ghcr.io/devcontainers/features/common-utils:2": {
             "installZsh": true,
@@ -13,9 +14,13 @@
         }
     },
     "dev.containers.defaultExtensions": [
+        "github.copilot-chat",
+        "github.copilot",
         "github.vscode-pull-request-github",
         "mathematic.vscode-pdf",
         "mattpocock.ts-error-translator",
+        "ms-vscode.vscode-commander",
+        "ms-vscode.vscode-copilot-data-analysis",
         "outofsync42.select-compare-tabs",
         "stkb.rewrap",
         "yoavbls.pretty-ts-errors"

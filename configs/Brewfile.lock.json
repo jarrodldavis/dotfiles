@@ -574,6 +574,8 @@
     "vscode": {
       "bierner.docs-view": null,
       "github.codespaces": null,
+      "github.copilot": null,
+      "github.copilot-chat": null,
       "github.vscode-github-actions": null,
       "github.vscode-pull-request-github": null,
       "mathematic.vscode-pdf": null,
@@ -586,6 +588,8 @@
       "ms-vscode-remote.vscode-remote-extensionpack": null,
       "ms-vscode.remote-explorer": null,
       "ms-vscode.remote-server": null,
+      "ms-vscode.vscode-commander": null,
+      "ms-vscode.vscode-copilot-data-analysis": null,
       "outofsync42.select-compare-tabs": null,
       "stkb.rewrap": null,
       "vscodevim.vim": null,
