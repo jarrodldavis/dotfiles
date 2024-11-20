@@ -1,10 +1,5 @@
 #!/usr/bin/env zsh
 
-# shellcheck disable=SC2206
-fpath=( ~/.dotfiles/configs/zshfuncs $fpath )
-autoload -Uz docker-reset
-autoload -Uz gibo-update
-
 autoload -Uz compinit
 compinit
 
