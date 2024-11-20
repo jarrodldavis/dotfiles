@@ -79,6 +79,14 @@ elif [ "$(uname)" = "Darwin" ]; then
 
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing 1Password SSH Agent...'
     ~/.dotfiles/scripts/register-1password-agent.sh
+
+    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Setting up GitHub CLI...'
+    if ! gh auth status; then
+        printf '\a'
+        gh auth login --git-protocol ssh --hostname github.com --skip-ssh-key --web
+    fi
+
+    gh extension install github/gh-copilot
 fi
 
 printf "$LOG_TEMPLATE" 32 '--> ' 39 'Dotfiles installation complete!'
