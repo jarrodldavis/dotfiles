@@ -2,7 +2,7 @@
   "entries": {
     "tap": {
       "homebrew/bundle": {
-        "revision": "df3d86335bdd977136e89f8020d4a6c773bd5a8a"
+        "revision": "97e2de5a51f5b38afa0bf66d37e7d62d5e096921"
       },
       "jarrodldavis/dotfiles": {
         "revision": null
@@ -417,7 +417,7 @@
         }
       },
       "jetbrains-toolbox": {
-        "version": "2.5,2.5.1.34629",
+        "version": "2.5.2,2.5.2.35332",
         "options": {
           "full_name": "jetbrains-toolbox"
         }
@@ -450,6 +450,12 @@
         "version": "1.86.0",
         "options": {
           "full_name": "raycast"
+        }
+      },
+      "tableau": {
+        "version": "2024.2.4",
+        "options": {
+          "full_name": "tableau"
         }
       },
       "virtualbuddy": {
