@@ -69,8 +69,7 @@ On macOS, skip installation of App Store (`mas`) dependencies.
 
 [Homebrew Bundle] is used to record the CLI tools, GUI applications, and Visual Studio Code
 extensions that should be installed. To record the installation or removal of these system
-dependencies, update `configs/Brewfile` and `configs/Brewfile.lock.json` using
-`~/.dotfiles/scripts/update-homebrew-bundle.sh`.
+dependencies, update `configs/Brewfile` using `~/.dotfiles/scripts/update-homebrew-bundle.sh`.
 
 ### Global `.gitignore`
 

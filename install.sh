@@ -45,7 +45,6 @@ if [ "$(uname)" = "Linux" ] && [ -n "${REMOTE_CONTAINERS:-}" ]; then
 elif [ "$(uname)" = "Darwin" ]; then
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig               ~/.gitconfig
     ln      -v  -sf    ~/.dotfiles/configs/Brewfile                ~/.Brewfile
-    ln      -v  -sf    ~/.dotfiles/configs/Brewfile.lock.json      ~/.Brewfile.lock.json
     mkdir   -v  -p                                                 ~/Library/Application\ Support/Code/User
     ln      -v  -sf    ~/.dotfiles/configs/vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
     ln      -v  -sf    ~/.dotfiles/configs/vscode/settings.json    ~/Library/Application\ Support/Code/User/settings.json
