@@ -2,11 +2,43 @@
 set -eu
 
 LOG_TEMPLATE='\033[1;%sm%b\033[0m\033[1;%sm%s\033[0m\n'
+REINSTALL=0
+
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+    -r|--reinstall)
+        REINSTALL=1
+        ;;
+
+    *)
+        echo "fatal: invalid option: $1"
+        exit 1
+        ;;
+    esac
+
+    shift
+done
 
 if [ "$(uname)" = "Darwin" ]; then
+    if [ "$(uname -m)" = "arm64" ]; then
+        HOMEBREW_PREFIX=/opt/homebrew
+    else
+        HOMEBREW_PREFIX=/usr/local
+    fi
+
+    if [ "$REINSTALL" = "1" ]; then
+        printf "$LOG_TEMPLATE" 31 '--> ' 39 'Uninstalling Homebrew...'
+
+        if brew --version 1>/dev/null 2>/dev/null; then
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
+        fi
+
+        sudo rm -rf "$HOMEBREW_PREFIX"
+    fi
+
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing Homebrew...'
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+    eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
 elif ! git --version 1>/dev/null 2>/dev/null; then
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing Git...'
 
@@ -74,7 +106,11 @@ elif [ "$(uname)" = "Darwin" ]; then
         export HOMEBREW_BUNDLE_MAS_SKIP
     fi
 
-    brew bundle install --global --verbose
+    if [ "$REINSTALL" = "1" ]; then
+        brew bundle install --global --verbose --force
+    else
+        brew bundle install --global --verbose
+    fi
 
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing 1Password SSH Agent...'
     ~/.dotfiles/scripts/register-1password-agent.sh
