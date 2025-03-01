@@ -1,7 +1,7 @@
 #!/bin/zsh
 set -euo pipefail
 
-REINSTALL="${DOTFILES_REINSTALL:-0}"
+REINSTALL="${DOTFILES_REINSTALL:-}"
 
 cd ~/.dotfiles
 
@@ -10,7 +10,7 @@ touch configs/brew/selected.txt
 for brewfile in configs/brew/*.Brewfile; do
     profile=$(basename "$brewfile" .Brewfile)
     echo -n "Do you want to select the Homebrew profile '$profile'? (y/n): "
-    read choice
+    read -r choice
     case "$choice" in
         y|Y)
             if ! grep -qx "$profile" configs/brew/selected.txt; then
@@ -31,10 +31,10 @@ for brewfile in configs/brew/*.Brewfile; do
 done
 
 bundle_command="brew bundle install --verbose --file=-"
-if [ "$REINSTALL" -eq 1 ]; then
+if [ -n "$REINSTALL" ]; then
     bundle_command="$bundle_command --force"
 fi
 
 while IFS= read -r file; do
     cat "configs/brew/$file.Brewfile"
-done < configs/brew/selected.txt | eval $bundle_command
+done < configs/brew/selected.txt | eval "$bundle_command"
