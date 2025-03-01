@@ -49,6 +49,32 @@ cd ~/.dotfiles
 Alternatively, you can copy the [contents of `install.sh`] to a file on disk and run it using `sh
 ./install.sh`.
 
+## Profiles
+
+During installation, the installer will ask which available profiles
+(from `configs/brew/*.Brewfile`) should be selected. The selections are saved per installation in
+`configs/brew/selected.txt` and used to determine what [Homebrew Bundle] installs.
+
+The currently available profiles are:
+
+### `core`
+
+- intended for all installations
+- contains foundational development utilities and productivity apps
+- includes all VSCode extensions
+
+### `host`
+
+- intended for the main host operating system of a machine
+- contains virtualization/containerization apps
+- includes apps that work best on the host or generally do not need to be duplicated in virtual
+  environments
+
+### `neumont`
+
+- intended for academic-specific virtual machines
+- contains apps needed specifically for schoolwork
+
 ## Options
 
 All installer options are specified as environment variables. Unless otherwise specified, the
@@ -63,13 +89,19 @@ DOTFILES_SKIP_MAS=1 ./install.sh
 
 On macOS, skip installation of App Store (`mas`) dependencies.
 
+### `DOTFILES_REINSTALL`
+
+Force the removal and reinstallation of Homebrew and any Homebrew-installed system dependencies.
+
 ## Maintenance
 
 ### Homebrew
 
 [Homebrew Bundle] is used to record the CLI tools, GUI applications, and Visual Studio Code
-extensions that should be installed. To record the installation or removal of these system
-dependencies, update `configs/Brewfile` using `~/.dotfiles/scripts/update-homebrew-bundle.sh`.
+extensions that should be installed. These system dependencies are recorded in distinct profiles in
+the `configs/brew` directory. To record any uninstalled or newly installed system dependencies, update
+`configs/brew/Brewfile.{full,new,old}` using `~/.dotfiles/scripts/update-homebrew-bundle.sh`, then
+update the appropriate `*.Brewfile` profiles.
 
 ### Global `.gitignore`
 

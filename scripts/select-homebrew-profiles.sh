@@ -1,15 +1,7 @@
 #!/bin/zsh
 set -euo pipefail
 
-REINSTALL=0
-
-while [ "$#" -gt 0 ]; do
-    case "$1" in
-        -r|--reinstall) REINSTALL=1 ;;
-        *) echo "fatal: invalid option: $1"; exit 1 ;;
-    esac
-    shift
-done
+REINSTALL="${DOTFILES_REINSTALL:-0}"
 
 cd ~/.dotfiles
 

@@ -2,15 +2,7 @@
 set -eu
 
 LOG_TEMPLATE='\033[1;%sm%b\033[0m\033[1;%sm%s\033[0m\n'
-REINSTALL=0
-
-while [ "$#" -gt 0 ]; do
-    case "$1" in
-        -r|--reinstall) REINSTALL=1 ;;
-        *) echo "fatal: invalid option: $1"; exit 1 ;;
-    esac
-    shift
-done
+REINSTALL="${DOTFILES_REINSTALL:-0}"
 
 if [ "$(uname)" = "Darwin" ]; then
     if [ "$(uname -m)" = "arm64" ]; then
@@ -69,7 +61,7 @@ if [ "$(uname)" = "Linux" ] && [ -n "${REMOTE_CONTAINERS:-}" ]; then
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig-ssh           ~/.gitconfig-ssh
 elif [ "$(uname)" = "Darwin" ]; then
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig               ~/.gitconfig
-    ln      -v  -sf    ~/.dotfiles/configs/brew/Brewfile           ~/.Brewfile
+    ln      -v  -sf    ~/.dotfiles/configs/brew/Brewfile.full      ~/.Brewfile
     mkdir   -v  -p                                                 ~/Library/Application\ Support/Code/User
     ln      -v  -sf    ~/.dotfiles/configs/vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
     ln      -v  -sf    ~/.dotfiles/configs/vscode/settings.json    ~/Library/Application\ Support/Code/User/settings.json
@@ -77,6 +69,7 @@ elif [ "$(uname)" = "Darwin" ]; then
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig-ssh           ~/.gitconfig-ssh
     ln      -v  -sf    ~/.dotfiles/configs/ideavimrc               ~/.ideavimrc
     mkdir   -v  -p                                                 ~/Library/LaunchAgents
+    ln      -v  -sf    ~/.dotfiles/scripts/dotfiles-pre-commit.sh  ~/.dotfiles/.git/hooks/pre-commit
     mkdir   -v  -p                                                 "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles
     ln      -v  -shf   ~/.dotfiles/Formula                         "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles/Formula
 fi
@@ -99,11 +92,7 @@ elif [ "$(uname)" = "Darwin" ]; then
         export HOMEBREW_BUNDLE_MAS_SKIP
     fi
 
-    if [ "$REINSTALL" = "1" ]; then
-        ~/.dotfiles/scripts/select-homebrew-profiles.sh --reinstall
-    else
-        ~/.dotfiles/scripts/select-homebrew-profiles.sh
-    fi
+    DOTFILES_REINSTALL="$REINSTALL" ~/.dotfiles/scripts/select-homebrew-profiles.sh
 
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing 1Password SSH Agent...'
     ~/.dotfiles/scripts/register-1password-agent.sh
