@@ -6,16 +6,9 @@ REINSTALL=0
 
 while [ "$#" -gt 0 ]; do
     case "$1" in
-    -r|--reinstall)
-        REINSTALL=1
-        ;;
-
-    *)
-        echo "fatal: invalid option: $1"
-        exit 1
-        ;;
+        -r|--reinstall) REINSTALL=1 ;;
+        *) echo "fatal: invalid option: $1"; exit 1 ;;
     esac
-
     shift
 done
 
@@ -76,7 +69,7 @@ if [ "$(uname)" = "Linux" ] && [ -n "${REMOTE_CONTAINERS:-}" ]; then
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig-ssh           ~/.gitconfig-ssh
 elif [ "$(uname)" = "Darwin" ]; then
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig               ~/.gitconfig
-    ln      -v  -sf    ~/.dotfiles/configs/Brewfile                ~/.Brewfile
+    ln      -v  -sf    ~/.dotfiles/configs/brew/Brewfile           ~/.Brewfile
     mkdir   -v  -p                                                 ~/Library/Application\ Support/Code/User
     ln      -v  -sf    ~/.dotfiles/configs/vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
     ln      -v  -sf    ~/.dotfiles/configs/vscode/settings.json    ~/Library/Application\ Support/Code/User/settings.json
@@ -107,9 +100,9 @@ elif [ "$(uname)" = "Darwin" ]; then
     fi
 
     if [ "$REINSTALL" = "1" ]; then
-        brew bundle install --global --verbose --force
+        ~/.dotfiles/scripts/select-homebrew-profiles.sh --reinstall
     else
-        brew bundle install --global --verbose
+        ~/.dotfiles/scripts/select-homebrew-profiles.sh
     fi
 
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing 1Password SSH Agent...'

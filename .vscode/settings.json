@@ -15,6 +15,7 @@
         "gitconfig-*": "properties",
         "gitignore": "ignore",
         "*vimrc": "Vimscript",
+        "*.Brewfile": "ruby",
         "*.plist": "xml"
     },
 
