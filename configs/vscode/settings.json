@@ -1,18 +1,7 @@
 {
     "chat.editing.alwaysSaveWithGeneratedChanges": true,
-    "dev.containers.defaultFeatures": {
-        "ghcr.io/devcontainers/features/common-utils:2": {
-            "installZsh": true,
-            "configureZshAsDefaultShell": true,
-            "installOhMyZsh": false,
-            "installOhMyZshConfig": false,
-            "upgradePackages": true
-        },
-        "ghcr.io/devcontainers/features/github-cli:1": {
-            "installDirectlyFromGitHubRelease": true,
-            "version": "latest"
-        }
-    },
+    "dataWrangler.defaultViewingFilterOptions": "advanced",
+    "dataWrangler.outputRenderer.columnInsights.displayByDefault": true,
     "dev.containers.defaultExtensions": [
         "github.copilot-chat",
         "github.copilot",
@@ -25,6 +14,19 @@
         "stkb.rewrap",
         "yoavbls.pretty-ts-errors"
     ],
+    "dev.containers.defaultFeatures": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "configureZshAsDefaultShell": true,
+            "installOhMyZsh": false,
+            "installOhMyZshConfig": false,
+            "installZsh": true,
+            "upgradePackages": true
+        },
+        "ghcr.io/devcontainers/features/github-cli:1": {
+            "installDirectlyFromGitHubRelease": true,
+            "version": "latest"
+        }
+    },
     "diffEditor.experimental.showMoves": true,
     "diffEditor.hideUnchangedRegions.enabled": true,
     "dotfiles.repository": "jarrodldavis/dotfiles",
@@ -41,17 +43,25 @@
     "git.fetchOnPull": true,
     "git.openRepositoryInParentFolders": "never",
     "git.showProgress": false,
+    "github.copilot.selectedCompletionModel": "gpt-4o-copilot",
     "gopls": {
         "ui.semanticTokens": true
     },
     "jupyter.askForKernelRestart": false,
+    "jupyter.themeMatplotlibPlots": true,
     "jupyter.widgetScriptSources": [
         "jsdelivr.com",
         "unpkg.com"
     ],
+    "notebook.lineNumbers": "on",
     "remote.autoForwardPortsSource": "hybrid",
-    "search.quickOpen.includeHistory": false,
+    "remote.extensionKind": {
+        "openai.openai-chatgpt-adhoc": [
+            "ui"
+        ]
+    },
     "scm.inputFontFamily": "editor",
+    "search.quickOpen.includeHistory": false,
     "terminal.integrated.enableMultiLinePasteWarning": "never",
     "terminal.integrated.scrollback": 100000,
     "terminal.integrated.showExitAlert": false,
