@@ -2,22 +2,16 @@
 set -eu
 
 LOG_TEMPLATE='\033[1;%sm%b\033[0m\033[1;%sm%s\033[0m\n'
-REINSTALL=0
 
-while [ "$#" -gt 0 ]; do
-    case "$1" in
-    -r|--reinstall)
-        REINSTALL=1
-        ;;
+if [ -n "${DOTFILES_SKIP_MAS:-}" ]; then
+    printf "$LOG_TEMPLATE" 33 '==> ' 39 'Note: Mac App Store apps will not be installed.'
+    echo
+fi
 
-    *)
-        echo "fatal: invalid option: $1"
-        exit 1
-        ;;
-    esac
-
-    shift
-done
+if [ -n "${DOTFILES_REINSTALL:-}" ]; then
+    printf "$LOG_TEMPLATE" 33 '==> ' 39 'Note: Homebrew and system dependencies will be reinstalled.'
+    echo
+fi
 
 if [ "$(uname)" = "Darwin" ]; then
     if [ "$(uname -m)" = "arm64" ]; then
@@ -26,7 +20,7 @@ if [ "$(uname)" = "Darwin" ]; then
         HOMEBREW_PREFIX=/usr/local
     fi
 
-    if [ "$REINSTALL" = "1" ]; then
+    if [ -n "${DOTFILES_REINSTALL:-}" ]; then
         printf "$LOG_TEMPLATE" 31 '--> ' 39 'Uninstalling Homebrew...'
 
         if brew --version 1>/dev/null 2>/dev/null; then
@@ -86,6 +80,7 @@ elif [ "$(uname)" = "Darwin" ]; then
     mkdir   -v  -p                                                 ~/Library/LaunchAgents
     mkdir   -v  -p                                                 "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles
     ln      -v  -shf   ~/.dotfiles/Formula                         "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles/Formula
+    ln      -v  -sf    ~/.dotfiles/scripts/dotfiles-pre-commit.sh  ~/.dotfiles/.git/hooks/pre-commit
 fi
 
 if [ "$(uname)" = "Linux" ]; then
@@ -106,7 +101,7 @@ elif [ "$(uname)" = "Darwin" ]; then
         export HOMEBREW_BUNDLE_MAS_SKIP
     fi
 
-    if [ "$REINSTALL" = "1" ]; then
+    if [ -n "${DOTFILES_REINSTALL:-}" ]; then
         brew bundle install --global --verbose --force
     else
         brew bundle install --global --verbose
