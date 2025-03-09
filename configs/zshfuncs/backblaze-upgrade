@@ -1,0 +1,20 @@
+#!/bin/zsh
+
+LOG_TEMPLATE='\033[1;%sm%b\033[0m\033[1;%sm%s\033[0m\n'
+
+printf "$LOG_TEMPLATE" 35 '==> ' 39 "Fetching intaller disk image..."
+brew fetch --cask backblaze --force
+dmg="$(brew --cache --cask backblaze)"
+
+printf "$LOG_TEMPLATE" 35 '==> ' 39 "Mounting intaller disk image..."
+mountdir="$(mktemp -d)"
+hdiutil attach -verbose -nobrowse -readonly -noidme -mountpoint "$mountdir" "$dmg"
+
+printf "$LOG_TEMPLATE" 35 '==> ' 39 "Performing upgrade..."
+sudo "$mountdir/Backblaze Installer.app/Contents/MacOS/bzinstall_mate" --silentUpgrade
+
+printf "$LOG_TEMPLATE" 35 '==> ' 39 "Cleaning up..."
+hdiutil detach -verbose "$mountdir"
+rm -rf "$mountdir"
+
+printf "$LOG_TEMPLATE" 32 '==> ' 39 "Backblaze upgrade complete!"

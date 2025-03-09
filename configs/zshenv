@@ -2,5 +2,6 @@ export ZDOTDIR=~/.dotfiles/configs/zsh
 
 # shellcheck disable=SC2206
 fpath=( ~/.dotfiles/configs/zshfuncs $fpath )
+autoload -Uz backblaze-upgrade
 autoload -Uz docker-reset
 autoload -Uz gibo-update
