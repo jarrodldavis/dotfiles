@@ -38,12 +38,15 @@
     "editor.minimap.enabled": false,
     "editor.renderWhitespace": "all",
     "editor.suggest.showStatusBar": true,
+    "explorer.fileNesting.enabled": false,
+    "git.blame.editorDecoration.enabled": true,
     "git.enableCommitSigning": true,
     "git.enableSmartCommit": true,
     "git.fetchOnPull": true,
     "git.openRepositoryInParentFolders": "never",
     "git.showProgress": false,
     "github.copilot.selectedCompletionModel": "gpt-4o-copilot",
+    "go.toolsManagement.autoUpdate": true,
     "gopls": {
         "ui.semanticTokens": true
     },
@@ -53,18 +56,20 @@
         "jsdelivr.com",
         "unpkg.com"
     ],
+    "notebook.diff.overviewRuler": true,
     "notebook.lineNumbers": "on",
+    "notebook.output.scrolling": true,
+    "redhat.telemetry.enabled": true,
     "remote.autoForwardPortsSource": "hybrid",
-    "remote.extensionKind": {
-        "openai.openai-chatgpt-adhoc": [
-            "ui"
-        ]
-    },
     "scm.inputFontFamily": "editor",
     "search.quickOpen.includeHistory": false,
+    "svelte.enable-ts-plugin": true,
     "terminal.integrated.enableMultiLinePasteWarning": "never",
     "terminal.integrated.scrollback": 100000,
+    "terminal.integrated.shellIntegration.environmentReporting": true,
     "terminal.integrated.showExitAlert": false,
+    "terminal.integrated.stickyScroll.enabled": true,
+    "terminal.integrated.suggest.enabled": true,
     "totalTypeScript.hideAllTips": true,
     "totalTypeScript.hideBasicTips": true,
     "vim.camelCaseMotion.enable": true,
