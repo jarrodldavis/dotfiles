@@ -58,6 +58,7 @@ mas "Userscripts", id: 1463298887
 mas "Vinegar", id: 1591303229
 mas "Xcode", id: 497799835
 vscode "bierner.docs-view"
+vscode "docker.docker"
 vscode "github.codespaces"
 vscode "github.copilot"
 vscode "github.copilot-chat"
