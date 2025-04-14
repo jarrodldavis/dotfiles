@@ -6,7 +6,10 @@
 	"image": "mcr.microsoft.com/devcontainers/base:bookworm",
 	"features": {
 		"ghcr.io/devcontainers/features/common-utils:2": {
-			"configureZshAsDefaultShell": true
+			"installZsh": true,
+			"configureZshAsDefaultShell": true,
+			"installOhMyZsh": true,
+			"installOhMyZshConfig": true
 		}
 	},
 
