@@ -25,7 +25,8 @@
         "ghcr.io/devcontainers/features/github-cli:1": {
             "installDirectlyFromGitHubRelease": true,
             "version": "latest"
-        }
+        },
+        "ghcr.io/hwaien/devcontainer-features/match-host-time-zone:0": {}
     },
     "diffEditor.experimental.showMoves": true,
     "diffEditor.hideUnchangedRegions.enabled": true,
