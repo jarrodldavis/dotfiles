@@ -1,3 +1,4 @@
+configs/ssh/config.d/*
 configs/zsh/.zcompcache
 configs/zsh/.zcompdump*
 configs/zsh/.zsh_history

@@ -11,6 +11,8 @@
     "files.trimTrailingWhitespace": true,
 
     "files.associations": {
+        "**/ssh/config": "ssh_config",
+        "**/ssh/config.d/*": "ssh_config",
         "gitconfig": "properties",
         "gitconfig-*": "properties",
         "gitignore": "ignore",

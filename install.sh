@@ -63,6 +63,8 @@ ln          -v  -sf    ~/.dotfiles/configs/zshenv                  ~/.zshenv
 ln          -v  -sf    ~/.dotfiles/configs/gitignore               ~/.gitignore
 mkdir       -v  -p                                                 ~/.ssh
 ln          -v  -sf    ~/.dotfiles/configs/ssh/allowed_signers     ~/.ssh/allowed_signers
+ln          -v  -sf    ~/.dotfiles/configs/ssh/config              ~/.ssh/config
+ln          -v  -sf    ~/.dotfiles/configs/ssh/config.d            ~/.ssh/config.d
 
 if [ "$(uname)" = "Linux" ] && [ -n "${REMOTE_CONTAINERS:-}" ]; then
     # copy gitconfig to avoid picking up dev container credential configuration changes

@@ -1,0 +1,8 @@
+Include config.d/*
+
+Host *
+ IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+ IgnoreUnknown AddKeysToAgent,UseKeychain
+ AddKeysToAgent yes
+ UseKeychain yes
+ ForwardAgent yes
