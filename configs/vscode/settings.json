@@ -71,6 +71,7 @@
     "terminal.integrated.showExitAlert": false,
     "terminal.integrated.stickyScroll.enabled": true,
     "terminal.integrated.suggest.enabled": true,
+    "terminal.integrated.suggest.runOnEnter": "always",
     "totalTypeScript.hideAllTips": true,
     "totalTypeScript.hideBasicTips": true,
     "vim.camelCaseMotion.enable": true,
