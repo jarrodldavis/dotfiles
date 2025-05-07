@@ -33,7 +33,7 @@ if [ "$(uname)" = "Darwin" ]; then
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing Homebrew...'
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
-elif ( ! git --version || ! zsh --version || ! sudo --version ) 1>/dev/null 2>/dev/null; then
+else
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing Prerequisites...'
 
     maybe_sudo() {
@@ -46,7 +46,7 @@ elif ( ! git --version || ! zsh --version || ! sudo --version ) 1>/dev/null 2>/d
 
     if apt-get --version 1>/dev/null 2>/dev/null; then
         maybe_sudo apt-get update
-        maybe_sudo apt-get install -y git sudo zsh
+        maybe_sudo apt-get install -y curl dpkg-dev git jq sudo zsh
     else
         echo 'fatal: unsupported package manager'
         exit 1
