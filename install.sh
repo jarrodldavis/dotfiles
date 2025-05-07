@@ -33,12 +33,20 @@ if [ "$(uname)" = "Darwin" ]; then
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing Homebrew...'
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
-elif ! git --version 1>/dev/null 2>/dev/null; then
-    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing Git...'
+elif ( ! git --version || ! zsh --version || ! sudo --version ) 1>/dev/null 2>/dev/null; then
+    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing Prerequisites...'
+
+    maybe_sudo() {
+        if [ "$(id -u)" -ne 0 ]; then
+            sudo "$@"
+        else
+            "$@"
+        fi
+    }
 
     if apt-get --version 1>/dev/null 2>/dev/null; then
-        apt-get update
-        apt-get install -y git
+        maybe_sudo apt-get update
+        maybe_sudo apt-get install -y git sudo zsh
     else
         echo 'fatal: unsupported package manager'
         exit 1
@@ -63,12 +71,15 @@ ln          -v  -sf    ~/.dotfiles/configs/zshenv                  ~/.zshenv
 ln          -v  -sf    ~/.dotfiles/configs/gitignore               ~/.gitignore
 mkdir       -v  -p                                                 ~/.ssh
 ln          -v  -sf    ~/.dotfiles/configs/ssh/allowed_signers     ~/.ssh/allowed_signers
-ln          -v  -sf    ~/.dotfiles/configs/ssh/config              ~/.ssh/config
-ln          -v  -sf    ~/.dotfiles/configs/ssh/config.d            ~/.ssh/config.d
 
-if [ "$(uname)" = "Linux" ] && [ -n "${REMOTE_CONTAINERS:-}" ]; then
-    # copy gitconfig to avoid picking up dev container credential configuration changes
-    cp      -v  -f     ~/.dotfiles/configs/gitconfig               ~/.gitconfig
+if [ "$(uname)" = "Linux" ]; then
+    if [ -n "${REMOTE_CONTAINERS:-}" ]; then
+        # copy gitconfig to avoid picking up dev container credential configuration changes
+        cp  -v  -f     ~/.dotfiles/configs/gitconfig               ~/.gitconfig
+    else
+        ln  -v  -sf    ~/.dotfiles/configs/gitconfig               ~/.gitconfig
+    fi
+
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig-ssh           ~/.gitconfig-ssh
 elif [ "$(uname)" = "Darwin" ]; then
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig               ~/.gitconfig
