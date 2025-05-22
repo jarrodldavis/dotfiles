@@ -5,7 +5,6 @@
     "dev.containers.defaultExtensions": [
         "github.copilot-chat",
         "github.copilot",
-        "github.vscode-pull-request-github",
         "mathematic.vscode-pdf",
         "mattpocock.ts-error-translator",
         "ms-vscode.vscode-commander",
