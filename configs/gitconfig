@@ -5,8 +5,9 @@
 [gpg "ssh"]
     allowedSignersFile = ~/.ssh/allowed_signers
 [include]
-    path = ~/.gitconfig-1password
+    path = ~/.gitconfig-macos
     path = ~/.gitconfig-ssh
+    path = ~/.gitconfig-wsl
 
 # Diffs
 [core]

@@ -87,13 +87,20 @@ elif [ "$(uname)" = "Darwin" ]; then
     mkdir   -v  -p                                                 ~/Library/Application\ Support/Code/User
     ln      -v  -sf    ~/.dotfiles/configs/vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
     ln      -v  -sf    ~/.dotfiles/configs/vscode/settings.json    ~/Library/Application\ Support/Code/User/settings.json
-    ln      -v  -sf    ~/.dotfiles/configs/gitconfig-1password     ~/.gitconfig-1password
+    ln      -v  -sf    ~/.dotfiles/configs/gitconfig-macos         ~/.gitconfig-macos
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig-ssh           ~/.gitconfig-ssh
     ln      -v  -sf    ~/.dotfiles/configs/ideavimrc               ~/.ideavimrc
     mkdir   -v  -p                                                 ~/Library/LaunchAgents
     mkdir   -v  -p                                                 "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles
     ln      -v  -shf   ~/.dotfiles/Formula                         "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles/Formula
     ln      -v  -sf    ~/.dotfiles/scripts/dotfiles-pre-commit.sh  ~/.dotfiles/.git/hooks/pre-commit
+fi
+
+if [ -n "${WSL_DISTRO_NAME:-}" ]; then
+    WIN_HOME=$(wslpath $(cmd.exe /C "echo %USERPROFILE%" 2>/dev/null | tr -d '\r'))
+    OP_SSH_SIGN="$WIN_HOME/AppData/Local/1Password/app/8/op-ssh-sign-wsl"
+    ln      -v  -sf    ~/.dotfiles/configs/gitconfig-wsl           ~/.gitconfig-wsl
+    sudo ln -v  -sf    "$OP_SSH_SIGN"                              /usr/local/bin/op-ssh-sign-wsl
 fi
 
 if [ "$(uname)" = "Linux" ]; then
