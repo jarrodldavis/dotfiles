@@ -97,7 +97,7 @@ elif [ "$(uname)" = "Darwin" ]; then
 fi
 
 if [ -n "${WSL_DISTRO_NAME:-}" ]; then
-    WIN_HOME=$(wslpath $(cmd.exe /C "echo %USERPROFILE%" 2>/dev/null | tr -d '\r'))
+    WIN_HOME=$(wslpath "$(cmd.exe /C "echo %USERPROFILE%" 2>/dev/null | tr -d '\r')")
     OP_SSH_SIGN="$WIN_HOME/AppData/Local/1Password/app/8/op-ssh-sign-wsl"
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig-wsl           ~/.gitconfig-wsl
     sudo ln -v  -sf    "$OP_SSH_SIGN"                              /usr/local/bin/op-ssh-sign-wsl
