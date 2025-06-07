@@ -1,7 +1,7 @@
 {
     "chat.editing.alwaysSaveWithGeneratedChanges": true,
+    "containers.containerClient": "com.microsoft.visualstudio.containers.docker",
     "dataWrangler.defaultViewingFilterOptions": "advanced",
-    "dataWrangler.outputRenderer.columnInsights.displayByDefault": true,
     "dev.containers.defaultExtensions": [
         "github.copilot-chat",
         "github.copilot",
@@ -78,5 +78,6 @@
     "vim.highlightedyank.enable": true,
     "vim.replaceWithRegister": true,
     "vim.sneak": true,
-    "window.dialogStyle": "custom"
+    "window.dialogStyle": "custom",
+    "workbench.sideBar.location": "right"
 }
