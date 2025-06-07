@@ -4,4 +4,3 @@ export ZDOTDIR=~/.dotfiles/configs/zsh
 fpath=( ~/.dotfiles/configs/zshfuncs $fpath )
 autoload -Uz backblaze-upgrade
 autoload -Uz docker-reset
-autoload -Uz gibo-update
