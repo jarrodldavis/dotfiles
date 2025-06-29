@@ -1,0 +1,22 @@
+#!/bin/zsh
+
+LOG_TEMPLATE='\033[1;%sm%b\033[0m\033[1;%sm%s\033[0m\n'
+
+op item get "$(scutil --get ComputerName)" --fields label=password --reveal | sudo --validate --stdin
+echo
+
+# shellcheck disable=SC2296
+smb_paths=("${(@f)$(sharing -l -f json | jq -r '.[].path')}")
+
+for smb_path in "${smb_paths[@]}"; do
+    printf "$LOG_TEMPLATE" 34 '==> ' 39 "$smb_path"
+
+    printf "$LOG_TEMPLATE" 34 '--> ' 39 "Updating ownership..."
+    sudo chown -Rv "$(whoami)" "$smb_path"
+
+    printf "$LOG_TEMPLATE" 34 '--> ' 39 "Updating permissions..."
+    sudo find "$smb_path" -type d -exec chmod -v 755 {} \;
+    sudo find "$smb_path" -type f -exec chmod -v 644 {} \;
+done
+
+printf "$LOG_TEMPLATE" 32 '==> ' 39 "Done!"
