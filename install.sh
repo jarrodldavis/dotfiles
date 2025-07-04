@@ -106,7 +106,8 @@ fi
 if [ "$(uname)" = "Linux" ]; then
     if [ -d ~/.oh-my-zsh ]; then
         printf "$LOG_TEMPLATE" 35 '--> ' 39 'Removing Oh My Zsh...'
-        command env ZSH="$HOME/.oh-my-zsh" sh -ceu "yes | head -n1 | sh -eu $ZSH/tools/uninstall.sh"
+        # shellcheck disable=SC2016
+        command env ZSH="$HOME/.oh-my-zsh" sh -ceu 'yes | head -n1 | sh -eu $ZSH/tools/uninstall.sh'
     fi
 
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing system dependencies...'
