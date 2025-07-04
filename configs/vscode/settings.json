@@ -45,7 +45,6 @@
     "git.fetchOnPull": true,
     "git.openRepositoryInParentFolders": "never",
     "git.showProgress": false,
-    "github.copilot.selectedCompletionModel": "gpt-4o-copilot",
     "go.toolsManagement.autoUpdate": true,
     "gopls": {
         "ui.semanticTokens": true
