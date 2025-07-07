@@ -1,4 +1,4 @@
-tap "jarrodldavis/dotfiles", "https://github.com/jarrodldavis/dotfiles"
+tap "jarrodldavis/dotfiles"
 brew "bat"
 brew "git-delta"
 brew "jq"
