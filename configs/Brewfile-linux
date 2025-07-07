@@ -1,0 +1,5 @@
+tap "jarrodldavis/dotfiles", "https://github.com/jarrodldavis/dotfiles"
+brew "bat"
+brew "git-delta"
+brew "jq"
+brew "shellcheck"

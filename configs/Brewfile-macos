@@ -1,5 +1,4 @@
-tap "homebrew/bundle"
-tap "jarrodldavis/dotfiles", "https://github.com/Homebrew/brew"
+tap "jarrodldavis/dotfiles", "https://github.com/jarrodldavis/dotfiles"
 brew "bat"
 brew "gh"
 brew "gibo"

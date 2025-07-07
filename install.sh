@@ -14,44 +14,34 @@ if [ -n "${DOTFILES_REINSTALL:-}" ]; then
 fi
 
 if [ "$(uname)" = "Darwin" ]; then
-    if [ "$(uname -m)" = "arm64" ]; then
-        HOMEBREW_PREFIX=/opt/homebrew
-    else
-        HOMEBREW_PREFIX=/usr/local
-    fi
+    printf "$LOG_TEMPLATE" 33 '==> ' 39 'Sudo access is required:'
+    sudo -v
+fi
 
-    if [ -n "${DOTFILES_REINSTALL:-}" ]; then
+BASH_ENV="$(mktemp)"
+export BASH_ENV
+BREW_SHELLENV="$(mktemp)"
+export BASH_SHELLENV
+cat <<EOF > "$BASH_ENV"
+trap 'export HOMEBREW_PREFIX; env | grep HOMEBREW > $BREW_SHELLENV' EXIT
+EOF
+
+if [ -n "${DOTFILES_REINSTALL:-}" ]; then
+    if brew --version 1>/dev/null 2>/dev/null; then
         printf "$LOG_TEMPLATE" 31 '--> ' 39 'Uninstalling Homebrew...'
-
-        if brew --version 1>/dev/null 2>/dev/null; then
-            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
-        fi
-
-        sudo rm -rf "$HOMEBREW_PREFIX"
-    fi
-
-    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing Homebrew...'
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
-else
-    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing Prerequisites...'
-
-    maybe_sudo() {
-        if [ "$(id -u)" -ne 0 ]; then
-            sudo "$@"
-        else
-            "$@"
-        fi
-    }
-
-    if apt-get --version 1>/dev/null 2>/dev/null; then
-        maybe_sudo apt-get update
-        maybe_sudo apt-get install -y curl dpkg-dev git jq sudo zsh
-    else
-        echo 'fatal: unsupported package manager'
-        exit 1
+        NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
+        . "$BREW_SHELLENV"
+        sudo rm -rfv "$HOMEBREW_PREFIX"
     fi
 fi
+
+printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing Homebrew...'
+NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+. "$BREW_SHELLENV"
+eval "$("$HOMEBREW_PREFIX"/bin/brew shellenv)"
+brew completions link
+
+unset BASH_ENV
 
 printf "$LOG_TEMPLATE" 35 '--> ' 39 'Checking for dotfiles repository...'
 
@@ -71,6 +61,8 @@ ln          -v  -sf    ~/.dotfiles/configs/zshenv                  ~/.zshenv
 ln          -v  -sf    ~/.dotfiles/configs/gitignore               ~/.gitignore
 mkdir       -v  -p                                                 ~/.ssh
 ln          -v  -sf    ~/.dotfiles/configs/ssh/allowed_signers     ~/.ssh/allowed_signers
+ln          -v  -sf    ~/.dotfiles/scripts/dotfiles-pre-commit.sh  ~/.dotfiles/.git/hooks/pre-commit
+mkdir       -v  -p                                                 "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles
 
 if [ "$(uname)" = "Linux" ]; then
     if [ -n "${REMOTE_CONTAINERS:-}" ]; then
@@ -80,10 +72,12 @@ if [ "$(uname)" = "Linux" ]; then
         ln  -v  -sf    ~/.dotfiles/configs/gitconfig               ~/.gitconfig
     fi
 
+    ln      -v  -sf    ~/.dotfiles/configs/Brewfile-linux          ~/.Brewfile
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig-ssh           ~/.gitconfig-ssh
+    ln      -v  -snf   ~/.dotfiles/Formula                         "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles/Formula
 elif [ "$(uname)" = "Darwin" ]; then
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig               ~/.gitconfig
-    ln      -v  -sf    ~/.dotfiles/configs/Brewfile                ~/.Brewfile
+    ln      -v  -sf    ~/.dotfiles/configs/Brewfile-macos          ~/.Brewfile
     mkdir   -v  -p                                                 ~/Library/Application\ Support/Code/User
     ln      -v  -sf    ~/.dotfiles/configs/vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
     ln      -v  -sf    ~/.dotfiles/configs/vscode/settings.json    ~/Library/Application\ Support/Code/User/settings.json
@@ -91,9 +85,7 @@ elif [ "$(uname)" = "Darwin" ]; then
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig-ssh           ~/.gitconfig-ssh
     ln      -v  -sf    ~/.dotfiles/configs/ideavimrc               ~/.ideavimrc
     mkdir   -v  -p                                                 ~/Library/LaunchAgents
-    mkdir   -v  -p                                                 "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles
     ln      -v  -shf   ~/.dotfiles/Formula                         "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles/Formula
-    ln      -v  -sf    ~/.dotfiles/scripts/dotfiles-pre-commit.sh  ~/.dotfiles/.git/hooks/pre-commit
 fi
 
 if [ -n "${WSL_DISTRO_NAME:-}" ]; then
@@ -103,36 +95,26 @@ if [ -n "${WSL_DISTRO_NAME:-}" ]; then
     sudo ln -v  -sf    "$OP_SSH_SIGN"                              /usr/local/bin/op-ssh-sign-wsl
 fi
 
-if [ "$(uname)" = "Linux" ]; then
-    if [ -d ~/.oh-my-zsh ]; then
-        printf "$LOG_TEMPLATE" 35 '--> ' 39 'Removing Oh My Zsh...'
-        # shellcheck disable=SC2016
-        command env ZSH="$HOME/.oh-my-zsh" sh -ceu 'yes | head -n1 | sh -eu $ZSH/tools/uninstall.sh'
-    fi
+if [ -d ~/.oh-my-zsh ]; then
+    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Removing Oh My Zsh...'
+    # shellcheck disable=SC2016
+    command env ZSH="$HOME/.oh-my-zsh" sh -ceu 'yes | head -n1 | sh -eu $ZSH/tools/uninstall.sh'
+fi
 
-    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing system dependencies...'
+printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing system dependencies from Homebrew Bundle...'
 
-    if apt-get --version 1>/dev/null 2>/dev/null; then
-        ~/.dotfiles/scripts/install-github-release-deb.sh sharkdp       bat
-        ~/.dotfiles/scripts/install-github-release-deb.sh dandavison    delta   git-delta
-    else
-        echo 'fatal: unsupported package manager'
-        exit 1
-    fi
-elif [ "$(uname)" = "Darwin" ]; then
-    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing system dependencies from Homebrew Bundle...'
+if [ -n "${DOTFILES_SKIP_MAS:-}" ]; then
+    HOMEBREW_BUNDLE_MAS_SKIP="$(~/.dotfiles/scripts/list-mas-ids.sh)"
+    export HOMEBREW_BUNDLE_MAS_SKIP
+fi
 
-    if [ -n "${DOTFILES_SKIP_MAS:-}" ]; then
-        HOMEBREW_BUNDLE_MAS_SKIP="$(~/.dotfiles/scripts/list-mas-ids.sh)"
-        export HOMEBREW_BUNDLE_MAS_SKIP
-    fi
+if [ -n "${DOTFILES_REINSTALL:-}" ]; then
+    brew bundle install --global --verbose --force
+else
+    brew bundle install --global --verbose
+fi
 
-    if [ -n "${DOTFILES_REINSTALL:-}" ]; then
-        brew bundle install --global --verbose --force
-    else
-        brew bundle install --global --verbose
-    fi
-
+if [ "$(uname)" = "Darwin" ]; then
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing 1Password SSH Agent...'
     ~/.dotfiles/scripts/register-1password-agent.sh
 

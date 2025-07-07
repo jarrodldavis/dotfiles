@@ -13,6 +13,7 @@
     "files.associations": {
         "**/ssh/config": "ssh_config",
         "**/ssh/config.d/*": "ssh_config",
+        "Brewfile-*": "ruby",
         "gitconfig": "properties",
         "gitconfig-*": "properties",
         "gitignore": "ignore",
