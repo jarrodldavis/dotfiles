@@ -61,6 +61,9 @@ ln          -v  -sf    ~/.dotfiles/configs/zshenv                  ~/.zshenv
 ln          -v  -sf    ~/.dotfiles/configs/gitignore               ~/.gitignore
 mkdir       -v  -p                                                 ~/.ssh
 ln          -v  -sf    ~/.dotfiles/configs/ssh/allowed_signers     ~/.ssh/allowed_signers
+mkdir       -v  -p                                                 ~/.config/gh
+ln          -v  -sf    ~/.dotfiles/configs/gh/config.yml           ~/.config/gh/config.yml
+ln          -v  -sf    ~/.dotfiles/configs/gh/hosts.yml            ~/.config/gh/hosts.yml
 ln          -v  -sf    ~/.dotfiles/scripts/dotfiles-pre-commit.sh  ~/.dotfiles/.git/hooks/pre-commit
 mkdir       -v  -p                                                 "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles
 
@@ -117,14 +120,15 @@ fi
 if [ "$(uname)" = "Darwin" ]; then
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing 1Password SSH Agent...'
     ~/.dotfiles/scripts/register-1password-agent.sh
-
-    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Setting up GitHub CLI...'
-    if ! gh auth status; then
-        printf '\a'
-        gh auth login --git-protocol ssh --hostname github.com --skip-ssh-key --web
-    fi
-
-    gh extension install github/gh-copilot
 fi
+
+printf "$LOG_TEMPLATE" 35 '--> ' 39 'Setting up GitHub CLI...'
+
+if [ "$(uname)" = "Darwin" ] && ! gh auth status; then
+    printf '\a'
+    gh auth login --git-protocol ssh --hostname github.com --skip-ssh-key --web
+fi
+
+gh extension install github/gh-copilot
 
 printf "$LOG_TEMPLATE" 32 '--> ' 39 'Dotfiles installation complete!'
