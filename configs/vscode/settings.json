@@ -1,5 +1,6 @@
 {
     "chat.editing.alwaysSaveWithGeneratedChanges": true,
+    "chat.editing.confirmEditRequestRetry": false,
     "containers.containerClient": "com.microsoft.visualstudio.containers.docker",
     "dataWrangler.defaultViewingFilterOptions": "advanced",
     "dev.containers.defaultExtensions": [
@@ -9,8 +10,6 @@
         "mattpocock.ts-error-translator",
         "ms-vscode.vscode-commander",
         "ms-vscode.vscode-copilot-data-analysis",
-        "outofsync42.select-compare-tabs",
-        "stkb.rewrap",
         "yoavbls.pretty-ts-errors"
     ],
     "dev.containers.defaultFeatures": {
