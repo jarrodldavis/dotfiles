@@ -5,16 +5,20 @@
 ## Prerequisites
 
 - A UNIX-ish operating system, one of:
-  - macOS (tested with macOS Sonoma 14.7)
-  - Debian (tested with `bookworm` in [Visual Studio Code]'s [Development Containers])
+  - macOS
+    - tested with Sonoma 14.7
+  - Debian
+    - tested with `bookworm` in [Visual Studio Code]'s [Development Containers]
+    - tested with `bookworm` in [Windows Subsystem for Linux] (WSL)
   - Others (untested)
 - dash or other POSIX-compatible shell (`/bin/sh`)
 - Bash (for [Homebrew] installation)
 - Zsh (for additional installation scripts)
 - curl (for automatic bootstrapping)
 - git (for manual installation)
+- On Linux, all [Homebrew system requirements]
 
-sh, Bash, Zsh, and curl are pre-installed on macOS.
+`/bin/sh`, Bash, Zsh, and curl are pre-installed on macOS.
 
 ## Install
 
@@ -100,6 +104,8 @@ dependency requirements.
 [Homebrew]:                     https://brew.sh
 [Visual Studio Code]:           https://code.visualstudio.com
 [Development Containers]:       https://code.visualstudio.com/docs/remote/containers
+[Windows Subsystem for Linux]:  https://learn.microsoft.com/en-us/windows/wsl/
+[Homebrew system requirements]: https://docs.brew.sh/Homebrew-on-Linux#requirements
 [contents of `install.sh`]:     https://github.com/jarrodldavis/dotfiles/raw/main/install.sh
-[Homebrew Bundle]:              https://github.com/Homebrew/homebrew-bundle
+[Homebrew Bundle]:              https://docs.brew.sh/Brew-Bundle-and-Brewfile
 [`github/gitignore`]:           https://github.com/github/gitignore
