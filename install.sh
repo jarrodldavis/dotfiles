@@ -120,6 +120,9 @@ fi
 if [ "$(uname)" = "Darwin" ]; then
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing 1Password SSH Agent...'
     ~/.dotfiles/scripts/register-1password-agent.sh
+
+    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Setting up Git LFS...'
+    git lfs install --system
 fi
 
 printf "$LOG_TEMPLATE" 35 '--> ' 39 'Setting up GitHub CLI...'
