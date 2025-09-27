@@ -125,13 +125,4 @@ if [ "$(uname)" = "Darwin" ]; then
     git lfs install --system
 fi
 
-printf "$LOG_TEMPLATE" 35 '--> ' 39 'Setting up GitHub CLI...'
-
-if [ "$(uname)" = "Darwin" ] && ! gh auth status; then
-    printf '\a'
-    gh auth login --git-protocol ssh --hostname github.com --skip-ssh-key --web
-fi
-
-gh extension install github/gh-copilot
-
 printf "$LOG_TEMPLATE" 32 '--> ' 39 'Dotfiles installation complete!'
