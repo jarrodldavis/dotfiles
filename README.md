@@ -6,7 +6,7 @@
 
 - A UNIX-ish operating system, one of:
   - macOS
-    - tested with Sonoma 14.7
+    - tested with Sequoia 15.6
   - Debian
     - tested with `bookworm` in [Visual Studio Code]'s [Development Containers]
     - tested with `bookworm` in [Windows Subsystem for Linux] (WSL)
