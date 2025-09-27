@@ -2,6 +2,14 @@
 
 LOG_TEMPLATE='\033[1;%sm%b\033[0m\033[1;%sm%s\033[0m\n'
 
+# shellcheck disable=SC2034
+GRANTS=(
+    list search add_file add_subdirectory delete_child
+    readattr writeattr readextattr writeextattr
+    readsecurity
+    file_inherit directory_inherit
+)
+
 op item get "$(scutil --get ComputerName)" --fields label=password --reveal | sudo --validate --stdin
 echo
 
@@ -10,6 +18,10 @@ smb_paths=("${(@f)$(sharing -l -f json | jq -r '.[].path')}")
 
 for smb_path in "${smb_paths[@]}"; do
     printf "$LOG_TEMPLATE" 34 '==> ' 39 "$smb_path"
+
+    printf "$LOG_TEMPLATE" 34 '--> ' 39 "Setting recursive group permissions..."
+    # shellcheck disable=SC2296
+    sudo chmod +a# 0 "group:staff allow ${(j:,:)GRANTS}" "$smb_path"
 
     printf "$LOG_TEMPLATE" 34 '--> ' 39 "Updating ownership..."
     sudo chown -Rv "$(whoami)" "$smb_path"
