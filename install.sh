@@ -122,7 +122,7 @@ if [ "$(uname)" = "Darwin" ]; then
     ~/.dotfiles/scripts/register-1password-agent.sh
 
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Setting up Git LFS...'
-    git lfs install --system
+    git lfs install --system --skip-repo
 fi
 
 printf "$LOG_TEMPLATE" 32 '--> ' 39 'Dotfiles installation complete!'
