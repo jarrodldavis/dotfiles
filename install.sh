@@ -13,7 +13,7 @@ if [ -n "${DOTFILES_REINSTALL:-}" ]; then
     echo
 fi
 
-if [ "$(uname)" = "Darwin" ]; then
+if [ "$(uname)" = "Darwin" ] || [ -n "${WSL_DISTRO_NAME:-}" ]; then
     printf "$LOG_TEMPLATE" 33 '==> ' 39 'Sudo access is required:'
     sudo -v
 fi
