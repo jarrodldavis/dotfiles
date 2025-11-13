@@ -21,7 +21,6 @@ fi
 BASH_ENV="$(mktemp)"
 export BASH_ENV
 BREW_SHELLENV="$(mktemp)"
-export BASH_SHELLENV
 cat <<EOF > "$BASH_ENV"
 trap 'export HOMEBREW_PREFIX; env | grep HOMEBREW > $BREW_SHELLENV' EXIT
 EOF
