@@ -33,16 +33,11 @@ cask "visual-studio-code@insiders"
 cask "zotero"
 mas "1Blocker", id: 1365531024
 mas "1Password for Safari", id: 1569813296
-mas "Affinity Designer 2", id: 1616831348
-mas "Affinity Photo 2", id: 1616822987
-mas "Affinity Publisher 2", id: 1606941598
 mas "Baking Soda", id: 1601151613
 mas "Balatro", id: 6502451661
 mas "Developer", id: 640199958
 mas "DuckDuckGo Privacy for Safari", id: 1482920575
-mas "GarageBand", id: 682658836
 mas "Homecoming for Mastodon", id: 1666139593
-mas "iMovie", id: 408981434
 mas "Jumpshare", id: 889922906
 mas "Keynote", id: 409183694
 mas "Microsoft Excel", id: 462058435
