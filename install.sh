@@ -124,4 +124,9 @@ if [ "$(uname)" = "Darwin" ]; then
     git lfs install --system --skip-repo
 fi
 
+if [ -n "${WSL_DISTRO_NAME:-}" ]; then
+    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Configuring default shell...'
+    sudo chsh -s "$(which zsh)" "$(whoami)"
+fi
+
 printf "$LOG_TEMPLATE" 32 '--> ' 39 'Dotfiles installation complete!'
