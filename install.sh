@@ -13,10 +13,13 @@ if [ -n "${DOTFILES_REINSTALL:-}" ]; then
     echo
 fi
 
-if [ "$(uname)" = "Darwin" ] || [ -n "${WSL_DISTRO_NAME:-}" ]; then
-    printf "$LOG_TEMPLATE" 33 '==> ' 39 'Sudo access is required:'
-    sudo -v
-fi
+check_sudo() {
+    if ! sudo -vn 2>/dev/null; then
+        printf '\a'
+        printf "$LOG_TEMPLATE" 33 '==> ' 39 'Sudo access is required:'
+        sudo -v
+    fi
+}
 
 BASH_ENV="$(mktemp)"
 export BASH_ENV
@@ -28,13 +31,16 @@ EOF
 if [ -n "${DOTFILES_REINSTALL:-}" ]; then
     if brew --version 1>/dev/null 2>/dev/null; then
         printf "$LOG_TEMPLATE" 31 '--> ' 39 'Uninstalling Homebrew...'
+        check_sudo
         NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
         . "$BREW_SHELLENV"
+        check_sudo
         sudo rm -rfv "$HOMEBREW_PREFIX"
     fi
 fi
 
 printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing Homebrew...'
+check_sudo
 NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 . "$BREW_SHELLENV"
 eval "$("$HOMEBREW_PREFIX"/bin/brew shellenv)"
@@ -94,6 +100,7 @@ if [ -n "${WSL_DISTRO_NAME:-}" ]; then
     WIN_HOME=$(wslpath "$(cmd.exe /C "echo %USERPROFILE%" 2>/dev/null | tr -d '\r')")
     OP_SSH_SIGN="$WIN_HOME/AppData/Local/Microsoft/WindowsApps/op-ssh-sign-wsl.exe"
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig-wsl           ~/.gitconfig-wsl
+    check_sudo
     sudo ln -v  -sf    "$OP_SSH_SIGN"                              /usr/local/bin/op-ssh-sign-wsl
 fi
 
@@ -126,6 +133,7 @@ fi
 
 if [ -n "${WSL_DISTRO_NAME:-}" ]; then
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Configuring default shell...'
+    check_sudo
     sudo chsh -s "$(which zsh)" "$(whoami)"
 fi
 
