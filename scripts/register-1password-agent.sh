@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 set -euo pipefail
 
 cat << EOF > ~/Library/LaunchAgents/com.1password.SSH_AUTH_SOCK.plist

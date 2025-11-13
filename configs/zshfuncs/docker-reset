@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 echo '==> Stopping all containers...'
 docker ps -a --format='{{.ID}}' | xargs docker stop
