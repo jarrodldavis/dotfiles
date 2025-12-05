@@ -92,6 +92,8 @@ elif [ "$(uname)" = "Darwin" ]; then
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig-macos         ~/.gitconfig-macos
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig-ssh           ~/.gitconfig-ssh
     ln      -v  -sf    ~/.dotfiles/configs/ideavimrc               ~/.ideavimrc
+    mkdir   -v  -p                                                 ~/.xinitrc.d
+    ln      -v  -sf    ~/.dotfiles/configs/xhost.sh                ~/.xinitrc.d/xhost.sh
     mkdir   -v  -p                                                 ~/Library/LaunchAgents
     ln      -v  -shf   ~/.dotfiles/Formula                         "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles/Formula
 fi
@@ -126,6 +128,9 @@ fi
 if [ "$(uname)" = "Darwin" ]; then
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing 1Password SSH Agent...'
     ~/.dotfiles/scripts/register-1password-agent.sh
+
+    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Configuring XQuartz...'
+    ~/.dotfiles/scripts/configure-xquartz.sh
 
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Setting up Git LFS...'
     git lfs install --system --skip-repo
