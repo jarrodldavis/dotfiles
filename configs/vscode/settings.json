@@ -1,4 +1,5 @@
 {
+    "chat.agent.maxRequests": 250,
     "chat.editing.alwaysSaveWithGeneratedChanges": true,
     "chat.editing.confirmEditRequestRemoval": false,
     "chat.editing.confirmEditRequestRetry": false,
@@ -47,6 +48,7 @@
     "git.fetchOnPull": true,
     "git.openRepositoryInParentFolders": "always",
     "git.showProgress": false,
+    "github.copilot.nextEditSuggestions.enabled": false,
     "go.toolsManagement.autoUpdate": true,
     "gopls": {
         "ui.semanticTokens": true
@@ -61,6 +63,9 @@
     "notebook.lineNumbers": "on",
     "notebook.output.scrolling": true,
     "redhat.telemetry.enabled": true,
+    "pgsql.enableMigrations": false,
+    "playwright.reuseBrowser": false,
+    "playwright.showTrace": false,
     "remote.autoForwardPortsSource": "hybrid",
     "scm.inputFontFamily": "editor",
     "search.quickOpen.includeHistory": false,
