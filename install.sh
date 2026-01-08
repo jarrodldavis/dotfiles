@@ -89,6 +89,9 @@ elif [ "$(uname)" = "Darwin" ]; then
     mkdir   -v  -p                                                 ~/Library/Application\ Support/Code/User
     ln      -v  -sf    ~/.dotfiles/configs/vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
     ln      -v  -sf    ~/.dotfiles/configs/vscode/settings.json    ~/Library/Application\ Support/Code/User/settings.json
+    mkdir   -v  -p                                                 ~/Library/Containers/net.sonuscape.mouseless/Data/.mouseless/configs
+    # hardlink required due to Mouseless sandboxing
+    ln      -v  -f     ~/.dotfiles/configs/mouseless/config.yaml   ~/Library/Containers/net.sonuscape.mouseless/Data/.mouseless/configs/config.yaml
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig-macos         ~/.gitconfig-macos
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig-ssh           ~/.gitconfig-ssh
     ln      -v  -sf    ~/.dotfiles/configs/ideavimrc               ~/.ideavimrc
