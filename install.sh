@@ -115,6 +115,11 @@ if [ -d ~/.oh-my-zsh ]; then
     command env ZSH="$HOME/.oh-my-zsh" sh -ceu 'yes | head -n1 | sh -eu $ZSH/tools/uninstall.sh'
 fi
 
+if command -v conda 1>/dev/null 2>/dev/null; then
+    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Initializing Conda for Zsh...'
+    ZDOTDIR=~ conda init zsh
+fi
+
 printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing system dependencies from Homebrew Bundle...'
 
 if [ -n "${DOTFILES_SKIP_MAS:-}" ]; then
