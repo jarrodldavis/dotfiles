@@ -66,6 +66,7 @@
     "playwright.reuseBrowser": false,
     "playwright.showTrace": false,
     "python-envs.terminal.autoActivationType": "shellStartup",
+    "python.terminal.activateEnvironment": false,
     "python.useEnvironmentsExtension": true,
     "redhat.telemetry.enabled": true,
     "remote.autoForwardPortsSource": "hybrid",
