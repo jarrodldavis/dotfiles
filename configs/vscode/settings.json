@@ -72,6 +72,8 @@
     "scm.inputFontFamily": "editor",
     "search.quickOpen.includeHistory": false,
     "svelte.enable-ts-plugin": true,
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.defaultProfile.osx": "zsh",
     "terminal.integrated.enableMultiLinePasteWarning": "never",
     "terminal.integrated.scrollback": 100000,
     "terminal.integrated.shellIntegration.environmentReporting": true,
