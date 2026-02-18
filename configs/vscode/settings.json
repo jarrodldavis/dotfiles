@@ -3,6 +3,8 @@
     "chat.editing.alwaysSaveWithGeneratedChanges": true,
     "chat.editing.confirmEditRequestRemoval": false,
     "chat.editing.confirmEditRequestRetry": false,
+    "chat.viewSessions.orientation": "stacked",
+    "chatgpt.composerEnterBehavior": "cmdIfMultiline",
     "containers.containerClient": "com.microsoft.visualstudio.containers.docker",
     "dataWrangler.defaultViewingFilterOptions": "advanced",
     "dev.containers.defaultExtensions": [
@@ -53,7 +55,16 @@
     "gopls": {
         "ui.semanticTokens": true
     },
+    "json.schemaDownload.trustedDomains": {
+        "https://json-schema.org/": true,
+        "https://json.schemastore.org/": true,
+        "https://raw.githubusercontent.com/": true,
+        "https://schema.management.azure.com": true,
+        "https://schemastore.azurewebsites.net/": true,
+        "https://www.schemastore.org/": true
+    },
     "jupyter.askForKernelRestart": false,
+    "jupyter.interactiveWindow.creationMode": "perFile",
     "jupyter.themeMatplotlibPlots": true,
     "jupyter.widgetScriptSources": [
         "jsdelivr.com",
@@ -63,10 +74,13 @@
     "notebook.lineNumbers": "on",
     "notebook.output.scrolling": true,
     "pgsql.enableMigrations": false,
+    "pgsql.openQueryResultsInTabByDefault": true,
+    "pgsql.openQueryResultsInTabByDefaultDoNotShowPrompt": true,
     "playwright.reuseBrowser": false,
     "playwright.showTrace": false,
     "python-envs.terminal.autoActivationType": "shellStartup",
     "python.terminal.activateEnvironment": false,
+    "python.terminal.useEnvFile": true,
     "python.useEnvironmentsExtension": true,
     "redhat.telemetry.enabled": true,
     "remote.autoForwardPortsSource": "hybrid",
