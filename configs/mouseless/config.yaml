@@ -283,11 +283,11 @@ keymaps:
     enter free mode: null
     execute mouse action: Space
     execute mouse move: OptionLeft tap
-    exit free mode: Escape
+    exit free mode: null
     forward click: null
     forward mouse button: Q
     forward mouse button (w/o overlay): null
-    hide overlay: Escape
+    hide overlay: null
     hold for back button: null
     hold for drag: CommandLeft
     hold for forward button: null
@@ -318,7 +318,7 @@ keymaps:
     right click: null
     right mouse button: R
     right mouse button (w/o overlay): null
-    show overlay: CommandLeft tap
+    show overlay: null
     subgrid nudge down:
     - D
     - K
@@ -336,8 +336,8 @@ keymaps:
     toggle app enabled: null
     toggle continuous mode: null
     toggle continuous mode until closed: '1'
-    toggle free mode: OptionLeft tap
-    toggle overlay: null
+    toggle free mode: null
+    toggle overlay: Alt+Shift+Ctrl+Cmd
     toggle overlay lock: null
     undo last key: Backspace
     wheel down: ','
