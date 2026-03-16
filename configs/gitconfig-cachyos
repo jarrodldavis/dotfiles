@@ -1,0 +1,3 @@
+# Commit Identity
+[gpg "ssh"]
+    program = "/opt/1Password/op-ssh-sign"

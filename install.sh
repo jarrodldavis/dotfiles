@@ -1,6 +1,14 @@
 #!/bin/sh
 set -eu
 
+if [ -f /etc/os-release ]; then
+    # shellcheck disable=SC1091
+    . /etc/os-release
+fi
+
+ID="${ID:-<unknown>}"
+
+
 LOG_TEMPLATE='\033[1;%sm%b\033[0m\033[1;%sm%s\033[0m\n'
 
 if [ -n "${DOTFILES_SKIP_MAS:-}" ]; then
@@ -86,6 +94,12 @@ if [ "$(uname)" = "Linux" ]; then
     ln      -v  -sf    ~/.dotfiles/configs/Brewfile-linux          ~/.Brewfile
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig-ssh           ~/.gitconfig-ssh
     ln      -v  -snf   ~/.dotfiles/Formula                         "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles/Formula
+
+    if [ "$ID" = "cachyos" ]; then
+        ln  -v  -sf    ~/.dotfiles/configs/gitconfig-cachyos       ~/.gitconfig-cachyos
+        ln  -v  -sf    ~/.dotfiles/configs/ssh/config-cachyos      ~/.ssh/config.d/cachyos
+    fi
+
 elif [ "$(uname)" = "Darwin" ]; then
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig               ~/.gitconfig
     ln      -v  -sf    ~/.dotfiles/configs/ssh/config-macos        ~/.ssh/config.d/macos

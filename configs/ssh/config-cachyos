@@ -1,0 +1,6 @@
+Host *
+ IdentityAgent ~/.1password/agent.sock
+ IgnoreUnknown AddKeysToAgent,UseKeychain
+ AddKeysToAgent yes
+ UseKeychain yes
+ ForwardAgent yes
