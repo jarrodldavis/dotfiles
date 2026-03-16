@@ -1,2 +1,2 @@
 Include config.local.d/*
-Include config.shared.d/*
+Include config.d/*

@@ -67,7 +67,7 @@ ln          -v  -sf    ~/.dotfiles/configs/gitignore               ~/.gitignore
 mkdir       -v  -p                                                 ~/.ssh
 ln          -v  -sf    ~/.dotfiles/configs/ssh/config              ~/.ssh/config
 ln          -v  -sf    ~/.dotfiles/configs/ssh/config.local.d      ~/.ssh/config.local.d
-mkdir       -v  -p                                                 ~/.ssh/config.shared.d
+mkdir       -v  -p                                                 ~/.ssh/config.d
 ln          -v  -sf    ~/.dotfiles/configs/ssh/allowed_signers     ~/.ssh/allowed_signers
 mkdir       -v  -p                                                 ~/.config/gh
 ln          -v  -sf    ~/.dotfiles/configs/gh/config.yml           ~/.config/gh/config.yml
@@ -88,6 +88,7 @@ if [ "$(uname)" = "Linux" ]; then
     ln      -v  -snf   ~/.dotfiles/Formula                         "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles/Formula
 elif [ "$(uname)" = "Darwin" ]; then
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig               ~/.gitconfig
+    ln      -v  -sf    ~/.dotfiles/configs/ssh/config-macos        ~/.ssh/config.d/macos
     ln      -v  -sf    ~/.dotfiles/configs/Brewfile-macos          ~/.Brewfile
     mkdir   -v  -p                                                 ~/Library/Application\ Support/Code/User
     ln      -v  -sf    ~/.dotfiles/configs/vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
