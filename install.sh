@@ -65,6 +65,9 @@ printf "$LOG_TEMPLATE" 35 '--> ' 39 'Linking dotfiles...'
 ln          -v  -sf    ~/.dotfiles/configs/zshenv                  ~/.zshenv
 ln          -v  -sf    ~/.dotfiles/configs/gitignore               ~/.gitignore
 mkdir       -v  -p                                                 ~/.ssh
+ln          -v  -sf    ~/.dotfiles/configs/ssh/config              ~/.ssh/config
+ln          -v  -sf    ~/.dotfiles/configs/ssh/config.local.d      ~/.ssh/config.local.d
+mkdir       -v  -p                                                 ~/.ssh/config.shared.d
 ln          -v  -sf    ~/.dotfiles/configs/ssh/allowed_signers     ~/.ssh/allowed_signers
 mkdir       -v  -p                                                 ~/.config/gh
 ln          -v  -sf    ~/.dotfiles/configs/gh/config.yml           ~/.config/gh/config.yml
