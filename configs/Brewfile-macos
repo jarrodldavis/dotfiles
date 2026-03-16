@@ -30,7 +30,6 @@ cask "megasync"
 cask "minecraft"
 cask "mouseless"
 cask "ngrok"
-cask "raspberry-pi-imager"
 cask "raycast"
 cask "thetimemachinemechanic"
 cask "virtualbuddy"
@@ -41,7 +40,6 @@ cask "zotero"
 mas "1Blocker", id: 1365531024
 mas "1Password for Safari", id: 1569813296
 mas "Baking Soda", id: 1601151613
-mas "Balatro", id: 6502451661
 mas "Developer", id: 640199958
 mas "DuckDuckGo Privacy for Safari", id: 1482920575
 mas "Homecoming for Mastodon", id: 1666139593
