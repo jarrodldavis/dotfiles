@@ -1,5 +1,6 @@
 {
     "chat.agent.maxRequests": 250,
+    "chat.autopilot.enabled": true,
     "chat.editing.alwaysSaveWithGeneratedChanges": true,
     "chat.editing.confirmEditRequestRemoval": false,
     "chat.editing.confirmEditRequestRetry": false,
@@ -104,5 +105,6 @@
     "vim.replaceWithRegister": true,
     "vim.sneak": true,
     "window.dialogStyle": "custom",
+    "workbench.browser.enableChatTools": true,
     "workbench.sideBar.location": "right"
 }
