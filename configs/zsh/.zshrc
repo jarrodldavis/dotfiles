@@ -7,6 +7,8 @@ fi
 autoload -Uz compinit
 compinit
 
+unsetopt NOMATCH
+
 if [ -z "${EDITOR:-}" ]; then
     export EDITOR="vim"
 fi
