@@ -1,7 +1,6 @@
 {
     "chat.agent.maxRequests": 250,
     "chat.autopilot.enabled": true,
-    "chat.editing.alwaysSaveWithGeneratedChanges": true,
     "chat.editing.confirmEditRequestRemoval": false,
     "chat.editing.confirmEditRequestRetry": false,
     "chat.viewSessions.orientation": "stacked",
@@ -57,9 +56,13 @@
         "ui.semanticTokens": true
     },
     "json.schemaDownload.trustedDomains": {
+        "https://developer.microsoft.com/json-schemas/": true,
         "https://json-schema.org/": true,
         "https://json.schemastore.org/": true,
+        "https://openapi.vercel.sh": true,
         "https://raw.githubusercontent.com/": true,
+        "https://raw.githubusercontent.com/devcontainers/spec/": true,
+        "https://raw.githubusercontent.com/microsoft/vscode/": true,
         "https://schema.management.azure.com": true,
         "https://schemastore.azurewebsites.net/": true,
         "https://www.schemastore.org/": true
