@@ -15,7 +15,6 @@ cask "1password-cli"
 cask "backblaze"
 cask "balenaetcher"
 cask "chatgpt"
-cask "chatgpt-atlas"
 cask "chatterino"
 cask "chromium"
 cask "cloudflare-warp"
@@ -30,33 +29,24 @@ cask "lm-studio"
 cask "megasync"
 cask "minecraft"
 cask "mouseless"
-cask "ngrok"
 cask "raycast"
 cask "thetimemachinemechanic"
 cask "virtualbuddy"
 cask "visual-studio-code"
 cask "visual-studio-code@insiders"
 cask "xquartz"
-cask "zotero"
 mas "1Blocker", id: 1365531024
 mas "1Password for Safari", id: 1569813296
-mas "Baking Soda", id: 1601151613
 mas "DaisyDisk", id: 411643860
-mas "Developer", id: 640199958
-mas "DuckDuckGo Privacy for Safari", id: 1482920575
 mas "Homecoming for Mastodon", id: 1666139593
 mas "Jumpshare", id: 889922906
 mas "Keynote", id: 409183694
-mas "Microsoft Excel", id: 462058435
-mas "Microsoft Word", id: 462054704
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
 mas "Soulver 3", id: 1508732804
 mas "StopTheMadness", id: 1376402589
 mas "StopTheMadness Pro", id: 6471380298
 mas "Userscripts", id: 1463298887
-mas "Vinegar", id: 1591303229
-mas "Windows App", id: 1295203466
 vscode "bierner.docs-view"
 vscode "docker.docker"
 vscode "github.codespaces"
