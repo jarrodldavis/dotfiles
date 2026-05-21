@@ -1,4 +1,4 @@
-tap "jarrodldavis/dotfiles", "https://github.com/Homebrew/brew"
+tap "jarrodldavis/dotfiles"
 brew "act"
 brew "bat"
 brew "gh"
