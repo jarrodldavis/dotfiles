@@ -50,7 +50,6 @@ mas "Userscripts", id: 1463298887
 vscode "bierner.docs-view"
 vscode "docker.docker"
 vscode "github.codespaces"
-vscode "github.copilot-chat"
 vscode "github.remotehub"
 vscode "github.vscode-github-actions"
 vscode "github.vscode-pull-request-github"
