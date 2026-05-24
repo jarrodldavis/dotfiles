@@ -31,7 +31,11 @@ sudo sbctl status
 
 # Configure Secure Boot
 sudo sbctl create-keys
-sudo sbctl enroll-keys --microsoft
+sudo sbctl enroll-keys --microsoft --firmware-builtin
+
+# Enable automatic config checksum enrollment
+# ENABLE_ENROLL_LIMINE_CONFIG=yes
+sudo vim /etc/default/limine
 
 # Update Limine to support Secure Boot
 sudo limine-enroll-config
@@ -105,6 +109,43 @@ echo << EOF > ~/.config/environment.d/gaming.conf
 # Increase Nvidia's shader cache size to 12GB
 __GL_SHADER_DISK_CACHE_SIZE=12000000000
 EOF
+```
+
+## Configure NextDNS
+https://my.nextdns.io
+
+```bash
+# Update according to NextDNS dashboard instructions
+sudo vim /etc/systemd/resolved.conf
+```
+
+## Configure mDNS (Multicast DNS)
+Avahi does not play nicely with Steam and KDE Connect.
+Disable it and use `systemd-resolved` to resolve Bonjour services and `*.local` hostnames.
+
+```bash
+# Disable Avahi
+sudo systemctl disable --now avahi-daemon.service
+sudo systemctl disable --now avahi-daemon.socket
+
+# Configure systemd-resolved
+# Add `MulticastDNS=resolve`
+sudo vim /etc/systemd/resolved.conf
+
+# Restart systemd-resolved
+sudo systemctl restart systemd-resolved
+```
+
+## Improve HSI Score (Firmware Security)
+```sh
+# Add `lockdown=integrity intel_iommu=on iommu=pt` to `KERNEL_CMDLINE[default]+`
+sudo vim /etc/default/limine
+```
+
+## Configure Limine Snapper Sync
+```sh
+# Change `MAX_SNAPSHOT_ENTRIES=8` to `MAX_SNAPSHOT_ENTRIES=auto`
+sudo vim /etc/limine-snapper-sync.conf
 ```
 
 ## Remove Stale Windows Bootloader Entry
