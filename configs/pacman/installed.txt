@@ -6,7 +6,6 @@ btrfs-desktop-notification
 cachyos-benchmarker
 cachyos-gaming-applications
 cachyos-gaming-meta
-cachyos-snapper-support
 cachyos-sysctl-manager
 chromium
 discord
@@ -16,7 +15,6 @@ intel-ucode
 iperf3
 iptables
 libdbusmenu-glib
-limine-mkinitcpio-hook
 linux-cachyos-lts-nvidia-open
 linux-cachyos-nvidia-open
 openbsd-netcat

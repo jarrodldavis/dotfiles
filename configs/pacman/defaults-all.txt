@@ -36,6 +36,7 @@ cachyos-packageinstaller
 cachyos-plymouth-bootanimation
 cachyos-rate-mirrors
 cachyos-settings
+cachyos-snapper-support
 cachyos-themes-sddm
 cachyos-v3-mirrorlist
 cachyos-v4-mirrorlist
@@ -112,6 +113,7 @@ libopenraw
 libva-nvidia-driver
 limine
 limine-entry-tool
+limine-mkinitcpio-hook
 limine-snapper-sync
 linux-cachyos
 linux-cachyos-headers
