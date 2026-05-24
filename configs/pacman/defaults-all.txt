@@ -55,6 +55,7 @@ duf
 e2fsprogs
 efibootmgr
 efitools
+egl-wayland
 ethtool
 exfatprogs
 f2fs-tools
@@ -95,9 +96,13 @@ kscreen
 kwalletmanager
 kwallet-pam
 less
+lib32-nvidia-utils
+lib32-opencl-nvidia
+lib32-vulkan-icd-loader
 libdvdcss
 libgsf
 libopenraw
+libva-nvidia-driver
 linux-cachyos
 linux-cachyos-headers
 linux-cachyos-lts
@@ -127,7 +132,10 @@ noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
 nss-mdns
+nvidia-settings
+nvidia-utils
 octopi
+opencl-nvidia
 openssh
 os-prober
 pacman-contrib
@@ -183,6 +191,7 @@ usb_modeswitch
 usbutils
 vim
 vlc-plugins-all
+vulkan-icd-loader
 wget
 which
 wireless-regdb
