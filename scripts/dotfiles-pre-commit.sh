@@ -13,3 +13,8 @@ fi
 
 printf "$LOG_TEMPLATE" 35 '--> ' 39 'Validating scripts...'
 ~/.dotfiles/scripts/shellcheck-all.sh
+
+if [ "$(uname)" = "Linux" ] && [ "$(command -v pacman)" ]; then
+    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Recording installed pacman packages...'
+    ~/.dotfiles/scripts/record-pacman-packages.sh
+fi
