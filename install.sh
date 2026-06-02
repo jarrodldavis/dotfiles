@@ -93,8 +93,11 @@ if [ "$(uname)" = "Linux" ]; then
         ln  -v  -sf    ~/.dotfiles/configs/gitconfig               ~/.gitconfig
     fi
 
+    if [ "${CODESPACES:-}" != "true" ]; then
+        ln  -v  -sf    ~/.dotfiles/configs/gitconfig-ssh           ~/.gitconfig-ssh
+    fi
+
     ln      -v  -sf    ~/.dotfiles/configs/Brewfile-linux          ~/.Brewfile
-    ln      -v  -sf    ~/.dotfiles/configs/gitconfig-ssh           ~/.gitconfig-ssh
     ln      -v  -snf   ~/.dotfiles/Formula                         "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles/Formula
 
     if [ "$ID" = "cachyos" ]; then
