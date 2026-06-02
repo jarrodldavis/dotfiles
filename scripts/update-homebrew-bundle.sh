@@ -7,4 +7,4 @@ else
     brew bundle dump    --global --force
 fi
 
-brew bundle install     --global --force --cleanup --force-cleanup --verbose
+brew bundle install     --global --force --cleanup --verbose
