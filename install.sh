@@ -81,6 +81,8 @@ mkdir       -v  -p                                                 ~/.config/gh
 ln          -v  -sf    ~/.dotfiles/configs/gh/config.yml           ~/.config/gh/config.yml
 ln          -v  -sf    ~/.dotfiles/configs/gh/hosts.yml            ~/.config/gh/hosts.yml
 ln          -v  -sf    ~/.dotfiles/scripts/dotfiles-pre-commit.sh  ~/.dotfiles/.git/hooks/pre-commit
+mkdir       -v  -p                                                 ~/.homebrew
+ln          -v  -sf    ~/.dotfiles/configs/homebrew/trust.json     ~/.homebrew/trust.json
 mkdir       -v  -p                                                 "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles
 
 if [ "$(uname)" = "Linux" ]; then
