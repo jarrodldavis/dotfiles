@@ -80,6 +80,10 @@ ln          -v  -sf    ~/.dotfiles/configs/ssh/allowed_signers                  
 mkdir       -v  -p                                                              ~/.config/gh
 ln          -v  -sf    ~/.dotfiles/configs/gh/config.yml                        ~/.config/gh/config.yml
 ln          -v  -sf    ~/.dotfiles/configs/gh/hosts.yml                         ~/.config/gh/hosts.yml
+mkdir       -v  -p                                                              ~/.colima/_templates
+ln          -v  -sf    ~/.dotfiles/configs/colima/templates/default.yaml        ~/.colima/_templates/default.yaml
+mkdir       -v  -p                                                              ~/.colima/default
+ln          -v  -sf    ~/.dotfiles/configs/colima/default/colima.yaml           ~/.colima/default/colima.yaml
 ln          -v  -sf    ~/.dotfiles/scripts/dotfiles-pre-commit.sh               ~/.dotfiles/.git/hooks/pre-commit
 mkdir       -v  -p                                                              ~/.homebrew
 ln          -v  -sf    ~/.dotfiles/configs/homebrew/trust.json                  ~/.homebrew/trust.json
@@ -162,6 +166,9 @@ if [ "$(uname)" = "Darwin" ]; then
 
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Configuring XQuartz...'
     ~/.dotfiles/scripts/configure-xquartz.sh
+
+    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Configuring Docker CLI...'
+    ~/.dotfiles/scripts/configure-docker.sh
 
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Setting up Git LFS...'
     git lfs install --system --skip-repo
