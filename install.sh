@@ -70,66 +70,66 @@ git -C ~/.dotfiles remote set-url --push origin git@github.com:jarrodldavis/dotf
 
 printf "$LOG_TEMPLATE" 35 '--> ' 39 'Linking dotfiles...'
 
-ln          -v  -sf    ~/.dotfiles/configs/zshenv                  ~/.zshenv
-ln          -v  -sf    ~/.dotfiles/configs/gitignore               ~/.gitignore
-mkdir       -v  -p                                                 ~/.ssh
-ln          -v  -sf    ~/.dotfiles/configs/ssh/config              ~/.ssh/config
-ln          -v  -sf    ~/.dotfiles/configs/ssh/config.local.d      ~/.ssh/config.local.d
-mkdir       -v  -p                                                 ~/.ssh/config.d
-ln          -v  -sf    ~/.dotfiles/configs/ssh/allowed_signers     ~/.ssh/allowed_signers
-mkdir       -v  -p                                                 ~/.config/gh
-ln          -v  -sf    ~/.dotfiles/configs/gh/config.yml           ~/.config/gh/config.yml
-ln          -v  -sf    ~/.dotfiles/configs/gh/hosts.yml            ~/.config/gh/hosts.yml
-ln          -v  -sf    ~/.dotfiles/scripts/dotfiles-pre-commit.sh  ~/.dotfiles/.git/hooks/pre-commit
-mkdir       -v  -p                                                 ~/.homebrew
-ln          -v  -sf    ~/.dotfiles/configs/homebrew/trust.json     ~/.homebrew/trust.json
-mkdir       -v  -p                                                 "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles
+ln          -v  -sf    ~/.dotfiles/configs/zshenv                               ~/.zshenv
+ln          -v  -sf    ~/.dotfiles/configs/gitignore                            ~/.gitignore
+mkdir       -v  -p                                                              ~/.ssh
+ln          -v  -sf    ~/.dotfiles/configs/ssh/config                           ~/.ssh/config
+ln          -v  -sf    ~/.dotfiles/configs/ssh/config.local.d                   ~/.ssh/config.local.d
+mkdir       -v  -p                                                              ~/.ssh/config.d
+ln          -v  -sf    ~/.dotfiles/configs/ssh/allowed_signers                  ~/.ssh/allowed_signers
+mkdir       -v  -p                                                              ~/.config/gh
+ln          -v  -sf    ~/.dotfiles/configs/gh/config.yml                        ~/.config/gh/config.yml
+ln          -v  -sf    ~/.dotfiles/configs/gh/hosts.yml                         ~/.config/gh/hosts.yml
+ln          -v  -sf    ~/.dotfiles/scripts/dotfiles-pre-commit.sh               ~/.dotfiles/.git/hooks/pre-commit
+mkdir       -v  -p                                                              ~/.homebrew
+ln          -v  -sf    ~/.dotfiles/configs/homebrew/trust.json                  ~/.homebrew/trust.json
+mkdir       -v  -p                                                              "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles
 
 if [ "$(uname)" = "Linux" ]; then
     if [ -n "${REMOTE_CONTAINERS:-}" ]; then
         # copy gitconfig to avoid picking up dev container credential configuration changes
-        cp  -v  -f     ~/.dotfiles/configs/gitconfig               ~/.gitconfig
+        cp  -v  -f     ~/.dotfiles/configs/gitconfig                            ~/.gitconfig
     else
-        ln  -v  -sf    ~/.dotfiles/configs/gitconfig               ~/.gitconfig
+        ln  -v  -sf    ~/.dotfiles/configs/gitconfig                            ~/.gitconfig
     fi
 
     if [ "${CODESPACES:-}" != "true" ]; then
-        ln  -v  -sf    ~/.dotfiles/configs/gitconfig-ssh           ~/.gitconfig-ssh
+        ln  -v  -sf    ~/.dotfiles/configs/gitconfig-ssh                        ~/.gitconfig-ssh
     fi
 
-    ln      -v  -sf    ~/.dotfiles/configs/Brewfile-linux          ~/.Brewfile
-    ln      -v  -snf   ~/.dotfiles/Formula                         "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles/Formula
+    ln      -v  -sf    ~/.dotfiles/configs/Brewfile-linux                       ~/.Brewfile
+    ln      -v  -snf   ~/.dotfiles/Formula                                      "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles/Formula
 
     if [ "$ID" = "cachyos" ]; then
-        ln  -v  -sf    ~/.dotfiles/configs/gitconfig-cachyos       ~/.gitconfig-cachyos
-        ln  -v  -sf    ~/.dotfiles/configs/ssh/config-cachyos      ~/.ssh/config.d/cachyos
+        ln  -v  -sf    ~/.dotfiles/configs/gitconfig-cachyos                    ~/.gitconfig-cachyos
+        ln  -v  -sf    ~/.dotfiles/configs/ssh/config-cachyos                   ~/.ssh/config.d/cachyos
     fi
 
 elif [ "$(uname)" = "Darwin" ]; then
-    ln      -v  -sf    ~/.dotfiles/configs/gitconfig               ~/.gitconfig
-    ln      -v  -sf    ~/.dotfiles/configs/ssh/config-macos        ~/.ssh/config.d/macos
-    ln      -v  -sf    ~/.dotfiles/configs/Brewfile-macos          ~/.Brewfile
-    mkdir   -v  -p                                                 ~/Library/Application\ Support/Code/User
-    ln      -v  -sf    ~/.dotfiles/configs/vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
-    ln      -v  -sf    ~/.dotfiles/configs/vscode/settings.json    ~/Library/Application\ Support/Code/User/settings.json
-    mkdir   -v  -p                                                 ~/Library/Containers/net.sonuscape.mouseless/Data/.mouseless/configs
+    ln      -v  -sf    ~/.dotfiles/configs/gitconfig                            ~/.gitconfig
+    ln      -v  -sf    ~/.dotfiles/configs/ssh/config-macos                     ~/.ssh/config.d/macos
+    ln      -v  -sf    ~/.dotfiles/configs/Brewfile-macos                       ~/.Brewfile
+    mkdir   -v  -p                                                              ~/Library/Application\ Support/Code/User
+    ln      -v  -sf    ~/.dotfiles/configs/vscode/keybindings.json              ~/Library/Application\ Support/Code/User/keybindings.json
+    ln      -v  -sf    ~/.dotfiles/configs/vscode/settings.json                 ~/Library/Application\ Support/Code/User/settings.json
+    mkdir   -v  -p                                                              ~/Library/Containers/net.sonuscape.mouseless/Data/.mouseless/configs
     # hardlink required due to Mouseless sandboxing
-    ln      -v  -f     ~/.dotfiles/configs/mouseless/config.yaml   ~/Library/Containers/net.sonuscape.mouseless/Data/.mouseless/configs/config.yaml
-    ln      -v  -sf    ~/.dotfiles/configs/gitconfig-macos         ~/.gitconfig-macos
-    ln      -v  -sf    ~/.dotfiles/configs/gitconfig-ssh           ~/.gitconfig-ssh
-    ln      -v  -sf    ~/.dotfiles/configs/ideavimrc               ~/.ideavimrc
-    mkdir   -v  -p                                                 ~/.xinitrc.d
-    ln      -v  -sf    ~/.dotfiles/configs/xhost.sh                ~/.xinitrc.d/xhost.sh
-    mkdir   -v  -p                                                 ~/Library/LaunchAgents
-    ln      -v  -shf   ~/.dotfiles/Formula                         "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles/Formula
+    ln      -v  -f     ~/.dotfiles/configs/mouseless/config.yaml                ~/Library/Containers/net.sonuscape.mouseless/Data/.mouseless/configs/config.yaml
+    ln      -v  -sf    ~/.dotfiles/configs/gitconfig-macos                      ~/.gitconfig-macos
+    ln      -v  -sf    ~/.dotfiles/configs/gitconfig-ssh                        ~/.gitconfig-ssh
+    ln      -v  -sf    ~/.dotfiles/configs/ideavimrc                            ~/.ideavimrc
+    mkdir   -v  -p                                                              ~/.xinitrc.d
+    ln      -v  -sf    ~/.dotfiles/configs/xhost.sh                             ~/.xinitrc.d/xhost.sh
+    mkdir   -v  -p                                                              ~/Library/LaunchAgents
+    ln      -v  -shf   ~/.dotfiles/Formula                                      "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles/Formula
 fi
 
 if [ -n "${WSL_DISTRO_NAME:-}" ]; then
     WIN_HOME=$(wslpath "$(cmd.exe /C "echo %USERPROFILE%" 2>/dev/null | tr -d '\r')")
     OP_SSH_SIGN="$WIN_HOME/AppData/Local/Microsoft/WindowsApps/op-ssh-sign-wsl.exe"
-    ln      -v  -sf    ~/.dotfiles/configs/gitconfig-wsl           ~/.gitconfig-wsl
+    ln      -v  -sf    ~/.dotfiles/configs/gitconfig-wsl                        ~/.gitconfig-wsl
     check_sudo
-    sudo ln -v  -sf    "$OP_SSH_SIGN"                              /usr/local/bin/op-ssh-sign-wsl
+    sudo ln -v  -sf    "$OP_SSH_SIGN"                                           /usr/local/bin/op-ssh-sign-wsl
 fi
 
 if [ -d ~/.oh-my-zsh ]; then
