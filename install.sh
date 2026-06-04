@@ -135,20 +135,6 @@ if [ -n "${WSL_DISTRO_NAME:-}" ]; then
     sudo ln -v  -sf    "$OP_SSH_SIGN"                                           /usr/local/bin/op-ssh-sign-wsl
 fi
 
-if [ -d ~/.oh-my-zsh ]; then
-    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Removing Oh My Zsh...'
-    # shellcheck disable=SC2016
-    command env ZSH="$HOME/.oh-my-zsh" sh -ceu 'yes | head -n1 | sh -eu $ZSH/tools/uninstall.sh'
-fi
-
-printf "$LOG_TEMPLATE" 35 '--> ' 39 'Configuring Zsh...'
-~/.dotfiles/scripts/configure-zsh.sh
-
-if command -v conda 1>/dev/null 2>/dev/null; then
-    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Initializing Conda for Zsh...'
-    ZDOTDIR=~ conda init zsh
-fi
-
 printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing system dependencies from Homebrew Bundle...'
 
 if [ -n "${DOTFILES_SKIP_MAS:-}" ]; then
@@ -161,6 +147,9 @@ if [ -n "${DOTFILES_REINSTALL:-}" ]; then
 else
     brew bundle install --global --verbose
 fi
+
+printf "$LOG_TEMPLATE" 35 '--> ' 39 'Configuring Zsh...'
+~/.dotfiles/scripts/configure-zsh.sh
 
 if [ "$(uname)" = "Darwin" ]; then
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing 1Password SSH Agent...'

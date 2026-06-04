@@ -17,6 +17,7 @@
         "yoavbls.pretty-ts-errors"
     ],
     "dev.containers.defaultFeatures": {
+        "ghcr.io/jarrodldavis/features/uninstall-oh-my-zsh:1": {},
         "ghcr.io/devcontainers/features/common-utils:2": {
             "configureZshAsDefaultShell": true,
             "installOhMyZsh": false,
