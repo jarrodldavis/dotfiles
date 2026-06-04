@@ -70,7 +70,6 @@ git -C ~/.dotfiles remote set-url --push origin git@github.com:jarrodldavis/dotf
 
 printf "$LOG_TEMPLATE" 35 '--> ' 39 'Linking dotfiles...'
 
-ln          -v  -sf    ~/.dotfiles/configs/zshenv                               ~/.zshenv
 ln          -v  -sf    ~/.dotfiles/configs/gitignore                            ~/.gitignore
 mkdir       -v  -p                                                              ~/.ssh
 ln          -v  -sf    ~/.dotfiles/configs/ssh/config                           ~/.ssh/config
@@ -141,6 +140,9 @@ if [ -d ~/.oh-my-zsh ]; then
     # shellcheck disable=SC2016
     command env ZSH="$HOME/.oh-my-zsh" sh -ceu 'yes | head -n1 | sh -eu $ZSH/tools/uninstall.sh'
 fi
+
+printf "$LOG_TEMPLATE" 35 '--> ' 39 'Configuring Zsh...'
+~/.dotfiles/scripts/configure-zsh.sh
 
 if command -v conda 1>/dev/null 2>/dev/null; then
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Initializing Conda for Zsh...'

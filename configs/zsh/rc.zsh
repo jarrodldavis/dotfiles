@@ -12,8 +12,3 @@ unsetopt NOMATCH
 if [ -z "${EDITOR:-}" ]; then
     export EDITOR="vim"
 fi
-
-# load configuration managed by system dependencies
-if [ -f ~/.zshrc ]; then
-    source ~/.zshrc
-fi

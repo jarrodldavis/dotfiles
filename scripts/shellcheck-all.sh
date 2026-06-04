@@ -11,9 +11,8 @@ posix_like=()
 posix_like+=(install.sh)
 
 bash_like=()
-bash_like+=(configs/zsh/{.zprofile,.zshrc})
+bash_like+=(configs/zsh/*)
 bash_like+=(configs/zshfuncs/*)
-bash_like+=(configs/zshenv)
 bash_like+=(scripts/*)
 
 fail=0
