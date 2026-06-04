@@ -1,7 +1,7 @@
 tap "jarrodldavis/dotfiles"
 brew "act"
 brew "bat"
-brew "colima"
+brew "colima", restart_service: :changed
 brew "docker"
 brew "docker-buildx"
 brew "docker-compose"
