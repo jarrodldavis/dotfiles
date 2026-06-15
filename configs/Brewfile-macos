@@ -88,6 +88,7 @@ cask "xquartz"
 mas "1Blocker", id: 1365531024
 mas "1Password for Safari", id: 1569813296
 mas "DaisyDisk", id: 411643860
+mas "Home Assistant", id: 1099568401
 mas "Homecoming for Mastodon", id: 1666139593
 mas "Jumpshare", id: 889922906
 mas "Keynote", id: 409183694
