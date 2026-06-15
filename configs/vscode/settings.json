@@ -17,7 +17,6 @@
         "yoavbls.pretty-ts-errors"
     ],
     "dev.containers.defaultFeatures": {
-        "ghcr.io/jarrodldavis/features/uninstall-oh-my-zsh:1": {},
         "ghcr.io/devcontainers/features/common-utils:2": {
             "configureZshAsDefaultShell": true,
             "installOhMyZsh": false,
@@ -29,7 +28,8 @@
             "installDirectlyFromGitHubRelease": true,
             "version": "latest"
         },
-        "ghcr.io/hwaien/devcontainer-features/match-host-time-zone:0": {}
+        "ghcr.io/hwaien/devcontainer-features/match-host-time-zone:0": {},
+        "ghcr.io/jarrodldavis/features/uninstall-oh-my-zsh:1": {}
     },
     "diffEditor.experimental.showMoves": true,
     "diffEditor.hideUnchangedRegions.enabled": true,
@@ -101,6 +101,7 @@
     "terminal.integrated.stickyScroll.enabled": true,
     "terminal.integrated.suggest.enabled": true,
     "terminal.integrated.suggest.runOnEnter": "exactMatch",
+    "tinymist.systemFonts": false,
     "totalTypeScript.hideAllTips": true,
     "totalTypeScript.hideBasicTips": true,
     "vim.camelCaseMotion.enable": true,
