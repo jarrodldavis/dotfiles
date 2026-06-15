@@ -1,46 +1,89 @@
-tap "jarrodldavis/dotfiles"
+tap "jarrodldavis/dotfiles", trusted: true
+# Run your GitHub Actions locally
 brew "act"
+# Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Container runtimes on MacOS (and Linux) with minimal setup
 brew "colima", restart_service: :changed
+# Pack, ship and run any application as a lightweight container
 brew "docker"
+# Docker CLI plugin for extended build capabilities with BuildKit
 brew "docker-buildx"
+# Isolated development environments using Docker
 brew "docker-compose"
+# GitHub command-line tool
 brew "gh"
+# Access GitHub's .gitignore boilerplates
 brew "gibo"
+# Distributed revision control system
 brew "git"
+# Syntax-highlighting pager for git and diff output
 brew "git-delta"
+# Git extension for versioning large files
 brew "git-lfs"
+# Lightweight and flexible command-line JSON processor
 brew "jq"
+# Mac App Store command-line interface
 brew "mas"
+# Simple tool to make locally trusted development certificates
 brew "mkcert"
+# Libraries for security-enabled client and server applications
 brew "nss"
+# Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
+# Command-line unarchiving tools supporting multiple formats
 brew "unar"
+# Create Rails projects with Ruby installed
 brew "jarrodldavis/dotfiles/rails-new"
+# Password manager that keeps all passwords secure behind one password
 cask "1password"
+# Command-line interface for 1Password
 cask "1password-cli"
+# Data backup and storage service
 cask "backblaze"
+# Tool to flash OS images to SD cards & USB drives
 cask "balenaetcher"
+# OpenAI's official ChatGPT desktop app
 cask "chatgpt"
+# Chat client for https://twitch.tv
 cask "chatterino"
+# Free and open-source web browser
 cask "chromium"
+# Free app that makes your Internet safer
 cask "cloudflare-warp"
+# OpenAI's Codex desktop app for managing coding agents
 cask "codex-app"
+# Voice and text chat software
 cask "discord"
+# Companion app for scanner hardware
 cask "doxie"
+# Email client
 cask "fastmail"
+# Web browser
 cask "firefox"
+# Web browser
 cask "google-chrome"
+# JetBrains tools manager
 cask "jetbrains-toolbox"
+# Discover, download, and run local LLMs
 cask "lm-studio"
+# Syncs files between computers and MEGA Cloud drives
 cask "megasync"
+# Sandbox construction video game
 cask "minecraft"
+# Mouse control with the keyboard
 cask "mouseless"
+# Control your tools with a few keystrokes
 cask "raycast"
+# Time Machine log viewer & status inspector
 cask "thetimemachinemechanic"
+# Virtualization tool
 cask "virtualbuddy"
+# Open-source code editor
 cask "visual-studio-code"
+# Open-source code editor
 cask "visual-studio-code@insiders"
+# Open-source version of the X.Org X Window System
 cask "xquartz"
 mas "1Blocker", id: 1365531024
 mas "1Password for Safari", id: 1569813296

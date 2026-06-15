@@ -2,9 +2,10 @@
 set -euo pipefail
 
 if [ "$(uname -s)" = "Linux" ]; then
-    brew bundle dump    --global --force --no-restart --no-vscode
+    brew bundle dump    --global --force --verbose --no-restart --no-vscode
 else
-    brew bundle dump    --global --force
+    brew bundle dump    --global --force --verbose
 fi
 
-brew bundle install     --global --force --cleanup --verbose
+brew bundle install     --global --force --verbose
+brew bundle cleanup     --global --force --verbose
