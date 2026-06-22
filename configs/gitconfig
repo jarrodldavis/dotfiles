@@ -10,6 +10,12 @@
     path = ~/.gitconfig-ssh
     path = ~/.gitconfig-wsl
 
+[includeIf "hasconfig:remote.*.url:git@github.com:*/**"]
+    path = ~/.gitconfig-github
+
+[includeIf "hasconfig:remote.*.url:https://github.com/**"]
+    path = ~/.gitconfig-github
+
 # Diffs
 [core]
     pager = delta
