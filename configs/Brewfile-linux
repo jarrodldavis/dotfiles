@@ -1,6 +1,15 @@
-tap "jarrodldavis/dotfiles"
+tap "jarrodldavis/dotfiles", trusted: true
+# Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# GitHub command-line tool
+brew "gh"
+# Syntax-highlighting pager for git and diff output
 brew "git-delta"
+# Lightweight and flexible command-line JSON processor
 brew "jq"
+# Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
+# UNIX shell (command interpreter)
 brew "zsh"
+# OpenAI's coding agent that runs in your terminal
+cask "codex"
