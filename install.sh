@@ -138,6 +138,11 @@ if [ -n "${WSL_DISTRO_NAME:-}" ]; then
     sudo ln -v  -sf    "$OP_SSH_SIGN"                                           /usr/local/bin/op-ssh-sign-wsl
 fi
 
+if [ "$ID" = "cachyos" ]; then
+    mkdir   -v  -p                                                              ~/.config/heroic
+    ln      -v  -sf    ~/.dotfiles/configs/heroic.json                          ~/.config/heroic/config.json
+fi
+
 printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing system dependencies from Homebrew Bundle...'
 
 if [ -n "${DOTFILES_SKIP_MAS:-}" ]; then
