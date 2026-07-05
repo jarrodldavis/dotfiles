@@ -1,0 +1,360 @@
+{
+    "id": 1,
+    "name": "Local",
+    "added_at": "2026-03-15 06:49:04.504535",
+    "repo": {
+        "url": "/media/backup/borg",
+        "name": "Local External Drive",
+        "added_at": "2026-03-15 23:29:02.506213",
+        "encryption": "repokey-blake2",
+        "unique_size": null,
+        "unique_csize": null,
+        "total_size": null,
+        "total_unique_chunks": null,
+        "create_backup_cmd": "",
+        "extra_borg_arguments": ""
+    },
+    "ssh_key": null,
+    "compression": "lz4",
+    "exclude_patterns": "## Snapper \n/home/.snapshots\n\n## Root-only files\n/etc/pacman.d/gnupg\n/etc/brlapi.key\n/etc/libvirt\n/etc/crypttab\n/etc/audit/plugins.d\n/etc/libaudit.conf\n/etc/default/useradd\n/etc/credstore\n/etc/credstore.encrypted\n/etc/cryptsetup-keys.d\n/etc/.pwd.lock\n/etc/sudoers\n/etc/sudoers.d\n/etc/snapper/configs/home\n/etc/polkit-1/rules.d\n/etc/named.conf\n/etc/ppp/\n/etc/NetworkManager/system-connections\n/etc/ufw/after.init\n/etc/ufw/before.init\n/etc/fwupd/fwupd.conf\n/etc/shadow-\n/etc/shadow\n/etc/gshadow-\n/etc/gshadow",
+    "exclude_if_present": "[x] .nobackup\n[x] CACHEDIR.TAG",
+    "schedule_mode": "interval",
+    "schedule_interval_count": 1,
+    "schedule_interval_unit": "hours",
+    "schedule_fixed_hour": 3,
+    "schedule_fixed_minute": 42,
+    "schedule_interval_hours": 3,
+    "schedule_interval_minutes": 42,
+    "schedule_make_up_missed": true,
+    "validation_on": true,
+    "validation_weeks": 4,
+    "compaction_on": true,
+    "compaction_weeks": 4,
+    "prune_on": true,
+    "prune_hour": 72,
+    "prune_day": 21,
+    "prune_week": 12,
+    "prune_month": 36,
+    "prune_year": 30,
+    "prune_keep_within": "",
+    "new_archive_name": "{hostname}-{now:%Y-%m-%d-%H%M%S}",
+    "prune_prefix": "{hostname}-",
+    "pre_backup_cmd": "",
+    "post_backup_cmd": "",
+    "dont_run_on_metered_networks": true,
+    "SourceFileModel": [
+        {
+            "dir": "/home",
+            "dir_size": 314457305507,
+            "dir_files_count": 183988,
+            "path_isdir": true,
+            "profile": 1,
+            "added_at": "2026-03-15 13:14:32.309000"
+        },
+        {
+            "dir": "/opt",
+            "dir_size": 2729979485,
+            "dir_files_count": 5339,
+            "path_isdir": true,
+            "profile": 1,
+            "added_at": "2026-03-15 13:16:23.867789"
+        },
+        {
+            "dir": "/etc",
+            "dir_size": 7365773,
+            "dir_files_count": 1397,
+            "path_isdir": true,
+            "profile": 1,
+            "added_at": "2026-03-15 14:03:24.512145"
+        }
+    ],
+    "ExclusionModel": [
+        {
+            "profile": 1,
+            "name": "chromium-cache",
+            "enabled": true,
+            "source": "preset"
+        },
+        {
+            "profile": 1,
+            "name": "google-chrome-cache",
+            "enabled": true,
+            "source": "preset"
+        },
+        {
+            "profile": 1,
+            "name": "brave-cache",
+            "enabled": true,
+            "source": "preset"
+        },
+        {
+            "profile": 1,
+            "name": "firefox-cache",
+            "enabled": true,
+            "source": "preset"
+        },
+        {
+            "profile": 1,
+            "name": "node-cache",
+            "enabled": true,
+            "source": "preset"
+        },
+        {
+            "profile": 1,
+            "name": "python-cache",
+            "enabled": true,
+            "source": "preset"
+        },
+        {
+            "profile": 1,
+            "name": "rust-artefacts",
+            "enabled": true,
+            "source": "preset"
+        },
+        {
+            "profile": 1,
+            "name": "vscode-cache",
+            "enabled": true,
+            "source": "preset"
+        },
+        {
+            "profile": 1,
+            "name": "spotify",
+            "enabled": true,
+            "source": "preset"
+        },
+        {
+            "profile": 1,
+            "name": "android-studio",
+            "enabled": true,
+            "source": "preset"
+        },
+        {
+            "profile": 1,
+            "name": "jetbrains",
+            "enabled": true,
+            "source": "preset"
+        },
+        {
+            "profile": 1,
+            "name": "aws-artefacts",
+            "enabled": true,
+            "source": "preset"
+        },
+        {
+            "profile": 1,
+            "name": "flatpak-builder",
+            "enabled": true,
+            "source": "preset"
+        },
+        {
+            "profile": 1,
+            "name": "docker-artefacts",
+            "enabled": true,
+            "source": "preset"
+        },
+        {
+            "profile": 1,
+            "name": "vm-container-files",
+            "enabled": true,
+            "source": "preset"
+        },
+        {
+            "profile": 1,
+            "name": "log-files",
+            "enabled": true,
+            "source": "preset"
+        },
+        {
+            "profile": 1,
+            "name": "java-development-artefacts",
+            "enabled": true,
+            "source": "preset"
+        },
+        {
+            "profile": 1,
+            "name": "media-files",
+            "enabled": false,
+            "source": "preset"
+        },
+        {
+            "profile": 1,
+            "name": "temp-files",
+            "enabled": true,
+            "source": "preset"
+        },
+        {
+            "profile": 1,
+            "name": "cache-files",
+            "enabled": true,
+            "source": "preset"
+        },
+        {
+            "profile": 1,
+            "name": "recycle-bin-trash",
+            "enabled": true,
+            "source": "preset"
+        }
+    ],
+    "SchemaVersion": {
+        "id": 1,
+        "version": 23,
+        "changed_at": "2026-03-15 06:49:04.184404"
+    },
+    "WifiSettingModel": [],
+    "SettingsModel": [
+        {
+            "key": "enable_notifications",
+            "value": true,
+            "str_value": "",
+            "label": "Display notifications when background tasks fail",
+            "group": "Notifications",
+            "tooltip": "",
+            "type": "checkbox"
+        },
+        {
+            "key": "enable_notifications_success",
+            "value": true,
+            "str_value": "",
+            "label": "Notify about successful background tasks",
+            "group": "Notifications",
+            "tooltip": "",
+            "type": "checkbox"
+        },
+        {
+            "key": "autostart",
+            "value": true,
+            "str_value": "",
+            "label": "Automatically start Vorta at login",
+            "group": "Startup",
+            "tooltip": "Add Vorta to the systems autostart list",
+            "type": "checkbox"
+        },
+        {
+            "key": "foreground",
+            "value": false,
+            "str_value": "",
+            "label": "Show main window of Vorta on launch",
+            "group": "Startup",
+            "tooltip": "Make Vorta appear on screen instead of minimizing to system tray",
+            "type": "checkbox"
+        },
+        {
+            "key": "get_srcpath_datasize",
+            "value": true,
+            "str_value": "",
+            "label": "Get statistics of file/folder when added",
+            "group": "Information",
+            "tooltip": "When adding a new source, calculate its size and the number of files.",
+            "type": "checkbox"
+        },
+        {
+            "key": "enable_fixed_units",
+            "value": false,
+            "str_value": "",
+            "label": "Use the same unit of measurement for archive sizes",
+            "group": "Information",
+            "tooltip": "When enabled, all archive sizes will use the same unit of measurement, such as  KB or MB. This can make archive sizes easier to compare.",
+            "type": "checkbox"
+        },
+        {
+            "key": "use_system_keyring",
+            "value": true,
+            "str_value": "",
+            "label": "Store repository passwords in system keychain, if available",
+            "group": "Security",
+            "tooltip": "Otherwise Vorta's configuration database stores the password in plaintext.",
+            "type": "checkbox"
+        },
+        {
+            "key": "override_mount_permissions",
+            "value": false,
+            "str_value": "",
+            "label": "Try to replace file permissions when mounting an archive",
+            "group": "Security",
+            "tooltip": "Set owner to current user and umask to 0277",
+            "type": "checkbox"
+        },
+        {
+            "key": "previous_profile_id",
+            "value": false,
+            "str_value": "1",
+            "label": "Previously selected profile",
+            "group": "",
+            "tooltip": "",
+            "type": "internal"
+        },
+        {
+            "key": "previous_window_width",
+            "value": false,
+            "str_value": "1326",
+            "label": "Previous window width",
+            "group": "",
+            "tooltip": "",
+            "type": "internal"
+        },
+        {
+            "key": "previous_window_height",
+            "value": false,
+            "str_value": "704",
+            "label": "Previous window height",
+            "group": "",
+            "tooltip": "",
+            "type": "internal"
+        },
+        {
+            "key": "diff_files_display_mode",
+            "value": false,
+            "str_value": "0",
+            "label": "Diff dialog display mode",
+            "group": "",
+            "tooltip": "",
+            "type": "internal"
+        },
+        {
+            "key": "extract_files_display_mode",
+            "value": false,
+            "str_value": "0",
+            "label": "Extract dialog display mode",
+            "group": "",
+            "tooltip": "",
+            "type": "internal"
+        },
+        {
+            "key": "sourcetab_sort_column",
+            "value": false,
+            "str_value": "0",
+            "label": "Source Tab Sort Column",
+            "group": "",
+            "tooltip": "",
+            "type": "internal"
+        },
+        {
+            "key": "sourcetab_sort_order",
+            "value": false,
+            "str_value": "0",
+            "label": "Source Tab Sort Order",
+            "group": "",
+            "tooltip": "",
+            "type": "internal"
+        },
+        {
+            "key": "enable_background_question",
+            "value": true,
+            "str_value": "",
+            "label": "If the system tray isn't available, ask whether to continue in the background on exit",
+            "group": "",
+            "tooltip": "",
+            "type": "checkbox"
+        },
+        {
+            "key": "disable_background_state",
+            "value": false,
+            "str_value": "",
+            "label": "Previous background exit button state",
+            "group": "",
+            "tooltip": "",
+            "type": "internal"
+        }
+    ]
+}
