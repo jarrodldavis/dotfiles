@@ -68,6 +68,7 @@ e2fsprogs
 efibootmgr
 efitools
 egl-wayland
+esphome-desktop-bin
 ethtool
 exfatprogs
 f2fs-tools
@@ -88,6 +89,7 @@ gst-plugins-ugly
 gwenview
 haruna
 hdparm
+heroic-games-launcher-bin
 hwdetect
 hwinfo
 inetutils
@@ -96,6 +98,7 @@ intel-ucode
 iperf3
 iptables
 iwd
+jack2
 jfsutils
 kate
 kcalc
@@ -104,6 +107,7 @@ kdegraphics-thumbnailers
 kde-gtk-config
 kdeplasma-addons
 kdialog
+kfind
 kinfocenter
 kio-admin
 konsole
@@ -139,6 +143,7 @@ mdadm
 meld
 mesa-utils
 micro
+mkcert
 mkinitcpio
 modemmanager
 mtools
@@ -163,7 +168,6 @@ os-prober
 pacman-contrib
 partitionmanager
 paru
-pascube
 pavucontrol
 perl
 phonon-qt6-vlc
