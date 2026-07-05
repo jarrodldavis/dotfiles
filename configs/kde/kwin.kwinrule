@@ -1,0 +1,18 @@
+[Arknights: Endfield Launcher]
+Description=Arknights: Endfield Launcher
+acceptfocus=true
+acceptfocusrule=2
+fsplevelrule=2
+noborderrule=2
+title=Arknights: Endfield
+titlematch=1
+types=1
+wmclass=steam_app_0
+wmclassmatch=1
+
+[Fastmail]
+Description=Fastmail
+desktopfile=fastmail
+desktopfilerule=2
+wmclass=com-fastmail-fastmail
+wmclassmatch=1
