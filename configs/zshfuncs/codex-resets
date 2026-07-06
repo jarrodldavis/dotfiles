@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+curl -fsS --max-time 30 \
+  -H "Authorization: Bearer $(jq -er '.tokens.access_token' "$HOME/.codex/auth.json")" \
+  -H "Accept: application/json" \
+  "https://chatgpt.com/backend-api/wham/rate-limit-reset-credits" |
+jq '{available_count, credits: ((.credits // []) | map({expires_at}))}'
