@@ -23,6 +23,8 @@ brew "git-delta"
 brew "git-lfs"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
+# Handy way to save and run project-specific commands
+brew "just"
 # Mac App Store command-line interface
 brew "mas"
 # Simple tool to make locally trusted development certificates
