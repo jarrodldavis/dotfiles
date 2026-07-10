@@ -115,6 +115,7 @@ elif [ "$(uname)" = "Darwin" ]; then
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig                            ~/.gitconfig
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig-github                     ~/.gitconfig-github
     ln      -v  -sf    ~/.dotfiles/configs/ssh/config-macos                     ~/.ssh/config.d/macos
+    ln      -v  -sf    ~/.dotfiles/configs/brew.env                             ~/.homebrew/brew.env
     ln      -v  -sf    ~/.dotfiles/configs/Brewfile-macos                       ~/.Brewfile
     mkdir   -v  -p                                                              ~/Library/Application\ Support/Code/User
     ln      -v  -sf    ~/.dotfiles/configs/vscode/keybindings.json              ~/Library/Application\ Support/Code/User/keybindings.json
