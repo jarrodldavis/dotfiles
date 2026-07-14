@@ -45,6 +45,8 @@ cask "1password-cli"
 cask "backblaze"
 # Tool to flash OS images to SD cards & USB drives
 cask "balenaetcher"
+# Shows a live display of the Bonjour services published on your network
+cask "bonjeff"
 # OpenAI's official ChatGPT desktop app
 cask "chatgpt"
 # Chat client for https://twitch.tv
