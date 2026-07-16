@@ -1,0 +1,8 @@
+[homeassistant]
+    password = REPLACE_WITH_HA_PASSWORD
+    upsmon primary
+    instcmds = ALL
+
+[upsmon]
+    password = REPLACE_WITH_UPSMON_PASSWORD
+    upsmon primary

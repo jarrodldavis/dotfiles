@@ -127,6 +127,12 @@ elif [ "$(uname)" = "Darwin" ]; then
     ln      -v  -sf    ~/.dotfiles/configs/ideavimrc                            ~/.ideavimrc
     mkdir   -v  -p                                                              ~/.xinitrc.d
     ln      -v  -sf    ~/.dotfiles/configs/xhost.sh                             ~/.xinitrc.d/xhost.sh
+    ln      -v  -sf    ~/.dotfiles/configs/nut/nut.conf                         /opt/homebrew/etc/nut/nut.conf
+    ln      -v  -sf    ~/.dotfiles/configs/nut/ups.conf                         /opt/homebrew/etc/nut/ups.conf
+    ln      -v  -sf    ~/.dotfiles/configs/nut/upsd.conf                        /opt/homebrew/etc/nut/upsd.conf
+    if ! [ -f /opt/homebrew/etc/nut/upsd.users ]; then
+        cp  -v  -n     ~/.dotfiles/configs/nut/upsd.users                       /opt/homebrew/etc/nut/upsd.users
+    fi
     mkdir   -v  -p                                                              ~/Library/LaunchAgents
     ln      -v  -shf   ~/.dotfiles/Formula                                      "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles/Formula
 fi
@@ -169,6 +175,9 @@ if [ "$(uname)" = "Darwin" ]; then
 
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Configuring Docker CLI...'
     ~/.dotfiles/scripts/configure-docker.sh
+
+    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Configuring NUT...'
+    ~/.dotfiles/scripts/configure-nut.sh
 
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Setting up Git LFS...'
     git lfs install --system --skip-repo
