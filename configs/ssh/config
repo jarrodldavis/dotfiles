@@ -1,3 +1,2 @@
 Include config.local.d/*
 Include config.d/*
-Include ~/.colima/ssh_config

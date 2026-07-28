@@ -3,14 +3,6 @@ tap "jarrodldavis/dotfiles", trusted: true
 brew "act"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
-# Container runtimes on MacOS (and Linux) with minimal setup
-brew "colima", restart_service: :changed
-# Pack, ship and run any application as a lightweight container
-brew "docker"
-# Docker CLI plugin for extended build capabilities with BuildKit
-brew "docker-buildx"
-# Isolated development environments using Docker
-brew "docker-compose"
 # GitHub command-line tool
 brew "gh"
 # Access GitHub's .gitignore boilerplates
@@ -89,8 +81,6 @@ cask "virtualbuddy"
 cask "visual-studio-code"
 # Open-source code editor
 cask "visual-studio-code@insiders"
-# Open-source version of the X.Org X Window System
-cask "xquartz"
 mas "1Blocker", id: 1365531024
 mas "1Password for Safari", id: 1569813296
 mas "DaisyDisk", id: 411643860

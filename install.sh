@@ -80,10 +80,6 @@ ln          -v  -sf    ~/.dotfiles/configs/ssh/allowed_signers                  
 mkdir       -v  -p                                                              ~/.config/gh
 ln          -v  -sf    ~/.dotfiles/configs/gh/config.yml                        ~/.config/gh/config.yml
 ln          -v  -sf    ~/.dotfiles/configs/gh/hosts.yml                         ~/.config/gh/hosts.yml
-mkdir       -v  -p                                                              ~/.colima/_templates
-ln          -v  -sf    ~/.dotfiles/configs/colima/templates/default.yaml        ~/.colima/_templates/default.yaml
-mkdir       -v  -p                                                              ~/.colima/default
-ln          -v  -sf    ~/.dotfiles/configs/colima/default/colima.yaml           ~/.colima/default/colima.yaml
 ln          -v  -sf    ~/.dotfiles/scripts/dotfiles-pre-commit.sh               ~/.dotfiles/.git/hooks/pre-commit
 mkdir       -v  -p                                                              ~/.homebrew
 ln          -v  -sf    ~/.dotfiles/configs/homebrew/trust.json                  ~/.homebrew/trust.json
@@ -125,8 +121,6 @@ elif [ "$(uname)" = "Darwin" ]; then
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig-macos                      ~/.gitconfig-macos
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig-ssh                        ~/.gitconfig-ssh
     ln      -v  -sf    ~/.dotfiles/configs/ideavimrc                            ~/.ideavimrc
-    mkdir   -v  -p                                                              ~/.xinitrc.d
-    ln      -v  -sf    ~/.dotfiles/configs/xhost.sh                             ~/.xinitrc.d/xhost.sh
     ln      -v  -sf    ~/.dotfiles/configs/nut/nut.conf                         /opt/homebrew/etc/nut/nut.conf
     ln      -v  -sf    ~/.dotfiles/configs/nut/ups.conf                         /opt/homebrew/etc/nut/ups.conf
     ln      -v  -sf    ~/.dotfiles/configs/nut/upsd.conf                        /opt/homebrew/etc/nut/upsd.conf
@@ -169,12 +163,6 @@ printf "$LOG_TEMPLATE" 35 '--> ' 39 'Configuring Zsh...'
 if [ "$(uname)" = "Darwin" ]; then
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing 1Password SSH Agent...'
     ~/.dotfiles/scripts/register-1password-agent.sh
-
-    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Configuring XQuartz...'
-    ~/.dotfiles/scripts/configure-xquartz.sh
-
-    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Configuring Docker CLI...'
-    ~/.dotfiles/scripts/configure-docker.sh
 
     printf "$LOG_TEMPLATE" 35 '--> ' 39 'Configuring NUT...'
     ~/.dotfiles/scripts/configure-nut.sh
