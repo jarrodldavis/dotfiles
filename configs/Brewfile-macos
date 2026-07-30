@@ -24,7 +24,7 @@ brew "mkcert"
 # Libraries for security-enabled client and server applications
 brew "nss"
 # Network UPS Tools: Support for various power devices
-brew "nut"
+brew "nut", restart_service: :changed
 # Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
 # Command-line unarchiving tools supporting multiple formats
