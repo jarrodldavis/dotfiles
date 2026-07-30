@@ -8,8 +8,6 @@
     "containers.containerClient": "com.microsoft.visualstudio.containers.docker",
     "dataWrangler.defaultViewingFilterOptions": "advanced",
     "dev.containers.defaultExtensions": [
-        "github.copilot-chat",
-        "github.copilot",
         "mathematic.vscode-pdf",
         "mattpocock.ts-error-translator",
         "ms-vscode.vscode-commander",
@@ -89,6 +87,16 @@
     "python.useEnvironmentsExtension": true,
     "redhat.telemetry.enabled": true,
     "remote.autoForwardPortsSource": "hybrid",
+    "remote.SSH.defaultExtensions": [
+        "docker.docker",
+        "github.vscode-github-actions",
+        "github.vscode-pull-request-github",
+        "mathematic.vscode-pdf",
+        "ms-azuretools.vscode-docker",
+        "ms-vscode.vscode-commander",
+        "ms-vscode.vscode-copilot-data-analysis",
+        "openai.chatgpt"
+    ],
     "remote.SSH.remotePlatform": {
         "*": "linux"
     },
