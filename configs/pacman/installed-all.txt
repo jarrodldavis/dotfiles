@@ -221,6 +221,7 @@ unzip
 upower
 usb_modeswitch
 usbutils
+ventoy-bin
 vim
 virt-manager
 vkbasalt-cli
