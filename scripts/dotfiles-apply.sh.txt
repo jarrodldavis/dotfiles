@@ -25,7 +25,7 @@ case "$(uname -s)" in
         host="$(scutil --get LocalHostName)"
         info "Applying nix-darwin configuration for $host..."
         check_sudo
-        exec sudo darwin-rebuild switch --flake ".#$host"
+        sudo darwin-rebuild switch --flake ".#$host"
         ;;
 
     Linux)
@@ -35,12 +35,18 @@ case "$(uname -s)" in
         if [[ -e /etc/NIXOS ]]; then
             info "Applying NixOS configuration for $host..."
             check_sudo
-            exec sudo nixos-rebuild switch --flake ".#$host"
+            sudo nixos-rebuild switch --flake ".#$host"
         fi
 
         configuration="$(id -un)@$host"
         info "Applying Home Manager configuration for $configuration..."
-        exec home-manager switch --flake ".#$configuration"
+        home-manager switch --flake ".#$configuration"
+
+        gpu_setup="$HOME/.nix-profile/bin/non-nixos-gpu-setup"
+        if [[ -x "$gpu_setup" ]]; then
+            info "Updating non-NixOS GPU integration..."
+            sudo "$gpu_setup"
+        fi
         ;;
 
     *)

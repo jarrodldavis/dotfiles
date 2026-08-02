@@ -15,7 +15,11 @@ _log    (){ local color="$1"; shift; printf '%s%s==> %s%s%s\n' "$bold" "$color" 
 info    (){ _log "$blue"   "$@"; }
 success (){ _log "$green"  "$@"; }
 
-if [ ! -x "$NIX_PROFILE/bin/nix" ]; then
+if ! command -v nix; then
+    export PATH="$NIX_PROFILE/bin:$PATH"
+fi
+
+if ! command -v nix; then
     info 'Installing Nix...'
     curl --proto '=https' --tlsv1.2 -sSfL "$NIX_INSTALLER" |
         sh -s -- install --enable-flakes --no-confirm
@@ -23,8 +27,6 @@ else
     success 'Nix is already installed:'
     nix --version
 fi
-
-export PATH="$NIX_PROFILE/bin:$PATH"
 
 if [ ! -d "$DOTFILES/.git" ]; then
     if [ -e "$DOTFILES" ]; then
@@ -41,4 +43,6 @@ fi
 
 info "Applying configuration from $DOTFILES..."
 cd "$DOTFILES"
-exec nix run "path:$DOTFILES#apply"
+nix run "path:$DOTFILES#apply"
+
+success 'Dotfiles installed successfully!'

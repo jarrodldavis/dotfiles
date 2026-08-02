@@ -145,7 +145,7 @@
       };
 
       homeConfigurations = {
-        "jarrodldavis@Rods-Linux-PC" = mkHomeConfiguration {
+        "jarrodldavis@rods-linux-pc" = mkHomeConfiguration {
           system = "x86_64-linux";
 
           modules = [
