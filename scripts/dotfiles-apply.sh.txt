@@ -1,0 +1,51 @@
+  bold="$(tput bold)"
+ reset="$(tput sgr0)"
+ white="$(tput setaf 7)"
+  blue="$(tput setaf 4)"
+ green="$(tput setaf 2)"
+yellow="$(tput setaf 3)"
+   red="$(tput setaf 1)"
+_log    (){ local color="$1"; shift; printf '%s%s--> %s%s%s\n' "$bold" "$color" "$white" "$*" "$reset"; }
+info    (){ _log "$blue"   "$@"; }
+success (){ _log "$green"  "$@"; }
+warning (){ _log "$yellow" "$@" >&2; }
+error   (){ _log "$red"    "$@" >&2; }
+bell    (){ printf '\a'; }
+
+check_sudo() {
+    if ! sudo -vn 2>/dev/null; then
+        bell
+        warning 'Sudo access is required:'
+        sudo -v
+    fi
+}
+
+case "$(uname -s)" in
+    Darwin)
+        host="$(scutil --get LocalHostName)"
+        info "Applying nix-darwin configuration for $host..."
+        check_sudo
+        exec sudo darwin-rebuild switch --flake ".#$host"
+        ;;
+
+    Linux)
+        host="$(uname -n)"
+        host="${host%%.*}"
+
+        if [[ -e /etc/NIXOS ]]; then
+            info "Applying NixOS configuration for $host..."
+            check_sudo
+            exec sudo nixos-rebuild switch --flake ".#$host"
+        fi
+
+        configuration="$(id -un)@$host"
+        info "Applying Home Manager configuration for $configuration..."
+        exec home-manager switch --flake ".#$configuration"
+        ;;
+
+    *)
+        os="$(uname -s)"
+        error "$os is not a supported operating system." >&2
+        exit 1
+        ;;
+esac

@@ -19,7 +19,8 @@
         "gitconfig-*": "properties",
         "gitignore": "ignore",
         "*vimrc": "Vimscript",
-        "*.plist": "xml"
+        "*.plist": "xml",
+        "*.sh.txt": "shellscript"
     },
 
     "[markdown]": {
