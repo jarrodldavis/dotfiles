@@ -49,6 +49,7 @@
     "git.fetchOnPull": true,
     "git.openRepositoryInParentFolders": "always",
     "git.showProgress": false,
+    "git.terminalAuthentication": false,
     "github.copilot.nextEditSuggestions.enabled": false,
     "go.toolsManagement.autoUpdate": true,
     "gopls": {
