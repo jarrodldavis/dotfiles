@@ -80,6 +80,8 @@
     "pgsql.enableMigrations": false,
     "pgsql.openQueryResultsInTabByDefault": true,
     "pgsql.openQueryResultsInTabByDefaultDoNotShowPrompt": true,
+    "platformio-ide.autoOpenPlatformIOIniFile": false,
+    "platformio-ide.disablePIOHomeStartup": true,
     "playwright.reuseBrowser": false,
     "playwright.showTrace": false,
     "python-envs.terminal.autoActivationType": "shellStartup",
