@@ -27,6 +27,7 @@ protonplus
 qemu-full
 sbctl
 swtpm
+ventoy-bin
 virt-manager
 vkbasalt-cli
 vk-hdr-layer-kwin6-git
