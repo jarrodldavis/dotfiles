@@ -10,11 +10,14 @@
     path = ~/.gitconfig-ssh
     path = ~/.gitconfig-wsl
 
-[includeIf "hasconfig:remote.*.url:git@github.com:*/**"]
-    path = ~/.gitconfig-github
-
-[includeIf "hasconfig:remote.*.url:https://github.com/**"]
-    path = ~/.gitconfig-github
+[includeIf "hasconfig:remote.origin.url:git@github.com:*/**"]
+    path = ~/.gitconfig-github-origin
+[includeIf "hasconfig:remote.origin.url:https://github.com/**"]
+    path = ~/.gitconfig-github-origin
+[includeIf "hasconfig:remote.upstream.url:git@github.com:*/**"]
+    path = ~/.gitconfig-github-upstream
+[includeIf "hasconfig:remote.upstream.url:https://github.com/**"]
+    path = ~/.gitconfig-github-upstream
 
 # Diffs
 [core]
