@@ -109,7 +109,8 @@ if [ "$(uname)" = "Linux" ]; then
 
 elif [ "$(uname)" = "Darwin" ]; then
     ln      -v  -sf    ~/.dotfiles/configs/gitconfig                            ~/.gitconfig
-    ln      -v  -sf    ~/.dotfiles/configs/gitconfig-github                     ~/.gitconfig-github
+    ln      -v  -sf    ~/.dotfiles/configs/gitconfig-github-origin              ~/.gitconfig-github-origin
+    ln      -v  -sf    ~/.dotfiles/configs/gitconfig-github-upstream            ~/.gitconfig-github-upstream
     ln      -v  -sf    ~/.dotfiles/configs/ssh/config-macos                     ~/.ssh/config.d/macos
     ln      -v  -sf    ~/.dotfiles/configs/brew.env                             ~/.homebrew/brew.env
     ln      -v  -sf    ~/.dotfiles/configs/Brewfile-macos                       ~/.Brewfile
