@@ -38,3 +38,5 @@
     defaultBranch = main
 [pull]
     rebase = false
+[fetch]
+    all = true
