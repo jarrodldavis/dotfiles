@@ -13,6 +13,8 @@ brew "git"
 brew "git-delta"
 # Git extension for versioning large files
 brew "git-lfs"
+# Open source programming language to build simple/reliable/efficient software
+brew "go"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
 # Handy way to save and run project-specific commands
