@@ -43,3 +43,5 @@
     rebase = false
 [fetch]
     all = true
+[push]
+	followTags = true
