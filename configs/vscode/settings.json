@@ -7,6 +7,7 @@
     "containers.containerClient": "com.microsoft.visualstudio.containers.podman",
     "containers.orchestratorClient": "com.microsoft.visualstudio.orchestrators.podmancompose",
     "dataWrangler.defaultViewingFilterOptions": "advanced",
+    "dev.containers.copyGitConfig": false,
     "dev.containers.defaultExtensions": [
         "ms-vscode.vscode-commander",
         "ms-vscode.vscode-copilot-data-analysis",

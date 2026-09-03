@@ -198,7 +198,11 @@ log_substep 'Linking dotfiles repository hooks...'
 symlink scripts/dotfiles-pre-commit.sh ~/.dotfiles/.git/hooks/pre-commit
 
 log_substep 'Linking common dotfiles...'
-symlink gitconfig
+
+# isolate dotfiles-managed gitconfig from machine-specific settings
+symlink configs/gitconfig "${XDG_CONFIG_HOME:-$HOME/.config}/git/config"
+touch ~/.gitconfig
+
 symlink gitignore
 symlink gitconfigs/github-origin
 symlink gitconfigs/github-upstream
