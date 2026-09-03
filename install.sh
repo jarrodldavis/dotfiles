@@ -242,7 +242,7 @@ else
 
     if [ "${ID:-}" = "fedora" ] && [ "${VARIANT_ID:-}" = "coreos" ]; then
         log_substep 'Linking Fedora CoreOS dotfiles...'
-        symlink ~/.local/bin/docker /usr/bin/podman # force vscode devcontainers to use podman
+        symlink /usr/bin/podman ~/.local/bin/docker # force vscode devcontainers to use podman
         symlink configs/Brewfile-coreos ~/.Brewfile
     fi
 
@@ -275,8 +275,8 @@ fi
 ##
 log_step 'Finalizing configurations...'
 
-log_substep 'Configuring Zsh...'
-~/.dotfiles/scripts/configure-zsh.sh
+log_substep 'Configuring Shells...'
+~/.dotfiles/scripts/configure-shells.sh
 
 if [ "$(uname)" = "Darwin" ]; then
     log_substep 'Installing 1Password SSH Agent...'
