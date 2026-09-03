@@ -1,0 +1,3 @@
+# Commit Identity
+[gpg "ssh"]
+    program = "/home/linuxbrew/.linuxbrew/bin/op-ssh-sign"

@@ -8,9 +8,9 @@ cd ~/.dotfiles
 export SHELLCHECK_OPTS="-e SC2059 -e SC1090"
 
 posix_like=()
-posix_like+=(install.sh)
 
 bash_like=()
+bash_like+=(install.sh)
 bash_like+=(configs/zsh/*)
 bash_like+=(configs/zshfuncs/*)
 bash_like+=(scripts/*)

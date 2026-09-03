@@ -11,15 +11,15 @@
     "files.trimTrailingWhitespace": true,
 
     "files.associations": {
-        "**/ssh/config": "ssh_config",
+        "*.plist": "xml",
+        "**/gitconfigs/*": "properties",
         "**/ssh/config-*": "ssh_config",
         "**/ssh/config.local.d/*": "ssh_config",
+        "**/ssh/config": "ssh_config",
+        "*vimrc": "Vimscript",
         "Brewfile-*": "ruby",
         "gitconfig": "properties",
-        "gitconfig-*": "properties",
         "gitignore": "ignore",
-        "*vimrc": "Vimscript",
-        "*.plist": "xml"
     },
 
     "[markdown]": {

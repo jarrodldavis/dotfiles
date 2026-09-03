@@ -1,33 +1,106 @@
-#!/bin/sh
-set -eu
+#!/bin/bash
+set -euo pipefail
+
+##
+## -- Helpers
+##
+
+if [[ -t 1 && -n ${TERM:-} ]] && tput colors >/dev/null 2>&1; then
+    bold="$(tput bold)";
+    reset="$(tput sgr0)"
+
+    white="$(tput setaf 7)"
+    blue="$(tput setaf 4)"
+    purple="$(tput setaf 5)"
+    green="$(tput setaf 2)"
+    yellow="$(tput setaf 3)"
+    red="$(tput setaf 1)"
+else
+    bold=""
+    reset=""
+
+    white=""
+    blue=""
+    purple=""
+    green=""
+    yellow=""
+    red=""
+fi
+
+_log() {
+    local color="$1"
+    local prefix="$2"
+    shift 2
+    printf '%s%s%s %s%s%s\n' "$bold" "$color" "$prefix" "$white" "$*" "$reset"
+}
+
+log_step() {
+    _log "$blue" "-->" "$@"
+}
+
+log_substep()  {
+    _log "$purple" "==>" "$@"
+}
+
+log_done() {
+    _log "$green"  "==>" "$@"
+}
+
+log_warning() {
+    _log "$yellow" "-->" "$@" >&2
+}
+
+log_error()  {
+    _log "$red"    "==>" "$@" >&2
+}
+
+log_bell() {
+    printf '\a'
+}
+
+check_sudo() {
+    if ! sudo -vn 2>/dev/null; then
+        log_bell
+        log_warning 'Sudo access is required:'
+        sudo -v
+    fi
+}
+
+##
+## -- Options and Environment
+##
+log_step 'Preparing to install dotfiles...'
+
+case "$(uname)" in
+    Darwin)
+        log_substep 'Detected macOS.'
+        ;;
+    Linux)
+        log_substep 'Detected Linux.'
+        ;;
+    *)
+        log_error "Unsupported operating system: $(uname)"
+        exit 1
+        ;;
+esac
 
 if [ -f /etc/os-release ]; then
     # shellcheck disable=SC1091
     . /etc/os-release
 fi
 
-ID="${ID:-<unknown>}"
-
-
-LOG_TEMPLATE='\033[1;%sm%b\033[0m\033[1;%sm%s\033[0m\n'
-
 if [ -n "${DOTFILES_SKIP_MAS:-}" ]; then
-    printf "$LOG_TEMPLATE" 33 '==> ' 39 'Note: Mac App Store apps will not be installed.'
-    echo
+    log_warning 'Note: Mac App Store apps will not be installed.'
 fi
 
 if [ -n "${DOTFILES_REINSTALL:-}" ]; then
-    printf "$LOG_TEMPLATE" 33 '==> ' 39 'Note: Homebrew and system dependencies will be reinstalled.'
-    echo
+    log_warning 'Note: Homebrew and system dependencies will be reinstalled.'
 fi
 
-check_sudo() {
-    if ! sudo -vn 2>/dev/null; then
-        printf '\a'
-        printf "$LOG_TEMPLATE" 33 '==> ' 39 'Sudo access is required:'
-        sudo -v
-    fi
-}
+##
+## -- Homebrew
+##
+log_step 'Installing Homebrew...'
 
 BASH_ENV="$(mktemp)"
 export BASH_ENV
@@ -38,16 +111,17 @@ EOF
 
 if [ -n "${DOTFILES_REINSTALL:-}" ]; then
     if brew --version 1>/dev/null 2>/dev/null; then
-        printf "$LOG_TEMPLATE" 31 '--> ' 39 'Uninstalling Homebrew...'
+        log_warning 'Uninstalling Homebrew...'
         check_sudo
         NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
         . "$BREW_SHELLENV"
         check_sudo
         sudo rm -rfv "$HOMEBREW_PREFIX"
     fi
+
+    log_substep 'Reinstalling Homebrew...'
 fi
 
-printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing Homebrew...'
 check_sudo
 NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 . "$BREW_SHELLENV"
@@ -56,96 +130,133 @@ brew completions link
 
 unset BASH_ENV
 
-printf "$LOG_TEMPLATE" 35 '--> ' 39 'Checking for dotfiles repository...'
+##
+## -- Dotfiles Repository
+##
+log_step 'Checking for dotfiles repository...'
 
 if ! git -C ~/.dotfiles status; then
-    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Cloning dotfiles repository...'
+    log_substep 'Cloning dotfiles repository...'
     git clone https://github.com/jarrodldavis/dotfiles.git ~/.dotfiles
 else
-    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Updating dotfiles repository...'
+    log_substep 'Updating dotfiles repository...'
     git -C ~/.dotfiles pull
 fi
 
 git -C ~/.dotfiles remote set-url --push origin git@github.com:jarrodldavis/dotfiles.git
 
-printf "$LOG_TEMPLATE" 35 '--> ' 39 'Linking dotfiles...'
+##
+## -- Linking Dotfiles
+##
+log_step 'Linking dotfiles...'
 
-ln          -v  -sf    ~/.dotfiles/configs/gitignore                            ~/.gitignore
-mkdir       -v  -p                                                              ~/.ssh
-ln          -v  -sf    ~/.dotfiles/configs/ssh/config                           ~/.ssh/config
-rm          -v  -f                                                              ~/.ssh/config.local.d
-ln          -v  -sf    ~/.dotfiles/configs/ssh/config.local.d                   ~/.ssh/config.local.d
-mkdir       -v  -p                                                              ~/.ssh/config.d
-ln          -v  -sf    ~/.dotfiles/configs/ssh/allowed_signers                  ~/.ssh/allowed_signers
-mkdir       -v  -p                                                              ~/.config/gh
-ln          -v  -sf    ~/.dotfiles/configs/gh/config.yml                        ~/.config/gh/config.yml
-ln          -v  -sf    ~/.dotfiles/configs/gh/hosts.yml                         ~/.config/gh/hosts.yml
-ln          -v  -sf    ~/.dotfiles/scripts/dotfiles-pre-commit.sh               ~/.dotfiles/.git/hooks/pre-commit
-mkdir       -v  -p                                                              ~/.homebrew
-ln          -v  -sf    ~/.dotfiles/configs/homebrew/trust.json                  ~/.homebrew/trust.json
-mkdir       -v  -p                                                              "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles
+_ensure_parent_dir() {
+    local dir="$1"
+    mkdir -vp "$dir"
+}
 
-if [ "$(uname)" = "Linux" ]; then
-    if [ -n "${REMOTE_CONTAINERS:-}" ]; then
-        # copy gitconfig to avoid picking up dev container credential configuration changes
-        cp  -v  -f     ~/.dotfiles/configs/gitconfig                            ~/.gitconfig
-    else
-        ln  -v  -sf    ~/.dotfiles/configs/gitconfig                            ~/.gitconfig
+_get_link_paths() {
+    case $# in
+        1)
+            from="$HOME/.dotfiles/configs/$1"
+            to="$HOME/.$1"
+            ;;
+        2)
+            case $1 in
+                /*) from=$1 ;;
+                *)  from="$HOME/.dotfiles/$1" ;;
+            esac
+            to=$2
+            ;;
+        *)
+            printf 'usage: %s NAME [DESTINATION]\n' "$0" >&2
+            return 2
+            ;;
+    esac
+}
+
+symlink() {
+    _get_link_paths "$@"
+    _ensure_parent_dir "$(dirname "$to")"
+    ln -vnfs "$from" "$to"
+}
+
+hardlink() {
+    _get_link_paths "$@"
+    _ensure_parent_dir "$(dirname "$to")"
+    ln -vnf "$from" "$to"
+}
+
+copy() {
+    _get_link_paths "$@"
+    _ensure_parent_dir "$(dirname "$to")"
+    cp -vf "$from" "$to"
+}
+
+log_substep 'Linking dotfiles repository hooks...'
+symlink scripts/dotfiles-pre-commit.sh ~/.dotfiles/.git/hooks/pre-commit
+
+log_substep 'Linking common dotfiles...'
+symlink gitconfig
+symlink gitignore
+symlink gitconfigs/github-origin
+symlink gitconfigs/github-upstream
+
+symlink gh/config.yml
+symlink gh/hosts.yml
+
+symlink ssh/config
+symlink ssh/config.local.d
+symlink ssh/config.d
+symlink ssh/allowed_signers
+
+symlink configs/brew.env ~/.homebrew/brew.env
+
+if [ "$(uname)" = "Darwin" ]; then
+    log_substep 'Linking macOS dotfiles...'
+    symlink gitconfigs/macos
+    symlink gitconfigs/ssh
+
+    symlink configs/ssh/config-macos ~/.ssh/config.d/macos
+
+    symlink configs/Brewfile-macos ~/.Brewfile
+
+    symlink configs/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
+    symlink configs/vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
+
+    symlink configs/mouseless/config.yaml ~/Library/Application\ Support/Mouseless/configs/config.yaml
+
+    symlink configs/nut/nut.conf /opt/homebrew/etc/nut/nut.conf
+    symlink configs/nut/ups.conf /opt/homebrew/etc/nut/ups.conf
+    symlink configs/nut/upsd.conf /opt/homebrew/etc/nut/upsd.conf
+    if ! [ -f /opt/homebrew/etc/nut/upsd.users ]; then
+        copy configs/nut/upsd.users /opt/homebrew/etc/nut/upsd.users
     fi
+else
+    log_substep 'Linking Linux dotfiles...'
 
     if [ "${CODESPACES:-}" != "true" ]; then
-        ln  -v  -sf    ~/.dotfiles/configs/gitconfig-ssh                        ~/.gitconfig-ssh
+        symlink gitconfigs/ssh
     fi
 
-    ln      -v  -sf    ~/.dotfiles/configs/Brewfile-linux                       ~/.Brewfile
-    ln      -v  -snf   ~/.dotfiles/Formula                                      "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles/Formula
-
-    if [ "$ID" = "cachyos" ]; then
-        ln  -v  -sf    ~/.dotfiles/configs/gitconfig-cachyos                    ~/.gitconfig-cachyos
-        ln  -v  -sf    ~/.dotfiles/configs/ssh/config-cachyos                   ~/.ssh/config.d/cachyos
+    if [ "${ID:-}" = "fedora" ] && [ "${VARIANT_ID:-}" = "coreos" ]; then
+        log_substep 'Linking Fedora CoreOS dotfiles...'
+        symlink ~/.local/bin/docker /usr/bin/podman # force vscode devcontainers to use podman
+        symlink configs/Brewfile-coreos ~/.Brewfile
     fi
 
-    ln      -v  -sf    ~/.dotfiles/configs/gitconfig-github                     ~/.gitconfig-github
-
-elif [ "$(uname)" = "Darwin" ]; then
-    ln      -v  -sf    ~/.dotfiles/configs/gitconfig                            ~/.gitconfig
-    ln      -v  -sf    ~/.dotfiles/configs/gitconfig-github-origin              ~/.gitconfig-github-origin
-    ln      -v  -sf    ~/.dotfiles/configs/gitconfig-github-upstream            ~/.gitconfig-github-upstream
-    ln      -v  -sf    ~/.dotfiles/configs/ssh/config-macos                     ~/.ssh/config.d/macos
-    ln      -v  -sf    ~/.dotfiles/configs/brew.env                             ~/.homebrew/brew.env
-    ln      -v  -sf    ~/.dotfiles/configs/Brewfile-macos                       ~/.Brewfile
-    mkdir   -v  -p                                                              ~/Library/Application\ Support/Code/User
-    ln      -v  -sf    ~/.dotfiles/configs/vscode/keybindings.json              ~/Library/Application\ Support/Code/User/keybindings.json
-    ln      -v  -sf    ~/.dotfiles/configs/vscode/settings.json                 ~/Library/Application\ Support/Code/User/settings.json
-    mkdir   -v  -p                                                              ~/Library/Application\ Support/Mouseless/configs
-    ln      -v  -sf    ~/.dotfiles/configs/mouseless/config.yaml                ~/Library/Application\ Support/Mouseless/configs/config.yaml
-    ln      -v  -sf    ~/.dotfiles/configs/gitconfig-macos                      ~/.gitconfig-macos
-    ln      -v  -sf    ~/.dotfiles/configs/gitconfig-ssh                        ~/.gitconfig-ssh
-    ln      -v  -sf    ~/.dotfiles/configs/ideavimrc                            ~/.ideavimrc
-    ln      -v  -sf    ~/.dotfiles/configs/nut/nut.conf                         /opt/homebrew/etc/nut/nut.conf
-    ln      -v  -sf    ~/.dotfiles/configs/nut/ups.conf                         /opt/homebrew/etc/nut/ups.conf
-    ln      -v  -sf    ~/.dotfiles/configs/nut/upsd.conf                        /opt/homebrew/etc/nut/upsd.conf
-    if ! [ -f /opt/homebrew/etc/nut/upsd.users ]; then
-        cp  -v  -n     ~/.dotfiles/configs/nut/upsd.users                       /opt/homebrew/etc/nut/upsd.users
+    if [ "${ID:-}" = "bazzite" ]; then
+        log_substep 'Linking Bazzite dotfiles...'
+        symlink gitconfigs/bazzite
+        symlink configs/ssh/config-bazzite ~/.ssh/config.d/bazzite
+        symlink configs/Brewfile-bazzite ~/.Brewfile
     fi
-    mkdir   -v  -p                                                              ~/Library/LaunchAgents
-    ln      -v  -shf   ~/.dotfiles/Formula                                      "$(brew --repository)"/Library/Taps/jarrodldavis/homebrew-dotfiles/Formula
 fi
 
-if [ -n "${WSL_DISTRO_NAME:-}" ]; then
-    WIN_HOME=$(wslpath "$(cmd.exe /C "echo %USERPROFILE%" 2>/dev/null | tr -d '\r')")
-    OP_SSH_SIGN="$WIN_HOME/AppData/Local/Microsoft/WindowsApps/op-ssh-sign-wsl.exe"
-    ln      -v  -sf    ~/.dotfiles/configs/gitconfig-wsl                        ~/.gitconfig-wsl
-    check_sudo
-    sudo ln -v  -sf    "$OP_SSH_SIGN"                                           /usr/local/bin/op-ssh-sign-wsl
-fi
-
-if [ "$ID" = "cachyos" ]; then
-    mkdir   -v  -p                                                              ~/.config/heroic
-    ln      -v  -sf    ~/.dotfiles/configs/heroic.json                          ~/.config/heroic/config.json
-fi
-
-printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing system dependencies from Homebrew Bundle...'
+##
+## -- Homebrew Bundle
+##
+log_step 'Installing system dependencies from Homebrew Bundle...'
 
 if [ -n "${DOTFILES_SKIP_MAS:-}" ]; then
     HOMEBREW_BUNDLE_MAS_SKIP="$(~/.dotfiles/scripts/list-mas-ids.sh)"
@@ -158,24 +269,23 @@ else
     brew bundle install --global --verbose
 fi
 
-printf "$LOG_TEMPLATE" 35 '--> ' 39 'Configuring Zsh...'
+##
+## -- Finalize Configurations
+##
+log_step 'Finalizing configurations...'
+
+log_substep 'Configuring Zsh...'
 ~/.dotfiles/scripts/configure-zsh.sh
 
 if [ "$(uname)" = "Darwin" ]; then
-    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Installing 1Password SSH Agent...'
+    log_substep 'Installing 1Password SSH Agent...'
     ~/.dotfiles/scripts/register-1password-agent.sh
 
-    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Configuring NUT...'
+    log_substep 'Configuring NUT...'
     ~/.dotfiles/scripts/configure-nut.sh
 
-    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Setting up Git LFS...'
+    log_substep 'Setting up Git LFS...'
     git lfs install --system --skip-repo
 fi
 
-if [ -n "${WSL_DISTRO_NAME:-}" ]; then
-    printf "$LOG_TEMPLATE" 35 '--> ' 39 'Configuring default shell...'
-    check_sudo
-    sudo chsh -s "$(which zsh)" "$(whoami)"
-fi
-
-printf "$LOG_TEMPLATE" 32 '--> ' 39 'Dotfiles installation complete!'
+log_done 'Dotfiles installation complete!'

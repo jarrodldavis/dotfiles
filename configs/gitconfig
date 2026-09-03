@@ -5,19 +5,18 @@
 [gpg "ssh"]
     allowedSignersFile = ~/.ssh/allowed_signers
 [include]
-    path = ~/.gitconfig-cachyos
-    path = ~/.gitconfig-macos
-    path = ~/.gitconfig-ssh
-    path = ~/.gitconfig-wsl
+    path = ~/.gitconfigs/bazzite
+    path = ~/.gitconfigs/macos
+    path = ~/.gitconfigs/ssh
 
 [includeIf "hasconfig:remote.origin.url:git@github.com:*/**"]
-    path = ~/.gitconfig-github-origin
+    path = ~/.gitconfigs/github-origin
 [includeIf "hasconfig:remote.origin.url:https://github.com/**"]
-    path = ~/.gitconfig-github-origin
+    path = ~/.gitconfigs/github-origin
 [includeIf "hasconfig:remote.upstream.url:git@github.com:*/**"]
-    path = ~/.gitconfig-github-upstream
+    path = ~/.gitconfigs/github-upstream
 [includeIf "hasconfig:remote.upstream.url:https://github.com/**"]
-    path = ~/.gitconfig-github-upstream
+    path = ~/.gitconfigs/github-upstream
 
 # Diffs
 [core]

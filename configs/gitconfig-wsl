@@ -1,5 +1,0 @@
-# Commit Identity
-[core]
-    sshCommand = "ssh.exe"
-[gpg "ssh"]
-    program = op-ssh-sign-wsl

@@ -1,4 +1,3 @@
-tap "jarrodldavis/dotfiles", trusted: true
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # GitHub command-line tool

@@ -1,3 +1,0 @@
-cachyos-snapper-support
-limine-entry-tool
-limine-mkinitcpio-hook

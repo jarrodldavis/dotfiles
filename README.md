@@ -6,19 +6,15 @@
 
 - A UNIX-ish operating system, one of:
   - macOS
-    - tested with Sequoia 15.6
-  - Debian
-    - tested with `bookworm` in [Visual Studio Code]'s [Development Containers]
-    - tested with `bookworm` in [Windows Subsystem for Linux] (WSL)
+    - tested with Sequoia 15.7
   - Others (untested)
-- dash or other POSIX-compatible shell (`/bin/sh`)
-- Bash (for [Homebrew] installation)
+- Bash
 - Zsh (for additional installation scripts)
 - curl (for automatic bootstrapping)
 - git (for manual installation)
 - On Linux, all [Homebrew system requirements]
 
-`/bin/sh`, Bash, Zsh, and curl are pre-installed on macOS.
+Bash, Zsh, and curl are pre-installed on macOS.
 
 ## Install
 
@@ -92,8 +88,8 @@ On macOS, skip installation of Mac App Store (`mas`) dependencies.
 
 [Homebrew Bundle] is used to record the CLI tools (Homebrew Formulae), GUI applications
 (Homebrew Casks), and Visual Studio Code extensions that should be installed. To record the
-installation or removal of these system dependencies, update `configs/Brewfile` using
-`~/.dotfiles/scripts/update-homebrew-bundle.sh`.
+installation or removal of these system dependencies, update the appropriate system-specific
+`configs/Brewfile-*` file using `~/.dotfiles/scripts/update-homebrew-bundle.sh`.
 
 ### Global `.gitignore`
 
