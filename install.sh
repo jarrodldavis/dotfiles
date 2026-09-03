@@ -241,7 +241,6 @@ else
 
     if [ "${ID:-}" = "fedora" ] && [ "${VARIANT_ID:-}" = "coreos" ]; then
         log_substep 'Linking Fedora CoreOS dotfiles...'
-        symlink /usr/bin/podman ~/.local/bin/docker # force vscode devcontainers to use podman
         symlink configs/Brewfile-coreos ~/.Brewfile
     fi
 

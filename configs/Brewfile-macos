@@ -98,13 +98,11 @@ mas "StopTheMadness", id: 1376402589
 mas "StopTheMadness Pro", id: 6471380298
 mas "Userscripts", id: 1463298887
 vscode "bierner.docs-view"
-vscode "docker.docker"
 vscode "github.codespaces"
 vscode "github.remotehub"
 vscode "github.vscode-github-actions"
 vscode "github.vscode-pull-request-github"
 vscode "ms-azuretools.vscode-containers"
-vscode "ms-azuretools.vscode-docker"
 vscode "ms-vscode-remote.remote-containers"
 vscode "ms-vscode-remote.remote-ssh"
 vscode "ms-vscode-remote.remote-ssh-edit"
