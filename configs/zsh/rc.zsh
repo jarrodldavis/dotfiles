@@ -9,9 +9,7 @@ compinit
 
 unsetopt NOMATCH
 
-if [ -z "${EDITOR:-}" ]; then
-    export EDITOR="vim"
-fi
+export EDITOR="vim"
 
 bindkey -v
 bindkey -M viins '^?' backward-delete-char
