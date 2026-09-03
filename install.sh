@@ -259,15 +259,19 @@ fi
 ##
 log_step 'Installing system dependencies from Homebrew Bundle...'
 
-if [ -n "${DOTFILES_SKIP_MAS:-}" ]; then
-    HOMEBREW_BUNDLE_MAS_SKIP="$(~/.dotfiles/scripts/list-mas-ids.sh)"
-    export HOMEBREW_BUNDLE_MAS_SKIP
-fi
+if [ -f ~/.Brewfile ]; then
+    if [ -n "${DOTFILES_SKIP_MAS:-}" ]; then
+        HOMEBREW_BUNDLE_MAS_SKIP="$(~/.dotfiles/scripts/list-mas-ids.sh)"
+        export HOMEBREW_BUNDLE_MAS_SKIP
+    fi
 
-if [ -n "${DOTFILES_REINSTALL:-}" ]; then
-    brew bundle install --global --verbose --force
+    if [ -n "${DOTFILES_REINSTALL:-}" ]; then
+        brew bundle install --global --verbose --force
+    else
+        brew bundle install --global --verbose
+    fi
 else
-    brew bundle install --global --verbose
+    log_warning 'No Brewfile found, skipping Homebrew Bundle installation.'
 fi
 
 ##
