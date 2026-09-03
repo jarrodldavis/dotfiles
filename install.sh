@@ -256,6 +256,11 @@ else
         symlink configs/vscode/settings.json ~/.config/Code/User/settings.json
         symlink configs/vscode/keybindings.json ~/.config/Code/User/keybindings.json
     fi
+
+    if [ "${REMOTE_CONTAINERS:-}" = "true" ]; then
+        log_substep 'Linking VS Code Remote Containers dotfiles...'
+        symlink configs/Brewfile-devcontainer ~/.Brewfile
+    fi
 fi
 
 ##
