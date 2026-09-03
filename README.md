@@ -6,7 +6,13 @@
 
 - A UNIX-ish operating system, one of:
   - macOS
-    - tested with Sequoia 15.7
+    - tested on Sequoia 15.7
+  - Bazzite
+    - tested on `bazzite-nvidia-open` 44.20260825.0
+  - Fedora CoreOS
+    - tested on `stable` 44.20260802.3.1
+  - Debian
+    - tested on `bookworm` in [Visual Studio Code]'s [Development Containers]
   - Others (untested)
 - Bash
 - Zsh (for additional installation scripts)
@@ -100,7 +106,6 @@ dependency requirements.
 [Homebrew]:                     https://brew.sh
 [Visual Studio Code]:           https://code.visualstudio.com
 [Development Containers]:       https://code.visualstudio.com/docs/remote/containers
-[Windows Subsystem for Linux]:  https://learn.microsoft.com/en-us/windows/wsl/
 [Homebrew system requirements]: https://docs.brew.sh/Homebrew-on-Linux#requirements
 [contents of `install.sh`]:     https://github.com/jarrodldavis/dotfiles/raw/main/install.sh
 [Homebrew Bundle]:              https://docs.brew.sh/Brew-Bundle-and-Brewfile
