@@ -102,19 +102,12 @@ fi
 ##
 log_step 'Installing Homebrew...'
 
-BASH_ENV="$(mktemp)"
-export BASH_ENV
-BREW_SHELLENV="$(mktemp)"
-cat <<EOF > "$BASH_ENV"
-trap 'export HOMEBREW_PREFIX; env | grep HOMEBREW > $BREW_SHELLENV' EXIT
-EOF
-
 if [ -n "${DOTFILES_REINSTALL:-}" ]; then
     if brew --version 1>/dev/null 2>/dev/null; then
         log_warning 'Uninstalling Homebrew...'
+        HOMEBREW_PREFIX="$(brew --prefix)"
         check_sudo
         NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
-        . "$BREW_SHELLENV"
         check_sudo
         sudo rm -rfv "$HOMEBREW_PREFIX"
     fi
@@ -123,12 +116,20 @@ if [ -n "${DOTFILES_REINSTALL:-}" ]; then
 fi
 
 check_sudo
-NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+BREW_SHELLENV="$(mktemp)"
+
+{
+    curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+    cat <<EOF
+export HOMEBREW_PREFIX
+env | grep '^HOMEBREW' > "$BREW_SHELLENV"
+EOF
+} | NONINTERACTIVE=1 /bin/bash
+
 . "$BREW_SHELLENV"
 eval "$("$HOMEBREW_PREFIX"/bin/brew shellenv)"
 brew completions link
-
-unset BASH_ENV
 
 ##
 ## -- Dotfiles Repository
