@@ -59,7 +59,7 @@ log_bell() {
 }
 
 check_sudo() {
-    if ! sudo -vn 2>/dev/null; then
+    if ! sudo -n true 2>/dev/null; then
         log_bell
         log_warning 'Sudo access is required:'
         sudo -v
