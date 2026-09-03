@@ -250,6 +250,8 @@ else
         symlink gitconfigs/bazzite
         symlink configs/ssh/config-bazzite ~/.ssh/config.d/bazzite
         symlink configs/Brewfile-bazzite ~/.Brewfile
+        symlink configs/vscode/settings.json ~/.config/Code/User/settings.json
+        symlink configs/vscode/keybindings.json ~/.config/Code/User/keybindings.json
     fi
 fi
 
