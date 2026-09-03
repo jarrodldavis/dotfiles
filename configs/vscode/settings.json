@@ -1,6 +1,5 @@
 {
     "chat.agent.maxRequests": 250,
-    "chat.autopilot.enabled": true,
     "chat.editing.confirmEditRequestRemoval": false,
     "chat.editing.confirmEditRequestRetry": false,
     "chat.viewSessions.orientation": "stacked",
@@ -8,11 +7,9 @@
     "containers.containerClient": "com.microsoft.visualstudio.containers.docker",
     "dataWrangler.defaultViewingFilterOptions": "advanced",
     "dev.containers.defaultExtensions": [
-        "mathematic.vscode-pdf",
-        "mattpocock.ts-error-translator",
         "ms-vscode.vscode-commander",
         "ms-vscode.vscode-copilot-data-analysis",
-        "yoavbls.pretty-ts-errors"
+        "openai.chatgpt"
     ],
     "dev.containers.defaultFeatures": {
         "ghcr.io/devcontainers/features/common-utils:2": {
@@ -118,8 +115,6 @@
     "terminal.integrated.suggest.enabled": true,
     "terminal.integrated.suggest.runOnEnter": "exactMatch",
     "tinymist.systemFonts": false,
-    "totalTypeScript.hideAllTips": true,
-    "totalTypeScript.hideBasicTips": true,
     "vim.camelCaseMotion.enable": true,
     "vim.easymotion": true,
     "vim.highlightedyank.enable": true,
