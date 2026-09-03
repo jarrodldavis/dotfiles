@@ -208,7 +208,6 @@ symlink gh/hosts.yml
 
 symlink ssh/config
 symlink ssh/config.local.d
-symlink ssh/config.d
 symlink ssh/allowed_signers
 
 symlink configs/brew.env ~/.homebrew/brew.env
