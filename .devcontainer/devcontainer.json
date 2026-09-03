@@ -12,6 +12,10 @@
 			"installOhMyZshConfig": true
 		}
 	},
+	"runArgs": [
+		// TODO: move to user-level devcontainer feature
+		"--tmpfs=/tmp:rw,exec,nosuid,nodev,mode=1777"
+	],
 
 	// Test local changes to installer before publishing
 	"mounts": [
