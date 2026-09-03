@@ -1,0 +1,11 @@
+[Unit]
+Description=Prevent sleep during Steam download/update activity
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/steam-download-inhibit
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

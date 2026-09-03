@@ -1,0 +1,37 @@
+# Encrypted-volume configuration
+etc/crypttab
+
+# Network configuration and credentials
+etc/NetworkManager/system-connections
+etc/wpa_supplicant
+etc/wireguard
+etc/openvpn
+etc/vpnc
+etc/ppp
+
+# Local privilege/security configuration
+etc/sudoers.d
+etc/audit
+etc/polkit-1/rules.d
+etc/sssd
+
+# Snapshots
+etc/snapper/configs
+
+# Firewall configuration
+etc/firewalld
+etc/nftables
+etc/sysconfig/nftables.conf
+
+# SSH server configuration and host identity
+etc/ssh
+etc/sysconfig/sshd
+
+# Printing
+etc/cups
+
+# Network authentication / NFS support
+etc/gssproxy
+
+# Application-specific protected configuration
+etc/cardwire

@@ -1,0 +1,1 @@
+jarrodldavis ALL=(root) NOPASSWD: /usr/local/sbin/vorta-root-inventory

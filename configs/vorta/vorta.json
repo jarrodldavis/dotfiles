@@ -1,11 +1,11 @@
 {
     "id": 1,
-    "name": "Local",
-    "added_at": "2026-03-15 06:49:04.504535",
+    "name": "Default",
+    "added_at": "2026-08-23 17:11:46.806226",
     "repo": {
-        "url": "/media/backup/borg",
+        "url": "/var/mnt/backup/borg",
         "name": "Local External Drive",
-        "added_at": "2026-03-15 23:29:02.506213",
+        "added_at": "2026-08-24 04:13:20.747976",
         "encryption": "repokey-blake2",
         "unique_size": null,
         "unique_csize": null,
@@ -16,7 +16,7 @@
     },
     "ssh_key": null,
     "compression": "lz4",
-    "exclude_patterns": "## Snapper \n/home/.snapshots\n\n## Root-only files\n/etc/pacman.d/gnupg\n/etc/brlapi.key\n/etc/libvirt\n/etc/crypttab\n/etc/audit/plugins.d\n/etc/libaudit.conf\n/etc/default/useradd\n/etc/credstore\n/etc/credstore.encrypted\n/etc/cryptsetup-keys.d\n/etc/.pwd.lock\n/etc/sudoers\n/etc/sudoers.d\n/etc/snapper/configs/home\n/etc/polkit-1/rules.d\n/etc/named.conf\n/etc/ppp/\n/etc/NetworkManager/system-connections\n/etc/ufw/after.init\n/etc/ufw/before.init\n/etc/fwupd/fwupd.conf\n/etc/shadow-\n/etc/shadow\n/etc/gshadow-\n/etc/gshadow",
+    "exclude_patterns": "## user data captured by pre-backup script\npf:/var/home/jarrodldavis/.local/share/tang\n\n## user data that can be trivially recreated\npf:/var/home/jarrodldavis/.cache\npf:/var/home/jarrodldavis/.local/share/Trash\n\npf:/var/home/jarrodldavis/.local/share/Steam/appcache\npf:/var/home/jarrodldavis/.local/share/Steam/compatibilitytools.d\npf:/var/home/jarrodldavis/.local/share/Steam/depotcache\npf:/var/home/jarrodldavis/.local/share/Steam/logs\npf:/var/home/jarrodldavis/.local/share/Steam/package\n\npf:/var/home/jarrodldavis/.local/share/Steam/steamapps/common\npf:/var/home/jarrodldavis/.local/share/Steam/steamapps/downloading\npf:/var/home/jarrodldavis/.local/share/Steam/steamapps/shadercache\npf:/var/home/jarrodldavis/.local/share/Steam/steamapps/temp\npf:/var/home/jarrodldavis/.local/share/Steam/steamapps/workshop\n\npf:/var/home/jarrodldavis/.local/share/flatpak\n\n## system state captured by pre-backup script\npf:/run/host/etc/crypttab\n\npf:/run/host/etc/NetworkManager/system-connections\npf:/run/host/etc/wpa_supplicant\npf:/run/host/etc/wireguard\npf:/run/host/etc/openvpn\npf:/run/host/etc/vpnc\npf:/run/host/etc/ppp\n\npf:/run/host/etc/sudoers.d\npf:/run/host/etc/audit\npf:/run/host/etc/polkit-1/rules.d\npf:/run/host/etc/sssd\n\npf:/run/host/etc/snapper/configs\n\npf:/run/host/etc/firewalld\npf:/run/host/etc/nftables\npf:/run/host/etc/sysconfig/nftables.conf\n\npf:/run/host/etc/ssh\npf:/run/host/etc/sysconfig/sshd\n\npf:/run/host/etc/cups\npf:/run/host/etc/gssproxy\n\npf:/run/host/etc/cardwire\n\n## system transient state\npf:/run/host/etc/brlapi.key\npf:/run/host/etc/libaudit.conf\npf:/run/host/etc/sudo.conf\npf:/run/host/etc/sudoers\n\npf:/run/host/etc/credstore\npf:/run/host/etc/credstore.encrypted\n\npf:/run/host/etc/fwupd/fwupd.conf\n\npf:/run/host/etc/lvm/archive\npf:/run/host/etc/lvm/backup\npf:/run/host/etc/lvm/cache\npf:/run/host/etc/lvm/devices\n\npf:/run/host/etc/security/opasswd\n\npf:/run/host/etc/selinux/final\npf:/run/host/etc/selinux/targeted/active\npf:/run/host/etc/selinux/targeted/semanage.read.LOCK\npf:/run/host/etc/selinux/targeted/semanage.trans.LOCK\n\npf:/run/host/etc/userdb\npf:/run/host/etc/gshadow\npf:/run/host/etc/gshadow-\npf:/run/host/etc/shadow\npf:/run/host/etc/shadow-\npf:/run/host/etc/.pwd.lock\n\npf:/run/host/etc/sos/cleaner",
     "exclude_if_present": "[x] .nobackup\n[x] CACHEDIR.TAG",
     "schedule_mode": "interval",
     "schedule_interval_count": 1,
@@ -27,48 +27,54 @@
     "schedule_interval_minutes": 42,
     "schedule_make_up_missed": true,
     "validation_on": true,
-    "validation_weeks": 4,
+    "validation_weeks": 3,
     "compaction_on": true,
-    "compaction_weeks": 4,
+    "compaction_weeks": 3,
     "prune_on": true,
     "prune_hour": 72,
     "prune_day": 21,
     "prune_week": 12,
     "prune_month": 36,
-    "prune_year": 30,
-    "prune_keep_within": "",
+    "prune_year": 2,
+    "prune_keep_within": "72H",
     "new_archive_name": "{hostname}-{now:%Y-%m-%d-%H%M%S}",
     "prune_prefix": "{hostname}-",
-    "pre_backup_cmd": "",
+    "pre_backup_cmd": "flatpak-spawn --host /var/home/jarrodldavis/.local/bin/update-system-inventory",
     "post_backup_cmd": "",
     "dont_run_on_metered_networks": true,
     "SourceFileModel": [
         {
-            "dir": "/home",
-            "dir_size": 314457305507,
-            "dir_files_count": 183988,
+            "dir": "/run/host/etc",
+            "dir_size": 27477811,
+            "dir_files_count": 1713,
             "path_isdir": true,
             "profile": 1,
-            "added_at": "2026-03-15 13:14:32.309000"
+            "added_at": "2026-08-24 10:27:07.672847"
         },
         {
-            "dir": "/opt",
-            "dir_size": 2729979485,
-            "dir_files_count": 5339,
+            "dir": "/run/host/var/usrlocal",
+            "dir_size": 2243,
+            "dir_files_count": 2,
             "path_isdir": true,
             "profile": 1,
-            "added_at": "2026-03-15 13:16:23.867789"
+            "added_at": "2026-08-24 10:27:47.184107"
         },
         {
-            "dir": "/etc",
-            "dir_size": 7365773,
-            "dir_files_count": 1397,
+            "dir": "/var/home/jarrodldavis",
+            "dir_size": 34135066331,
+            "dir_files_count": 105526,
             "path_isdir": true,
             "profile": 1,
-            "added_at": "2026-03-15 14:03:24.512145"
+            "added_at": "2026-08-24 10:37:59.413442"
         }
     ],
     "ExclusionModel": [
+        {
+            "profile": 1,
+            "name": "spotify",
+            "enabled": true,
+            "source": "preset"
+        },
         {
             "profile": 1,
             "name": "chromium-cache",
@@ -114,12 +120,6 @@
         {
             "profile": 1,
             "name": "vscode-cache",
-            "enabled": true,
-            "source": "preset"
-        },
-        {
-            "profile": 1,
-            "name": "spotify",
             "enabled": true,
             "source": "preset"
         },
@@ -199,7 +199,7 @@
     "SchemaVersion": {
         "id": 1,
         "version": 23,
-        "changed_at": "2026-03-15 06:49:04.184404"
+        "changed_at": "2026-08-23 17:11:46.427686"
     },
     "WifiSettingModel": [],
     "SettingsModel": [
@@ -214,7 +214,7 @@
         },
         {
             "key": "enable_notifications_success",
-            "value": true,
+            "value": false,
             "str_value": "",
             "label": "Notify about successful background tasks",
             "group": "Notifications",
@@ -232,7 +232,7 @@
         },
         {
             "key": "foreground",
-            "value": false,
+            "value": true,
             "str_value": "",
             "label": "Show main window of Vorta on launch",
             "group": "Startup",
@@ -287,7 +287,7 @@
         {
             "key": "previous_window_width",
             "value": false,
-            "str_value": "1326",
+            "str_value": "1268",
             "label": "Previous window width",
             "group": "",
             "tooltip": "",
@@ -296,7 +296,7 @@
         {
             "key": "previous_window_height",
             "value": false,
-            "str_value": "704",
+            "str_value": "714",
             "label": "Previous window height",
             "group": "",
             "tooltip": "",

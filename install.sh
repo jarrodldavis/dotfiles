@@ -251,10 +251,18 @@ else
     if [ "${ID:-}" = "bazzite" ]; then
         log_substep 'Linking Bazzite dotfiles...'
         symlink gitconfigs/bazzite
+
         symlink configs/ssh/config-bazzite ~/.ssh/config.d/bazzite
+
         symlink configs/Brewfile-bazzite ~/.Brewfile
+
         symlink configs/vscode/settings.json ~/.config/Code/User/settings.json
         symlink configs/vscode/keybindings.json ~/.config/Code/User/keybindings.json
+
+        symlink configs/systemd/steam-download-inhibit.py ~/.local/bin/steam-download-inhibit
+        symlink configs/systemd/steam-download-inhibit.service ~/.config/systemd/user/steam-download-inhibit.service
+
+        symlink configs/vorta/update-system-inventory.bash ~/.local/bin/update-system-inventory
     fi
 
     if [ "${REMOTE_CONTAINERS:-}" = "true" ]; then
@@ -300,6 +308,26 @@ if [ "$(uname)" = "Darwin" ]; then
 
     log_substep 'Setting up Git LFS...'
     git lfs install --system --skip-repo
+else
+    if [ "${ID:-}" = "bazzite" ]; then
+        log_substep 'Configuring Snapper...'
+        check_sudo
+        ~/.dotfiles/scripts/configure-snapper.sh
+
+        log_substep 'Configuring Vorta System Inventory...'
+        check_sudo
+        ~/.dotfiles/scripts/configure-system-inventory.sh
+
+        log_substep 'Configuring systemd...'
+        systemctl --user daemon-reload
+        systemctl --user restart steam-download-inhibit.service
+
+        log_substep "Configuring desktop applications with Homebrew \$PATH..."
+        mkdir -pv ~/.config/environment.d
+        cat > ~/.config/environment.d/60-homebrew.conf <<EOF
+PATH=$HOMEBREW_PREFIX/bin:$HOMEBREW_PREFIX/sbin:\$PATH
+EOF
+    fi
 fi
 
 log_done 'Dotfiles installation complete!'
