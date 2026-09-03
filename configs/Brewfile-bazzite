@@ -1,14 +1,37 @@
+tap "ublue-os/tap", trusted: true
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # GitHub command-line tool
 brew "gh"
 # Syntax-highlighting pager for git and diff output
 brew "git-delta"
+# C library and command-line programs providing a simple interface to inotify
+brew "inotify-tools"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
 # Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
 # UNIX shell (command interpreter)
 brew "zsh"
+# Command-line interface for 1Password
+cask "ublue-os/tap/1password-cli-linux"
+# Password manager that keeps all passwords secure behind one password
+cask "ublue-os/tap/1password-gui-linux", trusted: true
 # OpenAI's coding agent that runs in your terminal
 cask "codex"
+# Open-source code editor
+cask "ublue-os/tap/visual-studio-code-linux", trusted: true
+flatpak "com.borgbase.Vorta"
+flatpak "com.fastmail.Fastmail"
+flatpak "com.github.Matoking.protontricks"
+flatpak "com.github.tchx84.Flatseal"
+flatpak "com.vysp3r.ProtonPlus"
+flatpak "io.github.DenysMb.Kontainer"
+flatpak "io.github.flattool.Warehouse"
+flatpak "it.mijorus.gearlever"
+flatpak "org.gnome.Firmware"
+flatpak "org.kde.gwenview"
+flatpak "org.kde.haruna"
+flatpak "org.kde.kcalc"
+flatpak "org.kde.okular"
+flatpak "org.mozilla.firefox"
