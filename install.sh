@@ -164,7 +164,7 @@ _get_link_paths() {
             ;;
         2)
             case $1 in
-                /*) from=$1 ;;
+                /*|./*|../*) from=$1 ;;
                 *)  from="$HOME/.dotfiles/$1" ;;
             esac
             to=$2
@@ -195,7 +195,7 @@ copy() {
 }
 
 log_substep 'Linking dotfiles repository hooks...'
-symlink scripts/dotfiles-pre-commit.sh ~/.dotfiles/.git/hooks/pre-commit
+symlink ../../scripts/dotfiles-pre-commit.sh ~/.dotfiles/.git/hooks/pre-commit
 
 log_substep 'Linking common dotfiles...'
 
