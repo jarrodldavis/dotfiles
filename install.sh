@@ -204,8 +204,6 @@ symlink configs/gitconfig "${XDG_CONFIG_HOME:-$HOME/.config}/git/config"
 touch ~/.gitconfig
 
 symlink gitignore
-symlink gitconfigs/github-origin
-symlink gitconfigs/github-upstream
 
 symlink gh/config.yml
 symlink gh/hosts.yml

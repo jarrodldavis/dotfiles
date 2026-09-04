@@ -9,15 +9,6 @@
     path = ~/.gitconfigs/macos
     path = ~/.gitconfigs/ssh
 
-[includeIf "hasconfig:remote.origin.url:git@github.com:*/**"]
-    path = ~/.gitconfigs/github-origin
-[includeIf "hasconfig:remote.origin.url:https://github.com/**"]
-    path = ~/.gitconfigs/github-origin
-[includeIf "hasconfig:remote.upstream.url:git@github.com:*/**"]
-    path = ~/.gitconfigs/github-upstream
-[includeIf "hasconfig:remote.upstream.url:https://github.com/**"]
-    path = ~/.gitconfigs/github-upstream
-
 # Diffs
 [core]
     pager = delta
