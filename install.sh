@@ -308,6 +308,11 @@ if [ "$(uname)" = "Darwin" ]; then
     log_substep 'Setting up Git LFS...'
     git lfs install --system --skip-repo
 else
+    if [ "${ID:-}" = "fedora" ] && [ "${VARIANT_ID:-}" = "coreos" ]; then
+        log_substep 'Configuring systemd...'
+        systemctl --user enable --now podman.socket
+    fi
+
     if [ "${ID:-}" = "bazzite" ]; then
         log_substep 'Configuring Snapper...'
         check_sudo
