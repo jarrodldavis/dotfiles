@@ -205,8 +205,9 @@ touch ~/.gitconfig
 
 symlink gitignore
 
-symlink gh/config.yml
-symlink gh/hosts.yml
+symlink configs/gh/config.yml ~/.config/gh/config.yml
+# copy hosts config since it can contain auth tokens
+copy configs/gh/hosts.yml ~/.config/gh/hosts.yml
 
 symlink ssh/config
 symlink ssh/config.local.d
