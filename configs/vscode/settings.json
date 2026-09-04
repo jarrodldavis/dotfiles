@@ -1,7 +1,9 @@
 {
     "chat.agent.maxRequests": 250,
+    "chat.agentsControl.enabled": "hidden",
     "chat.editing.confirmEditRequestRemoval": false,
     "chat.editing.confirmEditRequestRetry": false,
+    "chat.titleBar.openInAgentsWindow.enabled": false,
     "chat.viewSessions.orientation": "stacked",
     "chatgpt.composerEnterBehavior": "cmdIfMultiline",
     "containers.containerClient": "com.microsoft.visualstudio.containers.podman",
