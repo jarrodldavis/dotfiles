@@ -15,6 +15,10 @@ sys.stderr.reconfigure(line_buffering=True)
 ACTIVITY_TIMEOUT = 5 * 60
 LOG_INTERVAL = 5 * 60
 RECONCILE_INTERVAL = 60
+WAKE_LEAD = 60
+WAKE_UNIT = "steam-update-wake"
+
+MANIFEST_RE = re.compile(r"appmanifest_\d+\.acf$")
 
 
 class Monitor:
@@ -24,8 +28,11 @@ class Monitor:
             "/home/linuxbrew/.linuxbrew/bin/inotifywait",
             str(Path.home() / ".linuxbrew/bin/inotifywait"),
         )
+        self.systemctl = self.find_command("systemctl", "/usr/bin/systemctl")
         self.systemd_inhibit = self.find_command("systemd-inhibit", "/usr/bin/systemd-inhibit")
+        self.systemd_run = self.find_command("systemd-run", "/usr/bin/systemd-run")
         self.sleep = self.find_command("sleep", "/usr/bin/sleep")
+        self.true = self.find_command("true", "/usr/bin/true")
         self.steam_root = self.find_steam_root()
 
         self.libraries = ()
@@ -43,6 +50,9 @@ class Monitor:
         self.last_activity_source = ""
         self.next_activity_log = 0.0
         self.next_reconcile = 0.0
+
+        self.wake_timestamp = None
+        self.scheduled_update_timestamp = None
 
     @staticmethod
     def find_command(name, *fallbacks):
@@ -135,6 +145,101 @@ class Monitor:
                 return category
 
         return None
+
+    def find_next_scheduled_update(self):
+        now = time.time()
+        next_update = None
+        field_re = re.compile(r'^\s*"([^"]+)"\s+"(.*)"\s*$')
+
+        for library in self.libraries:
+            steamapps = library / "steamapps"
+
+            for manifest in steamapps.glob("appmanifest_*.acf"):
+                fields = {}
+
+                try:
+                    for line in manifest.read_text(errors="replace").splitlines():
+                        if match := field_re.match(line):
+                            fields.setdefault(match.group(1), match.group(2))
+                except OSError:
+                    continue
+
+                try:
+                    timestamp = int(fields.get("ScheduledAutoUpdate", "0"))
+                except ValueError:
+                    continue
+
+                if timestamp <= now:
+                    continue
+
+                update = (
+                    timestamp,
+                    fields.get("appid", manifest.stem.removeprefix("appmanifest_")),
+                    fields.get("name", manifest.stem),
+                )
+
+                if next_update is None or update[0] < next_update[0]:
+                    next_update = update
+
+        return next_update
+
+    @staticmethod
+    def format_timestamp(timestamp):
+        return time.strftime("%Y-%m-%d %H:%M:%S %Z", time.localtime(timestamp))
+
+    async def run_command(self, *args):
+        proc = await asyncio.create_subprocess_exec(
+            *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.STDOUT
+        )
+        output, _ = await proc.communicate()
+        return proc.returncode, output.decode(errors="replace").strip()
+
+    async def cancel_wake_timer(self):
+        await self.run_command(self.systemctl, "--user", "stop", f"{WAKE_UNIT}.timer", f"{WAKE_UNIT}.service")
+        self.wake_timestamp = None
+        self.scheduled_update_timestamp = None
+
+    async def update_wake_timer(self, force=False):
+        next_update = await asyncio.to_thread(self.find_next_scheduled_update)
+
+        if next_update is None:
+            if force or self.wake_timestamp is not None:
+                await self.cancel_wake_timer()
+                print("No future Steam updates are currently scheduled")
+            return
+
+        update_timestamp, appid, name = next_update
+        wake_timestamp = update_timestamp - WAKE_LEAD
+
+        if wake_timestamp <= time.time():
+            wake_timestamp = update_timestamp
+
+        if not force and update_timestamp == self.scheduled_update_timestamp:
+            return
+
+        await self.cancel_wake_timer()
+
+        returncode, output = await self.run_command(
+            self.systemd_run,
+            "--user",
+            f"--unit={WAKE_UNIT}",
+            "--collect",
+            f"--on-calendar=@{wake_timestamp}",
+            "--timer-property=WakeSystem=true",
+            "--timer-property=AccuracySec=1s",
+            "--description=Wake for Steam scheduled update",
+            self.true,
+        )
+
+        if returncode != 0:
+            message = output or f"systemd-run exited with status {returncode}"
+            print(f"Failed to schedule Steam wake: {message}", file=sys.stderr)
+            return
+
+        self.wake_timestamp = wake_timestamp
+        self.scheduled_update_timestamp = update_timestamp
+        print(f"Next Steam update: {self.format_timestamp(update_timestamp)} - {name} ({appid})")
+        print(f"Scheduled system wake: {self.format_timestamp(wake_timestamp)}")
 
     async def record_activity(self, source):
         self.last_activity = time.monotonic()
@@ -239,6 +344,10 @@ class Monitor:
     async def handle_parent_event(self, path, event_names):
         base = Path(path).name
 
+        if MANIFEST_RE.fullmatch(base):
+            await self.update_wake_timer()
+            return
+
         if base == "libraryfolders.vdf":
             if self.signature(self.discover_watch_paths()) != self.watch_signature:
                 print("Steam library configuration changed")
@@ -314,6 +423,7 @@ class Monitor:
 
         await self.start_watchers()
         await self.check_recent_activity()
+        await self.update_wake_timer()
 
     async def reconcile(self):
         paths = self.discover_watch_paths()
@@ -323,6 +433,7 @@ class Monitor:
             await self.stop_watchers()
             await self.start_watchers()
             await self.check_recent_activity()
+            await self.update_wake_timer()
         else:
             self.next_reconcile = time.monotonic() + RECONCILE_INTERVAL
 
@@ -331,6 +442,10 @@ class Monitor:
 
         if now >= self.next_reconcile:
             await self.reconcile()
+
+            if self.scheduled_update_timestamp is not None and time.time() >= self.scheduled_update_timestamp:
+                await self.update_wake_timer()
+
             now = time.monotonic()
 
         if self.inhibitor is None or self.inhibitor.returncode is not None:
@@ -357,6 +472,7 @@ class Monitor:
 
         await self.start_watchers()
         await self.check_recent_activity()
+        await self.update_wake_timer(force=True)
 
         while True:
             await self.handle_deadlines()
@@ -371,6 +487,7 @@ class Monitor:
     async def cleanup(self):
         await self.stop_watchers()
         await self.stop_inhibitor()
+        await self.cancel_wake_timer()
 
 
 async def main():
