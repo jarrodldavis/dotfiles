@@ -16,23 +16,73 @@ ACTIVITY_TIMEOUT = 5 * 60
 LOG_INTERVAL = 5 * 60
 RECONCILE_INTERVAL = 60
 WAKE_LEAD = 60
+WAKE_SCREEN_OFF_DELAY = 2
 WAKE_UNIT = "steam-update-wake"
 
 MANIFEST_RE = re.compile(r"appmanifest_\d+\.acf$")
 
 
+def find_command(name, *fallbacks):
+    if path := shutil.which(name):
+        return path
+
+    for path in fallbacks:
+        if os.access(path, os.X_OK):
+            return path
+
+    raise RuntimeError(f"Could not find {name}")
+
+
+async def wake_action():
+    await asyncio.sleep(WAKE_SCREEN_OFF_DELAY)
+
+    dbus_send = find_command("dbus-send", "/usr/bin/dbus-send")
+    proc = await asyncio.create_subprocess_exec(
+        dbus_send,
+        "--session",
+        "--print-reply",
+        "--dest=org.freedesktop.ScreenSaver",
+        "/ScreenSaver",
+        "org.freedesktop.ScreenSaver.GetActive",
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.DEVNULL,
+    )
+    output, _ = await proc.communicate()
+
+    if proc.returncode != 0:
+        print("Could not determine lock state; leaving display on", file=sys.stderr)
+        return
+
+    if b"boolean true" not in output:
+        print("Session is unlocked; leaving display on")
+        return
+
+    print("Session is locked; turning off display")
+
+    proc = await asyncio.create_subprocess_exec(
+        dbus_send,
+        "--session",
+        "--print-reply",
+        "--dest=org.kde.kglobalaccel",
+        "/component/org_kde_powerdevil",
+        "org.kde.kglobalaccel.Component.invokeShortcut",
+        "string:Turn Off Screen",
+    )
+    await proc.wait()
+
+
 class Monitor:
     def __init__(self):
-        self.inotifywait = self.find_command(
+        self.inotifywait = find_command(
             "inotifywait",
             "/home/linuxbrew/.linuxbrew/bin/inotifywait",
             str(Path.home() / ".linuxbrew/bin/inotifywait"),
         )
-        self.systemctl = self.find_command("systemctl", "/usr/bin/systemctl")
-        self.systemd_inhibit = self.find_command("systemd-inhibit", "/usr/bin/systemd-inhibit")
-        self.systemd_run = self.find_command("systemd-run", "/usr/bin/systemd-run")
-        self.sleep = self.find_command("sleep", "/usr/bin/sleep")
-        self.true = self.find_command("true", "/usr/bin/true")
+        self.systemctl = find_command("systemctl", "/usr/bin/systemctl")
+        self.systemd_inhibit = find_command("systemd-inhibit", "/usr/bin/systemd-inhibit")
+        self.systemd_run = find_command("systemd-run", "/usr/bin/systemd-run")
+        self.sleep = find_command("sleep", "/usr/bin/sleep")
+        self.script_path = Path(__file__).resolve()
         self.steam_root = self.find_steam_root()
 
         self.libraries = ()
@@ -42,28 +92,16 @@ class Monitor:
 
         self.watcher_tasks = []
         self.rebuild_event = asyncio.Event()
+        self.rebuild_reason = None
 
         self.inhibitor_lock = asyncio.Lock()
         self.inhibitor = None
-
         self.last_activity = 0.0
-        self.last_activity_source = ""
-        self.next_activity_log = 0.0
+        self.last_activity_log = 0.0
         self.next_reconcile = 0.0
 
         self.wake_timestamp = None
         self.scheduled_update_timestamp = None
-
-    @staticmethod
-    def find_command(name, *fallbacks):
-        if path := shutil.which(name):
-            return path
-
-        for path in fallbacks:
-            if os.access(path, os.X_OK):
-                return path
-
-        raise RuntimeError(f"Could not find {name}")
 
     @staticmethod
     def find_steam_root():
@@ -132,6 +170,13 @@ class Monitor:
     def signature(paths):
         return tuple(tuple(map(str, group)) for group in paths)
 
+    def request_rebuild(self, reason):
+        print(f"Steam watch rebuild requested: {reason}")
+
+        if not self.rebuild_event.is_set():
+            self.rebuild_reason = reason
+            self.rebuild_event.set()
+
     def category_for(self, path):
         path = path.rstrip("/")
         depotcache = str(self.steam_root / "depotcache")
@@ -189,7 +234,9 @@ class Monitor:
 
     async def run_command(self, *args):
         proc = await asyncio.create_subprocess_exec(
-            *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.STDOUT
+            *args,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.STDOUT,
         )
         output, _ = await proc.communicate()
         return proc.returncode, output.decode(errors="replace").strip()
@@ -228,7 +275,9 @@ class Monitor:
             "--timer-property=WakeSystem=true",
             "--timer-property=AccuracySec=1s",
             "--description=Wake for Steam scheduled update",
-            self.true,
+            sys.executable,
+            str(self.script_path),
+            "--wake-action",
         )
 
         if returncode != 0:
@@ -242,11 +291,15 @@ class Monitor:
         print(f"Scheduled system wake: {self.format_timestamp(wake_timestamp)}")
 
     async def record_activity(self, source):
-        self.last_activity = time.monotonic()
-        self.last_activity_source = source
+        now = time.monotonic()
+        self.last_activity = now
 
         async with self.inhibitor_lock:
             if self.inhibitor is not None and self.inhibitor.returncode is None:
+                if now - self.last_activity_log >= LOG_INTERVAL:
+                    print(f"Steam activity: {source}")
+                    self.last_activity_log = now
+
                 return
 
             print("Steam activity detected; inhibiting sleep")
@@ -262,8 +315,7 @@ class Monitor:
                 "infinity",
                 start_new_session=True,
             )
-
-            self.next_activity_log = time.monotonic() + LOG_INTERVAL
+            self.last_activity_log = now
 
     async def stop_inhibitor(self):
         async with self.inhibitor_lock:
@@ -289,17 +341,19 @@ class Monitor:
                     await self.inhibitor.wait()
 
             self.inhibitor = None
-            self.next_activity_log = 0.0
+            self.last_activity_log = 0.0
 
     async def watcher(self, kind, paths, recursive):
         if not paths:
             return
 
         args = [self.inotifywait, "-q", "-m"]
+
         if recursive:
             args.append("-r")
 
         events = ("create", "close_write", "moved_to", "moved_from", "delete")
+
         if kind == "activity":
             events += ("modify", "delete_self", "move_self")
 
@@ -325,11 +379,12 @@ class Monitor:
                         await self.record_activity(f"{category}: {path} ({event_names})")
 
                     if "DELETE_SELF" in event_names or "MOVE_SELF" in event_names:
-                        self.rebuild_event.set()
+                        self.request_rebuild(f"activity watch invalidated: {path} ({event_names})")
                 else:
                     await self.handle_parent_event(path, event_names)
 
-            self.rebuild_event.set()
+            returncode = await proc.wait()
+            self.request_rebuild(f"{kind} inotifywait exited with status {returncode}")
 
         finally:
             if proc.returncode is None:
@@ -350,20 +405,17 @@ class Monitor:
 
         if base == "libraryfolders.vdf":
             if self.signature(self.discover_watch_paths()) != self.watch_signature:
-                print("Steam library configuration changed")
-                self.rebuild_event.set()
+                self.request_rebuild(f"Steam library configuration changed: {path} ({event_names})")
 
             return
 
         if base not in {"downloading", "temp", "shadercache"}:
             return
 
-        print(f"Steam activity directory changed: {path}")
-
         if "CREATE" in event_names or "MOVED_TO" in event_names:
             await self.record_activity(f"{base}: {path} ({event_names})")
 
-        self.rebuild_event.set()
+        self.request_rebuild(f"Steam activity directory changed: {path} ({event_names})")
 
     async def stop_watchers(self):
         tasks = self.watcher_tasks
@@ -415,11 +467,14 @@ class Monitor:
             await self.record_activity(recent)
 
     async def rebuild_watchers(self):
+        reason = self.rebuild_reason or "unspecified"
+        self.rebuild_reason = None
         self.rebuild_event.clear()
+
+        print(f"Rebuilding Steam watches: {reason}")
+
         await self.stop_watchers()
         await asyncio.sleep(0.25)
-
-        print("Rebuilding Steam watches")
 
         await self.start_watchers()
         await self.check_recent_activity()
@@ -427,15 +482,10 @@ class Monitor:
 
     async def reconcile(self):
         paths = self.discover_watch_paths()
+        self.next_reconcile = time.monotonic() + RECONCILE_INTERVAL
 
         if self.signature(paths) != self.watch_signature:
-            print("Steam watch paths changed; rebuilding watches")
-            await self.stop_watchers()
-            await self.start_watchers()
-            await self.check_recent_activity()
-            await self.update_wake_timer()
-        else:
-            self.next_reconcile = time.monotonic() + RECONCILE_INTERVAL
+            self.request_rebuild("periodic reconciliation detected changed Steam watch paths")
 
     async def handle_deadlines(self):
         now = time.monotonic()
@@ -448,21 +498,16 @@ class Monitor:
 
             now = time.monotonic()
 
-        if self.inhibitor is None or self.inhibitor.returncode is not None:
-            return
-
-        if now >= self.last_activity + ACTIVITY_TIMEOUT:
-            await self.stop_inhibitor()
-        elif now >= self.next_activity_log:
-            print(f"Steam activity: {self.last_activity_source}")
-            self.next_activity_log = now + LOG_INTERVAL
+        if self.inhibitor is not None and self.inhibitor.returncode is None:
+            if now >= self.last_activity + ACTIVITY_TIMEOUT:
+                await self.stop_inhibitor()
 
     def next_timeout(self):
         now = time.monotonic()
         deadlines = [self.next_reconcile]
 
         if self.inhibitor is not None and self.inhibitor.returncode is None:
-            deadlines += [self.last_activity + ACTIVITY_TIMEOUT, self.next_activity_log]
+            deadlines.append(self.last_activity + ACTIVITY_TIMEOUT)
 
         return max(0, min(deadlines) - now)
 
@@ -508,6 +553,11 @@ async def main():
 
 if __name__ == "__main__":
     try:
-        asyncio.run(main())
+        if sys.argv[1:] == ["--wake-action"]:
+            asyncio.run(wake_action())
+        elif sys.argv[1:]:
+            raise SystemExit(f"Unknown arguments: {' '.join(sys.argv[1:])}")
+        else:
+            asyncio.run(main())
     except RuntimeError as exc:
         raise SystemExit(str(exc))
