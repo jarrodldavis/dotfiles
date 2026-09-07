@@ -1,0 +1,13 @@
+[Unit]
+Description=Disable Lenovo Legion GPU RGB
+After=systemd-modules-load.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/legion-gpu-rgb-off
+Restart=on-failure
+RestartSec=2
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

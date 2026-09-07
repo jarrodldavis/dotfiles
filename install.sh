@@ -322,6 +322,10 @@ else
         check_sudo
         ~/.dotfiles/scripts/configure-system-inventory.sh
 
+        log_substep 'Configuring Lenovo Legion GPU RGB...'
+        check_sudo
+        ~/.dotfiles/scripts/configure-gpu-rgb.sh
+
         log_substep 'Configuring systemd...'
         systemctl --user daemon-reload
         systemctl --user restart steam-download-inhibit.service
