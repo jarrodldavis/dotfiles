@@ -52,6 +52,7 @@
     "git.enableCommitSigning": true,
     "git.enableSmartCommit": true,
     "git.fetchOnPull": true,
+    "git.inputValidation": true,
     "git.openRepositoryInParentFolders": "always",
     "git.showProgress": false,
     "git.terminalAuthentication": false,
