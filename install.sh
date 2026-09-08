@@ -43,11 +43,11 @@ log_substep()  {
 }
 
 log_done() {
-    _log "$green"  "==>" "$@"
+    _log "$green"  "-->" "$@"
 }
 
 log_warning() {
-    _log "$yellow" "-->" "$@" >&2
+    _log "$yellow" "==>" "$@" >&2
 }
 
 log_error()  {
@@ -73,10 +73,12 @@ log_step 'Preparing to install dotfiles...'
 
 case "$(uname)" in
     Darwin)
-        log_substep 'Detected macOS.'
+        log_substep 'Detected macOS:'
+        sw_vers
         ;;
     Linux)
-        log_substep 'Detected Linux.'
+        log_substep 'Detected Linux:'
+        cat /etc/os-release
         ;;
     *)
         log_error "Unsupported operating system: $(uname)"
