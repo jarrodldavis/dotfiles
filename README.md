@@ -6,13 +6,13 @@
 
 - A UNIX-ish operating system, one of:
   - macOS
-    - tested on Sequoia 15.7
+    - tested on Sequoia 15.7.8
   - Bazzite
-    - tested on `bazzite-nvidia-open` 44.20260825.0
+    - tested on `bazzite-nvidia-open` 44.20260907.0
   - Fedora CoreOS
-    - tested on `stable` 44.20260802.3.1
+    - tested on `stable` 44.20260817.3.2
   - Debian
-    - tested on `bookworm` in [Visual Studio Code]'s [Development Containers]
+    - tested on `trixie` in [Visual Studio Code]'s [Development Containers]
   - Others (untested)
 - Bash
 - Zsh (for additional installation scripts)
