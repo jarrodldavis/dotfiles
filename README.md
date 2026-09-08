@@ -53,7 +53,7 @@ cd ~/.dotfiles
 ```
 
 Alternatively, you can copy the [contents of `install.sh`] to a file on disk and run it using
-`sh ./install.sh`.
+`bash ./install.sh`.
 
 > [!IMPORTANT]
 > The installer script _always_ clones this repository to `~/.dotfiles`, even if it was
