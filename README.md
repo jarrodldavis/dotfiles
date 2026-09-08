@@ -33,7 +33,7 @@ dependencies using [Homebrew Bundle].
 Run the following command to download and execute the bootstrap script.
 
 ```sh
-/bin/bash -s < <(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/main/install.sh)
+/bin/bash -s <(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/main/install.sh)
 ```
 
 ### Manual Installation
