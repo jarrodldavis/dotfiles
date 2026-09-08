@@ -1,0 +1,15 @@
+[Unit]
+Description=Disable Lenovo Legion GPU RGB after resume
+DefaultDependencies=no
+StopWhenUnneeded=yes
+Before=sleep.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/true
+ExecStop=/usr/bin/sleep 2
+ExecStop=/usr/local/sbin/legion-gpu-rgb-off
+
+[Install]
+WantedBy=sleep.target

@@ -1,5 +1,5 @@
 [Unit]
-Description=Disable Lenovo Legion GPU RGB
+Description=Disable Lenovo Legion GPU RGB after boot
 After=systemd-modules-load.service
 
 [Service]

@@ -16,17 +16,21 @@ command -v i2ctransfer >/dev/null 2>&1 || {
 
 bus=
 
-for d in /sys/bus/i2c/devices/i2c-*; do
-    [ -f "$d/name" ] || continue
+for _ in $(seq 1 10); do
+    for d in /sys/bus/i2c/devices/i2c-*; do
+        [ -f "$d/name" ] || continue
 
-    if [ "$(cat "$d/name")" = "NVIDIA i2c adapter 1 at 1:00.0" ]; then
-        bus="${d##*-}"
-        break
-    fi
+        if [ "$(cat "$d/name")" = "NVIDIA i2c adapter 1 at 1:00.0" ]; then
+            bus="${d##*-}"
+            break 2
+        fi
+    done
+
+    sleep 0.5
 done
 
 if [ -z "$bus" ]; then
-    echo "NVIDIA I2C adapter 1 not available yet" >&2
+    echo "NVIDIA I2C adapter 1 not available" >&2
     exit 1
 fi
 
