@@ -1,5 +1,7 @@
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Access GitHub's .gitignore boilerplates
+brew "gibo"
 # Syntax-highlighting pager for git and diff output
 brew "git-delta"
 # Lightweight and flexible command-line JSON processor

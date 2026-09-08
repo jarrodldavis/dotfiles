@@ -88,7 +88,7 @@ On macOS, skip installation of Mac App Store (`mas`) dependencies.
 
 > [!NOTE]
 > These maintenance actions are performed automatically before each commit using a git pre-commit
-> hook. Due to dependency requirements, some updates are only performed on macOS.
+> hook.
 
 ### Homebrew
 
@@ -100,8 +100,7 @@ installation or removal of these system dependencies, update the appropriate sys
 ### Global `.gitignore`
 
 `configs/gitignore` can be updated to use the latest templates from [`github/gitignore`] using
-`~/.dotfiles/scripts/update-global-gitignore.sh`. This script can only run on macOS due to
-dependency requirements.
+`~/.dotfiles/scripts/update-global-gitignore.sh`.
 
 [Homebrew]:                     https://brew.sh
 [Visual Studio Code]:           https://code.visualstudio.com

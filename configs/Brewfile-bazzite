@@ -3,6 +3,8 @@ tap "ublue-os/tap", trusted: true
 brew "bat"
 # GitHub command-line tool
 brew "gh"
+# Access GitHub's .gitignore boilerplates
+brew "gibo"
 # Syntax-highlighting pager for git and diff output
 brew "git-delta"
 # C library and command-line programs providing a simple interface to inotify

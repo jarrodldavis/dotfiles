@@ -2,6 +2,8 @@
 brew "bat"
 # GitHub command-line tool
 brew "gh"
+# Access GitHub's .gitignore boilerplates
+brew "gibo"
 # Syntax-highlighting pager for git and diff output
 brew "git-delta"
 # Lightweight and flexible command-line JSON processor
