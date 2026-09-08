@@ -28,6 +28,9 @@
             "version": "latest"
         },
         "ghcr.io/hwaien/devcontainer-features/match-host-time-zone:0": {},
+        "ghcr.io/jarrodldavis/features/persistent-home:1": {
+            "paths": ".codex"
+        },
         "ghcr.io/jarrodldavis/features/uninstall-oh-my-zsh:1": {}
     },
     "dev.containers.dockerPath": "podman",
