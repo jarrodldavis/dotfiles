@@ -147,6 +147,7 @@ root_etc_archive() {
         return 1
     }
 
+    # shellcheck disable=SC2024
     if sudo -n "$root_helper" etc-archive >"$archive_tmp" 2>"$stderr_tmp"; then
         if tar -tf "$archive_tmp" >"$manifest_tmp"; then
 	    replace_if_changed "$archive_tmp" "$archive"
