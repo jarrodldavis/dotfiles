@@ -99,7 +99,6 @@
     "remote.SSH.defaultExtensions": [
         "github.vscode-github-actions",
         "github.vscode-pull-request-github",
-        "mathematic.vscode-pdf",
         "ms-vscode.vscode-commander",
         "ms-vscode.vscode-copilot-data-analysis",
         "openai.chatgpt"
