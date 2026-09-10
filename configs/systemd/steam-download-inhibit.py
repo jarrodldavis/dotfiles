@@ -177,6 +177,10 @@ class Monitor:
             self.rebuild_reason = reason
             self.rebuild_event.set()
 
+    def is_activity_root(self, path):
+        path = os.path.normpath(path)
+        return any(path == os.path.normpath(str(root)) for root in self.activity_dirs)
+
     def category_for(self, path):
         path = path.rstrip("/")
         depotcache = str(self.steam_root / "depotcache")
@@ -234,9 +238,7 @@ class Monitor:
 
     async def run_command(self, *args):
         proc = await asyncio.create_subprocess_exec(
-            *args,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.STDOUT,
+            *args, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.STDOUT
         )
         output, _ = await proc.communicate()
         return proc.returncode, output.decode(errors="replace").strip()
@@ -299,7 +301,6 @@ class Monitor:
                 if now - self.last_activity_log >= LOG_INTERVAL:
                     print(f"Steam activity: {source}")
                     self.last_activity_log = now
-
                 return
 
             print("Steam activity detected; inhibiting sleep")
@@ -348,12 +349,10 @@ class Monitor:
             return
 
         args = [self.inotifywait, "-q", "-m"]
-
         if recursive:
             args.append("-r")
 
         events = ("create", "close_write", "moved_to", "moved_from", "delete")
-
         if kind == "activity":
             events += ("modify", "delete_self", "move_self")
 
@@ -378,8 +377,11 @@ class Monitor:
                     if category:
                         await self.record_activity(f"{category}: {path} ({event_names})")
 
-                    if "DELETE_SELF" in event_names or "MOVE_SELF" in event_names:
-                        self.request_rebuild(f"activity watch invalidated: {path} ({event_names})")
+                    root_invalidated = (
+                        ("DELETE_SELF" in event_names or "MOVE_SELF" in event_names) and self.is_activity_root(path)
+                    )
+                    if root_invalidated:
+                        self.request_rebuild(f"activity root invalidated: {path} ({event_names})")
                 else:
                     await self.handle_parent_event(path, event_names)
 
@@ -406,7 +408,6 @@ class Monitor:
         if base == "libraryfolders.vdf":
             if self.signature(self.discover_watch_paths()) != self.watch_signature:
                 self.request_rebuild(f"Steam library configuration changed: {path} ({event_names})")
-
             return
 
         if base not in {"downloading", "temp", "shadercache"}:
@@ -445,6 +446,7 @@ class Monitor:
 
     def find_recent_activity(self):
         cutoff = time.time() - ACTIVITY_TIMEOUT
+        latest = None
 
         for root in self.activity_dirs:
             for dirpath, _, filenames in os.walk(root):
@@ -452,15 +454,18 @@ class Monitor:
                     path = Path(dirpath) / filename
 
                     try:
-                        if path.stat().st_mtime < cutoff:
-                            continue
+                        modified = path.stat().st_mtime
                     except OSError:
                         continue
 
-                    category = self.category_for(str(path)) or "activity"
-                    return f"{category}: {path}"
+                    if modified < cutoff:
+                        continue
 
-        return None
+                    if latest is None or modified > latest[0]:
+                        category = self.category_for(str(path)) or "activity"
+                        latest = modified, f"{category}: {path}"
+
+        return latest[1] if latest is not None else None
 
     async def check_recent_activity(self):
         if recent := await asyncio.to_thread(self.find_recent_activity):
@@ -475,7 +480,6 @@ class Monitor:
 
         await self.stop_watchers()
         await asyncio.sleep(0.25)
-
         await self.start_watchers()
         await self.check_recent_activity()
         await self.update_wake_timer()
