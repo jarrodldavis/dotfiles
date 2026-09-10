@@ -42,6 +42,9 @@ if [[ -z "$qgroup" ]]; then
     sudo snapper -c "$config" setup-quota
 fi
 
+cd ~/.dotfiles/configs/systemd
+sudo install --debug -D -o root -g root -m 0644 snapper-cleanup.service.override.conf /etc/systemd/system/snapper-cleanup.service.d/override.conf
+sudo systemctl daemon-reload
 # Snapshot deletion can make qgroup accounting inconsistent because of Btrfs's drop-subtree optimization. Rescan
 # before and after cleanup so Snapper always has valid exclusive-space accounting.
 sudo btrfs quota rescan -w "$subvolume"
