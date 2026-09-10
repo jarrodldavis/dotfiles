@@ -1,4 +1,3 @@
-tap "jarrodldavis/dotfiles", trusted: true
 # Run your GitHub Actions locally
 brew "act"
 # Clone of cat(1) with syntax highlighting and Git integration
@@ -31,8 +30,6 @@ brew "nut", restart_service: :changed
 brew "shellcheck"
 # Command-line unarchiving tools supporting multiple formats
 brew "unar"
-# Create Rails projects with Ruby installed
-brew "jarrodldavis/dotfiles/rails-new"
 # Password manager that keeps all passwords secure behind one password
 cask "1password"
 # Command-line interface for 1Password
