@@ -15,6 +15,7 @@ sys.stderr.reconfigure(line_buffering=True)
 ACTIVITY_TIMEOUT = 5 * 60
 LOG_INTERVAL = 5 * 60
 RECONCILE_INTERVAL = 60
+MAX_WAKE_INTERVAL = 6 * 60 * 60
 WAKE_LEAD = 60
 WAKE_SCREEN_OFF_DELAY = 2
 WAKE_UNIT = "steam-update-wake"
@@ -100,6 +101,7 @@ class Monitor:
         self.last_activity_log = 0.0
         self.next_reconcile = 0.0
 
+        self.discovery_deadline = time.time() + MAX_WAKE_INTERVAL
         self.wake_timestamp = None
         self.scheduled_update_timestamp = None
 
@@ -248,22 +250,29 @@ class Monitor:
         self.wake_timestamp = None
         self.scheduled_update_timestamp = None
 
+    def refresh_discovery_deadline(self):
+        self.discovery_deadline = time.time() + MAX_WAKE_INTERVAL
+
     async def update_wake_timer(self, force=False):
         next_update = await asyncio.to_thread(self.find_next_scheduled_update)
+        update_timestamp = next_update[0] if next_update is not None else None
+        wake_timestamp = self.discovery_deadline
+        wake_for_update = False
 
-        if next_update is None:
-            if force or self.wake_timestamp is not None:
-                await self.cancel_wake_timer()
-                print("No future Steam updates are currently scheduled")
-            return
+        if next_update is not None:
+            scheduled_wake = update_timestamp - WAKE_LEAD
+            if scheduled_wake <= time.time():
+                scheduled_wake = update_timestamp
 
-        update_timestamp, appid, name = next_update
-        wake_timestamp = update_timestamp - WAKE_LEAD
+            if scheduled_wake < wake_timestamp:
+                wake_timestamp = scheduled_wake
+                wake_for_update = True
 
-        if wake_timestamp <= time.time():
-            wake_timestamp = update_timestamp
-
-        if not force and update_timestamp == self.scheduled_update_timestamp:
+        if (
+            not force
+            and wake_timestamp == self.wake_timestamp
+            and update_timestamp == self.scheduled_update_timestamp
+        ):
             return
 
         await self.cancel_wake_timer()
@@ -276,7 +285,7 @@ class Monitor:
             f"--on-calendar=@{wake_timestamp}",
             "--timer-property=WakeSystem=true",
             "--timer-property=AccuracySec=1s",
-            "--description=Wake for Steam scheduled update",
+            "--description=Wake for Steam update discovery",
             sys.executable,
             str(self.script_path),
             "--wake-action",
@@ -289,8 +298,15 @@ class Monitor:
 
         self.wake_timestamp = wake_timestamp
         self.scheduled_update_timestamp = update_timestamp
-        print(f"Next Steam update: {self.format_timestamp(update_timestamp)} - {name} ({appid})")
-        print(f"Scheduled system wake: {self.format_timestamp(wake_timestamp)}")
+
+        if next_update is None:
+            print("No future Steam updates are currently scheduled")
+        else:
+            _, appid, name = next_update
+            print(f"Next Steam update: {self.format_timestamp(update_timestamp)} - {name} ({appid})")
+
+        reason = "scheduled update" if wake_for_update else "update discovery"
+        print(f"Scheduled system wake: {self.format_timestamp(wake_timestamp)} ({reason})")
 
     async def record_activity(self, source):
         now = time.monotonic()
@@ -402,6 +418,7 @@ class Monitor:
         base = Path(path).name
 
         if MANIFEST_RE.fullmatch(base):
+            self.refresh_discovery_deadline()
             await self.update_wake_timer()
             return
 
@@ -493,11 +510,15 @@ class Monitor:
 
     async def handle_deadlines(self):
         now = time.monotonic()
+        wall_now = time.time()
 
         if now >= self.next_reconcile:
             await self.reconcile()
 
-            if self.scheduled_update_timestamp is not None and time.time() >= self.scheduled_update_timestamp:
+            if self.wake_timestamp is not None and wall_now >= self.wake_timestamp:
+                self.refresh_discovery_deadline()
+                await self.update_wake_timer(force=True)
+            elif self.scheduled_update_timestamp is not None and wall_now >= self.scheduled_update_timestamp:
                 await self.update_wake_timer()
 
             now = time.monotonic()
