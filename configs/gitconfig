@@ -34,4 +34,5 @@
 [fetch]
     all = true
 [push]
-	followTags = true
+    autoSetupRemote = true
+    followTags = true
