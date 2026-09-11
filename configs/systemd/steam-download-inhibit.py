@@ -101,7 +101,7 @@ class Monitor:
         self.last_activity_log = 0.0
         self.next_reconcile = 0.0
 
-        self.discovery_deadline = time.time() + MAX_WAKE_INTERVAL
+        self.discovery_deadline = int(time.time()) + MAX_WAKE_INTERVAL
         self.wake_timestamp = None
         self.scheduled_update_timestamp = None
 
@@ -157,7 +157,7 @@ class Monitor:
             if steamapps.is_dir():
                 parent_dirs.append(steamapps)
 
-            for name in ("downloading", "temp", "shadercache"):
+            for name in ("downloading", "temp"):
                 path = steamapps / name
                 if path.is_dir():
                     activity_dirs.append(path)
@@ -190,7 +190,7 @@ class Monitor:
         if path == depotcache or path.startswith(depotcache + "/"):
             return "depotcache"
 
-        for category in ("downloading", "temp", "shadercache"):
+        for category in ("downloading", "temp"):
             needle = f"/steamapps/{category}"
             if path.endswith(needle) or needle + "/" in path:
                 return category
@@ -251,9 +251,10 @@ class Monitor:
         self.scheduled_update_timestamp = None
 
     def refresh_discovery_deadline(self):
-        self.discovery_deadline = time.time() + MAX_WAKE_INTERVAL
+        self.discovery_deadline = int(time.time()) + MAX_WAKE_INTERVAL
 
     async def update_wake_timer(self, force=False):
+        now = int(time.time())
         next_update = await asyncio.to_thread(self.find_next_scheduled_update)
         update_timestamp = next_update[0] if next_update is not None else None
         wake_timestamp = self.discovery_deadline
@@ -261,10 +262,8 @@ class Monitor:
 
         if next_update is not None:
             scheduled_wake = update_timestamp - WAKE_LEAD
-            if scheduled_wake <= time.time():
-                scheduled_wake = update_timestamp
 
-            if scheduled_wake < wake_timestamp:
+            if scheduled_wake > now and scheduled_wake < wake_timestamp:
                 wake_timestamp = scheduled_wake
                 wake_for_update = True
 
@@ -427,7 +426,7 @@ class Monitor:
                 self.request_rebuild(f"Steam library configuration changed: {path} ({event_names})")
             return
 
-        if base not in {"downloading", "temp", "shadercache"}:
+        if base not in {"downloading", "temp"}:
             return
 
         if "CREATE" in event_names or "MOVED_TO" in event_names:
@@ -510,7 +509,7 @@ class Monitor:
 
     async def handle_deadlines(self):
         now = time.monotonic()
-        wall_now = time.time()
+        wall_now = int(time.time())
 
         if now >= self.next_reconcile:
             await self.reconcile()
