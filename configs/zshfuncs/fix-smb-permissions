@@ -1,4 +1,5 @@
 #!/usr/bin/env zsh
+# shellcheck disable=SC2059
 
 LOG_TEMPLATE='\033[1;%sm%b\033[0m\033[1;%sm%s\033[0m\n'
 

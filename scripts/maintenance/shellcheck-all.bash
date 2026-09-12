@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
+# shellcheck source=scripts/helpers.bash
 source ~/.dotfiles/scripts/helpers.bash
 
 log_step 'Validating shell scripts...'
 
 cd ~/.dotfiles
-
-export SHELLCHECK_OPTS="-e SC2059 -e SC1090"
 
 shopt -s globstar nullglob
 posix_like=()
@@ -23,7 +22,7 @@ fail=0
 function check() {
     log_substep "Checking \`$file\` as \`$1\` script..."
 
-    if shellcheck -s "$1" "$2" ; then
+    if shellcheck -x -s "$1" "$2" ; then
         echo 'Script passed validation.'
     else
         fail=$((fail+1))

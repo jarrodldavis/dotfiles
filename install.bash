@@ -78,7 +78,7 @@ dispatch_os_targets() {
         targets+=(macos)
     else
         if [ -f /etc/os-release ]; then
-            # shellcheck disable=SC1091
+            # shellcheck source=/dev/null
             . /etc/os-release
         fi
 
@@ -167,6 +167,7 @@ env | grep '^HOMEBREW' > "$BREW_SHELLENV"
 EOF
 } | NONINTERACTIVE=1 /bin/bash
 
+# shellcheck source=/dev/null
 . "$BREW_SHELLENV"
 eval "$("$HOMEBREW_PREFIX"/bin/brew shellenv)"
 brew completions link
