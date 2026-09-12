@@ -1,19 +1,23 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 set -euo pipefail
+source ~/.dotfiles/scripts/helpers.bash
+
+log_step 'Configuring Snapper...'
+check_sudo
 
 config=root
 subvolume=/var/home
 
-echo '==> Enabling snapshots...'
+log_substep 'Enabling snapshots...'
 ujust configure-snapshots enable
 
 configured_subvolume=$(sudo snapper -c "$config" get-config | awk '$1 == "SUBVOLUME" { print $3 }')
 if [[ "$configured_subvolume" != "$subvolume" ]]; then
-    echo "Snapper config '$config' targets '$configured_subvolume', expected '$subvolume'." >&2
+    log_error "Snapper config '$config' targets '$configured_subvolume', expected '$subvolume'." >&2
     exit 1
 fi
 
-echo '==> Updating snapshot timeline config...'
+log_substep 'Updating snapshot timeline config...'
 # Normally retain up to three units of the next-largest time interval, with one unit as the space-aware minimum:
 # 24-72 hourly snapshots (1-3 days), 7-21 daily snapshots (1-3 weeks), and 4-12 weekly snapshots (1-3 months).
 sudo snapper -c "$config" set-config \
@@ -35,28 +39,28 @@ sudo snapper -c "$config" set-config \
     'SPACE_LIMIT=0.25' \
     'FREE_LIMIT=0.2'
 
-echo '==> Setting up Snapper quotas...'
+log_substep 'Setting up Snapper quotas...'
 qgroup=$(sudo snapper -c "$config" get-config | awk '$1 == "QGROUP" { print $3 }')
 if [[ -z "$qgroup" ]]; then
     sudo snapper -c "$config" setup-quota
 fi
 
-echo '==> Installing Snapper cleanup systemd override...'
+log_substep 'Installing Snapper cleanup systemd override...'
 cd ~/.dotfiles/configs/systemd
 sudo install --debug -D -o root -g root -m 0644 snapper-cleanup.service.override.conf /etc/systemd/system/snapper-cleanup.service.d/override.conf
 sudo systemctl daemon-reload
 
-echo '==> Performing Snapper cleanup...'
+log_substep 'Performing Snapper cleanup...'
 sudo snapper -c "$config" cleanup timeline
 sudo btrfs quota rescan -w "$subvolume"
 
-echo
+log_substep 'Snapper Config:'
 sudo snapper -c "$config" get-config | grep -E '^(QGROUP|SPACE_LIMIT|FREE_LIMIT|TIMELINE_(CREATE|CLEANUP|MIN_AGE|LIMIT_))'
 
-echo
+log_substep 'Btrfs Quota Status:'
 sudo btrfs quota status "$subvolume"
 
-echo
+log_substep 'Btrfs QGroup Info:'
 qgroup=$(sudo snapper -c "$config" get-config | awk '$1 == "QGROUP" { print $3 }')
 if [[ -n "$qgroup" ]]; then
     sudo btrfs qgroup show -re "$subvolume" | awk -v qgroup="$qgroup" 'NR <= 2 || $1 == qgroup'

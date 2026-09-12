@@ -1,18 +1,19 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 set -euo pipefail
+source ~/.dotfiles/scripts/helpers.bash
 
-LOG_TEMPLATE='\033[1;%sm%b\033[0m\033[1;%sm%s\033[0m\n'
+log_step 'Validating shell scripts...'
 
 cd ~/.dotfiles
 
 export SHELLCHECK_OPTS="-e SC2059 -e SC1090"
 
+shopt -s globstar nullglob
 posix_like=()
 posix_like+=(configs/**/*.sh)
-
 bash_like=()
-bash_like+=(install.sh)
-bash_like+=(scripts/*)
+bash_like+=(install.bash)
+bash_like+=(scripts/**/*.bash)
 bash_like+=(configs/**/*.bash)
 bash_like+=(configs/**/*.zsh)
 bash_like+=(configs/zshfuncs/*)
@@ -20,7 +21,7 @@ bash_like+=(configs/zshfuncs/*)
 fail=0
 
 function check() {
-    printf "$LOG_TEMPLATE" 35 '==> ' 39 "Checking \`$file\` as \`$1\` script..."
+    log_substep "Checking \`$file\` as \`$1\` script..."
 
     if shellcheck -s "$1" "$2" ; then
         echo 'Script passed validation.'
@@ -40,11 +41,11 @@ for file in "${bash_like[@]}"; do
 done
 
 if [ $fail = 0 ]; then
-    printf "$LOG_TEMPLATE" 32 '==> ' 39 'All scripts passed validation!'
+    log_success 'All scripts passed validation!'
 elif [ $fail = 1 ]; then
-    printf "$LOG_TEMPLATE" 31 '==> ' 39 "1 script failed validation."
+    log_error "1 script failed validation."
     exit 1
 else
-    printf "$LOG_TEMPLATE" 31 '==> ' 39 "$fail scripts failed validation."
+    log_error "$fail scripts failed validation."
     exit $fail
 fi

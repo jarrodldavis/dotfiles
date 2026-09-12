@@ -33,12 +33,12 @@ and performs automated system configuration changes.
 Run the following command to download and execute the bootstrap script.
 
 ```sh
-/bin/bash -s <(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/main/install.sh)
+/bin/bash -s <(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/main/install.bash)
 ```
 
 ### Manual Installation
 
-You can manually clone this repository and run the `install.sh` script from that repository.
+You can manually clone this repository and run the `install.bash` script from that repository.
 
 ```sh
 git clone https://github.com/jarrodldavis/dotfiles.git ~/.dotfiles
@@ -49,10 +49,10 @@ cd ~/.dotfiles
 ```
 
 ```sh
-./install.sh
+./install.bash
 ```
 
-Alternatively, you can copy the [contents of `install.sh`] to a file on disk and run it using `bash ./install.sh`.
+Alternatively, you can copy the [contents of `install.bash`] to a file on disk and run it using `bash ./install.bash`.
 
 > [!IMPORTANT]
 > The installer script _always_ clones this repository to `~/.dotfiles`, even if it was manually cloned to a different
@@ -64,7 +64,7 @@ All installer options are specified as environment variables. The presence of an
 value enables the corresponding option; the option is disabled otherwise.
 
 ```sh
-DOTFILES_REINSTALL=1 DOTFILES_SKIP_MAS=1 ./install.sh
+DOTFILES_REINSTALL=1 DOTFILES_SKIP_MAS=1 ./install.bash
 ```
 
 > [!WARNING]
@@ -103,6 +103,6 @@ of these system dependencies, update the appropriate system-specific `*.Brewfile
 [Visual Studio Code]:           https://code.visualstudio.com
 [Development Containers]:       https://code.visualstudio.com/docs/remote/containers
 [Homebrew system requirements]: https://docs.brew.sh/Homebrew-on-Linux#requirements
-[contents of `install.sh`]:     https://github.com/jarrodldavis/dotfiles/raw/main/install.sh
+[contents of `install.bash`]:   https://github.com/jarrodldavis/dotfiles/raw/main/install.bash
 [Homebrew Bundle]:              https://docs.brew.sh/Brew-Bundle-and-Brewfile
 [`github/gitignore`]:           https://github.com/github/gitignore

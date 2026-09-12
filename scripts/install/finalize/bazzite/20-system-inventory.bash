@@ -1,5 +1,9 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 set -euo pipefail
+source ~/.dotfiles/scripts/helpers.bash
+
+log_step 'Configuring Vorta System Inventory...'
+check_sudo
 
 cd ~/.dotfiles/configs/vorta
 

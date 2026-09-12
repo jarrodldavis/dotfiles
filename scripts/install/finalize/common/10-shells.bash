@@ -1,5 +1,8 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 set -euo pipefail
+source ~/.dotfiles/scripts/helpers.bash
+
+log_step 'Configuring shells...'
 
 ensure_source_block() {
   local file="$1"
@@ -14,7 +17,7 @@ export DOTFILES=\"\${DOTFILES:-\$HOME/.dotfiles}\"
 [[ -r \"\$DOTFILES/${target}\" ]] && source \"\$DOTFILES/${target}\"
 ${end}"
 
-  mkdir -p "${file:h}"
+  mkdir -p "$(dirname -- "$file")"
   touch "$file"
 
   local tmp="${file}.tmp.$$"
@@ -26,7 +29,7 @@ ${end}"
     if [[ "$line" == "$begin" ]]; then
       found=1
       in_block=1
-      print -r -- "$block" >> "$tmp"
+      printf '%s\n' "$block" >> "$tmp"
       continue
     fi
 
@@ -37,13 +40,13 @@ ${end}"
       continue
     fi
 
-    print -r -- "$line" >> "$tmp"
+    printf '%s\n' "$line" >> "$tmp"
   done < "$file"
 
   if (( ! found )); then
     {
-      print
-      print -r -- "$block"
+      printf '\n'
+      printf '%s\n' "$block"
     } >> "$tmp"
   fi
 

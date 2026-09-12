@@ -1,7 +1,10 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 set -euo pipefail
+source ~/.dotfiles/scripts/helpers.bash
 
-cat << EOF > ~/Library/LaunchAgents/com.1password.SSH_AUTH_SOCK.plist
+log_step 'Configuring 1Password SSH Agent...'
+
+cat > ~/Library/LaunchAgents/com.1password.SSH_AUTH_SOCK.plist <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
