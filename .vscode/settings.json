@@ -11,15 +11,15 @@
     "files.trimTrailingWhitespace": true,
 
     "files.associations": {
+        "*.Brewfile": "ruby",
+        "*.gitconfig": "properties",
+        "*.kwinrule": "ini",
         "*.plist": "xml",
-        "**/gitconfigs/*": "properties",
-        "**/ssh/config-*": "ssh_config",
-        "**/ssh/config.local.d/*": "ssh_config",
-        "**/ssh/config": "ssh_config",
-        "*vimrc": "Vimscript",
-        "Brewfile-*": "ruby",
-        "gitconfig": "properties",
+        "*.service": "properties",
+        "*.sshconfig": "ssh_config",
+        "*.users": "properties",
         "gitignore": "ignore",
+        "root-backup-paths": "properties",
     },
 
     "[markdown]": {

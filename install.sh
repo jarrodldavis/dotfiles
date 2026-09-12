@@ -202,7 +202,7 @@ symlink ../../scripts/dotfiles-pre-commit.sh ~/.dotfiles/.git/hooks/pre-commit
 log_substep 'Linking common dotfiles...'
 
 # isolate dotfiles-managed gitconfig from machine-specific settings
-symlink configs/gitconfig "${XDG_CONFIG_HOME:-$HOME/.config}/git/config"
+symlink configs/gitconfigs/base.gitconfig "${XDG_CONFIG_HOME:-$HOME/.config}/git/config"
 touch ~/.gitconfig
 
 symlink gitignore
@@ -211,20 +211,20 @@ symlink configs/gh/config.yml ~/.config/gh/config.yml
 # copy hosts config since it can contain auth tokens
 copy configs/gh/hosts.yml ~/.config/gh/hosts.yml
 
-symlink ssh/config
+symlink configs/ssh/base.sshconfig ~/.ssh/config
 symlink ssh/config.local.d
 symlink ssh/allowed_signers
 
-symlink configs/brew.env ~/.homebrew/brew.env
+symlink configs/brew/brew.env ~/.homebrew/brew.env
 
 if [ "$(uname)" = "Darwin" ]; then
     log_substep 'Linking macOS dotfiles...'
-    symlink gitconfigs/macos
-    symlink gitconfigs/ssh
+    symlink gitconfigs/macos.gitconfig
+    symlink gitconfigs/ssh.gitconfig
 
-    symlink configs/ssh/config-macos ~/.ssh/config.d/macos
+    symlink configs/ssh/macos.sshconfig ~/.ssh/config.d/macos
 
-    symlink configs/Brewfile-macos ~/.Brewfile
+    symlink configs/brew/macos.Brewfile ~/.Brewfile
 
     symlink configs/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
     symlink configs/vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
@@ -241,21 +241,21 @@ else
     log_substep 'Linking Linux dotfiles...'
 
     if [ "${CODESPACES:-}" != "true" ]; then
-        symlink gitconfigs/ssh
+        symlink gitconfigs/ssh.gitconfig
     fi
 
     if [ "${ID:-}" = "fedora" ] && [ "${VARIANT_ID:-}" = "coreos" ]; then
         log_substep 'Linking Fedora CoreOS dotfiles...'
-        symlink configs/Brewfile-coreos ~/.Brewfile
+        symlink configs/brew/coreos.Brewfile ~/.Brewfile
     fi
 
     if [ "${ID:-}" = "bazzite" ]; then
         log_substep 'Linking Bazzite dotfiles...'
-        symlink gitconfigs/bazzite
+        symlink gitconfigs/bazzite.gitconfig
 
-        symlink configs/ssh/config-bazzite ~/.ssh/config.d/bazzite
+        symlink configs/ssh/bazzite.sshconfig ~/.ssh/config.d/bazzite
 
-        symlink configs/Brewfile-bazzite ~/.Brewfile
+        symlink configs/brew/bazzite.Brewfile ~/.Brewfile
 
         symlink configs/vscode/settings.json ~/.config/Code/User/settings.json
         symlink configs/vscode/keybindings.json ~/.config/Code/User/keybindings.json
@@ -269,7 +269,7 @@ else
 
     if [ "${REMOTE_CONTAINERS:-}" = "true" ]; then
         log_substep 'Linking VS Code Remote Containers dotfiles...'
-        symlink configs/Brewfile-devcontainer ~/.Brewfile
+        symlink configs/brew/devcontainer.Brewfile ~/.Brewfile
     fi
 fi
 

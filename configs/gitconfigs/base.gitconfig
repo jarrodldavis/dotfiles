@@ -5,9 +5,9 @@
 [gpg "ssh"]
     allowedSignersFile = ~/.ssh/allowed_signers
 [include]
-    path = ~/.gitconfigs/bazzite
-    path = ~/.gitconfigs/macos
-    path = ~/.gitconfigs/ssh
+    path = ~/.gitconfigs/bazzite.gitconfig
+    path = ~/.gitconfigs/macos.gitconfig
+    path = ~/.gitconfigs/ssh.gitconfig
 
 # Diffs
 [core]
