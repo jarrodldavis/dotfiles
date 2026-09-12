@@ -1,0 +1,7 @@
+[Unit]
+Description=Handle Steam scheduled wake
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/steam-download-inhibit --wake-action
+TimeoutStartSec=15s

@@ -18,7 +18,8 @@ RECONCILE_INTERVAL = 60
 MAX_WAKE_INTERVAL = 6 * 60 * 60
 WAKE_LEAD = 60
 WAKE_SCREEN_OFF_DELAY = 2
-WAKE_UNIT = "steam-update-wake"
+WAKE_SERVICE = "steam-update-wake.service"
+WAKE_TIMER = "steam-update-wake.timer"
 
 MANIFEST_RE = re.compile(r"appmanifest_\d+\.acf$")
 
@@ -83,7 +84,6 @@ class Monitor:
         self.systemd_inhibit = find_command("systemd-inhibit", "/usr/bin/systemd-inhibit")
         self.systemd_run = find_command("systemd-run", "/usr/bin/systemd-run")
         self.sleep = find_command("sleep", "/usr/bin/sleep")
-        self.script_path = Path(__file__).resolve()
         self.steam_root = self.find_steam_root()
 
         self.libraries = ()
@@ -246,9 +246,25 @@ class Monitor:
         return proc.returncode, output.decode(errors="replace").strip()
 
     async def cancel_wake_timer(self):
-        await self.run_command(self.systemctl, "--user", "stop", f"{WAKE_UNIT}.timer", f"{WAKE_UNIT}.service")
+        await self.run_command(self.systemctl, "--user", "stop", WAKE_TIMER)
         self.wake_timestamp = None
         self.scheduled_update_timestamp = None
+
+    async def wait_for_wake_service(self):
+        while True:
+            _, state = await self.run_command(
+                self.systemctl,
+                "--user",
+                "show",
+                "--property=ActiveState",
+                "--value",
+                WAKE_SERVICE,
+            )
+
+            if state not in {"active", "activating", "deactivating", "reloading"}:
+                return
+
+            await asyncio.sleep(0.1)
 
     def refresh_discovery_deadline(self):
         self.discovery_deadline = int(time.time()) + MAX_WAKE_INTERVAL
@@ -275,19 +291,17 @@ class Monitor:
             return
 
         await self.cancel_wake_timer()
+        await self.wait_for_wake_service()
 
         returncode, output = await self.run_command(
             self.systemd_run,
             "--user",
-            f"--unit={WAKE_UNIT}",
-            "--collect",
+            f"--unit={WAKE_SERVICE}",
             f"--on-calendar=@{wake_timestamp}",
             "--timer-property=WakeSystem=true",
             "--timer-property=AccuracySec=1s",
+            "--timer-property=RemainAfterElapse=false",
             "--description=Wake for Steam update discovery",
-            sys.executable,
-            str(self.script_path),
-            "--wake-action",
         )
 
         if returncode != 0:

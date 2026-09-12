@@ -262,6 +262,7 @@ else
 
         symlink configs/systemd/steam-download-inhibit.py ~/.local/bin/steam-download-inhibit
         symlink configs/systemd/steam-download-inhibit.service ~/.config/systemd/user/steam-download-inhibit.service
+        symlink configs/systemd/steam-update-wake.service ~/.config/systemd/user/steam-update-wake.service
 
         symlink configs/vorta/update-system-inventory.bash ~/.local/bin/update-system-inventory
     fi
