@@ -8,15 +8,15 @@
 
     <key>ProgramArguments</key>
     <array>
-        <string>/opt/homebrew/sbin/upsd</string>
+        <string>REPLACE_WITH_BREW_PREFIX/sbin/upsd</string>
         <string>-F</string>
     </array>
 
     <key>UserName</key>
-    <string>$USER</string>
+    <string>REPLACE_WITH_UPSMON_USER</string>
 
     <key>GroupName</key>
-    <string>$GROUP</string>
+    <string>REPLACE_WITH_UPSMON_GROUP</string>
 
     <key>RunAtLoad</key>
     <true/>
@@ -31,9 +31,9 @@
     </dict>
 
     <key>StandardOutPath</key>
-    <string>/opt/homebrew/var/log/nut-server.log</string>
+    <string>REPLACE_WITH_BREW_PREFIX/var/log/nut-server.log</string>
 
     <key>StandardErrorPath</key>
-    <string>/opt/homebrew/var/log/nut-server.log</string>
+    <string>REPLACE_WITH_BREW_PREFIX/var/log/nut-server.log</string>
 </dict>
 </plist>

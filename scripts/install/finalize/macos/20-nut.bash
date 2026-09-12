@@ -1,82 +1,95 @@
 #!/usr/bin/env bash
-# shellcheck disable=all
-
 set -euo pipefail
+source ~/.dotfiles/scripts/helpers.bash
 
-user=$(id -un)
-group=$(id -gn)
+log_step 'Configuring NUT...'
+check_sudo
 
-plist_replace() {
-    local key=$1
-    local value=$2
-    plutil -replace $key -string $value - -o -
+USER=$(id -un)
+GROUP=$(id -gn)
+
+HA_PASSWORD=$(openssl rand -hex 24)
+UPSMON_PASSWORD="$(openssl rand -hex 24)"
+
+BREW_PREFIX="$(brew --prefix)"
+CONFIG_DIR="$BREW_PREFIX/etc/nut"
+LOG_DIR="$BREW_PREFIX/var/log"
+RUN_DIR="$BREW_PREFIX/var/run"
+STATE_DIR="$BREW_PREFIX/var/state/ups"
+
+install_config() {
+    case "$1" in
+        /*) from="$1" ;;
+        *) from="$HOME/.dotfiles/configs/nut/$1" ;;
+    esac
+    to="$2"
+
+    cat "$from" | \
+        sed \
+        -e "s/REPLACE_WITH_HA_PASSWORD/$HA_PASSWORD/g" \
+        -e "s/REPLACE_WITH_UPSMON_USER/$USER/g" \
+        -e "s/REPLACE_WITH_UPSMON_GROUP/$GROUP/g" \
+        -e "s/REPLACE_WITH_UPSMON_PASSWORD/$UPSMON_PASSWORD/g" \
+        -e "s|REPLACE_WITH_BREW_PREFIX|$BREW_PREFIX|g" \
+        | sudo tee "$to" > /dev/null
+
+    echo "$from -> $to"
 }
 
-# initialize Home Assistant password
-ha_password=$(openssl rand -hex 24)
-sed -i '' "s/REPLACE_WITH_HA_PASSWORD/$ha_password/g" /opt/homebrew/etc/nut/upsd.users
+log_substep 'Installing configuration files...'
 
-# initialize UPSMON
-upsmon_password="$(openssl rand -hex 24)"
-sed -i '' "s/REPLACE_WITH_UPSMON_PASSWORD/$upsmon_password/g" /opt/homebrew/etc/nut/upsd.users
+mkdir -pv "$CONFIG_DIR"
 
-upsmon_password=$(
+if ! [ -f "$BREW_PREFIX/etc/nut/upsd.users" ]; then
+    install_config upsd.users "$CONFIG_DIR/upsd.users"
+else
+    install_config "$CONFIG_DIR/upsd.users" "$CONFIG_DIR/upsd.users"
+fi
+
+UPSMON_PASSWORD=$(
     awk '
       /^\[upsmon\]/ { flag=1; next }
       /^\[/         { flag=0 }
       flag && /^[[:space:]]*password[[:space:]]*=/ { print $3 }
-    ' /opt/homebrew/etc/nut/upsd.users
+    ' "$CONFIG_DIR/upsd.users"
 )
 
-cp -vf ~/.dotfiles/configs/nut/upsmon.conf /opt/homebrew/etc/nut/upsmon.conf
-sed -i '' \
-    -e "s/REPLACE_WITH_UPSMON_PASSWORD/$upsmon_password/g" \
-    -e "s/REPLACE_WITH_UPSMON_USER/$user/g" \
-    /opt/homebrew/etc/nut/upsmon.conf
+install_config upsmon.conf "$CONFIG_DIR/upsmon.conf"
+install_config nut.conf "$CONFIG_DIR/nut.conf"
+install_config ups.conf "$CONFIG_DIR/ups.conf"
+install_config upsd.conf "$CONFIG_DIR/upsd.conf"
 
-# configure NUT driver daemon
-cat ~/.dotfiles/configs/nut/local.nut-driver.plist | \
-    # plist_replace UserName $user | plist_replace GroupName $group | \
-    sudo tee /Library/LaunchDaemons/local.nut-driver.plist > /dev/null
+sudo chown -v "root:$GROUP" "$CONFIG_DIR"/*.{conf,users}
+sudo chmod -v 640 "$CONFIG_DIR"/*.{conf,users}
+
+log_substep 'Installing NUT driver daemon...'
+install_config local.nut-driver.plist /Library/LaunchDaemons/local.nut-driver.plist
 sudo chown -v root:wheel /Library/LaunchDaemons/local.nut-driver.plist
 sudo chmod -v 644 /Library/LaunchDaemons/local.nut-driver.plist
 plutil -lint /Library/LaunchDaemons/local.nut-driver.plist
 
-# configure NUT server daemon
-cat ~/.dotfiles/configs/nut/local.nut-server.plist | \
-    plist_replace UserName $user | plist_replace GroupName $group | \
-    sudo tee /Library/LaunchDaemons/local.nut-server.plist > /dev/null
+log_substep 'Installing NUT server daemon...'
+install_config local.nut-server.plist /Library/LaunchDaemons/local.nut-server.plist
 sudo chown -v root:wheel /Library/LaunchDaemons/local.nut-server.plist
 sudo chmod -v 644 /Library/LaunchDaemons/local.nut-server.plist
 plutil -lint /Library/LaunchDaemons/local.nut-server.plist
 
-# configure NUT monitor daemon
-cat ~/.dotfiles/configs/nut/local.nut-monitor.plist | \
-    # plist_replace UserName $user | plist_replace GroupName $group | \
-    sudo tee /Library/LaunchDaemons/local.nut-monitor.plist > /dev/null
+log_substep 'Installing NUT monitor daemon...'
+install_config local.nut-monitor.plist /Library/LaunchDaemons/local.nut-monitor.plist
 sudo chown -v root:wheel /Library/LaunchDaemons/local.nut-monitor.plist
 sudo chmod -v 644 /Library/LaunchDaemons/local.nut-monitor.plist
 plutil -lint /Library/LaunchDaemons/local.nut-monitor.plist
 
-# initialize logs
-mkdir -pv /opt/homebrew/var/log
-touch /opt/homebrew/var/log/nut-{driver,server,monitor}.log
+log_substep 'Initializing runtime directories...'
+mkdir -pv "$LOG_DIR"
+touch "$LOG_DIR"/nut-{driver,server,monitor}.log
+mkdir -pv "$RUN_DIR"
+sudo chown -v "root:$GROUP" "$RUN_DIR"
+sudo chmod -v 775 "$RUN_DIR"
+mkdir -pv "$STATE_DIR"
+chmod -v 700 "$STATE_DIR"
 
-# set config permissions
-chmod -v 600 /opt/homebrew/etc/nut/upsd.{conf,users}
-sudo chown root:$group /opt/homebrew/etc/nut/upsmon.conf
-sudo chmod 640 /opt/homebrew/etc/nut/upsmon.conf
-
-# initialize state
-mkdir -pv /opt/homebrew/var/state/ups
-chmod -v 700 /opt/homebrew/var/state/ups
-
-# initialize run
-mkdir -p /opt/homebrew/var/run
-sudo chown root:$group /opt/homebrew/var/run
-sudo chmod 775 /opt/homebrew/var/run
-
-# initialize NUT daemons
+log_substep 'Initializing NUT daemons...'
 if launchctl print system/local.nut-monitor >/dev/null 2>&1 ; then
     sudo launchctl bootout system /Library/LaunchDaemons/local.nut-monitor.plist
 fi
@@ -95,7 +108,7 @@ fi
 
 sudo launchctl bootstrap system /Library/LaunchDaemons/local.nut-driver.plist
 
-until test -S /opt/homebrew/var/state/ups/usbhid-ups-basement_ups; do
+until test -S "$STATE_DIR/usbhid-ups-basement_ups"; do
   sleep 0.1
 done
 
@@ -109,5 +122,4 @@ done
 
 sudo launchctl bootstrap system /Library/LaunchDaemons/local.nut-monitor.plist
 
-launchctl print system/local.nut-server
-launchctl print system/local.nut-driver
+log_success 'NUT installation and initialization complete!'

@@ -96,13 +96,6 @@ dotfiles_macos() {
     symlink vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
 
     symlink mouseless/config.yaml ~/Library/Application\ Support/Mouseless/configs/config.yaml
-
-    symlink nut/nut.conf /opt/homebrew/etc/nut/nut.conf
-    symlink nut/ups.conf /opt/homebrew/etc/nut/ups.conf
-    symlink nut/upsd.conf /opt/homebrew/etc/nut/upsd.conf
-    if ! [ -f /opt/homebrew/etc/nut/upsd.users ]; then
-        copy nut/upsd.users /opt/homebrew/etc/nut/upsd.users
-    fi
 }
 
 dotfiles_linux() {

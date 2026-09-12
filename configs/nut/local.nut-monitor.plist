@@ -8,7 +8,7 @@
 
     <key>ProgramArguments</key>
     <array>
-        <string>/opt/homebrew/sbin/upsmon</string>
+        <string>REPLACE_WITH_BREW_PREFIX/sbin/upsmon</string>
         <string>-F</string>
     </array>
 
@@ -25,9 +25,9 @@
     </dict>
 
     <key>StandardOutPath</key>
-    <string>/opt/homebrew/var/log/nut-monitor.log</string>
+    <string>REPLACE_WITH_BREW_PREFIX/var/log/nut-monitor.log</string>
 
     <key>StandardErrorPath</key>
-    <string>/opt/homebrew/var/log/nut-monitor.log</string>
+    <string>REPLACE_WITH_BREW_PREFIX/var/log/nut-monitor.log</string>
 </dict>
 </plist>

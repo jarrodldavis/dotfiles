@@ -8,7 +8,7 @@
 
     <key>ProgramArguments</key>
     <array>
-        <string>/opt/homebrew/sbin/upsdrvctl</string>
+        <string>REPLACE_WITH_BREW_PREFIX/sbin/upsdrvctl</string>
         <string>-F</string>
         <string>start</string>
     </array>
@@ -26,9 +26,9 @@
     </dict>
 
     <key>StandardOutPath</key>
-    <string>/opt/homebrew/var/log/nut-driver.log</string>
+    <string>REPLACE_WITH_BREW_PREFIX/var/log/nut-driver.log</string>
 
     <key>StandardErrorPath</key>
-    <string>/opt/homebrew/var/log/nut-driver.log</string>
+    <string>REPLACE_WITH_BREW_PREFIX/var/log/nut-driver.log</string>
 </dict>
 </plist>
