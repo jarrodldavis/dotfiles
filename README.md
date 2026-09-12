@@ -92,12 +92,15 @@ On macOS, skip installation of Mac App Store (`mas`) dependencies.
 [Homebrew Bundle] is used to record the CLI tools (Homebrew Formulae), GUI applications (Homebrew Casks, Flatpaks, and
 Mac App Store apps), and Visual Studio Code extensions that should be installed. To record the installation or removal
 of these system dependencies, update the appropriate system-specific `*.Brewfile` manifest using
-`~/.dotfiles/scripts/update-homebrew-bundle.sh`.
+`~/.dotfiles/scripts/maintenance/update-homebrew-bundle.bash`.
 
 ### Global `.gitignore`
 
 `configs/gitignore` can be updated to use the latest templates from [`github/gitignore`] using
-`~/.dotfiles/scripts/update-global-gitignore.sh`.
+`~/.dotfiles/scripts/maintenance/update-global-gitignore.bash`.
+
+### ShellCheck
+All shell scripts can be linted with [ShellCheck] using `~/.dotfiles/scripts/maintenance/shellcheck-all.bash`.
 
 [Homebrew]:                     https://brew.sh
 [Visual Studio Code]:           https://code.visualstudio.com
@@ -106,3 +109,4 @@ of these system dependencies, update the appropriate system-specific `*.Brewfile
 [contents of `install.bash`]:   https://github.com/jarrodldavis/dotfiles/raw/main/install.bash
 [Homebrew Bundle]:              https://docs.brew.sh/Brew-Bundle-and-Brewfile
 [`github/gitignore`]:           https://github.com/github/gitignore
+[ShellCheck]:                   https://www.shellcheck.net
