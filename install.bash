@@ -129,6 +129,9 @@ case "$(uname)" in
         ;;
 esac
 
+log_substep 'Using installation targets:'
+dispatch_os_targets echo
+
 if [ -n "${DOTFILES_SKIP_MAS:-}" ]; then
     log_warning 'Note: Mac App Store apps will not be installed.'
 fi
