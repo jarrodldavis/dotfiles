@@ -167,30 +167,44 @@ _get_link_paths() {
         2)
             case $1 in
                 /*|./*|../*) from=$1 ;;
-                *)  from="$HOME/.dotfiles/$1" ;;
+                *)           from="$HOME/.dotfiles/configs/$1" ;;
             esac
             to=$2
             ;;
         *)
-            printf 'usage: %s NAME [DESTINATION]\n' "$0" >&2
+            # shellcheck disable=SC2016
+            printf 'error: invalid %s usage: expected `%s NAME [DESTINATION]`\n' "$helper" "$helper" >&2
             return 2
             ;;
     esac
+
+    case "$from" in
+        /*) from_check="$from" ;;
+        *)  from_check="$(dirname "$to")/$from" ;;
+    esac
+
+    if ! [ -e "$from_check" ]; then
+        printf 'error: source file does not exist: %s\n' "$from_check" >&2
+        return 1
+    fi
 }
 
 symlink() {
+    local helper="symlink" from to
     _get_link_paths "$@"
     _ensure_parent_dir "$(dirname "$to")"
     ln -vnfs "$from" "$to"
 }
 
 hardlink() {
+    local helper="hardlink" from to
     _get_link_paths "$@"
     _ensure_parent_dir "$(dirname "$to")"
     ln -vnf "$from" "$to"
 }
 
 copy() {
+    local helper="copy" from to
     _get_link_paths "$@"
     _ensure_parent_dir "$(dirname "$to")"
     cp -vf "$from" "$to"
@@ -202,40 +216,40 @@ symlink ../../scripts/dotfiles-pre-commit.sh ~/.dotfiles/.git/hooks/pre-commit
 log_substep 'Linking common dotfiles...'
 
 # isolate dotfiles-managed gitconfig from machine-specific settings
-symlink configs/gitconfigs/base.gitconfig "${XDG_CONFIG_HOME:-$HOME/.config}/git/config"
+symlink gitconfigs/base.gitconfig "${XDG_CONFIG_HOME:-$HOME/.config}/git/config"
 touch ~/.gitconfig
 
 symlink gitignore
 
-symlink configs/gh/config.yml ~/.config/gh/config.yml
+symlink gh/config.yml ~/.config/gh/config.yml
 # copy hosts config since it can contain auth tokens
-copy configs/gh/hosts.yml ~/.config/gh/hosts.yml
+copy gh/hosts.yml ~/.config/gh/hosts.yml
 
-symlink configs/ssh/base.sshconfig ~/.ssh/config
+symlink ssh/base.sshconfig ~/.ssh/config
 symlink ssh/config.local.d
 symlink ssh/allowed_signers
 
-symlink configs/brew/brew.env ~/.homebrew/brew.env
+symlink brew/brew.env ~/.homebrew/brew.env
 
 if [ "$(uname)" = "Darwin" ]; then
     log_substep 'Linking macOS dotfiles...'
     symlink gitconfigs/macos.gitconfig
     symlink gitconfigs/ssh.gitconfig
 
-    symlink configs/ssh/macos.sshconfig ~/.ssh/config.d/macos
+    symlink ssh/macos.sshconfig ~/.ssh/config.d/macos
 
-    symlink configs/brew/macos.Brewfile ~/.Brewfile
+    symlink brew/macos.Brewfile ~/.Brewfile
 
-    symlink configs/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
-    symlink configs/vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
+    symlink vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
+    symlink vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
 
-    symlink configs/mouseless/config.yaml ~/Library/Application\ Support/Mouseless/configs/config.yaml
+    symlink mouseless/config.yaml ~/Library/Application\ Support/Mouseless/configs/config.yaml
 
-    symlink configs/nut/nut.conf /opt/homebrew/etc/nut/nut.conf
-    symlink configs/nut/ups.conf /opt/homebrew/etc/nut/ups.conf
-    symlink configs/nut/upsd.conf /opt/homebrew/etc/nut/upsd.conf
+    symlink nut/nut.conf /opt/homebrew/etc/nut/nut.conf
+    symlink nut/ups.conf /opt/homebrew/etc/nut/ups.conf
+    symlink nut/upsd.conf /opt/homebrew/etc/nut/upsd.conf
     if ! [ -f /opt/homebrew/etc/nut/upsd.users ]; then
-        copy configs/nut/upsd.users /opt/homebrew/etc/nut/upsd.users
+        copy nut/upsd.users /opt/homebrew/etc/nut/upsd.users
     fi
 else
     log_substep 'Linking Linux dotfiles...'
@@ -246,30 +260,30 @@ else
 
     if [ "${ID:-}" = "fedora" ] && [ "${VARIANT_ID:-}" = "coreos" ]; then
         log_substep 'Linking Fedora CoreOS dotfiles...'
-        symlink configs/brew/coreos.Brewfile ~/.Brewfile
+        symlink brew/coreos.Brewfile ~/.Brewfile
     fi
 
     if [ "${ID:-}" = "bazzite" ]; then
         log_substep 'Linking Bazzite dotfiles...'
         symlink gitconfigs/bazzite.gitconfig
 
-        symlink configs/ssh/bazzite.sshconfig ~/.ssh/config.d/bazzite
+        symlink ssh/bazzite.sshconfig ~/.ssh/config.d/bazzite
 
-        symlink configs/brew/bazzite.Brewfile ~/.Brewfile
+        symlink brew/bazzite.Brewfile ~/.Brewfile
 
-        symlink configs/vscode/settings.json ~/.config/Code/User/settings.json
-        symlink configs/vscode/keybindings.json ~/.config/Code/User/keybindings.json
+        symlink vscode/settings.json ~/.config/Code/User/settings.json
+        symlink vscode/keybindings.json ~/.config/Code/User/keybindings.json
 
-        symlink configs/systemd/steam-download-inhibit.py ~/.local/bin/steam-download-inhibit
-        symlink configs/systemd/steam-download-inhibit.service ~/.config/systemd/user/steam-download-inhibit.service
-        symlink configs/systemd/steam-update-wake.service ~/.config/systemd/user/steam-update-wake.service
+        symlink systemd/steam-download-inhibit.py ~/.local/bin/steam-download-inhibit
+        symlink systemd/steam-download-inhibit.service ~/.config/systemd/user/steam-download-inhibit.service
+        symlink systemd/steam-update-wake.service ~/.config/systemd/user/steam-update-wake.service
 
-        symlink configs/vorta/update-system-inventory.bash ~/.local/bin/update-system-inventory
+        symlink vorta/update-system-inventory.bash ~/.local/bin/update-system-inventory
     fi
 
     if [ "${REMOTE_CONTAINERS:-}" = "true" ]; then
         log_substep 'Linking VS Code Remote Containers dotfiles...'
-        symlink configs/brew/devcontainer.Brewfile ~/.Brewfile
+        symlink brew/devcontainer.Brewfile ~/.Brewfile
     fi
 fi
 
