@@ -1,5 +1,7 @@
 # Run your GitHub Actions locally
 brew "act"
+# Bourne-Again SHell, a UNIX command interpreter
+brew "bash"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # GitHub command-line tool
