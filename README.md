@@ -26,14 +26,14 @@ Bash, Zsh, and curl are pre-installed on macOS.
 
 The installer script installs [Homebrew], clones this repository to `~/.dotfiles`, links important configuration files
 ("dotfiles") into their respective locations, installs additional system dependencies using [Homebrew Bundle], and
-and performs automated system configuration changes.
+performs automated system configuration changes.
 
 ### Automatic Boostrapping
 
 Run the following command to download and execute the bootstrap script.
 
 ```sh
-/bin/bash -s <(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/main/install.bash)
+/bin/bash <(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/main/install.bash)
 ```
 
 ### Manual Installation
@@ -81,6 +81,11 @@ extensions will not be removed, but any missing extensions will be installed.
 ### `DOTFILES_SKIP_MAS`
 
 On macOS, skip installation of Mac App Store (`mas`) dependencies.
+
+### `DOTFILES_HELPERS_ONLY`
+
+An internal option used by other scripts. Short-circuits the installer so that common helpers can be sourced by other
+scripts for consistent logging output and installation target selection.
 
 ## Maintenance
 
