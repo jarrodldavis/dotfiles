@@ -38,6 +38,7 @@
     "dev.containers.githubCLILoginWithToken": true,
     "diffEditor.experimental.showMoves": true,
     "diffEditor.hideUnchangedRegions.enabled": true,
+    "dotfiles.installCommand": "install.bash",
     "dotfiles.repository": "jarrodldavis/dotfiles",
     "dotfiles.targetPath": "~/.dotfiles",
     "editor.accessibilitySupport": "off",
