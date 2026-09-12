@@ -126,6 +126,9 @@ dotfiles_bazzite() {
     symlink systemd/steam-update-wake.service ~/.config/systemd/user/steam-update-wake.service
 
     symlink vorta/update-system-inventory.bash ~/.local/bin/update-system-inventory
+
+    symlink kde/homebrew-env.sh ~/.config/plasma-workspace/env/homebrew.sh
+    symlink kde/ssh-auth-env.sh ~/.config/plasma-workspace/env/ssh-auth.sh
 }
 
 dotfiles_devcontainer() {
