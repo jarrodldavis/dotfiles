@@ -13,4 +13,4 @@ run_scripts() {
     done
 }
 
-dispatch_os_targets run_scripts
+resolve_install_targets run_scripts

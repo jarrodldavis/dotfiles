@@ -70,7 +70,7 @@ check_sudo() {
     fi
 }
 
-dispatch_os_targets() {
+resolve_install_targets() {
     local func="$1"
     local -a targets=(common)
 
@@ -130,7 +130,7 @@ case "$(uname)" in
 esac
 
 log_substep 'Using installation targets:'
-dispatch_os_targets echo
+resolve_install_targets echo
 
 if [ -n "${DOTFILES_SKIP_MAS:-}" ]; then
     log_warning 'Note: Mac App Store apps will not be installed.'

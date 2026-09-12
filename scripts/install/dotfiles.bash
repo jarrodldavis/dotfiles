@@ -143,4 +143,4 @@ dotfiles() {
     done
 }
 
-dispatch_os_targets dotfiles
+resolve_install_targets dotfiles
