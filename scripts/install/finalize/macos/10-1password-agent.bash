@@ -5,27 +5,23 @@ source ~/.dotfiles/scripts/helpers.bash
 
 log_step 'Configuring 1Password SSH Agent...'
 
-cat > ~/Library/LaunchAgents/com.1password.SSH_AUTH_SOCK.plist <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-    <dict>
-        <key>Label</key>
-        <string>com.1password.SSH_AUTH_SOCK</string>
-        <key>ProgramArguments</key>
-        <array>
-            <string>/bin/sh</string>
-            <string>-c</string>
-            <string>/bin/ln -sf $HOME/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock \$SSH_AUTH_SOCK</string>
-        </array>
-        <key>RunAtLoad</key>
-        <true/>
-    </dict>
-</plist>
-EOF
+SERVICE_NAME="com.1password.SSH_AUTH_SOCK"
+PLIST=~/Library/LaunchAgents/"$SERVICE_NAME".plist
+DOMAIN_TARGET="gui/$(id -u)"
+SERVICE_TARGET="$DOMAIN_TARGET/$SERVICE_NAME"
 
-if launchctl list | grep -q com.1password.SSH_AUTH_SOCK ; then
-    launchctl unload -w ~/Library/LaunchAgents/com.1password.SSH_AUTH_SOCK.plist
+cat ~/.dotfiles/configs/1password/com.1password.SSH_AUTH_SOCK.plist | \
+    sed \
+    -e "s|REPLACE_WITH_HOME|$HOME|g" \
+    -e "s/REPLACE_WITH_SERVICE_NAME/$SERVICE_NAME/g" \
+    | tee "$PLIST" > /dev/null
+
+plutil -lint "$PLIST"
+
+mkdir -pv ~/Library/Logs/1Password
+
+if launchctl print "$SERVICE_TARGET" >/dev/null 2>&1; then
+    launchctl bootout "$DOMAIN_TARGET" "$PLIST"
 fi
 
-launchctl load -w ~/Library/LaunchAgents/com.1password.SSH_AUTH_SOCK.plist
+launchctl bootstrap "$DOMAIN_TARGET" "$PLIST"
