@@ -28,6 +28,6 @@
     <string>REPLACE_WITH_BREW_PREFIX/var/log/nut-monitor.log</string>
 
     <key>StandardErrorPath</key>
-    <string>REPLACE_WITH_BREW_PREFIX/var/log/nut-monitor.log</string>
+    <string>REPLACE_WITH_BREW_PREFIX/var/log/nut-monitor.err</string>
 </dict>
 </plist>
