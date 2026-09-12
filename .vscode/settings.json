@@ -23,6 +23,6 @@
     },
 
     "[markdown]": {
-        "editor.rulers": [100]
+        "editor.rulers": [120]
     },
 }

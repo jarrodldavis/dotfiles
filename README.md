@@ -24,9 +24,9 @@ Bash, Zsh, and curl are pre-installed on macOS.
 
 ## Install
 
-The installer script installs [Homebrew], clones this repository to `~/.dotfiles`, links important
-configuration files ("dotfiles") into their respective locations, and installs additional system
-dependencies using [Homebrew Bundle].
+The installer script installs [Homebrew], clones this repository to `~/.dotfiles`, links important configuration files
+("dotfiles") into their respective locations, installs additional system dependencies using [Homebrew Bundle], and
+and performs automated system configuration changes.
 
 ### Automatic Boostrapping
 
@@ -52,33 +52,31 @@ cd ~/.dotfiles
 ./install.sh
 ```
 
-Alternatively, you can copy the [contents of `install.sh`] to a file on disk and run it using
-`bash ./install.sh`.
+Alternatively, you can copy the [contents of `install.sh`] to a file on disk and run it using `bash ./install.sh`.
 
 > [!IMPORTANT]
-> The installer script _always_ clones this repository to `~/.dotfiles`, even if it was
-manually cloned to a different location.
+> The installer script _always_ clones this repository to `~/.dotfiles`, even if it was manually cloned to a different
+> location.
 
 ## Options
 
-All installer options are specified as environment variables. Unless otherwise specified, the
-presence of an environment variable with a non-empty value enables the corresponding option; the
-option is disabled otherwise.
+All installer options are specified as environment variables. The presence of an environment variable with a non-empty
+value enables the corresponding option; the option is disabled otherwise.
 
 ```sh
 DOTFILES_REINSTALL=1 DOTFILES_SKIP_MAS=1 ./install.sh
 ```
 
 > [!WARNING]
-> The installer script only checks for **any non-empty value** in an environment variable, so even
-> typically "falsy" values like `0` or `NO` will enable the option.
+> The installer script only checks for **any non-empty value** in an environment variable, so even typically "falsy"
+> values like `0` or `NO` will **enable** the option.
 
 ### `DOTFILES_REINSTALL`
 
 Force the removal and reinstallation of Homebrew and all Homebrew Formulae.
 
-Homebrew Casks are not fully removed, but will be adopted or overwritten upon reinstallation.
-Visual Studio Code extensions will not be removed, but any missing extensions will be reinstalled.
+Homebrew Casks are not fully removed, but will be adopted or overwritten upon reinstallation. Visual Studio Code
+extensions will not be removed, but any missing extensions will be installed.
 
 ### `DOTFILES_SKIP_MAS`
 
@@ -87,15 +85,14 @@ On macOS, skip installation of Mac App Store (`mas`) dependencies.
 ## Maintenance
 
 > [!NOTE]
-> These maintenance actions are performed automatically before each commit using a git pre-commit
-> hook.
+> These maintenance actions are performed automatically before each commit using a git pre-commit hook.
 
 ### Homebrew
 
-[Homebrew Bundle] is used to record the CLI tools (Homebrew Formulae), GUI applications
-(Homebrew Casks), and Visual Studio Code extensions that should be installed. To record the
-installation or removal of these system dependencies, update the appropriate system-specific
-`configs/Brewfile-*` file using `~/.dotfiles/scripts/update-homebrew-bundle.sh`.
+[Homebrew Bundle] is used to record the CLI tools (Homebrew Formulae), GUI applications (Homebrew Casks, Flatpaks, and
+Mac App Store apps), and Visual Studio Code extensions that should be installed. To record the installation or removal
+of these system dependencies, update the appropriate system-specific `*.Brewfile` manifest using
+`~/.dotfiles/scripts/update-homebrew-bundle.sh`.
 
 ### Global `.gitignore`
 
