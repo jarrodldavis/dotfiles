@@ -76,7 +76,9 @@ dotfiles_common() {
 
     symlink gh/config.yml ~/.config/gh/config.yml
     # copy hosts config since it can contain auth tokens
-    copy gh/hosts.yml ~/.config/gh/hosts.yml
+    if [ ! -e ~/.config/gh/hosts.yml ]; then
+        copy gh/hosts.yml ~/.config/gh/hosts.yml
+    fi
 
     symlink ssh/base.sshconfig ~/.ssh/config
     symlink ssh/config.local.d
