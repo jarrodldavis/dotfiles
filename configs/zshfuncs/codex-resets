@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 curl -fsS --max-time 30 \
   -H "Authorization: Bearer $(jq -er '.tokens.access_token' "$HOME/.codex/auth.json")" \
   -H "Accept: application/json" \

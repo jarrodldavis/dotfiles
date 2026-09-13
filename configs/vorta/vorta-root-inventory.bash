@@ -1,5 +1,4 @@
-#!/usr/bin/bash
-
+#!/usr/bin/env bash
 set -euo pipefail
 
 readonly backup_paths=/etc/vorta-system-inventory/root-backup-paths

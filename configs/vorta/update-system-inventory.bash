@@ -1,6 +1,5 @@
-#!/usr/bin/bash
-
-set -uo pipefail
+#!/usr/bin/env bash
+set -euo pipefail
 
 umask 077
 
