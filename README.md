@@ -15,7 +15,6 @@
     - tested on `trixie` in [Visual Studio Code]'s [Development Containers]
   - Others (untested)
 - Bash
-- Zsh (for additional installation scripts)
 - curl (for automatic bootstrapping)
 - git (for manual installation)
 - On Linux, all [Homebrew system requirements]
@@ -33,7 +32,7 @@ performs automated system configuration changes.
 Run the following command to download and execute the bootstrap script.
 
 ```sh
-/bin/bash <(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/main/install.bash)
+bash <(curl -fsSL https://github.com/jarrodldavis/dotfiles/raw/main/install.bash)
 ```
 
 ### Manual Installation
