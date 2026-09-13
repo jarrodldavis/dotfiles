@@ -5,12 +5,12 @@ source ~/.dotfiles/scripts/helpers.bash
 
 log_step 'Linking dotfiles...'
 
-_ensure_parent_dir() {
+ensure_parent_dir() {
     local dir="$1"
     mkdir -vp "$dir"
 }
 
-_get_link_paths() {
+get_link_paths() {
     case $# in
         1)
             from="$HOME/.dotfiles/configs/$1"
@@ -43,27 +43,28 @@ _get_link_paths() {
 
 symlink() {
     local helper="symlink" from to
-    _get_link_paths "$@"
-    _ensure_parent_dir "$(dirname "$to")"
+    get_link_paths "$@"
+    ensure_parent_dir "$(dirname "$to")"
     ln -vnfs "$from" "$to"
 }
 
 hardlink() {
     local helper="hardlink" from to
-    _get_link_paths "$@"
-    _ensure_parent_dir "$(dirname "$to")"
+    get_link_paths "$@"
+    ensure_parent_dir "$(dirname "$to")"
     ln -vnf "$from" "$to"
 }
 
 copy() {
     local helper="copy" from to
-    _get_link_paths "$@"
-    _ensure_parent_dir "$(dirname "$to")"
+    get_link_paths "$@"
+    ensure_parent_dir "$(dirname "$to")"
     cp -vf "$from" "$to"
 }
 
 dotfiles_common() {
     log_substep 'Linking common dotfiles...'
+
     symlink ../../scripts/maintenance/pre-commit.bash ~/.dotfiles/.git/hooks/pre-commit
 
     # isolate dotfiles-managed gitconfig from machine-specific settings
@@ -89,6 +90,7 @@ dotfiles_common() {
 
 dotfiles_macos() {
     log_substep 'Linking macOS dotfiles...'
+
     symlink gitconfigs/macos.gitconfig
 
     symlink ssh/macos.sshconfig ~/.ssh/config.d/macos
@@ -107,11 +109,13 @@ dotfiles_linux() {
 
 dotfiles_coreos() {
     log_substep 'Linking Fedora CoreOS dotfiles...'
+
     symlink brew/coreos.Brewfile ~/.Brewfile
 }
 
 dotfiles_bazzite() {
     log_substep 'Linking Bazzite dotfiles...'
+
     symlink gitconfigs/bazzite.gitconfig
 
     symlink ssh/bazzite.sshconfig ~/.ssh/config.d/bazzite
@@ -133,11 +137,13 @@ dotfiles_bazzite() {
 
 dotfiles_devcontainer() {
     log_substep 'Linking VS Code Remote Containers dotfiles...'
+
     symlink brew/devcontainer.Brewfile ~/.Brewfile
 }
 
 dotfiles_codespaces() {
     log_substep 'Linking GitHub Codespaces dotfiles...'
+
     rm -vf ~/.gitconfigs/ssh.gitconfig
 }
 

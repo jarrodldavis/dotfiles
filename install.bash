@@ -27,7 +27,7 @@ else
     red=""
 fi
 
-_log() {
+log() {
     local color="$1"
     local prefix="$2"
     shift 2
@@ -35,27 +35,27 @@ _log() {
 }
 
 log_step() {
-    _log "$blue" "-->" "$@"
+    log "$blue" "-->" "$@"
 }
 
 log_done() {
-    _log "$green"  "-->" "$@"
+    log "$green"  "-->" "$@"
 }
 
 log_substep()  {
-    _log "$purple" "==>" "$@"
+    log "$purple" "==>" "$@"
 }
 
 log_success() {
-    _log "$green"  "==>" "$@"
+    log "$green"  "==>" "$@"
 }
 
 log_warning() {
-    _log "$yellow" "==>" "$@" >&2
+    log "$yellow" "==>" "$@" >&2
 }
 
 log_error()  {
-    _log "$red"    "==>" "$@" >&2
+    log "$red"    "==>" "$@" >&2
 }
 
 log_bell() {
@@ -150,7 +150,7 @@ if [ -n "${DOTFILES_REINSTALL:-}" ]; then
         log_warning 'Uninstalling Homebrew...'
         HOMEBREW_PREFIX="$(brew --prefix)"
         check_sudo
-        NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
+        NONINTERACTIVE=1 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh)"
         check_sudo
         sudo rm -rfv "$HOMEBREW_PREFIX"
     fi
@@ -168,7 +168,7 @@ BREW_SHELLENV="$(mktemp)"
 export HOMEBREW_PREFIX
 env | grep '^HOMEBREW' > "$BREW_SHELLENV"
 EOF
-} | NONINTERACTIVE=1 /bin/bash
+} | NONINTERACTIVE=1 bash
 
 # shellcheck source=/dev/null
 . "$BREW_SHELLENV"
