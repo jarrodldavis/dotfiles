@@ -1,9 +1,11 @@
 *                                   text=auto
 *.Brewfile                          linguist-language=ruby
-*.kwinrule                          linguist-language=properties
+*.kwinrule                          linguist-language=conf
 *.sshconfig                         linguist-language=sshconfig
 configs/gitignore                   linguist-language=gitignore
-configs/nut/*.conf                  linguist-language=properties
-configs/nut/*.users                 linguist-language=properties
-configs/vorta/root-backup-paths     linguist-language=properties
+configs/nut/*.conf                  linguist-language=conf
+configs/nut/*.users                 linguist-language=conf
+configs/systemd/*.conf              linguist-language=conf
+configs/vorta/root-backup-paths     linguist-language=conf
+configs/vscode/*.json               linguist-language=jsonc
 configs/zshfuncs/*                  linguist-language=zsh
