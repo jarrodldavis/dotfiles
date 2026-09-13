@@ -6,8 +6,6 @@
     "chat.titleBar.openInAgentsWindow.enabled": false,
     "chat.viewSessions.orientation": "stacked",
     "chatgpt.composerEnterBehavior": "cmdIfMultiline",
-    "containers.containerClient": "com.microsoft.visualstudio.containers.podman",
-    "containers.orchestratorClient": "com.microsoft.visualstudio.orchestrators.podmancompose",
     "dataWrangler.defaultViewingFilterOptions": "advanced",
     "dev.containers.copyGitConfig": false,
     "dev.containers.defaultExtensions": [
@@ -33,8 +31,6 @@
         },
         "ghcr.io/jarrodldavis/features/uninstall-oh-my-zsh:1": {}
     },
-    "dev.containers.dockerPath": "podman",
-    "dev.containers.dockerSocketPath": "/run/user/1000/podman/podman.sock",
     "dev.containers.githubCLILoginWithToken": true,
     "diffEditor.experimental.showMoves": true,
     "diffEditor.hideUnchangedRegions.enabled": true,
@@ -101,8 +97,10 @@
     "redhat.telemetry.enabled": true,
     "remote.autoForwardPortsSource": "hybrid",
     "remote.SSH.defaultExtensions": [
+        "docker.docker",
         "github.vscode-github-actions",
         "github.vscode-pull-request-github",
+        "ms-azuretools.vscode-docker",
         "ms-vscode.vscode-commander",
         "ms-vscode.vscode-copilot-data-analysis",
         "openai.chatgpt"
