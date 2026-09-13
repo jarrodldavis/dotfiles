@@ -1,4 +1,4 @@
-if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+if [ -x "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
@@ -15,6 +15,6 @@ bindkey -M viins '^H' backward-delete-char
 
 if command -v gh >/dev/null 2>&1; then
     if gh extension list | grep -q 'gh cd'; then
-        eval "$(gh extension exec cd init zsh --wrap-gh)"
+        eval "$(gh extension exec cd init zsh)"
     fi
 fi
