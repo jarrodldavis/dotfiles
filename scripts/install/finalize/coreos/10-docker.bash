@@ -16,13 +16,14 @@ EOF
 
 sudo usermod -aG docker "$USER"
 
-GIT_ROOT="$HOME/git"
+ROOTS=("$HOME/git" "$HOME/.dotfiles")
 SELINUX_RULES_FILE="/etc/selinux/targeted/contexts/files/file_contexts.local"
-mkdir -pv "$GIT_ROOT"
 
-selinux_rule="$GIT_ROOT(/.*)?    system_u:object_r:container_file_t:s0"
-if ! grep -qF "$selinux_rule" "$SELINUX_RULES_FILE"; then
-    echo "$selinux_rule" | sudo tee -a "$SELINUX_RULES_FILE" >/dev/null
-fi
-
-sudo restorecon -RFv "$GIT_ROOT"
+for root in "${ROOTS[@]}"; do
+    mkdir -pv "$root"
+    selinux_rule="$root(/.*)?    system_u:object_r:container_file_t:s0"
+    if ! grep -qF "$selinux_rule" "$SELINUX_RULES_FILE"; then
+        echo "$selinux_rule" | sudo tee -a "$SELINUX_RULES_FILE" >/dev/null
+    fi
+    sudo restorecon -RFv "$root"
+done
