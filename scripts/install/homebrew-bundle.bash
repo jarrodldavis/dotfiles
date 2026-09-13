@@ -7,7 +7,7 @@ log_step 'Installing system dependencies from Homebrew Bundle...'
 
 if [ -f ~/.Brewfile ]; then
     if [ -n "${DOTFILES_SKIP_MAS:-}" ]; then
-        HOMEBREW_BUNDLE_MAS_SKIP="$(grep '^mas' ~/.dotfiles/configs/brew/macos.Brewfile | awk -F'id: ' '{print $2}' | xargs echo)"
+        HOMEBREW_BUNDLE_MAS_SKIP="$(grep '^mas' ~/.Brewfile | awk -F'id: ' '{print $2}' | xargs echo)"
         export HOMEBREW_BUNDLE_MAS_SKIP
     fi
 
