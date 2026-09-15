@@ -108,6 +108,7 @@
     "remote.SSH.remotePlatform": {
         "*": "linux"
     },
+    "remote.SSH.useExecServer": false,
     "scm.inputFontFamily": "editor",
     "search.quickOpen.includeHistory": false,
     "svelte.enable-ts-plugin": true,
