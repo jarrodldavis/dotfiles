@@ -39,9 +39,9 @@ for file in "${bash_like[@]}"; do
     check bash "$file"
 done
 
-if [ $fail = 0 ]; then
+if (( fail == 0 )); then
     log_success 'All scripts passed validation!'
-elif [ $fail = 1 ]; then
+elif (( fail == 1 )); then
     log_error "1 script failed validation."
     exit 1
 else

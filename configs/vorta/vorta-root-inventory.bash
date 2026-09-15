@@ -36,7 +36,7 @@ etc_archive() {
         fi
     done <"$backup_paths"
 
-    ((${#paths[@]} > 0)) || die "allowlist contains no existing paths"
+    (( ${#paths[@]} > 0 )) || die "allowlist contains no existing paths"
 
     exec /usr/bin/tar \
         -C / \

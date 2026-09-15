@@ -7,7 +7,7 @@ run_scripts() {
     local targets=("$@")
     for target in "${targets[@]}"; do
         for script in "$HOME/.dotfiles/scripts/install/finalize/$target"/[0-9][0-9]-*; do
-            [ -x "$script" ] || continue
+            [[ -x "$script" ]] || continue
             "$script"
         done
     done

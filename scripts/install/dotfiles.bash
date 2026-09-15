@@ -35,7 +35,7 @@ get_link_paths() {
         *)  from_check="$(dirname "$to")/$from" ;;
     esac
 
-    if ! [ -e "$from_check" ]; then
+    if [[ ! -e "$from_check" ]]; then
         printf 'error: source file does not exist: %s\n' "$from_check" >&2
         return 1
     fi
@@ -77,7 +77,7 @@ dotfiles_common() {
 
     symlink gh/config.yml ~/.config/gh/config.yml
     # copy hosts config since it can contain auth tokens
-    if [ ! -e ~/.config/gh/hosts.yml ]; then
+    if [[ ! -e ~/.config/gh/hosts.yml ]]; then
         copy gh/hosts.yml ~/.config/gh/hosts.yml
     fi
 

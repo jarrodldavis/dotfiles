@@ -74,29 +74,29 @@ resolve_install_targets() {
     local func="$1"
     local -a targets=(common)
 
-    if [ "$(uname)" = "Darwin" ]; then
+    if [[ "$(uname)" == "Darwin" ]]; then
         targets+=(macos)
     else
-        if [ -f /etc/os-release ]; then
+        if [[ -f /etc/os-release ]]; then
             # shellcheck source=/dev/null
             . /etc/os-release
         fi
 
         targets+=(linux)
 
-        if [ "${ID:-}" = "fedora" ] && [ "${VARIANT_ID:-}" = "coreos" ]; then
+        if [[ "${ID:-}" == "fedora" && "${VARIANT_ID:-}" == "coreos" ]]; then
             targets+=(coreos)
         fi
 
-        if [ "${ID:-}" = "bazzite" ]; then
+        if [[ "${ID:-}" == "bazzite" ]]; then
             targets+=(bazzite)
         fi
 
-        if [ "${REMOTE_CONTAINERS:-}" = "true" ]; then
+        if [[ "${REMOTE_CONTAINERS:-}" == "true" ]]; then
             targets+=(devcontainer)
         fi
 
-        if [ "${CODESPACES:-}" = "true" ]; then
+        if [[ "${CODESPACES:-}" == "true" ]]; then
             targets+=(codespaces)
         fi
     fi
@@ -108,7 +108,7 @@ resolve_install_targets() {
 ## -- Options and Environment
 ##
 
-if [ -n "${DOTFILES_HELPERS_ONLY:-}" ]; then
+if [[ -n "${DOTFILES_HELPERS_ONLY:-}" ]]; then
     return 0
 fi
 
@@ -132,11 +132,11 @@ esac
 log_substep 'Using installation targets:'
 resolve_install_targets echo
 
-if [ -n "${DOTFILES_SKIP_MAS:-}" ]; then
+if [[ -n "${DOTFILES_SKIP_MAS:-}" ]]; then
     log_warning 'Note: Mac App Store apps will not be installed.'
 fi
 
-if [ -n "${DOTFILES_REINSTALL:-}" ]; then
+if [[ -n "${DOTFILES_REINSTALL:-}" ]]; then
     log_warning 'Note: Homebrew and system dependencies will be reinstalled.'
 fi
 
@@ -145,8 +145,8 @@ fi
 ##
 log_step 'Installing Homebrew...'
 
-if [ -n "${DOTFILES_REINSTALL:-}" ]; then
-    if brew --version 1>/dev/null 2>/dev/null; then
+if [[ -n "${DOTFILES_REINSTALL:-}" ]]; then
+    if brew --version 1>/dev/null 2>&1; then
         log_warning 'Uninstalling Homebrew...'
         HOMEBREW_PREFIX="$(brew --prefix)"
         check_sudo

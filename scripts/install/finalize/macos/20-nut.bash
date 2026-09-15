@@ -41,7 +41,7 @@ log_substep 'Installing configuration files...'
 
 mkdir -pv "$CONFIG_DIR"
 
-if ! [ -f "$BREW_PREFIX/etc/nut/upsd.users" ]; then
+if [[ ! -f "$BREW_PREFIX/etc/nut/upsd.users" ]]; then
     install_config upsd.users "$CONFIG_DIR/upsd.users"
 else
     install_config "$CONFIG_DIR/upsd.users" "$CONFIG_DIR/upsd.users"
