@@ -70,40 +70,6 @@ check_sudo() {
     fi
 }
 
-resolve_install_targets() {
-    local func="$1"
-    local -a targets=(common)
-
-    if [[ "$(uname)" == "Darwin" ]]; then
-        targets+=(macos)
-    else
-        if [[ -f /etc/os-release ]]; then
-            # shellcheck source=/dev/null
-            . /etc/os-release
-        fi
-
-        targets+=(linux)
-
-        if [[ "${ID:-}" == "fedora" && "${VARIANT_ID:-}" == "coreos" ]]; then
-            targets+=(coreos)
-        fi
-
-        if [[ "${ID:-}" == "bazzite" ]]; then
-            targets+=(bazzite)
-        fi
-
-        if [[ "${REMOTE_CONTAINERS:-}" == "true" ]]; then
-            targets+=(devcontainer)
-        fi
-
-        if [[ "${CODESPACES:-}" == "true" ]]; then
-            targets+=(codespaces)
-        fi
-    fi
-
-    "$func" "${targets[@]}"
-}
-
 ##
 ## -- Options and Environment
 ##
@@ -129,9 +95,6 @@ case "$(uname)" in
         ;;
 esac
 
-log_substep 'Using installation targets:'
-resolve_install_targets echo
-
 if [[ -n "${DOTFILES_SKIP_MAS:-}" ]]; then
     log_warning 'Note: Mac App Store apps will not be installed.'
 fi
@@ -143,6 +106,7 @@ fi
 ##
 ## -- Homebrew
 ##
+
 log_step 'Installing Homebrew...'
 
 if [[ -n "${DOTFILES_REINSTALL:-}" ]]; then
@@ -178,6 +142,7 @@ brew completions link
 ##
 ## -- Dotfiles Repository
 ##
+
 log_step 'Checking for dotfiles repository...'
 
 if ! git -C ~/.dotfiles status; then
@@ -193,8 +158,7 @@ git -C ~/.dotfiles remote set-url --push origin git@github.com:jarrodldavis/dotf
 ##
 ## -- Main Installers
 ##
-~/.dotfiles/scripts/install/dotfiles.bash
-~/.dotfiles/scripts/install/homebrew-bundle.bash
-~/.dotfiles/scripts/install/finalize.bash
+
+~/.dotfiles/scripts/install/run-install-scripts.bash
 
 log_done 'Dotfiles installation complete!'
