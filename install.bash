@@ -35,7 +35,7 @@ log() {
 }
 
 log_step() {
-    log "$blue" "-->" "$@"
+    log "$purple" "-->" "$@"
 }
 
 log_done() {
@@ -43,7 +43,7 @@ log_done() {
 }
 
 log_substep()  {
-    log "$purple" "==>" "$@"
+    log "$blue" "==>" "$@"
 }
 
 log_success() {
