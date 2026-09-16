@@ -46,12 +46,8 @@ cask "bonjeff"
 cask "chatgpt"
 # Chat client for https://twitch.tv
 cask "chatterino"
-# Free and open-source web browser
-cask "chromium"
 # Free app that makes your Internet safer
 cask "cloudflare-warp"
-# OpenAI's Codex desktop app for managing coding agents
-cask "codex-app"
 # Voice and text chat software
 cask "discord"
 # Companion app for scanner hardware
@@ -62,14 +58,10 @@ cask "fastmail"
 cask "firefox"
 # Web browser
 cask "google-chrome"
-# JetBrains tools manager
-cask "jetbrains-toolbox"
 # Discover, download, and run local LLMs
 cask "lm-studio"
 # Syncs files between computers and MEGA Cloud drives
 cask "megasync"
-# Sandbox construction video game
-cask "minecraft"
 # Mouse control with the keyboard
 cask "mouseless"
 # Control your tools with a few keystrokes
