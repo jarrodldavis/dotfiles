@@ -10,6 +10,7 @@ if [[ -t 1 && -n ${TERM:-} ]] && tput colors >/dev/null 2>&1; then
     reset="$(tput sgr0)"
 
     white="$(tput setaf 7)"
+    cyan="$(tput setaf 6)"
     blue="$(tput setaf 4)"
     purple="$(tput setaf 5)"
     green="$(tput setaf 2)"
@@ -20,6 +21,7 @@ else
     reset=""
 
     white=""
+    cyan=""
     blue=""
     purple=""
     green=""
@@ -42,8 +44,12 @@ log_done() {
     log "$green"  "-->" "$@"
 }
 
-log_substep()  {
+log_substep() {
     log "$blue" "==>" "$@"
+}
+
+log_info() {
+    log "$cyan" "==>" "$@"
 }
 
 log_success() {
@@ -54,7 +60,7 @@ log_warning() {
     log "$yellow" "==>" "$@" >&2
 }
 
-log_error()  {
+log_error() {
     log "$red"    "==>" "$@" >&2
 }
 
@@ -82,11 +88,11 @@ log_step 'Preparing to install dotfiles...'
 
 case "$(uname)" in
     Darwin)
-        log_substep 'Detected macOS:'
+        log_info 'Detected macOS:'
         sw_vers
         ;;
     Linux)
-        log_substep 'Detected Linux:'
+        log_info 'Detected Linux:'
         cat /etc/os-release
         ;;
     *)

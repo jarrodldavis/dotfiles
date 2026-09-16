@@ -55,13 +55,13 @@ log_substep 'Performing Snapper cleanup...'
 sudo snapper -c "$config" cleanup timeline
 sudo btrfs quota rescan -w "$subvolume"
 
-log_substep 'Snapper Config:'
+log_info 'Snapper Config:'
 sudo snapper -c "$config" get-config | grep -E '^(QGROUP|SPACE_LIMIT|FREE_LIMIT|TIMELINE_(CREATE|CLEANUP|MIN_AGE|LIMIT_))'
 
-log_substep 'Btrfs Quota Status:'
+log_info 'Btrfs Quota Status:'
 sudo btrfs quota status "$subvolume"
 
-log_substep 'Btrfs QGroup Info:'
+log_info 'Btrfs QGroup Info:'
 qgroup=$(sudo snapper -c "$config" get-config | awk '$1 == "QGROUP" { print $3 }')
 if [[ -n "$qgroup" ]]; then
     sudo btrfs qgroup show -re "$subvolume" | awk -v qgroup="$qgroup" 'NR <= 2 || $1 == qgroup'

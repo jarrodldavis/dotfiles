@@ -4,8 +4,6 @@ set -euo pipefail
 source ~/.dotfiles/scripts/helpers.bash
 
 log_step 'Collecting install scripts...'
-log_substep 'Resolved installation targets:'
-resolve_install_targets echo
 
 scripts=()
 collect_install_scripts() {
@@ -46,7 +44,10 @@ collect_install_scripts() {
 
 resolve_install_targets collect_install_scripts
 
-log_substep 'Discovered install scripts:'
+log_info 'Resolved installation targets:'
+resolve_install_targets echo
+
+log_info 'Discovered install scripts:'
 printf '%s\n' "${scripts[@]}"
 
 for script in "${scripts[@]}"; do
