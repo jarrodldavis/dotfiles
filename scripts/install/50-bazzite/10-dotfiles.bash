@@ -22,3 +22,5 @@ symlink vorta/update-system-inventory.bash ~/.local/bin/update-system-inventory
 
 symlink kde/homebrew-env.sh ~/.config/plasma-workspace/env/homebrew.sh
 symlink kde/ssh-auth-env.sh ~/.config/plasma-workspace/env/ssh-auth.sh
+
+symlink nvidia/70-nvidia.conf ~/.config/environment.d/70-nvidia.conf
