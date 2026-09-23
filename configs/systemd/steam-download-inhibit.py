@@ -17,7 +17,8 @@ LOG_INTERVAL = 5 * 60
 RECONCILE_INTERVAL = 60
 MAX_WAKE_INTERVAL = 6 * 60 * 60
 WAKE_LEAD = 60
-WAKE_SCREEN_OFF_DELAY = 2
+WAKE_DISPLAY_RESUME_TIMEOUT = 10
+WAKE_DISPLAY_OFF_TIMEOUT = 10
 WAKE_SERVICE = "steam-update-wake.service"
 WAKE_TIMER = "steam-update-wake.timer"
 
@@ -35,8 +36,53 @@ def find_command(name, *fallbacks):
     raise RuntimeError(f"Could not find {name}")
 
 
+def display_is_on():
+    for connector in Path("/sys/class/drm").glob("card*-*"):
+        try:
+            if (connector / "status").read_text().strip() != "connected":
+                continue
+
+            enabled = (connector / "enabled").read_text().strip()
+            dpms = (connector / "dpms").read_text().strip()
+        except OSError:
+            continue
+
+        if enabled == "enabled" and dpms == "On":
+            return True
+
+    return False
+
+
+async def wait_for_display_resume():
+    deadline = time.monotonic() + WAKE_DISPLAY_RESUME_TIMEOUT
+
+    while time.monotonic() < deadline:
+        if display_is_on():
+            return True
+
+        await asyncio.sleep(0.1)
+
+    return False
+
+
+async def wait_for_display_off():
+    deadline = time.monotonic() + WAKE_DISPLAY_OFF_TIMEOUT
+
+    while time.monotonic() < deadline:
+        if not display_is_on():
+            return True
+
+        await asyncio.sleep(0.05)
+
+    return False
+
+
 async def wake_action():
-    await asyncio.sleep(WAKE_SCREEN_OFF_DELAY)
+    if not await wait_for_display_resume():
+        print("Display remained off after wake; no screen-off action needed")
+        return
+
+    print("Display resumed after wake")
 
     dbus_send = find_command("dbus-send", "/usr/bin/dbus-send")
     proc = await asyncio.create_subprocess_exec(
@@ -61,6 +107,7 @@ async def wake_action():
 
     print("Session is locked; turning off display")
 
+    started = time.monotonic()
     proc = await asyncio.create_subprocess_exec(
         dbus_send,
         "--session",
@@ -69,8 +116,21 @@ async def wake_action():
         "/component/org_kde_powerdevil",
         "org.kde.kglobalaccel.Component.invokeShortcut",
         "string:Turn Off Screen",
+        stdout=asyncio.subprocess.DEVNULL,
+        stderr=asyncio.subprocess.PIPE,
     )
-    await proc.wait()
+    _, error = await proc.communicate()
+
+    if proc.returncode != 0:
+        message = error.decode(errors="replace").strip() or f"exit status {proc.returncode}"
+        print(f"Failed to turn off display: {message}", file=sys.stderr)
+        return
+
+    if await wait_for_display_off():
+        elapsed = time.monotonic() - started
+        print(f"Display turned off after {elapsed:.3f}s")
+    else:
+        print(f"Display did not turn off within {WAKE_DISPLAY_OFF_TIMEOUT}s", file=sys.stderr)
 
 
 class Monitor:
