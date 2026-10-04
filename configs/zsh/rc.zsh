@@ -9,6 +9,10 @@ unsetopt NOMATCH
 
 export EDITOR="vim"
 
+if [ "$VSCODE_INJECTION" = "1" ]; then
+    export EDITOR="code --wait"
+fi
+
 bindkey -v
 bindkey -M viins '^?' backward-delete-char
 bindkey -M viins '^H' backward-delete-char
