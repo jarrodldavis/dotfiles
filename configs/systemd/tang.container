@@ -1,0 +1,15 @@
+[Unit]
+Description=Tang network-bound disk encryption server
+
+[Container]
+Image=docker.io/padhihomelab/tang:latest
+ContainerName=tang
+PublishPort=7500:8080
+Volume=%h/.local/share/tang:/db:Z
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

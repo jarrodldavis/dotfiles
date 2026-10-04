@@ -12,11 +12,13 @@
 
     "files.associations": {
         "*.Brewfile": "ruby",
+        "*.container": "properties",
         "*.gitconfig": "properties",
         "*.kwinrule": "ini",
         "*.plist": "xml",
         "*.service": "properties",
         "*.sshconfig": "ssh_config",
+        "*.timer": "properties",
         "*.users": "properties",
         "gitignore": "ignore",
         "root-backup-paths": "properties",

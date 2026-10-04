@@ -1,0 +1,10 @@
+[Unit]
+Description=Wake for CoreOS update reboot
+
+[Timer]
+OnCalendar=Sat *-*-* 02:55:00
+WakeSystem=yes
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target

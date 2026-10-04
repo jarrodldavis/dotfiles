@@ -38,7 +38,7 @@ resolve_install_targets() {
     "$func" "${targets[@]}"
 }
 
-ensure_parent_dir() {
+ensure_dir() {
     local dir="$1"
     mkdir -vp "$dir"
 }
@@ -77,20 +77,20 @@ get_link_paths() {
 symlink() {
     local helper="symlink" from to
     get_link_paths "$@"
-    ensure_parent_dir "$(dirname "$to")"
+    ensure_dir "$(dirname "$to")"
     ln -vnfs "$from" "$to"
 }
 
 hardlink() {
     local helper="hardlink" from to
     get_link_paths "$@"
-    ensure_parent_dir "$(dirname "$to")"
+    ensure_dir "$(dirname "$to")"
     ln -vnf "$from" "$to"
 }
 
 copy() {
     local helper="copy" from to
     get_link_paths "$@"
-    ensure_parent_dir "$(dirname "$to")"
+    ensure_dir "$(dirname "$to")"
     cp -vf "$from" "$to"
 }

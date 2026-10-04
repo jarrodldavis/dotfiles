@@ -17,6 +17,11 @@ symlink vscode/keybindings.json ~/.config/Code/User/keybindings.json
 symlink systemd/steam-download-inhibit.py ~/.local/bin/steam-download-inhibit
 symlink systemd/steam-download-inhibit.service ~/.config/systemd/user/steam-download-inhibit.service
 symlink systemd/steam-update-wake.service ~/.config/systemd/user/steam-update-wake.service
+symlink systemd/coreos-update-wake.service ~/.config/systemd/user/coreos-update-wake.service
+symlink systemd/coreos-update-wake.timer ~/.config/systemd/user/coreos-update-wake.timer
+symlink systemd/tang.container ~/.config/containers/systemd/tang.container
+
+ensure_dir ~/.local/share/tang
 
 symlink vorta/update-system-inventory.bash ~/.local/bin/update-system-inventory
 

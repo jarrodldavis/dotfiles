@@ -1,0 +1,11 @@
+[Unit]
+Description=Keep system awake for CoreOS update reboot
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/systemd-inhibit \
+    --what=sleep \
+    --who=coreos-update-wake \
+    --why="Waiting for CoreOS update reboot and Tang unlock" \
+    --mode=block \
+    /usr/bin/sleep 20m
