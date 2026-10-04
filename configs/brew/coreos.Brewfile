@@ -12,10 +12,14 @@ brew "gh"
 brew "gibo"
 # Syntax-highlighting pager for git and diff output
 brew "git-delta"
+# Improved top (interactive process viewer)
+brew "htop"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
 # Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
+# Vi 'workalike' with many additional features
+brew "vim"
 # UNIX shell (command interpreter)
 brew "zsh"
 # OpenAI's coding agent that runs in your terminal
