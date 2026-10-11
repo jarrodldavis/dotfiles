@@ -23,8 +23,6 @@ symlink systemd/tang.container ~/.config/containers/systemd/tang.container
 
 ensure_dir ~/.local/share/tang
 
-symlink vorta/update-system-inventory.bash ~/.local/bin/update-system-inventory
-
 symlink kde/homebrew-env.sh ~/.config/plasma-workspace/env/homebrew.sh
 symlink kde/ssh-auth-env.sh ~/.config/plasma-workspace/env/ssh-auth.sh
 

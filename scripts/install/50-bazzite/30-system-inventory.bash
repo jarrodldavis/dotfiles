@@ -9,7 +9,7 @@ check_sudo
 cd ~/.dotfiles/configs/vorta
 
 mkdir -pv ~/.local/bin
-install --debug -m 0700 update-system-inventory.bash ~/.local/bin/update-system-inventory
+symlink vorta/update-system-inventory.bash ~/.local/bin/update-system-inventory
 
 sudo install --debug -D -o root -g root -m 0755 vorta-root-inventory.bash /usr/local/sbin/vorta-root-inventory
 
