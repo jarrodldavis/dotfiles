@@ -3,7 +3,7 @@ set -euo pipefail
 # shellcheck source=scripts/helpers.bash
 source ~/.dotfiles/scripts/helpers.bash
 
-log_substep 'Configuring uupd...'
+log_step 'Configuring uupd...'
 check_sudo
 
 tmp="$(mktemp)"

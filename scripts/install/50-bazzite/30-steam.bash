@@ -3,7 +3,7 @@ set -euo pipefail
 # shellcheck source=scripts/helpers.bash
 source ~/.dotfiles/scripts/helpers.bash
 
-log_substep 'Configuring Steam...'
+log_step 'Configuring Steam...'
 
 mkdir -pv ~/.local/share/Steam
 cat > ~/.local/share/Steam/steam_dev.cfg <<EOF
