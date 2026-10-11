@@ -65,7 +65,7 @@ https://store.steampowered.com/gamerecording#:~:text=Where%20are%20my%20recordin
 ## Configure Power Management
 https://docs.kde.org/trunk_kf6/en/powerdevil/kcontrol/powerdevil/index.html
 
-![System Settings > Power Management](Screenshot_20261011_125145.png)
+![System Settings > Power Management](Screenshot_20261011_165117.png)
 
 ### Prevent Sleep
 https://docs.kde.org/trunk_kf6/en/powerdevil/kcontrol/powerdevil/index.html#:~:text=Settings-,Suspend,happened%2E
@@ -75,4 +75,6 @@ Select "Do nothing" for the "When inactive" setting.
 ### Save Power While Idle
 https://docs.kde.org/trunk_kf6/en/powerdevil/kcontrol/powerdevil/index.html#:~:text=Switch,produce%2E
 
-Select "Power Save" for "Switch to power profile" setting. The `steam-power-profile-watch` systemd service will switch to the Performance power profile when running games through Steam.
+Select "Balanced" for "Switch to power profile" setting. The `steam-power-profile-watch` systemd service will switch to
+the Performance power profile when running games through Steam, and to the Power Save profile when the desktop is
+locked.
