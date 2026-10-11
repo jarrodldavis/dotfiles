@@ -46,11 +46,6 @@ if [[ -z "$qgroup" ]]; then
     sudo snapper -c "$config" setup-quota
 fi
 
-log_substep 'Installing Snapper cleanup systemd override...'
-cd ~/.dotfiles/configs/systemd
-sudo install --debug -D -o root -g root -m 0644 snapper-cleanup.service.override.conf /etc/systemd/system/snapper-cleanup.service.d/override.conf
-sudo systemctl daemon-reload
-
 log_substep 'Performing Snapper cleanup...'
 sudo snapper -c "$config" cleanup timeline
 sudo btrfs quota rescan -w "$subvolume"

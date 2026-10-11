@@ -14,15 +14,8 @@ symlink brew/bazzite.Brewfile ~/.Brewfile
 symlink vscode/settings.json ~/.config/Code/User/settings.json
 symlink vscode/keybindings.json ~/.config/Code/User/keybindings.json
 
-symlink systemd/steam-download-inhibit.py ~/.local/bin/steam-download-inhibit
 symlink systemd/steam-power-profile-watch.py ~/.local/bin/steam-power-profile-watch
-
-symlink systemd/steam-download-inhibit.service ~/.config/systemd/user/steam-download-inhibit.service
 symlink systemd/steam-power-profile-watch.service ~/.config/systemd/user/steam-power-profile-watch.service
-symlink systemd/steam-update-wake.service ~/.config/systemd/user/steam-update-wake.service
-
-symlink systemd/coreos-update-wake.service ~/.config/systemd/user/coreos-update-wake.service
-symlink systemd/coreos-update-wake.timer ~/.config/systemd/user/coreos-update-wake.timer
 symlink systemd/tang.container ~/.config/containers/systemd/tang.container
 
 ensure_dir ~/.local/share/tang
