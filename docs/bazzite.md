@@ -2,7 +2,7 @@
 Various setup tasks after installation is complete.
 
 ## Additional Drives (Internal and External)
-Assumes a drive is already formatted as LUKSv2-encrypted Btrfs partition.
+Assumes a drive is already formatted as a LUKSv2-encrypted Btrfs partition.
 
 https://wiki.archlinux.org/title/Systemd-cryptenroll#Trusted_Platform_Module
 ```sh
@@ -42,6 +42,15 @@ https://my.nextdns.io
 sudo vim /etc/systemd/resolved.conf
 ```
 
+## Configure Vorta
+![Vorta Main Window](Screenshot_20261011_130659.png)
+
+From the main Vorta window, click the "+" button to create a new profile.
+
+![Vorta New Profile menu](Screenshot_20261011_130716.png)
+
+Import the `~/.dotfiles/configs/vorta/vorta.json` config.
+
 ## Configure Steam Game Recordings
 https://store.steampowered.com/gamerecording#:~:text=Where%20are%20my%20recordings
 
@@ -53,9 +62,17 @@ https://store.steampowered.com/gamerecording#:~:text=Where%20are%20my%20recordin
 > capturing both the video and the timeline in a raw format, if you'd like a video format (mp4) of your gameplay then
 > you'll need to create a clip and export it.
 
-## Select Performance Profile
-https://docs.kde.org/trunk_kf6/en/powerdevil/kcontrol/powerdevil/index.html#:~:text=Switch%20to%20power%20profile
+## Configure Power Management
+https://docs.kde.org/trunk_kf6/en/powerdevil/kcontrol/powerdevil/index.html
 
-> Power profiles can also be changed on the fly through the Power &amp; Battery applet, as well as with keyboard
-> shortcuts. Changing power profiles on the fly will not affect the settings in this module. If no brightness level is
-> set in this settings module, the brightness will remain the same when switching between power states.
+![System Settings > Power Management](Screenshot_20261011_125145.png)
+
+### Prevent Sleep
+https://docs.kde.org/trunk_kf6/en/powerdevil/kcontrol/powerdevil/index.html#:~:text=Settings-,Suspend,happened%2E
+
+Select "Do nothing" for the "When inactive" setting.
+
+### Save Power While Idle
+https://docs.kde.org/trunk_kf6/en/powerdevil/kcontrol/powerdevil/index.html#:~:text=Switch,produce%2E
+
+Select "Power Save" for "Switch to power profile" setting. The `steam-power-profile-watch` systemd service will switch to the Performance power profile when running games through Steam.
