@@ -10,3 +10,7 @@ cat > ~/.local/share/Steam/steam_dev.cfg <<EOF
 @ShaderBackgroundProcessingThreads $(nproc)
 unShaderBackgroundProcessingThreads $(nproc)
 EOF
+
+log_substep 'Enabling automatic Steam performance profile service...'
+systemctl --user --verbose daemon-reload
+systemctl --user --verbose enable --now steam-power-profile-watch.service

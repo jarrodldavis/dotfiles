@@ -5,7 +5,6 @@ source ~/.dotfiles/scripts/helpers.bash
 
 log_step 'Configuring systemd...'
 systemctl --user --verbose daemon-reload
-systemctl --user --verbose restart steam-power-profile-watch.service
 systemctl --user --verbose restart tang.service
 
 log_substep 'Enabling user session linger...'
