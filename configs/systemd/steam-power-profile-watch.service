@@ -1,0 +1,12 @@
+[Unit]
+Description=Hold TuneD performance profile while Steam games run
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 -u %h/.local/bin/steam-power-profile-watch
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
