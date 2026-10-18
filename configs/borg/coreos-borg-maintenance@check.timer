@@ -1,0 +1,11 @@
+[Unit]
+Description=Monthly CoreOS Borg integrity check
+
+[Timer]
+OnCalendar=*-*-02 04:00:00
+RandomizedDelaySec=30m
+Persistent=true
+Unit=coreos-borg-maintenance@check.service
+
+[Install]
+WantedBy=timers.target

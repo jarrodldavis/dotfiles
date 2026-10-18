@@ -1,0 +1,25 @@
+[Unit]
+Description=Back up Docker volumes to Bazzite using Borg
+Wants=network-online.target
+After=network-online.target docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/coreos-borg-backup
+
+LoadCredential=repo_authority:/etc/coreos-borg/repo_authority
+LoadCredential=ssh_key:/etc/coreos-borg/ssh_key
+LoadCredential=known_hosts:/etc/coreos-borg/known_hosts
+LoadCredential=passphrase:/etc/coreos-borg/passphrase
+
+Environment=BORG_UNKNOWN_UNENCRYPTED_REPO_ACCESS_IS_OK=no
+Environment="PATH=/home/linuxbrew/.linuxbrew/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
+
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7
+TimeoutStartSec=infinity
+
+[Install]
+WantedBy=multi-user.target

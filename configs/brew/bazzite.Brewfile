@@ -1,6 +1,8 @@
 tap "ublue-os/tap", trusted: true
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Deduplicating archiver with compression and authenticated encryption
+brew "borgbackup"
 # GitHub command-line tool
 brew "gh"
 # Access GitHub's .gitignore boilerplates

@@ -3,14 +3,14 @@
     "name": "Default",
     "added_at": "2026-08-23 17:11:46.806226",
     "repo": {
-        "url": "/var/mnt/backup/borg",
+        "url": "/var/mnt/backup/bazzite",
         "name": "Local External Drive",
-        "added_at": "2026-08-24 04:13:20.747976",
+        "added_at": "2026-10-18 11:56:39.281522",
         "encryption": "repokey-blake2",
-        "unique_size": null,
+        "unique_size": 68477075519,
         "unique_csize": null,
-        "total_size": null,
-        "total_unique_chunks": null,
+        "total_size": 826210460682,
+        "total_unique_chunks": 155488,
         "create_backup_cmd": "",
         "extra_borg_arguments": ""
     },
@@ -45,24 +45,24 @@
     "SourceFileModel": [
         {
             "dir": "/run/host/etc",
-            "dir_size": 27477811,
-            "dir_files_count": 1713,
+            "dir_size": 27659667,
+            "dir_files_count": 1701,
             "path_isdir": true,
             "profile": 1,
             "added_at": "2026-08-24 10:27:07.672847"
         },
         {
             "dir": "/run/host/var/usrlocal",
-            "dir_size": 2243,
-            "dir_files_count": 2,
+            "dir_size": 3364,
+            "dir_files_count": 3,
             "path_isdir": true,
             "profile": 1,
             "added_at": "2026-08-24 10:27:47.184107"
         },
         {
             "dir": "/var/home/jarrodldavis",
-            "dir_size": 34135066331,
-            "dir_files_count": 105526,
+            "dir_size": 26202839817,
+            "dir_files_count": 233929,
             "path_isdir": true,
             "profile": 1,
             "added_at": "2026-08-24 10:37:59.413442"
@@ -287,7 +287,7 @@
         {
             "key": "previous_window_width",
             "value": false,
-            "str_value": "1268",
+            "str_value": "1000",
             "label": "Previous window width",
             "group": "",
             "tooltip": "",
@@ -296,7 +296,7 @@
         {
             "key": "previous_window_height",
             "value": false,
-            "str_value": "714",
+            "str_value": "600",
             "label": "Previous window height",
             "group": "",
             "tooltip": "",

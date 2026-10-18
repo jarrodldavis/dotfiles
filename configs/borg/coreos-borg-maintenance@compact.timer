@@ -1,0 +1,11 @@
+[Unit]
+Description=Weekly CoreOS Borg compaction
+
+[Timer]
+OnCalendar=Sun *-*-* 03:00:00
+RandomizedDelaySec=30m
+Persistent=true
+Unit=coreos-borg-maintenance@compact.service
+
+[Install]
+WantedBy=timers.target

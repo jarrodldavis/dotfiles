@@ -1,5 +1,7 @@
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Deduplicating archiver with compression and authenticated encryption
+brew "borgbackup"
 # Pack, ship and run any application as a lightweight container
 brew "docker"
 # Docker CLI plugin for extended build capabilities with BuildKit

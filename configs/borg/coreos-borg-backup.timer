@@ -1,0 +1,11 @@
+[Unit]
+Description=Schedule CoreOS Docker volume backups
+
+[Timer]
+OnCalendar=*-*-* 00/6:00:00
+RandomizedDelaySec=20m
+Persistent=true
+Unit=coreos-borg-backup.service
+
+[Install]
+WantedBy=timers.target
