@@ -134,5 +134,10 @@
     "vim.sneak": true,
     "window.dialogStyle": "custom",
     "workbench.browser.enableChatTools": true,
+    "workbench.browser.enableRemoteProxy": true,
+    "workbench.browser.experimentalUserTools.enabled": true,
+    "workbench.browser.openLocalhostLinks": true,
+    "workbench.browser.searchEngine": "none",
+    "workbench.browser.showInTitleBar": true,
     "workbench.sideBar.location": "right"
 }
