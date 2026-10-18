@@ -19,3 +19,9 @@ log_substep 'Allowlisting XDG Native Messaging Proxy...'
 check_sudo
 cd ~/.dotfiles/configs/1password
 sudo install --debug -D -o root -g root -m 0644 custom_allowed_browsers /etc/1password/custom_allowed_browsers
+
+log_substep 'Configuring Yama LSM...'
+# https://support.1password.com/linux-ptrace-scope-issue/
+check_sudo
+echo "kernel.yama.ptrace_scope=1" | sudo tee /etc/sysctl.d/99-1password-ptrace-scope.conf
+sudo sysctl --system
