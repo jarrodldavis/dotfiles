@@ -18,7 +18,7 @@ brew "shellcheck"
 # UNIX shell (command interpreter)
 brew "zsh"
 # Command-line interface for 1Password
-cask "ublue-os/tap/1password-cli-linux"
+cask "ublue-os/tap/1password-cli-linux", trusted: true
 # Password manager that keeps all passwords secure behind one password
 cask "ublue-os/tap/1password-gui-linux", trusted: true
 # OpenAI's coding agent that runs in your terminal
@@ -26,11 +26,13 @@ cask "codex"
 # Open-source code editor
 cask "ublue-os/tap/visual-studio-code-linux", trusted: true
 vscode "bierner.docs-view"
+vscode "docker.docker"
 vscode "github.codespaces"
 vscode "github.remotehub"
 vscode "github.vscode-github-actions"
 vscode "github.vscode-pull-request-github"
 vscode "ms-azuretools.vscode-containers"
+vscode "ms-azuretools.vscode-docker"
 vscode "ms-vscode-remote.remote-containers"
 vscode "ms-vscode-remote.remote-ssh"
 vscode "ms-vscode-remote.remote-ssh-edit"
