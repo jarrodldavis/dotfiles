@@ -62,6 +62,8 @@ cask "lm-studio"
 cask "megasync"
 # Mouse control with the keyboard
 cask "mouseless"
+# Imaging utility to install operating systems to a microSD card
+cask "raspberry-pi-imager"
 # Control your tools with a few keystrokes
 cask "raycast"
 # Time Machine log viewer & status inspector
