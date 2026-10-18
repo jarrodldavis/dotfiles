@@ -1,17 +1,23 @@
 {
     "chat.agent.maxRequests": 250,
+    "chat.agentHost.codexAgent.enabled": true,
     "chat.agentsControl.enabled": "hidden",
+    "chat.checkpoints.showFileChanges": true,
     "chat.editing.confirmEditRequestRemoval": false,
     "chat.editing.confirmEditRequestRetry": false,
+    "chat.editor.codex.preferAgentHost": true,
+    "chat.implicitContext.includeActiveEditor": false,
+    "chat.sessionSync.enabled": true,
     "chat.titleBar.openInAgentsWindow.enabled": false,
+    "chat.tools.compressOutput.enabled": true,
+    "chat.tools.terminal.outputCompaction": true,
+    "chat.tools.terminal.outputDeltas": true,
     "chat.viewSessions.orientation": "stacked",
-    "chatgpt.composerEnterBehavior": "cmdIfMultiline",
     "dataWrangler.defaultViewingFilterOptions": "advanced",
     "dev.containers.copyGitConfig": false,
     "dev.containers.defaultExtensions": [
         "ms-vscode.vscode-commander",
-        "ms-vscode.vscode-copilot-data-analysis",
-        "openai.chatgpt"
+        "ms-vscode.vscode-copilot-data-analysis"
     ],
     "dev.containers.defaultFeatures": {
         "ghcr.io/devcontainers/features/common-utils:2": {
@@ -102,8 +108,7 @@
         "github.vscode-pull-request-github",
         "ms-azuretools.vscode-docker",
         "ms-vscode.vscode-commander",
-        "ms-vscode.vscode-copilot-data-analysis",
-        "openai.chatgpt"
+        "ms-vscode.vscode-copilot-data-analysis"
     ],
     "remote.SSH.remotePlatform": {
         "*": "linux"
