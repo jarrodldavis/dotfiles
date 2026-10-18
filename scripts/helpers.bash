@@ -4,6 +4,10 @@ export DOTFILES_HELPERS_ONLY=1
 # shellcheck source=install.bash
 source ~/.dotfiles/install.bash
 
+export BAT_STYLE="-grid"
+export BAT_PAGING="never"
+export GIT_CONFIG_PARAMETERS="'delta.paging'='never' 'delta.width'='variable' 'delta.side-by-side'='false'"
+
 resolve_install_targets() {
     local func="$1"
     local -a targets=(common)
