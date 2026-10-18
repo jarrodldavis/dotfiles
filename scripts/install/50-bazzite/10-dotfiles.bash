@@ -10,6 +10,7 @@ symlink gitconfigs/bazzite.gitconfig
 symlink ssh/bazzite.sshconfig ~/.ssh/config.d/bazzite
 
 symlink brew/bazzite.Brewfile ~/.Brewfile
+symlink brew/bazzite.Brewfile ~/.homebrew/Brewfile
 
 symlink vscode/settings.json ~/.config/Code/User/settings.json
 symlink vscode/keybindings.json ~/.config/Code/User/keybindings.json

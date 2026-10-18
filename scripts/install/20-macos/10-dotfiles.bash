@@ -10,6 +10,7 @@ symlink gitconfigs/macos.gitconfig
 symlink ssh/macos.sshconfig ~/.ssh/config.d/macos
 
 symlink brew/macos.Brewfile ~/.Brewfile
+symlink brew/macos.Brewfile ~/.homebrew/Brewfile
 
 symlink vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
 symlink vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
