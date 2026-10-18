@@ -46,8 +46,6 @@ cask "bonjeff"
 cask "chatgpt"
 # Chat client for https://twitch.tv
 cask "chatterino"
-# Free app that makes your Internet safer
-cask "cloudflare-warp"
 # Voice and text chat software
 cask "discord"
 # Companion app for scanner hardware
@@ -68,8 +66,6 @@ cask "mouseless"
 cask "raycast"
 # Time Machine log viewer & status inspector
 cask "thetimemachinemechanic"
-# Virtualization tool
-cask "virtualbuddy"
 # Open-source code editor
 cask "visual-studio-code"
 # Open-source code editor
