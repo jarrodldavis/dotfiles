@@ -5,6 +5,7 @@ source ~/.dotfiles/scripts/helpers.bash
 
 log_step 'Configuring Docker...'
 check_sudo
+docker_changed=false
 
 log_substep 'Configuring Homebrew-installed CLI plugins...'
 mkdir -pv ~/.docker
@@ -76,22 +77,38 @@ jq --tab --argjson allow "$BWRAP_SYSCALLS" '
 truncate -s -1 "$tmpdir/seccomp.json"
 delta "$tmpdir/seccomp-default.json" "$tmpdir/seccomp.json" || [[ $? -eq 1 ]]
 
-docker_changed=false
-
 if ! cmp -s "$tmpdir/seccomp.json" "$SECCOMP_PROFILE"; then
     install_config "$tmpdir/seccomp.json" "$SECCOMP_PROFILE"
     docker_changed=true
 fi
 
+log_substep 'Installing runc wrapper...'
+RUNTIME_NAME="runc-tun"
+RUNTIME_PATH="/usr/local/libexec/runc-tun"
+RUNTIME_SOURCE="$HOME/.dotfiles/configs/docker/runc-tun.py"
+
+if ! cmp -s "$RUNTIME_SOURCE" "$RUNTIME_PATH"; then
+    install_executable "$RUNTIME_SOURCE" "$RUNTIME_PATH"
+    docker_changed=true
+fi
+
+log_substep 'Configuring Docker daemon...'
 if test -f "$DAEMON_CONFIG"; then
     cat "$DAEMON_CONFIG" > "$tmpdir/daemon-original.json"
 else
     printf '{}\n' > "$tmpdir/daemon-original.json"
 fi
 
-jq --arg profile "$SECCOMP_PROFILE" '
-    . + {"seccomp-profile": $profile}
+jq \
+    --arg profile "$SECCOMP_PROFILE" \
+    --arg runtime "$RUNTIME_NAME" \
+    --arg path "$RUNTIME_PATH" '
+    .["seccomp-profile"] = $profile
+    | .runtimes[$runtime].path = $path
+    | .["default-runtime"] = $runtime
 ' "$tmpdir/daemon-original.json" > "$tmpdir/daemon.json"
+
+sudo dockerd --validate --config-file "$tmpdir/daemon.json"
 
 if ! cmp -s "$tmpdir/daemon.json" "$DAEMON_CONFIG"; then
     install_config "$tmpdir/daemon.json" "$DAEMON_CONFIG"
