@@ -17,8 +17,7 @@ cat "$dest_dir/$wrapper_config"
 
 log_substep 'Allowlisting XDG Native Messaging Proxy...'
 check_sudo
-cd ~/.dotfiles/configs/1password
-sudo install --debug -D -o root -g root -m 0644 custom_allowed_browsers /etc/1password/custom_allowed_browsers
+install_config 1password/custom_allowed_browsers /etc/1password/custom_allowed_browsers
 
 log_substep 'Configuring Yama LSM...'
 # https://support.1password.com/linux-ptrace-scope-issue/

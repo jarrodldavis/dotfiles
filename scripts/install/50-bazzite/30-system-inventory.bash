@@ -6,15 +6,12 @@ source ~/.dotfiles/scripts/helpers.bash
 log_step 'Configuring Vorta System Inventory...'
 check_sudo
 
-cd ~/.dotfiles/configs/vorta
-
 mkdir -pv ~/.local/bin
 symlink vorta/update-system-inventory.bash ~/.local/bin/update-system-inventory
 
-sudo install --debug -D -o root -g root -m 0755 vorta-root-inventory.bash /usr/local/sbin/vorta-root-inventory
-
-sudo install --debug -D -o root -g root -m 0644 root-backup-paths /etc/vorta-system-inventory/root-backup-paths
+install_executable vorta/vorta-root-inventory.bash /usr/local/sbin/vorta-root-inventory
+install_config vorta/root-backup-paths /etc/vorta-system-inventory/root-backup-paths
 
 sudo visudo -cf vorta-system-inventory.sudoers
-sudo install --debug -D -o root -g root -m 0440 vorta-system-inventory.sudoers /etc/sudoers.d/vorta-system-inventory
+install_readonly_secret vorta/vorta-system-inventory.sudoers /etc/sudoers.d/vorta-system-inventory
 sudo visudo -cf /etc/sudoers.d/vorta-system-inventory

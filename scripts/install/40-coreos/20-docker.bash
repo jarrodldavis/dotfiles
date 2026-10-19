@@ -78,7 +78,7 @@ delta "$tmpdir/seccomp-default.json" "$tmpdir/seccomp.json" || [[ $? -eq 1 ]]
 docker_changed=false
 
 if ! cmp -s "$tmpdir/seccomp.json" "$SECCOMP_PROFILE"; then
-    sudo install --debug -D -o root -g root -m 0644 "$tmpdir/seccomp.json" "$SECCOMP_PROFILE"
+    install_config "$tmpdir/seccomp.json" "$SECCOMP_PROFILE"
     docker_changed=true
 fi
 
@@ -93,7 +93,7 @@ jq --arg profile "$SECCOMP_PROFILE" '
 ' "$tmpdir/daemon-original.json" > "$tmpdir/daemon.json"
 
 if ! cmp -s "$tmpdir/daemon.json" "$DAEMON_CONFIG"; then
-    sudo install --debug -D -o root -g root -m 0644 "$tmpdir/daemon.json" "$DAEMON_CONFIG"
+    install_config "$tmpdir/daemon.json" "$DAEMON_CONFIG"
     docker_changed=true
 fi
 

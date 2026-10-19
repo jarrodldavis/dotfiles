@@ -98,3 +98,40 @@ copy() {
     ensure_dir "$(dirname "$to")"
     cp -vf "$from" "$to"
 }
+
+install_with_mode() {
+    local mode from to
+
+    mode="$1"
+    case "$mode" in
+        ''|*[!0-7]*)
+            printf 'error: invalid mode: %s\n' "$mode" >&2
+            return 1
+            ;;
+    esac
+
+    shift
+    get_link_paths "$@"
+
+    sudo install --debug -D -o root -g root -m "$mode" "$from" "$to"
+}
+
+install_config() {
+    local helper="install_config"
+    install_with_mode 0644 "$@"
+}
+
+install_executable() {
+    local helper="install_executable"
+    install_with_mode 0755 "$@"
+}
+
+install_secret() {
+    local helper="install_secret"
+    install_with_mode 0600 "$@"
+}
+
+install_readonly_secret() {
+    local helper="install_readonly_secret"
+    install_with_mode 0440 "$@"
+}
