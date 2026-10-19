@@ -12,6 +12,5 @@ symlink vorta/update-system-inventory.bash ~/.local/bin/update-system-inventory
 install_executable vorta/vorta-root-inventory.bash /usr/local/sbin/vorta-root-inventory
 install_config vorta/root-backup-paths /etc/vorta-system-inventory/root-backup-paths
 
-sudo visudo -cf vorta-system-inventory.sudoers
 install_readonly_secret vorta/vorta-system-inventory.sudoers /etc/sudoers.d/vorta-system-inventory
 sudo visudo -cf /etc/sudoers.d/vorta-system-inventory
