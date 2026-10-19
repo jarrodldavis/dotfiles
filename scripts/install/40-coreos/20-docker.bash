@@ -4,6 +4,7 @@ set -euo pipefail
 source ~/.dotfiles/scripts/helpers.bash
 
 log_step 'Configuring Docker...'
+check_sudo
 
 log_substep 'Configuring Homebrew-installed CLI plugins...'
 mkdir -pv ~/.docker

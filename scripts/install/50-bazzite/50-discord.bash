@@ -4,6 +4,7 @@ set -euo pipefail
 source ~/.dotfiles/scripts/helpers.bash
 
 log_step 'Configuring Discord Distrobox...'
+check_sudo
 
 # shellcheck disable=SC1091
 source /etc/os-release

@@ -4,6 +4,7 @@ set -euo pipefail
 source ~/.dotfiles/scripts/helpers.bash
 
 log_step 'Configuring IPv6 localhost...'
+check_sudo
 
 # Disable IPv6 until Dev Containers support it correctly
 # https://github.com/microsoft/vscode-remote-release/issues/7029

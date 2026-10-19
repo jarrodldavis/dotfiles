@@ -4,6 +4,7 @@ set -euo pipefail
 source ~/.dotfiles/scripts/helpers.bash
 
 log_step 'Configuring Codex Sandbox shim...'
+check_sudo
 
 cat ~/.dotfiles/configs/bwrap/shim.bash | \
     sed \

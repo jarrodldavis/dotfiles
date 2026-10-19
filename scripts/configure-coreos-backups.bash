@@ -4,6 +4,7 @@ set -euo pipefail
 source ~/.dotfiles/scripts/helpers.bash
 
 log_step 'Setting up CoreOS Borg backups...'
+check_sudo
 
 log_bell
 read -r -p 'Borg repo authority (user@host.local): ' repo_authority
@@ -61,7 +62,6 @@ export BORG_RSH="ssh -i $HOME/.ssh/id_ed25519_borg -o IdentitiesOnly=yes -o Batc
 borg --show-rc init --encryption=repokey-blake2 "ssh://$repo_authority/var/mnt/backup/coreos" || [[ $? -eq 10 ]]
 
 log_substep 'Preparing credentials for system service...'
-check_sudo
 install_secret /home/core/.ssh/id_ed25519_borg /etc/coreos-borg/ssh_key
 install_secret /home/core/.ssh/known_hosts /etc/coreos-borg/known_hosts
 printf '%s\n' "$repo_authority" | install_secret /dev/stdin /etc/coreos-borg/repo_authority
@@ -74,7 +74,6 @@ printf '%s\n' "$passphrase" | install_secret /dev/stdin /etc/coreos-borg/passphr
 unset passphrase
 
 log_substep 'Installing systemd services...'
-check_sudo
 
 install_executable borg/coreos-borg-backup.bash /usr/local/sbin/coreos-borg-backup
 install_config borg/coreos-borg-backup.service /etc/systemd/system/coreos-borg-backup.service
