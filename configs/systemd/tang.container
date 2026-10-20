@@ -5,6 +5,7 @@ Description=Tang network-bound disk encryption server
 Image=docker.io/padhihomelab/tang:latest
 ContainerName=tang
 PublishPort=7500:8080
+Environment=ENABLE_IPv6=1
 Volume=%h/.local/share/tang:/db:Z
 
 [Service]
