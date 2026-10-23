@@ -23,8 +23,8 @@
     "chat.customizations.structuredPreview.enabled": true,
     "chat.customizations.userDataMigration.enabled": true,
     "chat.defaultConfiguration": {
-        "approvals": "assisted",
-        "mode": "autopilot"
+      "approvals": "assisted",
+      "mode": "autopilot"
     },
     "chat.defaultToCopilotHarness": true,
     "chat.editing.explainChanges.enabled": true,
@@ -70,12 +70,13 @@
             "installDirectlyFromGitHubRelease": true,
             "version": "latest"
         },
-        "ghcr.io/hwaien/devcontainer-features/match-host-time-zone:0": {},
+        "ghcr.io/jarrodldavis/features/match-host-time-zone:1": {},
         "ghcr.io/jarrodldavis/features/persistent-home:1": {
-            "paths": ".codex,.vscode-server/data"
+            "paths": ".codex:.vscode-server/data"
         },
         "ghcr.io/jarrodldavis/features/uninstall-oh-my-zsh:1": {}
     },
+    "dev.containers.gitCredentialHelperConfigLocation": "none",
     "dev.containers.githubCLILoginWithToken": true,
     "diffEditor.experimental.showMoves": true,
     "diffEditor.hideUnchangedRegions.enabled": true,
@@ -125,6 +126,7 @@
         "jsdelivr.com",
         "unpkg.com"
     ],
+    "multiDiffEditor.experimental.fileList": true,
     "notebook.diff.overviewRuler": true,
     "notebook.lineNumbers": "on",
     "notebook.output.scrolling": true,
