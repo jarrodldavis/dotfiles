@@ -28,8 +28,8 @@
     "chat.customizations.structuredPreview.enabled": true,
     "chat.customizations.userDataMigration.enabled": true,
     "chat.defaultConfiguration": {
-      "approvals": "assisted",
-      "mode": "autopilot"
+        "approvals": "assisted",
+        "mode": "autopilot"
     },
     "chat.defaultToCopilotHarness": true,
     "chat.editing.explainChanges.enabled": true,
@@ -139,6 +139,7 @@
     "pgsql.enableMigrations": false,
     "pgsql.openQueryResultsInTabByDefault": true,
     "pgsql.openQueryResultsInTabByDefaultDoNotShowPrompt": true,
+    "platformio-ide.autoCloseSerialMonitor": false,
     "platformio-ide.autoOpenPlatformIOIniFile": false,
     "platformio-ide.disablePIOHomeStartup": true,
     "playwright.reuseBrowser": false,
