@@ -1,6 +1,11 @@
 {
     "chat.agent.maxRequests": 250,
     "chat.agent.sandbox.enabled": "on",
+    "chat.agent.sandbox.fileSystem.userConfiguredPaths": {
+        "readonlyPaths": [
+            "/var/lib/devcontainer-persistent-home/.vscode-server/data/agentSessionData"
+        ]
+    },
     "chat.agentHost.codexAgent.enabled": true,
     "chat.agentHost.experimental.autoAttachPullRequests": true,
     "chat.agentHost.experimental.markdownPlanRichLinks": true,
@@ -72,7 +77,8 @@
         },
         "ghcr.io/jarrodldavis/features/match-host-time-zone:1": {},
         "ghcr.io/jarrodldavis/features/persistent-home:1": {
-            "paths": ".codex:.vscode-server/data"
+            "codex": true,
+            "githubCopilot": true
         },
         "ghcr.io/jarrodldavis/features/uninstall-oh-my-zsh:1": {}
     },
