@@ -58,7 +58,18 @@ for volume in "${volumes[@]}"; do
     paths+=("$volume/_data")
 done
 
-echo "==> Backing up ${#paths[@]} Docker volumes..."
+echo '==> Discovering host Codex directories...'
+
+for home_dir in /var/home/*; do
+    codex_dir="$home_dir/.codex"
+
+    if [[ -d "$codex_dir" ]]; then
+        paths+=("$codex_dir")
+        echo "Including Codex directory: $codex_dir"
+    fi
+done
+
+echo "==> Backing up ${#paths[@]} paths..."
 cd "$VOLUME_ROOT"
 
 borg --show-rc --lock-wait 3600 create --verbose --stats \
