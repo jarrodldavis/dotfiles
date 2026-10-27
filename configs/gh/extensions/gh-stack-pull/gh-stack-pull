@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+remote="${1:-origin}"
+repo="$(gh repo view --json nameWithOwner -q .nameWithOwner)"
+current="$(git symbolic-ref --quiet --short HEAD)"
+
+# Require a clean working tree.
+test -z "$(git status --porcelain)" || {
+  echo "Working tree is not clean" >&2
+  exit 1
+}
+
+# Discover branches from the active stack.
+mapfile -t branches < <(
+  GH_REPO="$repo" gh stack view --json |
+    jq -r '.branches[].name'
+)
+
+((${#branches[@]})) || {
+  echo "No stack branches found" >&2
+  exit 1
+}
+
+git fetch "$remote"
+
+# Validate all remote refs before making changes.
+for branch in "${branches[@]}"; do
+  git show-ref --verify --quiet "refs/remotes/$remote/$branch" || {
+    echo "Missing: $remote/$branch" >&2
+    exit 1
+  }
+done
+
+# Preserve existing branch tips.
+backup="backup/stack-$(date +%Y%m%d-%H%M%S)"
+for branch in "${branches[@]}"; do
+  if git show-ref --verify --quiet "refs/heads/$branch"; then
+    git branch "$backup/$branch" "$branch"
+  fi
+done
+
+git switch --detach
+
+# Update all stack branches to their remote tips.
+for branch in "${branches[@]}"; do
+  git branch -f "$branch" "refs/remotes/$remote/$branch"
+done
+
+git switch "$current"

@@ -22,6 +22,8 @@ if [[ ! -e ~/.config/gh/hosts.yml ]]; then
     copy gh/hosts.yml ~/.config/gh/hosts.yml
 fi
 
+symlink gh/extensions/gh-stack-pull ~/.local/share/gh/extensions/gh-stack-pull
+
 symlink ssh/base.sshconfig ~/.ssh/config
 symlink ssh/config.local.d
 symlink ssh/allowed_signers
