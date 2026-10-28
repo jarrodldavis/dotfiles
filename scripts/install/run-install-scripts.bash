@@ -6,27 +6,31 @@ source ~/.dotfiles/scripts/helpers.bash
 log_step 'Collecting install scripts...'
 
 scripts=()
-collect_install_scripts() {
-    local target dir script
 
-    while IFS= read -r script; do
-        scripts+=("$script")
-    done < <(
+collect_install_scripts() {
+    local target dir script output errors
+
+    output=$(
+        errors=0
+
         for target in "$@"; do
             for dir in "$HOME/.dotfiles/scripts/install/"[0-9][0-9]-"$target"; do
-                if ! [[ -d "$dir" ]]; then
-                    log_warning "Directory $dir does not exist, skipping."
+                if [[ ! -d "$dir" ]]; then
+                    log_error "Directory for target '$target' does not exist."
+                    errors=1
                     continue
                 fi
 
                 for script in "$dir"/[0-9][0-9]-*.bash; do
-                    if ! [[ -e "$script" ]]; then
-                        log_warning "Directory $dir has no install scripts."
+                    if [[ ! -e "$script" ]]; then
+                        log_error "Directory $dir has no install scripts."
+                        errors=1
                         continue
                     fi
 
-                    if ! [[ -x "$script" ]]; then
-                        log_warning "Script $script is not executable, skipping."
+                    if [[ ! -x "$script" ]]; then
+                        log_error "Script $script is not executable."
+                        errors=1
                         continue
                     fi
 
@@ -36,7 +40,22 @@ collect_install_scripts() {
                         "$script"
                 done
             done
-        done |
+        done
+
+        if (( errors )); then
+            exit 1
+        fi
+    )
+
+    if [[ -z "$output" ]]; then
+        log_error "No install scripts found."
+        return 1
+    fi
+
+    while IFS= read -r script; do
+        scripts+=("$script")
+    done < <(
+        printf '%s\n' "$output" |
             sort -t $'\t' -k1,1 -k2,2 |
             cut -f3-
     )
