@@ -15,7 +15,6 @@ bash_like+=(install.bash)
 bash_like+=(scripts/**/*.bash)
 bash_like+=(configs/**/*.bash)
 bash_like+=(configs/**/*.zsh)
-bash_like+=(configs/zshfuncs/*)
 
 fail=0
 

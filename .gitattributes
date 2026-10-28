@@ -8,4 +8,3 @@ configs/nut/*.users                 linguist-language=conf
 configs/systemd/*.conf              linguist-language=conf
 configs/vorta/root-backup-paths     linguist-language=conf
 configs/vscode/*.json               linguist-language=jsonc
-configs/zshfuncs/*                  linguist-language=zsh
