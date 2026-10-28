@@ -9,7 +9,7 @@ unsetopt NOMATCH
 
 export EDITOR="vim"
 
-if [ "$VSCODE_INJECTION" = "1" ]; then
+if [[ "$VSCODE_INJECTION" = "1" ]]; then
     export EDITOR="code --wait"
 fi
 
