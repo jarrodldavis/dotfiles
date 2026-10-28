@@ -15,6 +15,7 @@ LoadCredential=passphrase:/etc/coreos-borg/passphrase
 
 Environment=BORG_UNKNOWN_UNENCRYPTED_REPO_ACCESS_IS_OK=no
 Environment="PATH=/home/linuxbrew/.linuxbrew/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
+Environment=PYTHONDONTWRITEBYTECODE=1
 
 Nice=10
 IOSchedulingClass=best-effort
