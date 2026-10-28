@@ -29,3 +29,5 @@ symlink ssh/config.local.d
 symlink ssh/allowed_signers
 
 symlink brew/brew.env ~/.homebrew/brew.env
+
+symlink codex/AGENTS.md
