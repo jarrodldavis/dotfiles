@@ -56,17 +56,19 @@ for volume in "${volumes[@]}"; do
     fi
 
     paths+=("$volume/_data")
+    echo "Including Docker volume: $volume/_data"
 done
 
-echo '==> Discovering host Codex directories...'
-
+echo '==> Discovering additional backup sources...'
+additional_dirs=(.codex .dotfiles git)
 for home_dir in /var/home/*; do
-    codex_dir="$home_dir/.codex"
-
-    if [[ -d "$codex_dir" ]]; then
-        paths+=("$codex_dir")
-        echo "Including Codex directory: $codex_dir"
-    fi
+    for dir in "${additional_dirs[@]}"; do
+        target="$home_dir/$dir"
+        if [[ -d "$target" ]]; then
+            paths+=("$target")
+            echo "Including directory: $target"
+        fi
+    done
 done
 
 echo "==> Backing up ${#paths[@]} paths..."
