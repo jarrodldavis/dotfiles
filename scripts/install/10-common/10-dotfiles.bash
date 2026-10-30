@@ -16,6 +16,8 @@ symlink gitconfigs/ssh.gitconfig
 
 symlink gitignore
 
+symlink bash/inputrc ~/.inputrc
+
 symlink gh/config.yml ~/.config/gh/config.yml
 # copy hosts config since it can contain auth tokens
 if [[ ! -e ~/.config/gh/hosts.yml ]]; then

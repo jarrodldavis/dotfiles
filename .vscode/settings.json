@@ -21,6 +21,7 @@
         "*.timer": "properties",
         "*.users": "properties",
         "gitignore": "ignore",
+        "inputrc": "shellscript",
         "root-backup-paths": "properties",
     },
 

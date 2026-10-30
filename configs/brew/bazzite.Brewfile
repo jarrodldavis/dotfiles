@@ -15,8 +15,6 @@ brew "inotify-tools"
 brew "jq"
 # Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
-# UNIX shell (command interpreter)
-brew "zsh"
 # Command-line interface for 1Password
 cask "ublue-os/tap/1password-cli-linux", trusted: true
 # Password manager that keeps all passwords secure behind one password

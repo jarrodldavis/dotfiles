@@ -22,7 +22,5 @@ brew "jq"
 brew "shellcheck"
 # Vi 'workalike' with many additional features
 brew "vim"
-# UNIX shell (command interpreter)
-brew "zsh"
 # OpenAI's coding agent that runs in your terminal
 cask "codex"

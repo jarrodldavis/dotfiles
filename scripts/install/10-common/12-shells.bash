@@ -54,6 +54,8 @@ ${end}"
   mv "$tmp" "$file"
 }
 
+log_substep 'Injecting shell configuration blocks...'
+
 ensure_source_block "$HOME/.zshenv"   env     "configs/zsh/env.zsh"
 ensure_source_block "$HOME/.zprofile" profile "configs/zsh/profile.zsh"
 ensure_source_block "$HOME/.zshrc"    rc      "configs/zsh/rc.zsh"

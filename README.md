@@ -19,7 +19,7 @@
 - git (for manual installation)
 - On Linux, all [Homebrew system requirements]
 
-Bash, Zsh, and curl are pre-installed on macOS.
+Bash and curl are pre-installed on macOS.
 
 ## Install
 
