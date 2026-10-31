@@ -1,0 +1,10 @@
+[Unit]
+Description=Check Vorta scheduler every five minutes
+
+[Timer]
+OnStartupSec=5min
+OnUnitInactiveSec=5min
+AccuracySec=30s
+
+[Install]
+WantedBy=timers.target

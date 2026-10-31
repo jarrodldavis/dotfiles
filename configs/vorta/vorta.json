@@ -7,10 +7,10 @@
         "name": "Local External Drive",
         "added_at": "2026-10-18 11:56:39.281522",
         "encryption": "repokey-blake2",
-        "unique_size": 68477075519,
+        "unique_size": null,
         "unique_csize": null,
-        "total_size": 826210460682,
-        "total_unique_chunks": 155488,
+        "total_size": null,
+        "total_unique_chunks": null,
         "create_backup_cmd": "",
         "extra_borg_arguments": ""
     },

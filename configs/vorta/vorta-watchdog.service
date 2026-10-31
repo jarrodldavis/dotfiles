@@ -1,0 +1,6 @@
+[Unit]
+Description=Check Vorta scheduler responsiveness
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/vorta-watchdog
