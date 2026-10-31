@@ -15,9 +15,10 @@ symlink brew/bazzite.Brewfile ~/.homebrew/Brewfile
 symlink vscode/settings.json ~/.config/Code/User/settings.json
 symlink vscode/keybindings.json ~/.config/Code/User/keybindings.json
 
-symlink systemd/steam-power-profile-watch.py ~/.local/bin/steam-power-profile-watch
-symlink systemd/steam-power-profile-watch.service ~/.config/systemd/user/steam-power-profile-watch.service
-symlink systemd/tang.container ~/.config/containers/systemd/tang.container
+symlink steam/power-profile-watch.py ~/.local/bin/steam-power-profile-watch
+symlink steam/power-profile-watch.service ~/.config/systemd/user/steam-power-profile-watch.service
+
+symlink tang/tang.container ~/.config/containers/systemd/tang.container
 
 ensure_dir ~/.local/share/tang
 
