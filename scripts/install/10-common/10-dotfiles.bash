@@ -3,7 +3,6 @@ set -euo pipefail
 # shellcheck source=scripts/helpers.bash
 source ~/.dotfiles/scripts/helpers.bash
 
-log_step 'Linking dotfiles...'
 log_substep 'Linking common dotfiles...'
 
 symlink ../../scripts/maintenance/pre-commit.bash ~/.dotfiles/.git/hooks/pre-commit

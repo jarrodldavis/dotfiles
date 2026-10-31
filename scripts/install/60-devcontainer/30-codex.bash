@@ -3,9 +3,8 @@ set -euo pipefail
 # shellcheck source=scripts/helpers.bash
 source ~/.dotfiles/scripts/helpers.bash
 
-log_step 'Configuring Codex Sandbox shim...'
+log_substep 'Configuring Codex Sandbox shim...'
 check_sudo
-
 cat ~/.dotfiles/configs/bwrap/shim.bash | \
     sed \
     -e "s|REPLACE_WITH_BREW_PREFIX|$(brew --prefix bubblewrap)|g" \

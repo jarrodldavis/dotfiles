@@ -3,7 +3,6 @@ set -euo pipefail
 # shellcheck source=scripts/helpers.bash
 source ~/.dotfiles/scripts/helpers.bash
 
-log_step 'Configuring 1Password...'
 check_sudo
 
 log_substep 'Copying Firefox integration config into Flatpak directory...'

@@ -3,8 +3,6 @@ set -euo pipefail
 # shellcheck source=scripts/helpers.bash
 source ~/.dotfiles/scripts/helpers.bash
 
-log_step 'Configuring shells...'
-
 ensure_source_block() {
   local file="$1"
   local name="$2"

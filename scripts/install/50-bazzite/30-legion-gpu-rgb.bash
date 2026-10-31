@@ -3,7 +3,7 @@ set -euo pipefail
 # shellcheck source=scripts/helpers.bash
 source ~/.dotfiles/scripts/helpers.bash
 
-log_step 'Configuring Lenovo Legion GPU RGB...'
+log_substep "Configuring Lenovo Legion GPU RGB services..."
 check_sudo
 
 install_executable systemd/legion-gpu-rgb-off.sh /usr/local/sbin/legion-gpu-rgb-off

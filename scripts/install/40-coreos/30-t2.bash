@@ -3,7 +3,6 @@ set -euo pipefail
 # shellcheck source=scripts/helpers.bash
 source ~/.dotfiles/scripts/helpers.bash
 
-log_step 'Configuring T2 Devices...'
 check_sudo
 
 log_substep 'Installing T2 Titan Ridge USB rules...'

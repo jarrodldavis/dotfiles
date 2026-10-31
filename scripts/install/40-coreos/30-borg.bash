@@ -3,7 +3,6 @@ set -euo pipefail
 # shellcheck source=scripts/helpers.bash
 source ~/.dotfiles/scripts/helpers.bash
 
-log_step 'Setting up systemd services for CoreOS Borg backups...'
 check_sudo
 
 install_executable borg/coreos-borg-backup.bash /usr/local/sbin/coreos-borg-backup

@@ -3,7 +3,7 @@ set -euo pipefail
 # shellcheck source=scripts/helpers.bash
 source ~/.dotfiles/scripts/helpers.bash
 
-log_step 'Configuring systemd...'
+log_substep 'Configuring systemd service...'
 systemctl --user --verbose daemon-reload
 systemctl --user --verbose restart tang.service
 

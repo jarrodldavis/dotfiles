@@ -3,7 +3,6 @@ set -euo pipefail
 # shellcheck source=scripts/helpers.bash
 source ~/.dotfiles/scripts/helpers.bash
 
-log_step 'Configuring Discord Distrobox...'
 check_sudo
 
 # shellcheck disable=SC1091
@@ -24,11 +23,11 @@ if podman container exists discord; then
 
     if [[ "$container_version" != "$fedora_version" ]]; then
         log_substep "Recreating Discord Distrobox: Fedora $container_version -> $fedora_version..."
-
         distrobox rm -f discord
         create_discord=1
     fi
 else
+    log_substep "Creating Discord Distrobox..."
     create_discord=1
 fi
 
@@ -41,6 +40,7 @@ if (( create_discord )); then
         --nvidia
 fi
 
+log_substep "Installing Discord in Distrobox..."
 # shellcheck disable=SC2016
 distrobox enter discord -- bash -lc '
     if ! rpm -q terra-release >/dev/null 2>&1; then
@@ -52,8 +52,8 @@ distrobox enter discord -- bash -lc '
     sudo dnf install -y discord
 '
 
+log_substep "Configuring autostart..."
 distrobox enter discord -- distrobox-export --app /usr/share/applications/discord.desktop
-
 symlink discord/discord-distrobox.bash ~/.local/bin/discord-distrobox
 copy discord/discord-discord.desktop ~/.local/share/applications/discord-discord.desktop
 copy discord/discord-minimized.desktop ~/.config/autostart/discord-minimized.desktop

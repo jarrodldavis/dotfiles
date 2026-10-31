@@ -3,8 +3,6 @@ set -euo pipefail
 # shellcheck source=scripts/helpers.bash
 source ~/.dotfiles/scripts/helpers.bash
 
-log_step 'Configuring 1Password SSH Agent...'
-
 SERVICE_NAME="com.1password.SSH_AUTH_SOCK"
 PLIST=~/Library/LaunchAgents/"$SERVICE_NAME".plist
 DOMAIN_TARGET="gui/$(id -u)"

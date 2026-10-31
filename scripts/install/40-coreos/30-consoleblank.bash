@@ -5,7 +5,6 @@ source ~/.dotfiles/scripts/helpers.bash
 
 TIMEOUT_MINUTES=1
 
-log_step 'Enabling console blanking...'
 check_sudo
 
 timeout_seconds=$((TIMEOUT_MINUTES * 60))
@@ -31,8 +30,6 @@ $have_wanted || args+=("--append-if-missing=$want")
 if ((${#args[@]})); then
     sudo rpm-ostree kargs "${args[@]}"
 fi
-
-log_success "Console blanking enabled!"
 
 log_info "Current session:"
 bat /sys/module/kernel/parameters/consoleblank

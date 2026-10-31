@@ -3,7 +3,6 @@ set -euo pipefail
 # shellcheck source=scripts/helpers.bash
 source ~/.dotfiles/scripts/helpers.bash
 
-log_step 'Configuring IPv6 localhost...'
 check_sudo
 
 # Disable IPv6 until Dev Containers support it correctly

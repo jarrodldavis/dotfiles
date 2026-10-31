@@ -69,6 +69,24 @@ resolve_install_targets echo
 log_info 'Discovered install scripts:'
 printf '%s\n' "${scripts[@]}"
 
+previous_phase=
+
 for script in "${scripts[@]}"; do
+    filename=${script##*/}
+    phase=${filename#*-}
+    phase=${phase%.bash}
+
+    if [[ -z "$previous_phase" ]]; then
+        log_step "Starting installation phase: $phase"
+    fi
+
+    if [[ -n "$previous_phase" && "$phase" != "$previous_phase" ]]; then
+        log_done "Finished installation phase: $previous_phase"
+        log_step "Starting installation phase: $phase"
+    fi
+
     "$script"
+    previous_phase=$phase
 done
+
+log_done "Finished installation phase: $previous_phase"

@@ -3,8 +3,6 @@ set -euo pipefail
 # shellcheck source=scripts/helpers.bash
 source ~/.dotfiles/scripts/helpers.bash
 
-log_step 'Configuring Vorta...'
-
 log_substep 'Configuring Vorta System Inventory...'
 check_sudo
 

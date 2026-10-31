@@ -3,8 +3,6 @@ set -euo pipefail
 # shellcheck source=scripts/helpers.bash
 source ~/.dotfiles/scripts/helpers.bash
 
-log_step 'Configuring GitHub CLI...'
-
 if ! command -v gh >/dev/null 2>&1; then
     log_warning 'GitHub CLI is not installed.'
     exit 0

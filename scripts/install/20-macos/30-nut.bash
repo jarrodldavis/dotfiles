@@ -3,7 +3,6 @@ set -euo pipefail
 # shellcheck source=scripts/helpers.bash
 source ~/.dotfiles/scripts/helpers.bash
 
-log_step 'Configuring NUT...'
 check_sudo
 
 USER=$(id -un)
@@ -122,5 +121,3 @@ until ups_status="$(upsc basement_ups@localhost ups.status 2>/dev/null)" &&
 done
 
 sudo launchctl bootstrap system /Library/LaunchDaemons/local.nut-monitor.plist
-
-log_success 'NUT installation and initialization complete!'
