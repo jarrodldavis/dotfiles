@@ -135,3 +135,52 @@ install_readonly_secret() {
     local helper="install_readonly_secret"
     install_with_mode 0440 "$@"
 }
+
+ensure_source_block() {
+  local file="$1"
+  local name="$2"
+  local target="$3"
+
+  local begin="# >>> dotfiles:${name} >>>"
+  local end="# <<< dotfiles:${name} <<<"
+
+  local block="${begin}
+export DOTFILES=\"\${DOTFILES:-\$HOME/.dotfiles}\"
+[[ -r \"\$DOTFILES/${target}\" ]] && source \"\$DOTFILES/${target}\"
+${end}"
+
+  mkdir -p "$(dirname -- "$file")"
+  touch "$file"
+
+  local tmp="${file}.tmp.$$"
+  local in_block=0
+  local found=0
+  local line
+
+  while IFS= read -r line || [[ -n "$line" ]]; do
+    if [[ "$line" == "$begin" ]]; then
+      found=1
+      in_block=1
+      printf '%s\n' "$block" >> "$tmp"
+      continue
+    fi
+
+    if (( in_block )); then
+      if [[ "$line" == "$end" ]]; then
+        in_block=0
+      fi
+      continue
+    fi
+
+    printf '%s\n' "$line" >> "$tmp"
+  done < "$file"
+
+  if (( ! found )); then
+    {
+      printf '\n'
+      printf '%s\n' "$block"
+    } >> "$tmp"
+  fi
+
+  mv "$tmp" "$file"
+}
