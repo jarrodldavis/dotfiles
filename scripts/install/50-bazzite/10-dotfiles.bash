@@ -17,6 +17,7 @@ symlink vscode/keybindings.json ~/.config/Code/User/keybindings.json
 
 symlink steam/power-profile-watch.py ~/.local/bin/steam-power-profile-watch
 symlink steam/power-profile-watch.service ~/.config/systemd/user/steam-power-profile-watch.service
+symlink steam/90-pressure-vessel.conf ~/.config/environment.d/90-pressure-vessel.conf
 
 symlink tang/tang.container ~/.config/containers/systemd/tang.container
 
