@@ -45,10 +45,6 @@ if [[ -z "$qgroup" ]]; then
     sudo snapper -c "$config" setup-quota
 fi
 
-log_substep 'Performing Snapper cleanup...'
-sudo snapper -c "$config" cleanup timeline
-sudo btrfs quota rescan -w "$subvolume"
-
 log_info 'Snapper Config:'
 sudo snapper -c "$config" get-config | grep -E '^(QGROUP|SPACE_LIMIT|FREE_LIMIT|TIMELINE_(CREATE|CLEANUP|MIN_AGE|LIMIT_))'
 
