@@ -1,0 +1,6 @@
+[Unit]
+Description=Apply monochrome itch tray icon
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/itch-monochrome-tray

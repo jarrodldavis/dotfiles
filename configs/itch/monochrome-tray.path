@@ -1,0 +1,9 @@
+[Unit]
+Description=Watch for itch application updates
+
+[Path]
+PathChanged=%h/.itch/state.json
+Unit=itch-monochrome-tray.service
+
+[Install]
+WantedBy=default.target

@@ -15,6 +15,7 @@
         "*.container": "properties",
         "*.gitconfig": "properties",
         "*.kwinrule": "ini",
+        "*.path": "properties",
         "*.plist": "xml",
         "*.service": "properties",
         "*.sshconfig": "ssh_config",
