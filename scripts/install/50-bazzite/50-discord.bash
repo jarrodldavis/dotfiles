@@ -3,8 +3,6 @@ set -euo pipefail
 # shellcheck source=scripts/helpers.bash
 source ~/.dotfiles/scripts/helpers.bash
 
-check_sudo
-
 # shellcheck disable=SC1091
 source /etc/os-release
 fedora_version="$VERSION_ID"
@@ -22,35 +20,37 @@ if podman container exists discord; then
     )
 
     if [[ "$container_version" != "$fedora_version" ]]; then
-        log_substep "Recreating Discord Distrobox: Fedora $container_version -> $fedora_version..."
+        log_substep "Recreating Distrobox container: Fedora $container_version -> $fedora_version..."
         distrobox rm -f discord
         create_discord=1
     fi
 else
-    log_substep "Creating Discord Distrobox..."
+    log_substep "Creating Distrobox container..."
     create_discord=1
 fi
 
 if (( create_discord )); then
+    # `set +x` in `--pre-init-hooks` is a workaround for the verbose logging
+    # that results in `distrobox create` stalling during nvidia integration.
+    # https://github.com/89luca89/distrobox/issues/1589#issuecomment-6460085750
+
     distrobox create \
         --yes \
         --pull \
         --name discord \
         --image "$discord_image" \
-        --nvidia
+        --nvidia \
+        --pre-init-hooks "set +x"
 fi
 
-log_substep "Installing Discord in Distrobox..."
-# shellcheck disable=SC2016
-distrobox enter discord -- bash -lc '
-    if ! rpm -q terra-release >/dev/null 2>&1; then
-        sudo dnf install -y --nogpgcheck \
-            --repofrompath "terra,https://repos.fyralabs.com/terra\$releasever" \
-            terra-release
-    fi
+log_substep "Starting Distrobox container..."
+distrobox enter discord -- bash -lc 'true'
 
-    sudo dnf install -y discord
-'
+log_substep "Setting up Discord repository..."
+distrobox enter discord -- bash "$HOME/.dotfiles/configs/discord/setup-repo.bash"
+
+log_substep "Installing Discord in Distrobox..."
+distrobox enter discord -- sudo dnf install -y --refresh discord
 
 log_substep "Configuring autostart..."
 distrobox enter discord -- distrobox-export --app /usr/share/applications/discord.desktop

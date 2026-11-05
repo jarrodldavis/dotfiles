@@ -1,0 +1,6 @@
+[discord-local]
+name=Discord official RPM (locally indexed)
+baseurl=file:///var/lib/discord-rpm-repo
+enabled=1
+gpgcheck=0
+metadata_expire=0
