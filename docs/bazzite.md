@@ -32,15 +32,6 @@ sudo vim /etc/fstab
 ```
 
 ## Btrfs Maintenance
-### Balance and Scrub
-Open Btrfs Assistant, and open the Btrfs maintenance tab.
-
-![Btrfs Assistant maintenance tab](Screenshot_20261105_095349.png)
-
-- Reset
-- Enable "Select All" for the mountpoints in Balance, Scrub, and (optionally) Defrag.
-- Apply
-
 ### Deduplication
 Run `ujust configure-beesd` and create a `bees` configuration for each Btrfs filesystem.
 
