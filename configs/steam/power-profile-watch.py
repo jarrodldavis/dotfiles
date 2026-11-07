@@ -4,8 +4,8 @@ import ctypes
 import os
 import re
 import signal
+import struct
 import sys
-import time
 from pathlib import Path
 
 from gi.repository import Gio, GLib
@@ -17,6 +17,11 @@ SCREENSAVER = 'org.freedesktop.ScreenSaver'
 SCREEN_OBJECT = '/org/freedesktop/ScreenSaver'
 PROPERTIES = 'org.freedesktop.DBus.Properties'
 TIMEOUT_MS = 5000
+IN_Q_OVERFLOW = 0x00004000
+IN_IGNORED = 0x00008000
+IN_DELETE_SELF = 0x00000400
+IN_MOVE_SELF = 0x00000800
+INOTIFY_EVENT = struct.Struct('iIII')
 
 
 def app_key(value):
@@ -43,7 +48,6 @@ class Monitor:
         self.games = {}
         self.conn = None
         self.cookie = None
-        self.next_retry = 0
         self.stream = None
         self.identity = None
         self.session = Gio.bus_get_sync(Gio.BusType.SESSION, None)
@@ -240,33 +244,35 @@ class Monitor:
             return GLib.SOURCE_REMOVE
         self.retry_sources[name] = GLib.timeout_add_seconds(seconds, retry)
 
-    def cancel_retries(self):
-        for source in self.retry_sources.values():
+    def cancel_retry(self, name):
+        source = self.retry_sources.pop(name, None)
+        if source is not None:
             GLib.source_remove(source)
-        self.retry_sources.clear()
+
+    def cancel_retries(self):
+        for name in list(self.retry_sources):
+            self.cancel_retry(name)
 
     def sync(self):
         active = bool(self.games)
         if active:
-            if self.cookie is None and time.monotonic() >= self.next_retry:
+            if self.cookie is None:
                 try:
                     self.connect_system()
                     result = self.call('HoldProfile', GLib.Variant(
                         '(sss)', ('performance', 'Steam game running', 'steam-power-profile-watch')
                     ), GLib.VariantType.new('(u)'))
                     self.cookie = result.unpack()[0]
+                    self.cancel_retry('profile')
                     print(f'Performance hold acquired (cookie={self.cookie}; games={len(self.games)})', flush=True)
                 except (GLib.Error, OSError) as exc:
                     print(f'Failed to acquire hold: {exc}', file=sys.stderr, flush=True)
                     self.close_connection()
-                    self.next_retry = time.monotonic() + 30
                     self.schedule_retry('profile', self.sync)
             return
 
         if self.cookie is not None:
             self.close_connection()
-        if time.monotonic() < self.next_retry:
-            return
         try:
             if self.locked is None:
                 return  # Unknown lock state: do not guess a power profile.
@@ -275,9 +281,9 @@ class Monitor:
             current = self.get_profile()
             if current != desired:
                 self.set_profile(desired)
+            self.cancel_retry('profile')
         except (GLib.Error, OSError) as exc:
             print(f'Failed to synchronize desktop power profile: {exc}', file=sys.stderr, flush=True)
-            self.next_retry = time.monotonic() + 30
             self.schedule_retry('profile', self.sync)
 
     def update_lock(self, locked):
@@ -298,7 +304,9 @@ class Monitor:
 
     def refresh_lock(self):
         try:
-            self.update_lock(self.screen_locked())
+            locked = self.screen_locked()
+            self.cancel_retry('lock')
+            self.update_lock(locked)
         except GLib.Error as exc:
             self.locked = None
             print(f'Failed to query KDE lock state: {exc}', file=sys.stderr, flush=True)
@@ -345,6 +353,7 @@ def main():
 
     monitor = Monitor()
     loop = GLib.MainLoop()
+    failed = False
     session = monitor.session
 
     # Subscribe before querying the initial state, avoiding a lost transition.
@@ -369,16 +378,40 @@ def main():
         monitor.sync()
 
     def on_inotify(channel, condition):
+        nonlocal failed
         if condition & (GLib.IO_HUP | GLib.IO_ERR | GLib.IO_NVAL):
             print('Steam inotify watch failed', file=sys.stderr, flush=True)
+            failed = True
             loop.quit()
             return GLib.SOURCE_REMOVE
         try:
-            while os.read(fd, 65536):
-                pass
-        except BlockingIOError:
-            pass
-        check_games()
+            overflow = False
+            invalidated = False
+            while True:
+                try:
+                    data = os.read(fd, 65536)
+                except BlockingIOError:
+                    break
+                if not data:
+                    break
+                offset = 0
+                while offset < len(data):
+                    _, mask, _, name_length = INOTIFY_EVENT.unpack_from(data, offset)
+                    offset += INOTIFY_EVENT.size + name_length
+                    overflow |= bool(mask & IN_Q_OVERFLOW)
+                    invalidated |= bool(mask & (IN_IGNORED | IN_DELETE_SELF | IN_MOVE_SELF))
+            if invalidated:
+                raise RuntimeError('Steam log directory watch was invalidated')
+            if overflow:
+                print('Steam inotify queue overflowed; rebuilding game state', file=sys.stderr, flush=True)
+                monitor.close_stream()
+                monitor.games.clear()
+            check_games()
+        except (OSError, RuntimeError, struct.error) as exc:
+            print(f'Steam inotify watcher failed: {exc}', file=sys.stderr, flush=True)
+            failed = True
+            loop.quit()
+            return GLib.SOURCE_REMOVE
         return GLib.SOURCE_CONTINUE
 
     def stop():
@@ -407,6 +440,9 @@ def main():
         session.signal_unsubscribe(owner_subscription)
         monitor.cleanup()
         os.close(fd)
+
+    if failed:
+        sys.exit(1)
 
 
 if __name__ == '__main__':
