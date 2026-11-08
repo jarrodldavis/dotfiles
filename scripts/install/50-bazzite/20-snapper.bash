@@ -9,7 +9,9 @@ config=root
 subvolume=/var/home
 
 log_substep 'Enabling snapshots...'
-ujust configure-snapshots enable
+if ! sudo snapper -c "$config" get-config &>/dev/null; then
+    sudo snapper -c "$config" create-config "$subvolume"
+fi
 
 configured_subvolume=$(sudo snapper -c "$config" get-config | awk '$1 == "SUBVOLUME" { print $3 }')
 if [[ "$configured_subvolume" != "$subvolume" ]]; then
@@ -17,7 +19,7 @@ if [[ "$configured_subvolume" != "$subvolume" ]]; then
     exit 1
 fi
 
-log_substep 'Updating snapshot timeline config...'
+log_substep 'Updating timeline config...'
 # Retain up to three units of the next-largest time interval:
 # 72 hourly snapshots (3 days), 21 daily snapshots (3 weeks), and 12 weekly snapshots (3 months).
 sudo snapper -c "$config" set-config \
@@ -37,6 +39,9 @@ sudo snapper -c "$config" set-config \
     'EMPTY_PRE_POST_CLEANUP=yes' \
     'EMPTY_PRE_POST_MIN_AGE=3600' \
     'QGROUP='
+
+log_substep 'Enabling timers...'
+sudo systemctl enable --now snapper-timeline.timer snapper-cleanup.timer
 
 log_info 'Snapper Config:'
 sudo snapper -c "$config" get-config
