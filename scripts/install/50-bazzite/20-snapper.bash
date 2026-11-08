@@ -18,15 +18,15 @@ if [[ "$configured_subvolume" != "$subvolume" ]]; then
 fi
 
 log_substep 'Updating snapshot timeline config...'
-# Normally retain up to three units of the next-largest time interval, with one unit as the space-aware minimum:
-# 24-72 hourly snapshots (1-3 days), 7-21 daily snapshots (1-3 weeks), and 4-12 weekly snapshots (1-3 months).
+# Retain up to three units of the next-largest time interval:
+# 72 hourly snapshots (3 days), 21 daily snapshots (3 weeks), and 12 weekly snapshots (3 months).
 sudo snapper -c "$config" set-config \
     'TIMELINE_CREATE=yes' \
     'TIMELINE_CLEANUP=yes' \
     'TIMELINE_MIN_AGE=1800' \
-    'TIMELINE_LIMIT_HOURLY=24-72' \
-    'TIMELINE_LIMIT_DAILY=7-21' \
-    'TIMELINE_LIMIT_WEEKLY=4-12' \
+    'TIMELINE_LIMIT_HOURLY=72' \
+    'TIMELINE_LIMIT_DAILY=21' \
+    'TIMELINE_LIMIT_WEEKLY=12' \
     'TIMELINE_LIMIT_MONTHLY=0' \
     'TIMELINE_LIMIT_QUARTERLY=0' \
     'TIMELINE_LIMIT_YEARLY=0' \
@@ -36,23 +36,7 @@ sudo snapper -c "$config" set-config \
     'NUMBER_MIN_AGE=1800' \
     'EMPTY_PRE_POST_CLEANUP=yes' \
     'EMPTY_PRE_POST_MIN_AGE=3600' \
-    'SPACE_LIMIT=0.25' \
-    'FREE_LIMIT=0.2'
-
-log_substep 'Setting up Snapper quotas...'
-qgroup=$(sudo snapper -c "$config" get-config | awk '$1 == "QGROUP" { print $3 }')
-if [[ -z "$qgroup" ]]; then
-    sudo snapper -c "$config" setup-quota
-fi
+    'QGROUP='
 
 log_info 'Snapper Config:'
-sudo snapper -c "$config" get-config | grep -E '^(QGROUP|SPACE_LIMIT|FREE_LIMIT|TIMELINE_(CREATE|CLEANUP|MIN_AGE|LIMIT_))'
-
-log_info 'Btrfs Quota Status:'
-sudo btrfs quota status "$subvolume"
-
-log_info 'Btrfs QGroup Info:'
-qgroup=$(sudo snapper -c "$config" get-config | awk '$1 == "QGROUP" { print $3 }')
-if [[ -n "$qgroup" ]]; then
-    sudo btrfs qgroup show -re "$subvolume" | awk -v qgroup="$qgroup" 'NR <= 2 || $1 == qgroup'
-fi
+sudo snapper -c "$config" get-config
