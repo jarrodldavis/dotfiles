@@ -48,6 +48,10 @@ cask "bonjeff"
 cask "chatgpt"
 # Chat client for https://twitch.tv
 cask "chatterino"
+# Anthropic's official Claude AI desktop app
+cask "claude"
+# Terminal-based AI coding assistant
+cask "claude-code"
 # Voice and text chat software
 cask "discord"
 # Companion app for scanner hardware
@@ -56,6 +60,8 @@ cask "doxie"
 cask "fastmail"
 # Web browser
 cask "firefox"
+# Web browser
+cask "firefox@developer-edition"
 # Web browser
 cask "google-chrome"
 # Discover, download, and run local LLMs
@@ -68,6 +74,8 @@ cask "mouseless"
 cask "raspberry-pi-imager"
 # Control your tools with a few keystrokes
 cask "raycast"
+# Minimal GUI for AI code agents
+cask "t3-code"
 # Time Machine log viewer & status inspector
 cask "thetimemachinemechanic"
 # Open-source code editor
