@@ -20,7 +20,7 @@ STATE_DIR="$BREW_PREFIX/var/state/ups"
 install_config() {
     case "$1" in
         /*) from="$1" ;;
-        *) from="$HOME/.dotfiles/configs/nut/$1" ;;
+        *) from="$HOME/.dotfiles/modules/nut/$1" ;;
     esac
     to="$2"
 
