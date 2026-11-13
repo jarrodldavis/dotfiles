@@ -15,10 +15,6 @@ fi
 
 symlink gh/extensions/gh-stack-pull ~/.local/share/gh/extensions/gh-stack-pull
 
-symlink ssh/base.sshconfig ~/.ssh/config
-symlink ssh/config.local.d
-symlink ssh/allowed_signers
-
 symlink brew/brew.env ~/.homebrew/brew.env
 
 symlink codex/AGENTS.md
