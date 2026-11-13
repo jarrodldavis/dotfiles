@@ -36,7 +36,7 @@ sudo vim /etc/fstab
 Run `ujust configure-beesd` and create a `bees` configuration for each Btrfs filesystem.
 
 ## Vorta
-Import settings from `~/.dotfiles/configs/vorta/vorta.json`.
+Import settings from `~/.dotfiles/modules/vorta/vorta.json`.
 
 ## Configure NextDNS
 https://my.nextdns.io
@@ -53,7 +53,7 @@ From the main Vorta window, click the "+" button to create a new profile.
 
 ![Vorta New Profile menu](Screenshot_20261011_130716.png)
 
-Import the `~/.dotfiles/configs/vorta/vorta.json` config.
+Import the `~/.dotfiles/modules/vorta/vorta.json` config.
 
 ## Configure Steam Game Recordings
 https://store.steampowered.com/gamerecording#:~:text=Where%20are%20my%20recordings
