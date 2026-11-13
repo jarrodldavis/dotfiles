@@ -7,7 +7,7 @@ SERVICE_NAME=local.caffeinate
 DOMAIN_TARGET="gui/$(id -u)"
 SERVICE_TARGET="$DOMAIN_TARGET/$SERVICE_NAME"
 PLIST="$HOME/Library/LaunchAgents/$SERVICE_NAME.plist"
-SOURCE="$HOME/.dotfiles/configs/caffeinate"
+SOURCE="$HOME/.dotfiles/modules/caffeinate"
 BINARY="$HOME/.local/bin/caffeinate-menubar"
 
 log_substep 'Compiling Caffeinate menu bar utility...'
