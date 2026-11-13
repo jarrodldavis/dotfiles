@@ -96,7 +96,7 @@ scripts for consistent logging output and installation target selection.
 [Homebrew Bundle] is used to record the CLI tools (Homebrew Formulae), GUI applications (Homebrew Casks, Flatpaks, and
 Mac App Store apps), and Visual Studio Code extensions that should be installed. To record the installation or removal
 of these system dependencies, update the appropriate system-specific `*.Brewfile` manifest using
-`~/.dotfiles/scripts/maintenance/update-homebrew-bundle.bash`.
+`~/.dotfiles/modules/homebrew/update-homebrew-bundle.bash`.
 
 ### Global `.gitignore`
 

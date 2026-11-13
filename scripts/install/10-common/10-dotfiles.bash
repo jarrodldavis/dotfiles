@@ -15,6 +15,4 @@ fi
 
 symlink gh/extensions/gh-stack-pull ~/.local/share/gh/extensions/gh-stack-pull
 
-symlink brew/brew.env ~/.homebrew/brew.env
-
 symlink codex/AGENTS.md

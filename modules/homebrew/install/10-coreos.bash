@@ -3,10 +3,11 @@ set -euo pipefail
 # shellcheck source=scripts/helpers.bash
 source ~/.dotfiles/scripts/helpers.bash
 
-log_substep 'Linking Fedora CoreOS dotfiles...'
+log_substep 'Linking CoreOS Homebrew configuration...'
 
-symlink brew/coreos.Brewfile ~/.Brewfile
-symlink brew/coreos.Brewfile ~/.homebrew/Brewfile
+module_dir="$HOME/.dotfiles/modules/homebrew"
+symlink "$module_dir/coreos.Brewfile" ~/.Brewfile
+symlink "$module_dir/coreos.Brewfile" ~/.homebrew/Brewfile
 
 # workaround for Homebrew's poor support for symlinked `/home` directories
 mkdir -pv "$(brew --prefix)/lib/docker/cli-plugins"
