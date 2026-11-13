@@ -3,6 +3,8 @@ set -euo pipefail
 # shellcheck source=scripts/helpers.bash
 source ~/.dotfiles/scripts/helpers.bash
 
+module_dir="$HOME/.dotfiles/modules/discord"
+
 # shellcheck disable=SC1091
 source /etc/os-release
 fedora_version="$VERSION_ID"
@@ -47,13 +49,13 @@ log_substep "Starting Distrobox container..."
 distrobox enter discord -- bash -lc 'true'
 
 log_substep "Setting up Discord repository..."
-distrobox enter discord -- bash "$HOME/.dotfiles/configs/discord/setup-repo.bash"
+distrobox enter discord -- bash "$module_dir/setup-repo.bash"
 
 log_substep "Installing Discord in Distrobox..."
 distrobox enter discord -- sudo dnf install -y --refresh discord
 
 log_substep "Configuring autostart..."
 distrobox enter discord -- distrobox-export --app /usr/share/applications/discord.desktop
-symlink discord/discord-distrobox.bash ~/.local/bin/discord-distrobox
-copy discord/discord-discord.desktop ~/.local/share/applications/discord-discord.desktop
-copy discord/discord-minimized.desktop ~/.config/autostart/discord-minimized.desktop
+symlink "$module_dir/discord-distrobox.bash" ~/.local/bin/discord-distrobox
+copy "$module_dir/discord-discord.desktop" ~/.local/share/applications/discord-discord.desktop
+copy "$module_dir/discord-minimized.desktop" ~/.config/autostart/discord-minimized.desktop
