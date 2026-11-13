@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+# Print install scripts in execution order. Arguments: repository root, targets.
+# Supports both scripts/install/NN-target/NN-name.bash and
+# modules/name/install/NN-target.bash during migration.
+
+discover_install_scripts() {
+    local root="$1" target dir script module output found number
+    shift
+
+    output=$(
+        for target in "$@"; do
+            found=0
+            for dir in "$root/scripts/install/"[0-9][0-9]-"$target"; do
+                [[ -d "$dir" ]] || continue
+
+                for script in "$dir"/[0-9][0-9]-*.bash; do
+                    [[ -e "$script" ]] || continue
+                    if [[ ! -x "$script" ]]; then
+                        printf 'Installation script is not executable: %s\n' "$script" >&2
+                        exit 1
+                    fi
+
+                    found=1
+                    printf '%s\t%s\t%s\n' \
+                        "$(basename "$script")" "$(basename "$dir")" "$script"
+                done
+            done
+
+            for script in "$root"/modules/*/install/[0-9][0-9]-"$target".bash; do
+                [[ -e "$script" ]] || continue
+                if [[ ! -x "$script" ]]; then
+                    printf 'Installation script is not executable: %s\n' "$script" >&2
+                    exit 1
+                fi
+
+                found=1
+                module=${script%/install/*}
+                module=${module##*/}
+                number=${script##*/}
+                number=${number%%-*}
+                # Sort as if the module's script had its legacy feature name.
+                # This preserves existing order when a feature is migrated.
+                printf '%s\t%s\t%s\n' \
+                    "${number}-${module}.bash" "${target}" "$script"
+            done
+
+            if (( ! found )); then
+                printf 'No installation scripts for target: %s\n' "$target" >&2
+                exit 1
+            fi
+        done
+    ) || return 1
+
+    if [[ -z "$output" ]]; then
+        printf 'No install scripts found.\n' >&2
+        return 1
+    fi
+
+    printf '%s\n' "$output" | sort -t $'\t' -k1,1 -k2,2 -k3,3 | cut -f3-
+}
