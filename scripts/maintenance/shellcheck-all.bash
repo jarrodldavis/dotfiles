@@ -10,10 +10,12 @@ cd ~/.dotfiles
 shopt -s globstar nullglob
 posix_like=()
 posix_like+=(configs/**/*.sh)
+posix_like+=(modules/**/*.sh)
 bash_like=()
 bash_like+=(install.bash)
 bash_like+=(scripts/**/*.bash)
 bash_like+=(configs/**/*.bash)
+bash_like+=(modules/**/*.bash)
 bash_like+=(configs/**/*.zsh)
 
 fail=0
