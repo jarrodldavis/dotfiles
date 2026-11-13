@@ -5,8 +5,6 @@ source ~/.dotfiles/scripts/helpers.bash
 
 log_substep 'Linking macOS dotfiles...'
 
-symlink gitconfigs/macos.gitconfig
-
 symlink ssh/macos.sshconfig ~/.ssh/config.d/macos
 
 symlink brew/macos.Brewfile ~/.Brewfile

@@ -2,7 +2,7 @@
 *.Brewfile                          linguist-language=ruby
 *.kwinrule                          linguist-language=conf
 *.sshconfig                         linguist-language=sshconfig
-configs/gitignore                   linguist-language=gitignore
+modules/git/gitignore               linguist-language=gitignore
 configs/nut/*.conf                  linguist-language=conf
 configs/nut/*.users                 linguist-language=conf
 *.path                              linguist-language=conf

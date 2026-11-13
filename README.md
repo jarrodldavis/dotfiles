@@ -100,8 +100,8 @@ of these system dependencies, update the appropriate system-specific `*.Brewfile
 
 ### Global `.gitignore`
 
-`configs/gitignore` can be updated to use the latest templates from [`github/gitignore`] using
-`~/.dotfiles/scripts/maintenance/update-global-gitignore.bash`.
+`modules/git/gitignore` can be updated to use the latest templates from [`github/gitignore`] using
+`~/.dotfiles/modules/git/update-global-gitignore.bash`.
 
 ### ShellCheck
 All shell scripts can be linted with [ShellCheck] using `~/.dotfiles/scripts/maintenance/shellcheck-all.bash`.

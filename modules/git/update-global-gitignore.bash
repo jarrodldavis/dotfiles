@@ -11,7 +11,7 @@ if ! command -v gibo >/dev/null 2>&1; then
 fi
 
 gibo update
-GITIGNORE_FILE="$HOME/.dotfiles/configs/gitignore"
+GITIGNORE_FILE="$HOME/.dotfiles/modules/git/gitignore"
 GITIGNORE_CONTENTS="$(cat "$GITIGNORE_FILE")"
 echo "$GITIGNORE_CONTENTS" | \
     sed -E -n 's|### https://raw.github.com/github/gitignore/[[:alnum:]]*/(Global/)?([[:alnum:]]*).gitignore|\2|gp' | \

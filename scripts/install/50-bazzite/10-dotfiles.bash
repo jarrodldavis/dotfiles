@@ -5,8 +5,6 @@ source ~/.dotfiles/scripts/helpers.bash
 
 log_substep 'Linking Bazzite dotfiles...'
 
-symlink gitconfigs/bazzite.gitconfig
-
 symlink ssh/bazzite.sshconfig ~/.ssh/config.d/bazzite
 
 symlink brew/bazzite.Brewfile ~/.Brewfile

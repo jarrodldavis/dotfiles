@@ -4,12 +4,16 @@
 # modules/name/install/NN-target.bash during migration.
 
 discover_install_scripts() {
-    local root="$1" target dir script module output found number
+    local root="$1" target dir script module output found number target_order target_index
     shift
 
     output=$(
+        target_index=0
         for target in "$@"; do
             found=0
+            # Keep the ordering supplied by resolve_install_targets.
+            target_order=$(printf '%08d' "$target_index")
+            ((target_index += 1))
             for dir in "$root/scripts/install/"[0-9][0-9]-"$target"; do
                 [[ -d "$dir" ]] || continue
 
@@ -22,7 +26,7 @@ discover_install_scripts() {
 
                     found=1
                     printf '%s\t%s\t%s\n' \
-                        "$(basename "$script")" "$(basename "$dir")" "$script"
+                        "$(basename "$script")" "$target_order" "$script"
                 done
             done
 
@@ -39,9 +43,8 @@ discover_install_scripts() {
                 number=${script##*/}
                 number=${number%%-*}
                 # Sort as if the module's script had its legacy feature name.
-                # This preserves existing order when a feature is migrated.
                 printf '%s\t%s\t%s\n' \
-                    "${number}-${module}.bash" "${target}" "$script"
+                    "${number}-${module}.bash" "$target_order" "$script"
             done
 
             if (( ! found )); then

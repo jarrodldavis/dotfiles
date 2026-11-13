@@ -5,16 +5,6 @@ source ~/.dotfiles/scripts/helpers.bash
 
 log_substep 'Linking common dotfiles...'
 
-symlink ../../scripts/maintenance/pre-commit.bash ~/.dotfiles/.git/hooks/pre-commit
-
-# isolate dotfiles-managed gitconfig from machine-specific settings
-symlink gitconfigs/base.gitconfig "${XDG_CONFIG_HOME:-$HOME/.config}/git/config"
-touch ~/.gitconfig
-
-symlink gitconfigs/ssh.gitconfig
-
-symlink gitignore
-
 symlink bash/inputrc ~/.inputrc
 
 symlink gh/config.yml ~/.config/gh/config.yml
