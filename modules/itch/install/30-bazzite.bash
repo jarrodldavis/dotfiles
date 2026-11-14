@@ -14,9 +14,9 @@ chmod +x "$download_path"
 "$download_path" --silent
 
 log_substep 'Making itch tray icon monochrome...'
-symlink itch/monochrome-tray.bash ~/.local/bin/itch-monochrome-tray
-symlink itch/monochrome-tray.service ~/.config/systemd/user/itch-monochrome-tray.service
-symlink itch/monochrome-tray.path ~/.config/systemd/user/itch-monochrome-tray.path
+symlink "$HOME/.dotfiles/modules/itch/monochrome-tray.bash" ~/.local/bin/itch-monochrome-tray
+symlink "$HOME/.dotfiles/modules/itch/monochrome-tray.service" ~/.config/systemd/user/itch-monochrome-tray.service
+symlink "$HOME/.dotfiles/modules/itch/monochrome-tray.path" ~/.config/systemd/user/itch-monochrome-tray.path
 systemctl --verbose --user daemon-reload
 systemctl --verbose --user enable --now itch-monochrome-tray.path
 systemctl --verbose --user start itch-monochrome-tray.service

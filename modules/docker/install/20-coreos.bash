@@ -84,7 +84,7 @@ fi
 log_substep 'Installing runc wrapper...'
 RUNTIME_NAME="runc-tun"
 RUNTIME_PATH="/usr/local/libexec/runc-tun"
-RUNTIME_SOURCE="$HOME/.dotfiles/configs/docker/runc-tun.py"
+RUNTIME_SOURCE="$HOME/.dotfiles/modules/docker/runc-tun.py"
 
 if ! cmp -s "$RUNTIME_SOURCE" "$RUNTIME_PATH"; then
     install_executable "$RUNTIME_SOURCE" "$RUNTIME_PATH"
