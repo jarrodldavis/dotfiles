@@ -32,7 +32,6 @@ cleanup_ssh() {
 }
 trap cleanup_ssh EXIT
 
-log_bell
 log_warning 'SSH access is required:'
 ssh -MNf "$repo_authority"
 
@@ -59,17 +58,20 @@ ssh "$repo_authority" bash -s < "$module_dir/restrict-borg-backup-key.bash"
 log_substep 'Initializing Borg repository on remote...'
 export BORG_EXIT_CODES=modern
 export BORG_RSH="ssh -i $HOME/.ssh/id_ed25519_borg -o IdentitiesOnly=yes -o BatchMode=yes -o ControlMaster=no -o ControlPath=none"
-borg --show-rc init --encryption=repokey-blake2 "ssh://$repo_authority/var/mnt/backup/coreos" || [[ $? -eq 10 ]]
+export BORG_REPO="ssh://$repo_authority/var/mnt/backup/coreos"
+borg --show-rc init --encryption=repokey-blake2 || [[ $? -eq 10 ]]
 
 log_substep 'Preparing credentials for system service...'
 install_secret /home/core/.ssh/id_ed25519_borg /etc/coreos-borg/ssh_key
 install_secret /home/core/.ssh/known_hosts /etc/coreos-borg/known_hosts
 printf '%s\n' "$repo_authority" | install_secret /dev/stdin /etc/coreos-borg/repo_authority
 
-log_bell
 log_warning 'Borg repo access is required:'
 read -rs -p 'Borg passphrase: ' passphrase
 printf '\n'
+BORG_PASSPHRASE="$passphrase" borg --show-rc info
+BORG_PASSPHRASE="$passphrase" borg --show-rc list
+
 printf '%s\n' "$passphrase" | install_secret /dev/stdin /etc/coreos-borg/passphrase
 unset passphrase
 
