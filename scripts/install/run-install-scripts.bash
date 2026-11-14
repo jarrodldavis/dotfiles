@@ -1,15 +1,39 @@
 log_step 'Collecting install scripts...'
-# shellcheck source=scripts/install/discover.bash
-source ~/.dotfiles/scripts/install/discover.bash
+
+discover_install_scripts() {
+    local target script module output number target_order target_index
+
+    target_index=0
+    for target in "$@"; do
+        # Keep the ordering supplied by resolve_install_targets.
+        target_order=$(printf '%08d' "$target_index")
+        ((target_index += 1))
+        for script in ~/.dotfiles/modules/*/install/[0-9][0-9]-"$target".bash; do
+            [[ -e "$script" ]] || continue
+
+            module=${script%/install/*}
+            module=${module##*/}
+            number=${script##*/}
+            number=${number%%-*}
+            # Sort by phase number and module name, then target priority.
+            printf '%s\t%s\t%s\n' \
+                "${number}-${module}.bash" "$target_order" "$script"
+        done
+    done
+}
 
 collect_install_scripts() {
     local -a discovered=()
     local script output
 
-    output=$(discover_install_scripts "$HOME/.dotfiles" "$@") || return 1
+    output=$(discover_install_scripts "$@")
+    if [[ -z "$output" ]]; then
+        log_fatal 'No install scripts found.'
+    fi
+
     while IFS= read -r script; do
         discovered+=("$script")
-    done <<< "$output"
+    done <<< "$(printf '%s\n' "$output" | sort -t $'\t' -k1,1 -k2,2 -k3,3 | cut -f3-)"
     scripts=("${discovered[@]}")
 }
 

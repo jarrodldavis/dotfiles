@@ -1,4 +1,4 @@
-set -euo pipefail
+set -Eeuo pipefail
 
 export DOTFILES_HELPERS_ONLY=1
 # shellcheck source=install.bash
@@ -66,9 +66,7 @@ get_link_paths() {
             to=$2
             ;;
         *)
-            # shellcheck disable=SC2016
-            printf 'error: invalid %s usage: expected `%s NAME [DESTINATION]`\n' "$helper" "$helper" >&2
-            return 2
+            log_fatal 'Too many arguments.'
             ;;
     esac
 
@@ -76,8 +74,7 @@ get_link_paths() {
         /*|./*|../*) from=$1 ;;
         *)
             if [[ -z "${module_dir:-}" ]]; then
-                printf 'error: module-relative source without module directory: %s\n' "$1" >&2
-                return 1
+                log_fatal "Module-relative source without module directory: $1"
             fi
             from="$module_dir/$1"
             ;;
@@ -89,27 +86,23 @@ get_link_paths() {
     esac
 
     if [[ ! -e "$from_check" ]]; then
-        printf 'error: source file does not exist: %s\n' "$from_check" >&2
-        return 1
+        log_fatal "Source file does not exist: $from_check"
     fi
 }
 
 symlink() {
-    local helper="symlink" from to
     get_link_paths "$@"
     ensure_dir "$(dirname "$to")"
     ln -vnfs "$from" "$to"
 }
 
 hardlink() {
-    local helper="hardlink" from to
     get_link_paths "$@"
     ensure_dir "$(dirname "$to")"
     ln -vnf "$from" "$to"
 }
 
 copy() {
-    local helper="copy" from to
     get_link_paths "$@"
     ensure_dir "$(dirname "$to")"
     cp -vf "$from" "$to"
@@ -121,8 +114,7 @@ install_with_mode() {
     mode="$1"
     case "$mode" in
         ''|*[!0-7]*)
-            printf 'error: invalid mode: %s\n' "$mode" >&2
-            return 1
+            log_fatal "Invalid mode: $mode"
             ;;
     esac
 
@@ -133,22 +125,18 @@ install_with_mode() {
 }
 
 install_config() {
-    local helper="install_config"
     install_with_mode 0644 "$@"
 }
 
 install_executable() {
-    local helper="install_executable"
     install_with_mode 0755 "$@"
 }
 
 install_secret() {
-    local helper="install_secret"
     install_with_mode 0600 "$@"
 }
 
 install_readonly_secret() {
-    local helper="install_readonly_secret"
     install_with_mode 0440 "$@"
 }
 
@@ -159,8 +147,7 @@ ensure_source_block() {
 
   if [[ "$target" != */* ]]; then
     if [[ -z "${module_dir:-}" ]]; then
-      printf 'error: module-relative source without module directory: %s\n' "$target" >&2
-      return 1
+      log_fatal "Module-relative source without module directory: $target"
     fi
     target="modules/${module_dir##*/}/$target"
   fi

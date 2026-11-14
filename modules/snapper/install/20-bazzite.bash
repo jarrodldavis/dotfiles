@@ -10,8 +10,7 @@ fi
 
 configured_subvolume=$(sudo snapper -c "$config" get-config | awk '$1 == "SUBVOLUME" { print $3 }')
 if [[ "$configured_subvolume" != "$subvolume" ]]; then
-    log_error "Snapper config '$config' targets '$configured_subvolume', expected '$subvolume'." >&2
-    exit 1
+    log_fatal "Snapper config '$config' targets '$configured_subvolume', expected '$subvolume'." >&2
 fi
 
 log_substep 'Updating timeline config...'

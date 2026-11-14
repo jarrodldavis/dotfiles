@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -Eeuo pipefail
 
 ##
 ## -- Helpers
@@ -57,11 +57,19 @@ log_success() {
 }
 
 log_warning() {
+    log_bell
     log "$yellow" "==>" "$@" >&2
 }
 
 log_error() {
+    log_bell
     log "$red"    "==>" "$@" >&2
+}
+
+log_fatal() {
+    log_error "$@"
+    print_stack_trace 2 "${BASH_LINENO[0]}"
+    exit 1
 }
 
 log_bell() {
@@ -70,11 +78,49 @@ log_bell() {
 
 check_sudo() {
     if ! sudo -n true 2>/dev/null; then
-        log_bell
         log_warning 'Sudo access is required:'
         sudo -v
     fi
 }
+
+format_source_path() {
+    local source=$1 resolved
+
+    resolved=$(realpath "$source" 2>/dev/null) || resolved=$source
+
+    if [[ $source == "$resolved" ]]; then
+        printf '%s' "$source"
+    else
+        printf '%s -> %s' "$source" "$resolved"
+    fi
+}
+
+print_stack_trace() {
+    local skip=$1 line=$2
+    local i
+
+    printf 'Stack trace:\n' >&2
+    for ((i = skip; i < ${#FUNCNAME[@]}; i++)); do
+        printf '  %s %s (%s:%s)\n' \
+            "$([[ $i -eq $skip ]] && printf 'at' || printf 'called by')" \
+            "${FUNCNAME[i]}" \
+            "$(format_source_path "${BASH_SOURCE[i]}")" \
+            "$line" >&2
+
+        line=${BASH_LINENO[i]}
+    done
+}
+
+print_error_trace() {
+    local status=$1 command=$2
+    printf '\n' >&2
+    printf 'Error: command failed with exit status %d\n' "$status" >&2
+    printf '  Command: %s\n' "$command" >&2
+    print_stack_trace 2 "${BASH_LINENO[0]}"
+    return "$status"
+}
+
+trap 'print_error_trace "$?" "$BASH_COMMAND"' ERR
 
 ##
 ## -- Options and Environment
@@ -96,8 +142,7 @@ case "$(uname)" in
         cat /etc/os-release
         ;;
     *)
-        log_error "Unsupported operating system: $(uname)"
-        exit 1
+        log_fatal "Unsupported operating system: $(uname)"
         ;;
 esac
 
