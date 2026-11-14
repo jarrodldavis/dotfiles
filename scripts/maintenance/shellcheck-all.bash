@@ -31,7 +31,7 @@ fail=0
 function check() {
     log_substep "Checking \`$file\` as \`$1\` script..."
 
-    if shellcheck -x -s "$1" "$2" ; then
+    if shellcheck -x -a -s "$1" "$2" ; then
         echo 'Script passed validation.'
     else
         fail=$((fail+1))
@@ -41,10 +41,10 @@ function check() {
 }
 
 function check_with_helpers() {
-    cat <<EOF | check bash -
+    check bash - <<EOF
 #!/usr/bin/env bash
 source scripts/helpers.bash
-source "$file"
+source $file
 EOF
 }
 
