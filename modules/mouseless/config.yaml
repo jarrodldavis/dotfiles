@@ -1,4 +1,4 @@
-app_version: 1.0.0
+app_version: 1.1.0
 behavior_configs:
 - base_move_speed: 5.0
   base_wheel_speed: 16.0
@@ -59,225 +59,212 @@ grid_configs:
   name: position_based_16_9
   nudges_per_cell: 4
   strategy: subgrid
-  subgrid_dims:
-  - 8
-  - 3
+  subgrid_cols: 8
   subgrid_mouse_action_keys: QWER UIOP ASDF JKL; ZXCV M,./
+  subgrid_rows: 3
 keyboard_layout:
-  id: com.apple.keylayout.US
-  name: U.S.
-  vk_to_char:
-    0:
-    - a
-    - A
-    1:
-    - s
-    - S
-    2:
-    - d
-    - D
-    3:
-    - f
-    - F
-    4:
-    - h
-    - H
-    5:
-    - g
-    - G
-    6:
-    - z
-    - Z
-    7:
-    - x
-    - X
-    8:
-    - c
-    - C
-    9:
-    - v
-    - V
-    10:
-    - "\xA7"
-    - "\xB1"
-    11:
-    - b
-    - B
-    12:
-    - q
-    - Q
-    13:
-    - w
-    - W
-    14:
-    - e
-    - E
-    15:
-    - r
-    - R
-    16:
-    - y
-    - Y
-    17:
-    - t
-    - T
-    18:
-    - '1'
-    - '!'
-    19:
-    - '2'
-    - '@'
-    20:
-    - '3'
-    - '#'
-    21:
-    - '4'
-    - $
-    22:
-    - '6'
-    - ^
-    23:
-    - '5'
-    - '%'
-    24:
-    - '='
-    - +
-    25:
-    - '9'
-    - (
-    26:
-    - '7'
-    - '&'
-    27:
-    - '-'
-    - _
-    28:
-    - '8'
-    - '*'
-    29:
-    - '0'
-    - )
-    30:
-    - ']'
-    - '}'
-    31:
-    - o
-    - O
-    32:
-    - u
-    - U
-    33:
-    - '['
-    - '{'
-    34:
-    - i
-    - I
-    35:
-    - p
-    - P
-    36: "\r"
-    37:
-    - l
-    - L
-    38:
-    - j
-    - J
-    39:
-    - ''''
-    - '"'
-    40:
-    - k
-    - K
-    41:
-    - ;
-    - ':'
-    42:
-    - \
-    - '|'
-    43:
-    - ','
-    - <
-    44:
-    - /
-    - '?'
-    45:
-    - n
-    - N
-    46:
-    - m
-    - M
-    47:
-    - .
-    - '>'
-    48: "\t"
-    49: ' '
-    50:
-    - '`'
-    - '~'
-    51: "\b"
-    52: "\x03"
-    53: "\e"
-    65: .
-    66:
-    - "\x1D"
-    - '*'
-    67: '*'
-    69: +
-    70:
-    - "\x1C"
-    - +
-    71: "\e"
-    72:
+  code_to_char:
+    ArrowDown: "\x1F"
+    ArrowLeft: "\x1C"
+    ArrowRight: "\x1D"
+    ArrowUp: "\x1E"
+    AudioVolumeUp:
     - "\x1F"
     - '='
-    75: /
-    76: "\x03"
-    77:
-    - "\x1E"
+    Backquote:
+    - '`'
+    - '~'
+    Backslash:
+    - \
+    - '|'
+    Backspace: "\b"
+    BracketLeft:
+    - '['
+    - '{'
+    BracketRight:
+    - ']'
+    - '}'
+    Comma:
+    - ','
+    - <
+    ContextMenu: "\x10"
+    Delete: "\x7F"
+    Digit0:
+    - '0'
+    - )
+    Digit1:
+    - '1'
+    - '!'
+    Digit2:
+    - '2'
+    - '@'
+    Digit3:
+    - '3'
+    - '#'
+    Digit4:
+    - '4'
+    - $
+    Digit5:
+    - '5'
+    - '%'
+    Digit6:
+    - '6'
+    - ^
+    Digit7:
+    - '7'
+    - '&'
+    Digit8:
+    - '8'
+    - '*'
+    Digit9:
+    - '9'
+    - (
+    End: "\x04"
+    Enter: "\r"
+    Equal:
+    - '='
+    - +
+    Escape: "\e"
+    F1: "\x10"
+    F10: "\x10"
+    F11: "\x10"
+    F12: "\x10"
+    F13: "\x10"
+    F14: "\x10"
+    F15: "\x10"
+    F16: "\x10"
+    F2: "\x10"
+    F3: "\x10"
+    F4: "\x10"
+    F5: "\x10"
+    F6: "\x10"
+    F7: "\x10"
+    F8: "\x10"
+    F9: "\x10"
+    Home: "\x01"
+    Insert: "\x05"
+    IntlBackslash:
+    - "\xA7"
+    - "\xB1"
+    KeyA:
+    - a
+    - A
+    KeyB:
+    - b
+    - B
+    KeyC:
+    - c
+    - C
+    KeyD:
+    - d
+    - D
+    KeyE:
+    - e
+    - E
+    KeyF:
+    - f
+    - F
+    KeyG:
+    - g
+    - G
+    KeyH:
+    - h
+    - H
+    KeyI:
+    - i
+    - I
+    KeyJ:
+    - j
+    - J
+    KeyK:
+    - k
+    - K
+    KeyL:
+    - l
+    - L
+    KeyM:
+    - m
+    - M
+    KeyN:
+    - n
+    - N
+    KeyO:
+    - o
+    - O
+    KeyP:
+    - p
+    - P
+    KeyQ:
+    - q
+    - Q
+    KeyR:
+    - r
+    - R
+    KeyS:
+    - s
+    - S
+    KeyT:
+    - t
+    - T
+    KeyU:
+    - u
+    - U
+    KeyV:
+    - v
+    - V
+    KeyW:
+    - w
+    - W
+    KeyX:
+    - x
+    - X
+    KeyY:
+    - y
+    - Y
+    KeyZ:
+    - z
+    - Z
+    Lang1: "\x10"
+    Lang2: "\x10"
+    Minus:
+    - '-'
+    - _
+    NumLock: "\e"
+    Numpad0: '0'
+    Numpad1: '1'
+    Numpad2: '2'
+    Numpad3: '3'
+    Numpad4: '4'
+    Numpad5: '5'
+    Numpad6: '6'
+    Numpad7: '7'
+    Numpad8: '8'
+    Numpad9: '9'
+    NumpadAdd: +
+    NumpadDecimal: .
+    NumpadDivide: /
+    NumpadEnter: "\x03"
+    NumpadEqual: '='
+    NumpadMultiply: '*'
+    NumpadSubtract: '-'
+    PageDown: "\f"
+    PageUp: "\v"
+    Period:
+    - .
+    - '>'
+    Quote:
+    - ''''
+    - '"'
+    Semicolon:
+    - ;
+    - ':'
+    Slash:
     - /
-    78: '-'
-    81: '='
-    82: '0'
-    83: '1'
-    84: '2'
-    85: '3'
-    86: '4'
-    87: '5'
-    88: '6'
-    89: '7'
-    91: '8'
-    92: '9'
-    96: "\x10"
-    97: "\x10"
-    98: "\x10"
-    99: "\x10"
-    100: "\x10"
-    101: "\x10"
-    102: "\x10"
-    103: "\x10"
-    104: "\x10"
-    105: "\x10"
-    106: "\x10"
-    107: "\x10"
-    108: "\x10"
-    109: "\x10"
-    110: "\x10"
-    111: "\x10"
-    112: "\x10"
-    113: "\x10"
-    114: "\x05"
-    115: "\x01"
-    116: "\v"
-    117: "\x7F"
-    118: "\x10"
-    119: "\x04"
-    120: "\x10"
-    121: "\f"
-    122: "\x10"
-    123: "\x1C"
-    124: "\x1D"
-    125: "\x1F"
-    126: "\x1E"
+    - '?'
+    Space: ' '
+    Tab: "\t"
+  id: com.apple.keylayout.US
+  name: U.S.
 keymaps:
 - entries:
     back click: null
