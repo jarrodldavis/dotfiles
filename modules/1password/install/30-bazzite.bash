@@ -16,7 +16,7 @@ jq --arg path "$dest_dir/$wrapper_script" '.path = $path' "$src_dir/$wrapper_con
 cat "$dest_dir/$wrapper_config"
 
 log_substep 'Allowlisting XDG Native Messaging Proxy...'
-install_config 1password/custom_allowed_browsers /etc/1password/custom_allowed_browsers
+install_config "$HOME/.dotfiles/modules/1password/custom_allowed_browsers" /etc/1password/custom_allowed_browsers
 
 log_substep 'Configuring Yama LSM...'
 # https://support.1password.com/linux-ptrace-scope-issue/
