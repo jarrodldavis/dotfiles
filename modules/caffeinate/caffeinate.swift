@@ -3,6 +3,7 @@ import IOKit.pwr_mgt
 
 final class CaffeinateApp: NSObject, NSMenuDelegate {
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+    private let defaults = UserDefaults(suiteName: "local.caffeinate-menubar")
     private var assertionID: IOPMAssertionID?
 
     private lazy var contextMenu: NSMenu = {
@@ -18,6 +19,9 @@ final class CaffeinateApp: NSObject, NSMenuDelegate {
         button.target = self
         button.action = #selector(clicked)
         button.sendAction(on: [.leftMouseUp, .rightMouseUp])
+        if defaults?.bool(forKey: "enabled") == true {
+            _ = setAssertionEnabled(true)
+        }
         updateIcon()
     }
 
@@ -39,14 +43,22 @@ final class CaffeinateApp: NSObject, NSMenuDelegate {
     }
 
     private func toggle() {
-        if let id = assertionID {
+        let enabled = assertionID == nil
+        guard setAssertionEnabled(enabled) else { return }
+        defaults?.set(enabled, forKey: "enabled")
+        updateIcon()
+    }
+
+    @discardableResult
+    private func setAssertionEnabled(_ enabled: Bool) -> Bool {
+        if !enabled, let id = assertionID {
             let result = IOPMAssertionRelease(id)
             guard result == kIOReturnSuccess else {
                 NSLog("Unable to release display sleep assertion: %d", result)
-                return
+                return false
             }
             assertionID = nil
-        } else {
+        } else if enabled, assertionID == nil {
             var id: IOPMAssertionID = 0
             let result = IOPMAssertionCreateWithName(
                 kIOPMAssertionTypeNoDisplaySleep as CFString,
@@ -56,11 +68,11 @@ final class CaffeinateApp: NSObject, NSMenuDelegate {
             )
             guard result == kIOReturnSuccess else {
                 NSLog("Unable to prevent display sleep: %d", result)
-                return
+                return false
             }
             assertionID = id
         }
-        updateIcon()
+        return true
     }
 
     private func updateIcon() {
@@ -71,10 +83,7 @@ final class CaffeinateApp: NSObject, NSMenuDelegate {
     }
 
     @objc private func quit() {
-        if let id = assertionID {
-            IOPMAssertionRelease(id)
-            assertionID = nil
-        }
+        setAssertionEnabled(false)
         NSApp.terminate(nil)
     }
 }
