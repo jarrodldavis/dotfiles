@@ -24,5 +24,27 @@
         "key": "cmd+k",
         "command": "-aipopup.action.modal.generate",
         "when": "editorFocus && !composerBarIsVisible"
+    },
+    {
+        "key": "down",
+        "command": "runCommands",
+        "when": "filesExplorerFocus && !inputFocus",
+        "args": {
+            "commands": [
+                "list.focusDown",
+                "filesExplorer.openFilePreserveFocus"
+            ]
+        }
+    },
+    {
+        "key": "up",
+        "command": "runCommands",
+        "when": "filesExplorerFocus && !inputFocus",
+        "args": {
+            "commands": [
+                "list.focusUp",
+                "filesExplorer.openFilePreserveFocus"
+            ]
+        }
     }
 ]
