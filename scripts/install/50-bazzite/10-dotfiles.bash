@@ -5,9 +5,6 @@ source ~/.dotfiles/scripts/helpers.bash
 
 log_substep 'Linking Bazzite dotfiles...'
 
-symlink vscode/settings.json ~/.config/Code/User/settings.json
-symlink vscode/keybindings.json ~/.config/Code/User/keybindings.json
-
 symlink tang/tang.container ~/.config/containers/systemd/tang.container
 
 ensure_dir ~/.local/share/tang

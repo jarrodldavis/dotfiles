@@ -5,7 +5,4 @@ source ~/.dotfiles/scripts/helpers.bash
 
 log_substep 'Linking macOS dotfiles...'
 
-symlink vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
-symlink vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
-
 symlink mouseless/config.yaml ~/Library/Application\ Support/Mouseless/configs/config.yaml
