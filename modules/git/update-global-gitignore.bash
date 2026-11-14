@@ -1,8 +1,3 @@
-#!/usr/bin/env bash
-set -euo pipefail
-# shellcheck source=scripts/helpers.bash
-source ~/.dotfiles/scripts/helpers.bash
-
 log_step 'Updating global gitignore...'
 
 if ! command -v gibo >/dev/null 2>&1; then

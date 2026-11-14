@@ -1,11 +1,6 @@
-#!/usr/bin/env bash
-set -euo pipefail
-# shellcheck source=scripts/helpers.bash
-source ~/.dotfiles/scripts/helpers.bash
+log_step 'Collecting install scripts...'
 # shellcheck source=scripts/install/discover.bash
 source ~/.dotfiles/scripts/install/discover.bash
-
-log_step 'Collecting install scripts...'
 
 collect_install_scripts() {
     local -a discovered=()
@@ -45,7 +40,7 @@ for script in "${scripts[@]}"; do
         log_step "Starting installation phase: $phase"
     fi
 
-    "$script"
+    bash "$script"
     previous_phase=$phase
 done
 

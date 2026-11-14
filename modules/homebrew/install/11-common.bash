@@ -1,8 +1,3 @@
-#!/usr/bin/env bash
-set -euo pipefail
-# shellcheck source=scripts/helpers.bash
-source ~/.dotfiles/scripts/helpers.bash
-
 if [[ -f ~/.Brewfile ]]; then
     if [[ -n "${DOTFILES_SKIP_MAS:-}" ]]; then
         log_substep "Collecting MAS apps to skip..."

@@ -14,10 +14,6 @@ discover_install_scripts() {
             ((target_index += 1))
             for script in "$root"/modules/*/install/[0-9][0-9]-"$target".bash; do
                 [[ -e "$script" ]] || continue
-                if [[ ! -x "$script" ]]; then
-                    printf 'Installation script is not executable: %s\n' "$script" >&2
-                    exit 1
-                fi
 
                 module=${script%/install/*}
                 module=${module##*/}

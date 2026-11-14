@@ -1,8 +1,3 @@
-#!/usr/bin/env bash
-set -euo pipefail
-# shellcheck source=scripts/helpers.bash
-source ~/.dotfiles/scripts/helpers.bash
-
 log_step 'Validating shell scripts...'
 
 cd ~/.dotfiles
@@ -10,10 +5,26 @@ cd ~/.dotfiles
 shopt -s globstar nullglob
 posix_like=()
 posix_like+=(modules/**/*.sh)
+
 bash_like=()
 bash_like+=(install.bash)
-bash_like+=(scripts/**/*.bash)
 bash_like+=(modules/**/*.bash)
+
+bash_like_helpers=()
+bash_like_helpers+=(scripts/**/*.bash)
+bash_like_helpers+=(modules/**/install/*.bash)
+bash_like_helpers+=(modules/git/update-global-gitignore.bash)
+bash_like_helpers+=(modules/homebrew/update-homebrew-bundle.bash)
+
+declare -A excluded=()
+for item in "${bash_like_helpers[@]}"; do
+    excluded["$item"]=1
+done
+filtered=()
+for item in "${bash_like[@]}"; do
+    [[ -v 'excluded[$item]' ]] || filtered+=("$item")
+done
+bash_like=("${filtered[@]}")
 
 fail=0
 
@@ -29,12 +40,24 @@ function check() {
     echo
 }
 
+function check_with_helpers() {
+    cat <<EOF | check bash -
+#!/usr/bin/env bash
+source scripts/helpers.bash
+source "$file"
+EOF
+}
+
 for file in "${posix_like[@]}"; do
     check sh "$file"
 done
 
 for file in "${bash_like[@]}"; do
     check bash "$file"
+done
+
+for file in "${bash_like_helpers[@]}"; do
+    check_with_helpers "$file"
 done
 
 if (( fail == 0 )); then

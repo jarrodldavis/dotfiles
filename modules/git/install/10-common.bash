@@ -1,8 +1,3 @@
-#!/usr/bin/env bash
-set -euo pipefail
-# shellcheck source=scripts/helpers.bash
-source ~/.dotfiles/scripts/helpers.bash
-
 log_substep 'Linking Git configuration...'
 symlink ../../scripts/maintenance/pre-commit.bash ~/.dotfiles/.git/hooks/pre-commit
 

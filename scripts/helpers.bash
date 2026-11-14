@@ -5,16 +5,12 @@ export DOTFILES_HELPERS_ONLY=1
 source ~/.dotfiles/install.bash
 
 # Module scripts can address their files relative to the module directory.
-module_script="${BASH_SOURCE[1]:-}"
-if [[ "$module_script" == */modules/*/install/*.bash ||
-      "$module_script" == modules/*/install/*.bash ]]; then
-    module_dir="${module_script%/install/*}"
-elif [[ "$module_script" == */modules/*/*.bash ||
-        "$module_script" == modules/*/*.bash ]]; then
-    module_dir="${module_script%/*}"
-fi
-if [[ -n "${module_dir:-}" ]]; then
-    [[ "$module_dir" == /* ]] || module_dir="$PWD/$module_dir"
+if module_script=$(realpath "$0" 2>/dev/null); then
+    if [[ "$module_script" == */modules/*/install/*.bash ]]; then
+        module_dir="${module_script%/install/*}"
+    elif [[ "$module_script" == */modules/*/*.bash ]]; then
+        module_dir="${module_script%/*}"
+    fi
 fi
 
 export BAT_STYLE="-grid"

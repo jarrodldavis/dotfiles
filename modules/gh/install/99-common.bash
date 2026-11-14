@@ -1,8 +1,3 @@
-#!/usr/bin/env bash
-set -euo pipefail
-# shellcheck source=scripts/helpers.bash
-source ~/.dotfiles/scripts/helpers.bash
-
 symlink config.yml ~/.config/gh/config.yml
 # copy hosts config since it can contain auth tokens
 if [[ ! -e ~/.config/gh/hosts.yml ]]; then

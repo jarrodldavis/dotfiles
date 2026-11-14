@@ -165,6 +165,7 @@ git -C ~/.dotfiles remote set-url --push origin git@github.com:jarrodldavis/dotf
 ## -- Main Installers
 ##
 
-~/.dotfiles/scripts/install/run-install-scripts.bash
+export BASH_ENV="$HOME/.dotfiles/scripts/env.bash"
+bash ~/.dotfiles/scripts/install/run-install-scripts.bash
 
 log_done 'Dotfiles installation complete!'

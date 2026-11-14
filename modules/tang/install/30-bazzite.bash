@@ -1,8 +1,3 @@
-#!/usr/bin/env bash
-set -euo pipefail
-# shellcheck source=scripts/helpers.bash
-source ~/.dotfiles/scripts/helpers.bash
-
 symlink tang.container ~/.config/containers/systemd/tang.container
 ensure_dir ~/.local/share/tang
 

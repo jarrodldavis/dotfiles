@@ -1,8 +1,3 @@
-#!/usr/bin/env bash
-set -euo pipefail
-# shellcheck source=scripts/helpers.bash
-source ~/.dotfiles/scripts/helpers.bash
-
 # shellcheck disable=SC1091
 source /etc/os-release
 fedora_version="$VERSION_ID"
@@ -47,7 +42,7 @@ log_substep "Starting Distrobox container..."
 distrobox enter discord -- bash -lc 'true'
 
 log_substep "Setting up Discord repository..."
-distrobox enter discord -- bash "$module_dir/setup-repo.bash"
+distrobox enter discord -- "$module_dir/setup-repo.bash"
 
 log_substep "Installing Discord in Distrobox..."
 distrobox enter discord -- sudo dnf install -y --refresh discord

@@ -1,8 +1,3 @@
-#!/usr/bin/env bash
-set -euo pipefail
-# shellcheck source=scripts/helpers.bash
-source ~/.dotfiles/scripts/helpers.bash
-
 SERVICE_NAME=local.caffeinate
 DOMAIN_TARGET="gui/$(id -u)"
 SERVICE_TARGET="$DOMAIN_TARGET/$SERVICE_NAME"

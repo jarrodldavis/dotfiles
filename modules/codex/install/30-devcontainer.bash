@@ -1,8 +1,3 @@
-#!/usr/bin/env bash
-set -euo pipefail
-# shellcheck source=scripts/helpers.bash
-source ~/.dotfiles/scripts/helpers.bash
-
 log_substep 'Configuring Codex Sandbox shim...'
 check_sudo
 cat "$module_dir/bwrap-shim.bash" | \

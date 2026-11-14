@@ -1,8 +1,3 @@
-#!/usr/bin/env bash
-set -euo pipefail
-# shellcheck source=scripts/helpers.bash
-source ~/.dotfiles/scripts/helpers.bash
-
 SERVICE_NAME="com.1password.SSH_AUTH_SOCK"
 PLIST=~/Library/LaunchAgents/"$SERVICE_NAME".plist
 DOMAIN_TARGET="gui/$(id -u)"

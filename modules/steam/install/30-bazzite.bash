@@ -1,8 +1,3 @@
-#!/usr/bin/env bash
-set -euo pipefail
-# shellcheck source=scripts/helpers.bash
-source ~/.dotfiles/scripts/helpers.bash
-
 log_substep 'Linking Steam configuration...'
 symlink power-profile-watch.py ~/.local/bin/steam-power-profile-watch
 symlink power-profile-watch.service ~/.config/systemd/user/steam-power-profile-watch.service
