@@ -1,4 +1,4 @@
-# shellcheck disable=SC1091
+# shellcheck source=/dev/null
 source /etc/os-release
 fedora_version="$VERSION_ID"
 
