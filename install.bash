@@ -186,7 +186,7 @@ EOF
 } | NONINTERACTIVE=1 bash
 
 # shellcheck source=/dev/null
-. "$BREW_SHELLENV"
+source "$BREW_SHELLENV"
 eval "$("$HOMEBREW_PREFIX"/bin/brew shellenv)"
 brew completions link
 

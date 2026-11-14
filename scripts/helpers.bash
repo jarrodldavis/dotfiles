@@ -26,7 +26,7 @@ resolve_install_targets() {
     else
         if [[ -f /etc/os-release ]]; then
             # shellcheck source=/dev/null
-            . /etc/os-release
+            source /etc/os-release
         fi
 
         targets+=(linux)
