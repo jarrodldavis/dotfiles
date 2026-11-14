@@ -5,4 +5,4 @@ source ~/.dotfiles/scripts/helpers.bash
 
 log_substep 'Injecting Bazzite shell configuration blocks...'
 
-ensure_source_block "$HOME/.bashrc" rc.bazzite "modules/bash/rc.bazzite.bash"
+ensure_source_block "$HOME/.bashrc" rc.bazzite rc.bazzite.bash

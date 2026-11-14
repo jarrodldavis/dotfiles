@@ -5,6 +5,8 @@ source ~/.dotfiles/scripts/helpers.bash
 
 check_sudo
 
+log_substep 'Enabling Distrobox updates in uupd...'
+
 tmp="$(mktemp)"
 jq -s '.[0] // {} | .modules.distrobox.disable = false' \
     < <(cat /etc/uupd/config.json 2>/dev/null || true) > "$tmp"

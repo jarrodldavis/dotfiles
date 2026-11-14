@@ -4,6 +4,19 @@ export DOTFILES_HELPERS_ONLY=1
 # shellcheck source=install.bash
 source ~/.dotfiles/install.bash
 
+# Module scripts can address their files relative to the module directory.
+module_script="${BASH_SOURCE[1]:-}"
+if [[ "$module_script" == */modules/*/install/*.bash ||
+      "$module_script" == modules/*/install/*.bash ]]; then
+    module_dir="${module_script%/install/*}"
+elif [[ "$module_script" == */modules/*/*.bash ||
+        "$module_script" == modules/*/*.bash ]]; then
+    module_dir="${module_script%/*}"
+fi
+if [[ -n "${module_dir:-}" ]]; then
+    [[ "$module_dir" == /* ]] || module_dir="$PWD/$module_dir"
+fi
+
 export BAT_STYLE="-grid"
 export BAT_PAGING="never"
 export GIT_CONFIG_PARAMETERS="'delta.paging'='never' 'delta.width'='variable' 'delta.side-by-side'='false'"
@@ -48,22 +61,29 @@ ensure_dir() {
 }
 
 get_link_paths() {
+    local from_check
     case $# in
         1)
-            from="$HOME/.dotfiles/configs/$1"
             to="$HOME/.$1"
             ;;
         2)
-            case $1 in
-                /*|./*|../*) from=$1 ;;
-                *)           from="$HOME/.dotfiles/configs/$1" ;;
-            esac
             to=$2
             ;;
         *)
             # shellcheck disable=SC2016
             printf 'error: invalid %s usage: expected `%s NAME [DESTINATION]`\n' "$helper" "$helper" >&2
             return 2
+            ;;
+    esac
+
+    case $1 in
+        /*|./*|../*) from=$1 ;;
+        *)
+            if [[ -z "${module_dir:-}" ]]; then
+                printf 'error: module-relative source without module directory: %s\n' "$1" >&2
+                return 1
+            fi
+            from="$module_dir/$1"
             ;;
     esac
 
@@ -140,6 +160,14 @@ ensure_source_block() {
   local file="$1"
   local name="$2"
   local target="$3"
+
+  if [[ "$target" != */* ]]; then
+    if [[ -z "${module_dir:-}" ]]; then
+      printf 'error: module-relative source without module directory: %s\n' "$target" >&2
+      return 1
+    fi
+    target="modules/${module_dir##*/}/$target"
+  fi
 
   local begin="# >>> dotfiles:${name} >>>"
   local end="# <<< dotfiles:${name} <<<"

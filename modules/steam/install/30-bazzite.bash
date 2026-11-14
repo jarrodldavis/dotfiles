@@ -4,10 +4,9 @@ set -euo pipefail
 source ~/.dotfiles/scripts/helpers.bash
 
 log_substep 'Linking Steam configuration...'
-module_dir="$HOME/.dotfiles/modules/steam"
-symlink "$module_dir/power-profile-watch.py" ~/.local/bin/steam-power-profile-watch
-symlink "$module_dir/power-profile-watch.service" ~/.config/systemd/user/steam-power-profile-watch.service
-symlink "$module_dir/90-pressure-vessel.conf" ~/.config/environment.d/90-pressure-vessel.conf
+symlink power-profile-watch.py ~/.local/bin/steam-power-profile-watch
+symlink power-profile-watch.service ~/.config/systemd/user/steam-power-profile-watch.service
+symlink 90-pressure-vessel.conf ~/.config/environment.d/90-pressure-vessel.conf
 
 log_substep 'Configuring shader background processing threads...'
 mkdir -pv ~/.local/share/Steam

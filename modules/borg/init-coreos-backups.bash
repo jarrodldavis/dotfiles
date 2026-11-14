@@ -54,7 +54,7 @@ log_substep 'Uploading new Borg SSH key to remote...'
 ssh-copy-id -f -i ~/.ssh/id_ed25519_borg.pub "$repo_authority"
 
 log_substep 'Editing authorized_keys to restrict backup SSH key to Borg...'
-ssh "$repo_authority" bash -s < ~/.dotfiles/modules/borg/restrict-borg-backup-key.bash
+ssh "$repo_authority" bash -s < "$module_dir/restrict-borg-backup-key.bash"
 
 log_substep 'Initializing Borg repository on remote...'
 export BORG_EXIT_CODES=modern

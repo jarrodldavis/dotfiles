@@ -4,4 +4,4 @@ set -euo pipefail
 source ~/.dotfiles/scripts/helpers.bash
 
 log_substep 'Linking Borg backup server helper...'
-symlink "$HOME/.dotfiles/modules/borg/backup-server.bash" ~/.local/bin/borg-backup-server
+symlink backup-server.bash ~/.local/bin/borg-backup-server

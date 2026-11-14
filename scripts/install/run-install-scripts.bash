@@ -31,7 +31,10 @@ previous_phase=
 
 for script in "${scripts[@]}"; do
     module=${script%/install/*}
-    phase=${module##*/}
+    module_name=${module##*/}
+    filename=${script##*/}
+    phase_number=${filename%%-*}
+    phase="${phase_number}-${module_name}"
 
     if [[ -z "$previous_phase" ]]; then
         log_step "Starting installation phase: $phase"

@@ -8,6 +8,8 @@ check_sudo
 # Disable IPv6 until Dev Containers support it correctly
 # https://github.com/microsoft/vscode-remote-release/issues/7029
 
+log_substep 'Disabling IPv6 localhost in Dev Container hosts file...'
+
 hosts=/etc/hosts
 
 tmp=$(mktemp)

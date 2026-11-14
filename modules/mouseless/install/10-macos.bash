@@ -5,4 +5,4 @@ source ~/.dotfiles/scripts/helpers.bash
 
 log_substep 'Linking Mouseless configuration...'
 
-symlink "$HOME/.dotfiles/modules/mouseless/config.yaml" ~/Library/Application\ Support/Mouseless/configs/config.yaml
+symlink config.yaml ~/Library/Application\ Support/Mouseless/configs/config.yaml

@@ -6,9 +6,9 @@ source ~/.dotfiles/scripts/helpers.bash
 log_substep "Configuring Lenovo Legion GPU RGB services..."
 check_sudo
 
-install_executable "$HOME/.dotfiles/modules/legion-gpu-rgb/off.sh" /usr/local/sbin/legion-gpu-rgb-off
-install_config "$HOME/.dotfiles/modules/legion-gpu-rgb/off-boot.service" /etc/systemd/system/legion-gpu-rgb-off-boot.service
-install_config "$HOME/.dotfiles/modules/legion-gpu-rgb/off-resume.service" /etc/systemd/system/legion-gpu-rgb-off-resume.service
+install_executable off.sh /usr/local/sbin/legion-gpu-rgb-off
+install_config off-boot.service /etc/systemd/system/legion-gpu-rgb-off-boot.service
+install_config off-resume.service /etc/systemd/system/legion-gpu-rgb-off-resume.service
 
 sudo systemctl --verbose daemon-reload
 sudo systemctl --verbose enable --now legion-gpu-rgb-off-boot.service

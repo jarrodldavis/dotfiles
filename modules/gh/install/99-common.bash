@@ -3,15 +3,13 @@ set -euo pipefail
 # shellcheck source=scripts/helpers.bash
 source ~/.dotfiles/scripts/helpers.bash
 
-module_dir="$HOME/.dotfiles/modules/gh"
-
-symlink "$module_dir/config.yml" ~/.config/gh/config.yml
+symlink config.yml ~/.config/gh/config.yml
 # copy hosts config since it can contain auth tokens
 if [[ ! -e ~/.config/gh/hosts.yml ]]; then
-    copy "$module_dir/hosts.yml" ~/.config/gh/hosts.yml
+    copy hosts.yml ~/.config/gh/hosts.yml
 fi
 
-symlink "$module_dir/extensions/gh-stack-pull" ~/.local/share/gh/extensions/gh-stack-pull
+symlink extensions/gh-stack-pull ~/.local/share/gh/extensions/gh-stack-pull
 
 if ! command -v gh >/dev/null 2>&1; then
     log_warning 'GitHub CLI is not installed.'
