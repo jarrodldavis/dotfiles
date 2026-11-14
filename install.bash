@@ -210,6 +210,11 @@ git -C ~/.dotfiles remote set-url --push origin git@github.com:jarrodldavis/dotf
 ## -- Main Installers
 ##
 
+if [[ "$(uname)" == "Darwin" ]]; then
+    log_step 'Installing modern Bash...'
+    brew install --force --verbose --yes --overwrite bash
+fi
+
 export BASH_ENV="$HOME/.dotfiles/scripts/env.bash"
 bash ~/.dotfiles/scripts/install/run-install-scripts.bash
 
