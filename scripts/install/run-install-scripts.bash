@@ -30,14 +30,8 @@ printf '%s\n' "${scripts[@]}"
 previous_phase=
 
 for script in "${scripts[@]}"; do
-    if [[ "$script" == "$HOME/.dotfiles/modules/"*/install/* ]]; then
-        module=${script%/install/*}
-        phase=${module##*/}
-    else
-        filename=${script##*/}
-        phase=${filename#*-}
-        phase=${phase%.bash}
-    fi
+    module=${script%/install/*}
+    phase=${module##*/}
 
     if [[ -z "$previous_phase" ]]; then
         log_step "Starting installation phase: $phase"
