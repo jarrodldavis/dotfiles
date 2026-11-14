@@ -13,9 +13,8 @@ GRANTS=(
 )
 GRANTS_CSV=$(IFS=,; printf '%s' "${GRANTS[*]}")
 
-op item get "$(scutil --get ComputerName)" --fields label=password --reveal |
-    sudo --validate --stdin
-echo
+export SUDO_ASKPASS=~/.dotfiles/modules/1password/askpass.bash
+sudo -A --validate
 
 smb_paths=()
 while IFS= read -r smb_path; do
