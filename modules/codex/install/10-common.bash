@@ -3,6 +3,6 @@ set -euo pipefail
 # shellcheck source=scripts/helpers.bash
 source ~/.dotfiles/scripts/helpers.bash
 
-log_substep 'Linking common dotfiles...'
+log_substep 'Linking Codex configuration...'
 
-symlink codex/AGENTS.md
+symlink "$HOME/.dotfiles/modules/codex/AGENTS.md" ~/.codex/AGENTS.md

@@ -5,7 +5,7 @@ source ~/.dotfiles/scripts/helpers.bash
 
 log_substep 'Configuring Codex Sandbox shim...'
 check_sudo
-cat ~/.dotfiles/configs/bwrap/shim.bash | \
+cat ~/.dotfiles/modules/codex/bwrap-shim.bash | \
     sed \
     -e "s|REPLACE_WITH_BREW_PREFIX|$(brew --prefix bubblewrap)|g" \
     | sudo tee /usr/local/bin/bwrap > /dev/null
