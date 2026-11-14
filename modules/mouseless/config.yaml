@@ -4,12 +4,15 @@ behavior_configs:
   base_wheel_speed: 16.0
   default_mouse_action: click
   free_mode_after_move: false
-  free_mode_auto_off_s: 10
+  free_mode_auto_off_s: 0
   grid_action_level: subgrid
   hide_cursor_on_click: false
   hide_location: bottom_left
   initial_action_location: system_cursor
   initial_overlay_monitor: with_mouse
+  label_chars: ASDFGHJKLXCVBN
+  label_menu_bar: true
+  modifier_tap_mask_key: auto
   mouse_value_cycle_behavior: once
   move_duration_ms: 100
   move_real_cursor_with_virtual: false
@@ -24,6 +27,7 @@ behavior_configs:
   wheel_step_size: 100.0
   wheel_step_size_large: 500.0
 classname: AppConfig
+custom_actions: []
 custom_monitor_assignments: []
 custom_mouse_scaling: 1.0
 custom_mouse_screen_offset_scaling: 1.0
@@ -33,34 +37,37 @@ display_input: none
 event_tap_location: hid_head
 excluded_input_devices: []
 general_settings:
+  app_window_theme: system
   automatically_check_for_updates: true
   check_for_preview_releases: false
+  has_enabled_accessibility_for_label_mode__linux: false
   hide_welcome_screen: false
-  ignore_update_to_version: null
+  ignore_update_to_version: ''
 grid_configs:
 - always_show_subgrid: false
   grid_defn:
   - border_width: 0.0
     callback: build_cell_strings
-    keys: QWERT ASDFG ZXCVB YUIOP HJKL; NM,./
-    num_cells_x: 5
-    num_cells_y: 6
+    keys: ASDFG HJKL;
+    num_cells_x: 10
+    num_cells_y: 1
   - border_width: 1.0
     callback: build_cell_strings
-    keys: ''
-    num_cells_x: 5
-    num_cells_y: 6
+    keys: QWERT YUIOP ASDFG HJKL; ZXCVB NM,./
+    num_cells_x: 1
+    num_cells_y: 30
   - border_width: 0.0
     callback: apply_strings_and_subgrid_to_cells
     keys: ''
     num_cells_x: 2
     num_cells_y: 1
   hold_subgrid_key_for_nudge: false
-  name: position_based_16_9
+  name: position_based_columns
   nudges_per_cell: 4
+  reverse_level_2_keys_on_right: false
   strategy: subgrid
-  subgrid_cols: 8
-  subgrid_mouse_action_keys: QWER UIOP ASDF JKL; ZXCV M,./
+  subgrid_cols: 10
+  subgrid_mouse_action_keys: QWERT YUIOP ASDFG HJKL; ZXCVB NM,./
   subgrid_rows: 3
 keyboard_layout:
   code_to_char:
@@ -268,7 +275,7 @@ keyboard_layout:
 keymaps:
 - entries:
     back click: null
-    back mouse button: W
+    back mouse button: Q
     back mouse button (w/o overlay): null
     clear keyboard state: null
     close UI element: Escape
@@ -281,14 +288,16 @@ keymaps:
     decrease overlay opacity: ArrowDown
     edit config: Tab
     enter free mode: null
+    enter label mode: null
     execute mouse action: Space
     execute mouse move: OptionLeft tap
-    exit free mode: null
+    exit free mode: Escape
+    exit label mode: null
     force overlay resize: null
     forward click: null
-    forward mouse button: Q
+    forward mouse button: W
     forward mouse button (w/o overlay): null
-    hide overlay: null
+    hide overlay: Escape
     hold for back button: null
     hold for drag: CommandLeft
     hold for forward button: null
@@ -322,7 +331,7 @@ keymaps:
     right click: null
     right mouse button: R
     right mouse button (w/o overlay): null
-    show overlay: null
+    show overlay: CommandLeft tap
     subgrid nudge down:
     - D
     - K
@@ -340,8 +349,9 @@ keymaps:
     toggle app enabled: null
     toggle continuous mode: null
     toggle continuous mode until closed: '1'
-    toggle free mode: null
-    toggle overlay: Alt+Shift+Ctrl+Cmd
+    toggle free mode: OptionLeft tap
+    toggle label mode: shift+CommandLeft tap
+    toggle overlay: null
     toggle overlay lock: null
     undo last key: Backspace
     wheel down: ','
@@ -377,22 +387,30 @@ style_configs:
   background_colors:
   - - 0.49
     - 0.4
-    - 0.0
+    - 0
     - 0.35
   bg_color_block_size: 1
   bg_color_transforms_level_1:
   - - hsla_add
-    - 0.0
-    - 0.0
-    - 0.0
-    - 0.0
+    - 0
+    - 0
+    - 0
+    - 0
   bg_color_transforms_level_2:
   - - hsla_add
-    - 0.0
-    - 0.0
-    - 0.0
-    - 0.0
+    - 0
+    - 0
+    - 0
+    - 0
   char_anchor: center
+  char_bg_height: 1.1
+  char_bg_rgba:
+  - 0.019826042486628146
+  - 0.039962006472555246
+  - 0.06013461485768546
+  - 0.25
+  char_bg_roundness: 0.25
+  char_bg_width: 1.0
   char_display: all
   char_spacing_cell_width_ratio: 0.5
   char_spacing_font_size_ratio: 0.5
@@ -424,8 +442,9 @@ style_configs:
   - 0.32
   - 0.7
   cursor_size: 7
-  font_family: '[Apple System Font]'
+  font_family: Jost (default)
   font_size_multiplier: 0.4
+  font_style: normal
   font_weight: 500
   free_mode_indicator_offset_x: 20.0
   free_mode_indicator_offset_y: 20.0
@@ -448,6 +467,18 @@ style_configs:
   - 0.48
   - 0.95
   - 0.2
+  label_align: center
+  label_bg_rgba:
+  - 1.0
+  - 0.84
+  - 0.04
+  - 0.95
+  label_font_size: 12
+  label_text_rgba:
+  - 0.0
+  - 0.0
+  - 0.0
+  - 1.0
   name: default
   show_initial_highlight: false
   subgrid_font_size_multiplier: 0.75
@@ -479,3 +510,4 @@ style_configs:
   toast_opacity: 0.5
   use_bg_color_transforms: false
   window_opacity: 1.0
+translate_presets_to_keyboard_layout: true
