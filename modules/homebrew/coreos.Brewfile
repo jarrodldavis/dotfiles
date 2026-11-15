@@ -1,3 +1,5 @@
+# Protocol definitions and daemon for D-Bus at-spi
+brew "at-spi2-core"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # Deduplicating archiver with compression and authenticated encryption
@@ -18,6 +20,10 @@ brew "git-delta"
 brew "htop"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
+# X.Org: Client library for the Composite extension
+brew "libxcomposite"
+# X.Org: X Damage Extension library
+brew "libxdamage"
 # Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
 # Vi 'workalike' with many additional features
