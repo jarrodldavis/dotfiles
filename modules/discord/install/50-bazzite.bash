@@ -1,45 +1,4 @@
-# shellcheck source=/dev/null
-source /etc/os-release
-fedora_version="$VERSION_ID"
-
-discord_image="registry.fedoraproject.org/fedora:$fedora_version"
-create_discord=0
-
-if podman container exists discord; then
-    container_version=$(
-        # shellcheck disable=SC2016
-        distrobox enter discord -- sh -c '
-            . /etc/os-release
-            printf "%s" "$VERSION_ID"
-        '
-    )
-
-    if [[ "$container_version" != "$fedora_version" ]]; then
-        log_substep "Recreating Distrobox container: Fedora $container_version -> $fedora_version..."
-        distrobox rm -f discord
-        create_discord=1
-    fi
-else
-    log_substep "Creating Distrobox container..."
-    create_discord=1
-fi
-
-if (( create_discord )); then
-    # `set +x` in `--pre-init-hooks` is a workaround for the verbose logging
-    # that results in `distrobox create` stalling during nvidia integration.
-    # https://github.com/89luca89/distrobox/issues/1589#issuecomment-6460085750
-
-    distrobox create \
-        --yes \
-        --pull \
-        --name discord \
-        --image "$discord_image" \
-        --nvidia \
-        --pre-init-hooks "set +x"
-fi
-
-log_substep "Starting Distrobox container..."
-distrobox enter discord -- bash -lc 'true'
+create_distrobox discord
 
 log_substep "Setting up Discord repository..."
 distrobox enter discord -- "$module_dir/setup-repo.bash"

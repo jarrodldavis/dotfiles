@@ -195,3 +195,46 @@ ${end}"
 
   mv "$tmp" "$file"
 }
+
+create_distrobox() {
+    local name="$1" create_distrobox=0 fedora_version container_version
+
+    # shellcheck source=/dev/null
+    fedora_version="$(source /etc/os-release && echo "$VERSION_ID")"
+
+    if podman container exists "$name"; then
+        container_version=$(
+            # shellcheck disable=SC2016
+            distrobox enter "$name" -- sh -c '
+                . /etc/os-release
+                printf "%s" "$VERSION_ID"
+            '
+        )
+
+        if [[ "$container_version" != "$fedora_version" ]]; then
+            log_substep "Recreating Distrobox container: Fedora $container_version -> $fedora_version..."
+            distrobox rm -f "$name"
+            create_distrobox=1
+        fi
+    else
+        log_substep "Creating Distrobox container..."
+        create_distrobox=1
+    fi
+
+    if (( create_distrobox )); then
+        # `set +x` in `--pre-init-hooks` is a workaround for the verbose logging
+        # that results in `distrobox create` stalling during nvidia integration.
+        # https://github.com/89luca89/distrobox/issues/1589#issuecomment-6460085750
+
+        distrobox create \
+            --yes \
+            --pull \
+            --name "$name" \
+            --image "registry.fedoraproject.org/fedora:$fedora_version" \
+            --nvidia \
+            --pre-init-hooks "set +x"
+    fi
+
+    log_substep "Starting Distrobox container..."
+    distrobox enter "$name" -- bash -lc 'true'
+}

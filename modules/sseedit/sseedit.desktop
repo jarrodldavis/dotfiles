@@ -1,0 +1,17 @@
+[Desktop Entry]
+Type=Application
+Name=SSEEdit
+GenericName=Skyrim Special Edition Plugin Editor
+Comment=View and edit Skyrim Special Edition plugins
+Exec=sseedit
+Icon=sseedit
+Terminal=false
+Categories=Game;Utility;
+StartupNotify=true
+StartupWMClass=xtesedit.exe
+Actions=Configure;
+
+[Desktop Action Configure]
+Name=Configure SSEEdit
+Icon=configure
+Exec=sseedit --configure
