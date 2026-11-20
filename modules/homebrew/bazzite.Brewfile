@@ -23,6 +23,8 @@ cask "ublue-os/tap/1password-gui-linux", trusted: true
 cask "codex"
 # Open-source code editor
 cask "ublue-os/tap/visual-studio-code-linux", trusted: true
+# Open-source code editor (Insiders build)
+cask "ublue-os/tap/visual-studio-code-linux@insiders"
 vscode "bierner.docs-view"
 vscode "docker.docker"
 vscode "github.codespaces"
