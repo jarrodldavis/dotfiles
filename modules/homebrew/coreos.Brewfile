@@ -32,3 +32,5 @@ brew "vim"
 cask "claude-code"
 # OpenAI's coding agent that runs in your terminal
 cask "codex"
+# Brings the power of Copilot coding agent directly to your terminal
+cask "copilot-cli"

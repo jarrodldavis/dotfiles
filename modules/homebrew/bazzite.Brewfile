@@ -19,8 +19,12 @@ brew "shellcheck"
 cask "ublue-os/tap/1password-cli-linux", trusted: true
 # Password manager that keeps all passwords secure behind one password
 cask "ublue-os/tap/1password-gui-linux", trusted: true
+# Terminal-based AI coding assistant
+cask "claude-code"
 # OpenAI's coding agent that runs in your terminal
 cask "codex"
+# Brings the power of Copilot coding agent directly to your terminal
+cask "copilot-cli"
 # Open-source code editor
 cask "ublue-os/tap/visual-studio-code-linux", trusted: true
 # Open-source code editor (Insiders build)
