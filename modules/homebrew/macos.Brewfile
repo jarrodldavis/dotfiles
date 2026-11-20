@@ -52,6 +52,8 @@ cask "chatterino"
 cask "claude"
 # Terminal-based AI coding assistant
 cask "claude-code"
+# OpenAI's coding agent that runs in your terminal
+cask "codex"
 # Voice and text chat software
 cask "discord"
 # Companion app for scanner hardware

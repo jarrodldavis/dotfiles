@@ -20,6 +20,8 @@ gh extension install github/gh-stack
 gh extension upgrade --all
 
 log_substep 'Installing GitHub CLI skills...'
-gh skill install --all --scope user --force --agent "codex" github/gh-stack
-gh skill install --all --scope user --force --agent "github-copilot" github/gh-stack
+agents=("claude-code" "codex" "github-copilot")
+for agent in "${agents[@]}"; do
+    gh skill install --all --scope user --force --agent "$agent" github/gh-stack
+done
 gh skill update --force --all
