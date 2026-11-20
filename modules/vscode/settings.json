@@ -1,12 +1,8 @@
 {
     "chat.agent.maxRequests": 250,
     "chat.agent.sandbox.enabled": "on",
-    "chat.agent.sandbox.fileSystem.userConfiguredPaths": {
-        "readonlyPaths": [
-            "/var/lib/devcontainer-persistent-home/.vscode-server/data/agentSessionData"
-        ]
-    },
     "chat.agentHost.codexAgent.enabled": true,
+    "chat.agentHost.devContainer.stateVolume.enabled": true,
     "chat.agentHost.experimental.autoAttachPullRequests": true,
     "chat.agentHost.experimental.markdownPlanRichLinks": true,
     "chat.agentHost.experimental.mcpToolRouting": true,
@@ -76,14 +72,11 @@
             "version": "latest"
         },
         "ghcr.io/jarrodldavis/features/match-host-time-zone:1": {},
-        "ghcr.io/jarrodldavis/features/persistent-home:1": {
-            "codex": true,
-            "githubCopilot": true
-        },
         "ghcr.io/jarrodldavis/features/uninstall-oh-my-zsh:1": {}
     },
     "dev.containers.gitCredentialHelperConfigLocation": "none",
     "dev.containers.githubCLILoginWithToken": true,
+    "dev.containers.stateVolume.enabled": true,
     "diffEditor.diffAlgorithm": "advanced",
     "diffEditor.experimental.showMoves": false,
     "diffEditor.hideUnchangedRegions.enabled": true,
