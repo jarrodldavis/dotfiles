@@ -165,6 +165,7 @@
     "remote.SSH.useExecServer": false,
     "scm.inputFontFamily": "editor",
     "search.quickOpen.includeHistory": false,
+    "security.promptForRemoteFileProtocolHandling": false,
     "svelte.enable-ts-plugin": true,
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.defaultProfile.linux": "bash",
