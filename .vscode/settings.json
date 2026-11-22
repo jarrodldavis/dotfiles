@@ -21,6 +21,7 @@
         "*.sshconfig": "ssh_config",
         "*.timer": "properties",
         "*.users": "properties",
+        "**/modules/vscode/*.json": "jsonc",
         "gitignore": "ignore",
         "inputrc": "shellscript",
         "root-backup-paths": "properties",
