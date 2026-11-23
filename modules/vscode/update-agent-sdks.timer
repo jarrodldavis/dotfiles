@@ -1,0 +1,11 @@
+[Unit]
+Description=Check for VS Code Agent Host SDK updates daily
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+RandomizedDelaySec=30min
+Unit=update-vscode-agent-sdks.service
+
+[Install]
+WantedBy=timers.target

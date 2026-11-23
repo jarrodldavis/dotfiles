@@ -1,0 +1,9 @@
+[Unit]
+Description=Update VS Code Agent Host Codex and Claude SDKs
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/update-vscode-agent-sdks
+TimeoutStartSec=15min
