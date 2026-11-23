@@ -1,8 +1,0 @@
-log_substep 'Configuring Codex Sandbox shim...'
-check_sudo
-cat "$module_dir/bwrap-shim.bash" | \
-    sed \
-    -e "s|REPLACE_WITH_BREW_PREFIX|$(brew --prefix bubblewrap)|g" \
-    | sudo tee /usr/local/bin/bwrap > /dev/null
-
-sudo chmod +x /usr/local/bin/bwrap
