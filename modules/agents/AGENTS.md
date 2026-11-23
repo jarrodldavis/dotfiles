@@ -32,6 +32,17 @@
 - Remove obsolete tests and assertions when their underlying
   requirements no longer apply.
 
+## Tool Availability
+
+- The GitHub CLI (`gh`) is installed on the host and should be preferred for
+  GitHub operations.
+- Sandboxed environments may hide host executables or restrict network access.
+  Failure to locate or execute `gh` inside a sandbox does not establish that it is unavailable.
+- When sandbox restrictions prevent using `gh`, retry outside the sandbox with
+  appropriate permissions when supported.
+- Do not install or replace `gh` solely because it is inaccessible from a
+  sandbox.
+
 ## Before Finishing
 
 - Review newly added or modified comments, documentation, and tests.
