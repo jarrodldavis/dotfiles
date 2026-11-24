@@ -1,5 +1,4 @@
 log_substep 'Installing VSCode agent SDK updater...'
-symlink agent-sdks.conf ~/.config/environment.d/vscode-agent-sdks.conf
 symlink update-agent-sdks.bash ~/.local/bin/update-vscode-agent-sdks
 symlink update-agent-sdks.service ~/.config/systemd/user/update-vscode-agent-sdks.service
 symlink update-agent-sdks.timer ~/.config/systemd/user/update-vscode-agent-sdks.timer
