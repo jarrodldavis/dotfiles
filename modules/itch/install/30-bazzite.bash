@@ -12,6 +12,5 @@ log_substep 'Making itch tray icon monochrome...'
 symlink monochrome-tray.bash ~/.local/bin/itch-monochrome-tray
 symlink monochrome-tray.service ~/.config/systemd/user/itch-monochrome-tray.service
 symlink monochrome-tray.path ~/.config/systemd/user/itch-monochrome-tray.path
-systemctl --verbose --user daemon-reload
-systemctl --verbose --user enable --now itch-monochrome-tray.path
-systemctl --verbose --user start itch-monochrome-tray.service
+systemd_enable user itch-monochrome-tray.path
+systemd_start user itch-monochrome-tray.service

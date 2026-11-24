@@ -140,6 +140,40 @@ install_readonly_secret() {
     install_with_mode 0440 "$@"
 }
 
+run_systemctl() {
+    local scope="$1"
+    shift
+
+    case "$scope" in
+        user) systemctl --user --verbose "$@" ;;
+        system) sudo systemctl --verbose "$@" ;;
+        *) log_fatal "Invalid systemd scope: $scope" ;;
+    esac
+}
+
+systemd_reload() {
+    run_systemctl "$1" daemon-reload
+}
+
+# Enable reloads the manager before any requested start.
+systemd_enable() {
+    local scope="$1"
+    shift
+    run_systemctl "$scope" enable --now "$@"
+}
+
+systemd_start() {
+    local scope="$1"
+    shift
+    run_systemctl "$scope" start "$@"
+}
+
+systemd_restart() {
+    local scope="$1"
+    shift
+    run_systemctl "$scope" restart "$@"
+}
+
 ensure_source_block() {
   local file="$1"
   local name="$2"

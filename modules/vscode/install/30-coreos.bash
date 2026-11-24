@@ -3,8 +3,7 @@ symlink agent-sdks.conf ~/.config/environment.d/vscode-agent-sdks.conf
 symlink update-agent-sdks.bash ~/.local/bin/update-vscode-agent-sdks
 symlink update-agent-sdks.service ~/.config/systemd/user/update-vscode-agent-sdks.service
 symlink update-agent-sdks.timer ~/.config/systemd/user/update-vscode-agent-sdks.timer
-systemctl --verbose --user daemon-reload
-systemctl --verbose --user enable --now update-vscode-agent-sdks.timer
+systemd_enable user update-vscode-agent-sdks.timer
 
 log_substep 'Injecting Bash shell configuration block...'
 ensure_source_block "$HOME/.bashrc" rc.coreos.vscode rc.coreos.vscode.bash

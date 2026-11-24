@@ -14,5 +14,4 @@ log_substep 'Configuring Vorta Watchdog...'
 symlink vorta-watchdog.bash ~/.local/bin/vorta-watchdog
 symlink vorta-watchdog.service ~/.config/systemd/user/vorta-watchdog.service
 symlink vorta-watchdog.timer ~/.config/systemd/user/vorta-watchdog.timer
-systemctl --user --verbose daemon-reload
-systemctl --user --verbose enable --now vorta-watchdog.timer
+systemd_enable user vorta-watchdog.timer

@@ -12,5 +12,4 @@ install_config coreos-borg-maintenance@check.timer /etc/systemd/system/coreos-bo
 install_config coreos-borg-maintenance@compact.timer /etc/systemd/system/coreos-borg-maintenance@compact.timer
 
 log_substep 'Enabling CoreOS Borg timers...'
-sudo systemctl --verbose daemon-reload
-sudo systemctl --verbose enable --now coreos-borg-backup.timer coreos-borg-maintenance@compact.timer coreos-borg-maintenance@check.timer
+systemd_enable system coreos-borg-backup.timer coreos-borg-maintenance@compact.timer coreos-borg-maintenance@check.timer

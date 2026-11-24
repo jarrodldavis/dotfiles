@@ -35,7 +35,7 @@ sudo snapper -c "$config" set-config \
     'QGROUP='
 
 log_substep 'Enabling timers...'
-sudo systemctl enable --now snapper-timeline.timer snapper-cleanup.timer
+systemd_enable system snapper-timeline.timer snapper-cleanup.timer
 
 log_info 'Snapper Config:'
 sudo snapper -c "$config" get-config

@@ -122,5 +122,5 @@ sudo semodule -vi "$tmpdir/bwrap-container.cil"
 
 if [[ "$docker_changed" == true ]]; then
     log_substep 'Restarting Docker...'
-    sudo systemctl restart docker
+    systemd_restart system docker
 fi

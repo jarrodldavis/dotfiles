@@ -11,5 +11,4 @@ unShaderBackgroundProcessingThreads $(nproc)
 EOF
 
 log_substep 'Enabling automatic Steam performance profile service...'
-systemctl --user --verbose daemon-reload
-systemctl --user --verbose enable --now steam-power-profile-watch.service
+systemd_enable user steam-power-profile-watch.service
