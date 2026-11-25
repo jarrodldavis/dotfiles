@@ -5,6 +5,7 @@ if [[ ! -e ~/.config/gh/hosts.yml ]]; then
 fi
 
 symlink extensions/gh-stack-pull ~/.local/share/gh/extensions/gh-stack-pull
+symlink extensions/gh-provision-pat ~/.local/share/gh/extensions/gh-provision-pat
 
 if ! command -v gh >/dev/null 2>&1; then
     log_warning 'GitHub CLI is not installed.'

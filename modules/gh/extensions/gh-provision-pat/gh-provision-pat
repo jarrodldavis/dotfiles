@@ -1,0 +1,87 @@
+#!/usr/bin/env python3
+
+import argparse
+import json
+import webbrowser
+from urllib.parse import urlencode
+
+DEFAULT_PERMISSIONS = {
+    # https://github.com/cli/cli/issues/9461#issuecomment-2308793059
+    "actions": "write",
+    # "administration": "write"
+    "contents": "write",
+    "environments": "write",
+    "issues": "write",
+    "metadata": "read",
+    "pull_requests": "write",
+    "workflows": "write",
+
+    # additional permissions
+    # https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#repository-permissions
+    "artifact_metadata": "read",
+    "statuses": "read",
+    "deployments": "read",
+    "discussions": "write",
+    "merge_queries": "write",
+    "pages": "write",
+}
+
+parser = argparse.ArgumentParser(
+    prog="gh provision-pat",
+    description="Open a prefilled fine-grained PAT creation form.",
+)
+
+parser.add_argument(
+    "repository",
+    metavar="OWNER/REPO",
+    nargs="?",
+)
+parser.add_argument(
+    "permissions",
+    metavar="KEY=VALUE",
+    nargs="*",
+    help="Additional permissions or overrides",
+)
+parser.add_argument(
+    "--show-defaults",
+    action="store_true",
+    help="Print default permissions as JSON and exit",
+)
+
+args = parser.parse_args()
+
+if args.show_defaults:
+    print(json.dumps(DEFAULT_PERMISSIONS, indent=2))
+    sys_exit = 0
+    raise SystemExit(sys_exit)
+
+if args.repository is None:
+    parser.error("Repository is required")
+
+parts = args.repository.split("/")
+
+if len(parts) != 2 or not all(parts):
+    parser.error("Repository must be in OWNER/REPO format")
+
+owner, repo = parts
+
+params = {
+    "name": repo[:40],
+    "target_name": owner,
+    "description": f"Development environment for {owner}/{repo}",
+    "expires_in": "90",
+    **DEFAULT_PERMISSIONS,
+}
+
+for arg in args.permissions:
+    key, sep, value = arg.partition("=")
+
+    if not sep or not key or not value:
+        parser.error(f"Invalid parameter: {arg}")
+
+    params[key] = value
+
+url = "https://github.com/settings/personal-access-tokens/new?" + urlencode(params)
+
+print(url)
+webbrowser.open(url)
