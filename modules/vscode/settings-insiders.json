@@ -70,10 +70,6 @@
     "comments.thread.experimental.style": "floating",
     "dataWrangler.defaultViewingFilterOptions": "advanced",
     "dev.containers.copyGitConfig": false,
-    "dev.containers.defaultExtensions": [
-        "ms-vscode.vscode-commander",
-        "ms-vscode.vscode-copilot-data-analysis"
-    ],
     "dev.containers.defaultFeatures": {
         "ghcr.io/devcontainers/features/common-utils:2": {
             "configureZshAsDefaultShell": false,
@@ -172,9 +168,7 @@
         "docker.docker",
         "github.vscode-github-actions",
         "github.vscode-pull-request-github",
-        "ms-azuretools.vscode-docker",
-        "ms-vscode.vscode-commander",
-        "ms-vscode.vscode-copilot-data-analysis"
+        "ms-azuretools.vscode-docker"
     ],
     "remote.SSH.remotePlatform": {
         "*": "linux"
