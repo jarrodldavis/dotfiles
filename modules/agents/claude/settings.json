@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {
+    "CLAUDE_CODE_AUTO_MODE_SERVER": "0",
+    "CLAUDE_CODE_PLUGIN_PREFER_HTTPS": "1"
+  },
+  "enabledPlugins": {
+    "egm@egm": true,
+    "mattpocock-skills@mattpocock": true
+  },
+  "extraKnownMarketplaces": {
+    "egm": {
+      "source": {
+        "source": "github",
+        "repo": "google/elephant-goldfish-model"
+      }
+    },
+    "mattpocock": {
+      "source": {
+        "source": "github",
+        "repo": "mattpocock/skills"
+      }
+    }
+  },
+  "sandbox": {
+    "enabled": true
+  },
+  "tui": "fullscreen",
+  "theme": "dark",
+  "editorMode": "vim",
+  "preferredNotifChannel": "auto",
+  "remoteControlAtStartup": true,
+  "inputNeededNotifEnabled": true,
+  "agentPushNotifEnabled": true
+}

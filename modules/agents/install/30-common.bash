@@ -12,6 +12,7 @@ plugins=(
 declare -A claude=(
     [name]="Claude"
     [config]="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
+    [settings]="settings.json"
     [instructions]="CLAUDE.md"
     [refresh-verb]="update"
     [plugin-verb]="install"
@@ -21,6 +22,7 @@ declare -A claude=(
 declare -A codex=(
     [name]="Codex"
     [config]="${CODEX_HOME:-$HOME/.codex}"
+    [settings]=""
     [instructions]="AGENTS.md"
     [refresh-verb]="upgrade"
     [plugin-verb]="add"
@@ -30,6 +32,7 @@ declare -A codex=(
 declare -A copilot=(
     [name]="Copilot"
     [config]="${COPILOT_HOME:-$HOME/.copilot}"
+    [settings]="settings.json"
     [instructions]="copilot-instructions.md"
     [refresh-verb]="update"
     [plugin-verb]="install"
@@ -47,7 +50,7 @@ registered_marketplaces() {
 configure_agent() {
     local agent="$1"
     local -n manifest="$agent"
-    local name config instructions registered marketplace verb plugin
+    local name config instructions settings registered marketplace verb plugin
 
     name="${manifest[name]}"
     log_substep "Configuring $name..."
@@ -60,6 +63,11 @@ configure_agent() {
     config="${manifest[config]}"
     instructions="${manifest[instructions]}"
     symlink AGENTS.md "$config/$instructions"
+
+    if [[ -n "${manifest[settings]}" ]]; then
+        settings="${manifest[settings]}"
+        symlink "$agent/$settings" "$config/$settings"
+    fi
 
     registered=$(registered_marketplaces "$agent")
     for marketplace in "${marketplaces[@]}"; do

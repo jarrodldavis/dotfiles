@@ -1,0 +1,43 @@
+{
+  "beep": true,
+  "defaultMode": "autopilot",
+  "defaultPermissionMode": "assisted",
+  "editorMode": "vim",
+  "enabledPlugins": {
+    "egm@egm": true,
+    "mattpocock-skills@mattpocock": true
+  },
+  "extraKnownMarketplaces": {
+    "egm": {
+      "source": {
+        "source": "github",
+        "repo": "google/elephant-goldfish-model"
+      }
+    },
+    "mattpocock": {
+      "source": {
+        "source": "github",
+        "repo": "mattpocock/skills"
+      }
+    }
+  },
+  "footer": {
+    "showAgent": true,
+    "showBranch": true,
+    "showCiStatus": true,
+    "showContextWindow": true,
+    "showDirectory": true,
+    "showModelEffort": true,
+    "showPullRequest": true,
+    "showQuota": true,
+    "showSandbox": true
+  },
+  "renderMarkdown": true,
+  "sandbox": {
+    "enabled": true
+  },
+  "terminalNotifications": true,
+  "terminalProgress": true,
+  "theme": "auto",
+  "updateTerminalTitle": true
+}
