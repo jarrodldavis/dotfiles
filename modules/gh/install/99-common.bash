@@ -4,9 +4,6 @@ if [[ ! -e ~/.config/gh/hosts.yml ]]; then
     copy hosts.yml ~/.config/gh/hosts.yml
 fi
 
-symlink extensions/gh-stack-pull ~/.local/share/gh/extensions/gh-stack-pull
-symlink extensions/gh-provision-pat ~/.local/share/gh/extensions/gh-provision-pat
-
 if ! command -v gh >/dev/null 2>&1; then
     log_warning 'GitHub CLI is not installed.'
     exit 0
@@ -16,6 +13,11 @@ log_info 'GitHub CLI Authentication status:'
 gh auth status || true
 
 log_substep 'Installing GitHub CLI extensions...'
+
+for extension in "$module_dir"/extensions/*; do
+    symlink "$extension" "$HOME/.local/share/gh/extensions/$(basename "$extension")"
+done
+
 gh extension install jarrodldavis/gh-cd
 gh extension install github/gh-stack
 gh extension upgrade --all
